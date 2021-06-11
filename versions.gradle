@@ -5,12 +5,12 @@ ext {
             minSdk             : 21,
             compileSdk         : 30,
 
-            core               : '1.3.2',
-            appcompat          : '1.2.0',
+            core               : '1.5.0',
+            appcompat          : '1.3.0',
             constraint         : '2.0.4',
             paging             : '3.0.0',
 
-            gradlePlugin       : '4.1.0',
+            gradlePlugin       : '4.2.1',
 
             room               : '2.3.0',
             workManager        : '2.5.0',
@@ -18,7 +18,7 @@ ext {
             navigation         : '2.3.5',
             lifecycle          : '2.3.1',
 
-            kotlin             : '1.5.0',
+            kotlin             : '1.5.10',
             coroutines         : '1.4.2',
             kotlinSerialization: '1.0.1',
 
@@ -46,6 +46,9 @@ ext {
 
             flowbinding        : "1.0.0",
 
-            debugDb            : '1.0.6'
+            debugDb            : '1.0.6',
+
+            inputMask          : '6.0.0',
+            timelineView       : '1.1.5'
     ]
 }

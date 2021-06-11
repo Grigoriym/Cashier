@@ -83,8 +83,8 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:$versions.chucker"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$versions.chuckerNoOp"
 
-    implementation "com.redmadrobot:input-mask-android:6.0.0"
-    implementation "com.github.vipulasri:timelineview:1.1.5"
+    implementation "com.redmadrobot:input-mask-android:$versions.inputMask"
+    implementation "com.github.vipulasri:timelineview:$versions.timelineView"
 
     implementation 'com.github.Zhuinden:livedata-combinetuple-kt:1.2.1'
 
