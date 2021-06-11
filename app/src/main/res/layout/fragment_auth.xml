@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSignIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:src="@drawable/ic_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textLogo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="@string/action_sign_in"
+                android:textColor="@color/cashier_black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/textHint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/auth_number_hint"
+                android:textColor="@color/cashier_gray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textLogo"
+                app:layout_constraintStart_toStartOf="@+id/textLogo"
+                app:layout_constraintTop_toBottomOf="@+id/textLogo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPhoneNumber"
+                style="@style/TextInputLayout.Standard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                app:endIconDrawable="@drawable/ic_check_circle_green"
+                app:endIconMode="none"
+                app:endIconTint="@color/cashier_green"
+                app:layout_constraintEnd_toEndOf="@+id/textHint"
+                app:layout_constraintStart_toStartOf="@+id/textHint"
+                app:layout_constraintTop_toBottomOf="@+id/textHint"
+                app:startIconDrawable="@drawable/ic_local_phone_24"
+                app:startIconTint="@color/cashier_blue">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890 "
+                    android:hint="@string/title_phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:textColor="@color/cashier_black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="178444" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/TextInputLayout.Standard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"
+                app:endIconMode="password_toggle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tilPhoneNumber"
+                app:layout_constraintStart_toStartOf="@+id/tilPhoneNumber"
+                app:layout_constraintTop_toBottomOf="@+id/tilPhoneNumber"
+                app:startIconDrawable="@drawable/ic_baseline_lock_24"
+                app:startIconTint="@color/cashier_blue">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:textColor="@color/cashier_black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <com.google.android.material.button.MaterialButton-->
+            <!--                android:id="@+id/buttonForgotPassword"-->
+            <!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="32dp"-->
+            <!--                android:layout_marginTop="12dp"-->
+            <!--                android:layout_marginEnd="32dp"-->
+            <!--                android:layout_marginBottom="16dp"-->
+            <!--                android:gravity="center"-->
+            <!--                android:text="@string/auth_forgot_password"-->
+            <!--                android:textColor="@color/cashier_blue"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="@+id/tilPassword"-->
+            <!--                app:layout_constraintStart_toStartOf="@+id/tilPassword"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/tilPassword" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSignIn"
+        style="@style/CashierButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/action_sign_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonBack"
+        style="@style/ButtonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/action_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textLabel"
+        style="@style/CashierText.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_create_product"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonBack" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEditCreateProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBack">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilName"
+                style="@style/TextInputLayout.Standard1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/title_product_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions"
+                    android:textColor="@color/cashier_black"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupUnits"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@id/tilName"
+                app:layout_constraintStart_toStartOf="@id/tilName"
+                app:layout_constraintTop_toBottomOf="@id/tilName"
+                app:selectionRequired="true"
+                app:singleSelection="true" />
+
+            <TextView
+                android:id="@+id/textQuantityLabel"
+                style="@style/CashierText.Label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/title_quantity"
+                app:layout_constraintEnd_toEndOf="@id/tilName"
+                app:layout_constraintStart_toStartOf="@id/tilName"
+                app:layout_constraintTop_toBottomOf="@id/chipGroupUnits" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonMinus"
+                style="@style/ButtonBasket.Minus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tilName"
+                app:layout_constraintTop_toBottomOf="@+id/textQuantityLabel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/textQuantity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@color/cashier_white"
+                android:enabled="false"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/cashier_gray"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cornerRadius="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonMinus"
+                app:layout_constraintEnd_toStartOf="@+id/buttonPlus"
+                app:layout_constraintStart_toEndOf="@+id/buttonMinus"
+                app:layout_constraintTop_toTopOf="@+id/buttonMinus"
+                app:strokeColor="@color/cashier_light_gray"
+                app:strokeWidth="1dp"
+                tools:text="1 pc" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonPlus"
+                style="@style/ButtonBasket.Plus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/tilName"
+                app:layout_constraintTop_toTopOf="@+id/buttonMinus" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCategory"
+                style="@style/TextInputLayout.DropDownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/title_category"
+                app:layout_constraintEnd_toEndOf="@+id/buttonPlus"
+                app:layout_constraintStart_toStartOf="@+id/buttonMinus"
+                app:layout_constraintTop_toBottomOf="@+id/textQuantity">
+
+                <AutoCompleteTextView
+                    android:id="@+id/textDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilBarcode"
+                style="@style/TextInputLayout.Standard1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/title_barcode"
+                app:layout_constraintEnd_toEndOf="@+id/tilName"
+                app:layout_constraintStart_toStartOf="@id/tilName"
+                app:layout_constraintTop_toBottomOf="@+id/tilCategory">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editBarcode"
+                    style="@style/CashierText.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonScan"
+                style="@style/IconOnlyButton.Unselected"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                app:icon="@drawable/ic_barcode"
+                app:layout_constraintStart_toStartOf="@id/tilBarcode"
+                app:layout_constraintTop_toBottomOf="@id/tilBarcode" />
+
+            <TextView
+                android:id="@+id/textPriceLabel"
+                style="@style/CashierText.Label.Small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/title_price"
+                app:layout_constraintEnd_toEndOf="@+id/tilBarcode"
+                app:layout_constraintStart_toStartOf="@+id/tilBarcode"
+                app:layout_constraintTop_toBottomOf="@id/buttonScan" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPurchasePrice"
+                style="@style/TextInputLayout.Standard1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/title_purchase_price"
+                app:layout_constraintEnd_toEndOf="@+id/textPriceLabel"
+                app:layout_constraintStart_toStartOf="@id/textPriceLabel"
+                app:layout_constraintTop_toBottomOf="@+id/textPriceLabel">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editPurchasePrice"
+                    style="@style/CashierText.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilExtraPrice"
+                style="@style/TextInputLayout.Standard1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/title_extra_price"
+                app:layout_constraintEnd_toEndOf="@+id/tilPurchasePrice"
+                app:layout_constraintStart_toStartOf="@id/tilPurchasePrice"
+                app:layout_constraintTop_toBottomOf="@+id/tilPurchasePrice">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editExtraPrice"
+                    style="@style/CashierText.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSellingPrice"
+                style="@style/TextInputLayout.Standard1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/title_selling_price"
+                app:layout_constraintEnd_toEndOf="@+id/tilExtraPrice"
+                app:layout_constraintStart_toStartOf="@id/tilExtraPrice"
+                app:layout_constraintTop_toBottomOf="@+id/tilExtraPrice">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editSellingPrice"
+                    style="@style/CashierText.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonEditCreateProduct"
+        style="@style/CashierButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/action_create_product"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextInputLayout.Standard" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textSize">15sp</item>
+
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
+        <item name="helperTextEnabled">false</item>
+
+        <item name="boxBackgroundColor">@color/cashier_white</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxStrokeColor">@color/cashier_white</item>
+    </style>
+
+    <style name="TextInputLayout.Standard1" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">15sp</item>
+
+        <item name="boxBackgroundColor">@color/cashier_white</item>
+    </style>
+
+    <style name="TextInputLayout.DropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="android:textSize">15sp</item>
+        <item name="boxBackgroundColor">@color/cashier_white</item>
+    </style>
+
+
+
+    <style name="ButtonBack" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/cashier_blue</item>
+        <item name="icon">@drawable/ic_arrow_back_ios_24</item>
+        <item name="android:textColor">@color/cashier_blue</item>
+    </style>
+
+    <style name="TextInputLayout.Search" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textSize">16sp</item>
+
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
+        <item name="helperTextEnabled">false</item>
+
+        <item name="boxBackgroundColor">@color/cashier_light_gray</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxStrokeColor">@color/cashier_light_gray</item>
+
+        <item name="shapeAppearance">@style/Rounded</item>
+    </style>
+
+    <style name="Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="CashierButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:paddingStart">32dp</item>
+        <item name="android:paddingEnd">32dp</item>
+
+        <item name="android:textSize">17sp</item>
+
+        <item name="backgroundTint">@color/selector_bg_enabled_blue_and_opacity</item>
+        <item name="android:textColor">@color/cashier_white</item>
+
+        <item name="cornerRadius">25dp</item>
+    </style>
+
+    <style name="CashierButton.Unselected" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/cashier_white</item>
+        <item name="android:textColor">@color/cashier_blue</item>
+    </style>
+
+    <style name="IconOnlyButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/cashier_blue</item>
+        <item name="cornerRadius">25dp</item>
+
+        <item name="backgroundTint">@color/cashier_blue</item>
+        <item name="iconTint">@color/cashier_white</item>
+    </style>
+
+    <style name="IconOnlyButton1" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style name="IconOnlyButton.Unselected">
+        <item name="backgroundTint">@color/cashier_white</item>
+        <item name="iconTint">@color/cashier_blue</item>
+    </style>
+
+    <style name="ButtonBasket" parent="Widget.MaterialComponents.Button">
+        <item name="iconTint">@color/cashier_blue</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+
+        <item name="backgroundTint">@color/cashier_white</item>
+
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/cashier_light_gray</item>
+    </style>
+
+    <style name="ButtonBasket.Minus" parent="ButtonBasket">
+        <item name="icon">@drawable/ic_minus</item>
+        <item name="shapeAppearance">@style/ShapeMinus</item>
+    </style>
+
+    <style name="ButtonBasket.Plus" parent="ButtonBasket">
+        <item name="icon">@drawable/ic_plus</item>
+        <item name="shapeAppearance">@style/ShapePlus</item>
+    </style>
+
+    <style name="ShapeMinus" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSizeTopLeft">15dp</item>
+        <item name="cornerSizeBottomLeft">15dp</item>
+
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerFamilyTopRight">cut</item>
+
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
+    <style name="ShapePlus" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+
+        <item name="cornerFamilyBottomLeft">cut</item>
+        <item name="cornerFamilyTopLeft">cut</item>
+
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+
+        <item name="cornerSizeBottomRight">15dp</item>
+        <item name="cornerSizeTopRight">15dp</item>
+    </style>
+
+
+
+    <style name="Dialog" parent="Theme.MaterialComponents.Light.Dialog" />
+
+    <style name="Dialog.Transparent">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+    </style>
+
+    <style name="Chip.Unit" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_unit_background</item>
+        <item name="android:textColor">@color/chip_unit_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+
+    <style name="CashierText">
+        <item name="android:textColor">@color/cashier_black</item>
+    </style>
+    <style name="CashierText.Label">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="CashierText.Label.Small">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CashierText.Heading1">
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="CashierText.Input">
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

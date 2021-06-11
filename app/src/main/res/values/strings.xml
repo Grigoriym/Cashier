@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">Cashier</string>
+
+    <string name="auth_forgot_password">Forgot your password?</string>
+
+    <string name="outlet_selecting">Selecting a retail outlet</string>
+    <string name="outlet_checkout">Checkout selection</string>
+
+    <string name="title_price_with_currency">%1$s ₸</string>
+    <string name="title_basket_count">%1$s pc</string>
+
+    <string name="title_sales">Sales</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_phone_number">Phone number</string>
+    <string name="title_password">Password</string>
+    <string name="title_checkout_selection">Checkout selection</string>
+    <string name="title_quantity">Quantity</string>
+    <string name="title_barcode">Barcode</string>
+    <string name="title_product_name">Product name</string>
+    <string name="title_price">Price</string>
+    <string name="title_price1">Price:</string>
+    <string name="title_bag">Bag</string>
+    <string name="title_payment_method">Payment method</string>
+    <string name="title_item1">Item:</string>
+    <string name="title_all">All</string>
+    <string name="title_cash_payment">Cash payment</string>
+    <string name="title_card_payment">Payment by card</string>
+    <string name="title_category">Category</string>
+    <string name="title_amount">Amount</string>
+
+    <string name="title_products">Products</string>
+    <string name="title_create_product">Create product</string>
+    <string name="title_edit_product">Edit product</string>
+    <string name="title_selling_price">Selling price</string>
+    <string name="title_extra_price">Extra Price</string>
+    <string name="title_purchase_price">Purchase Price</string>
+    <string name="title_new_product">New Product</string>
+
+    <string name="title_acceptance">Acceptance</string>
+    <string name="title_create_acceptance">Create acceptance</string>
+    <string name="title_actual_date">Actual date</string>
+    <string name="title_comment">Comment</string>
+    <string name="title_active">Active</string>
+    <string name="title_draft">Draft</string>
+    <string name="title_search">Search</string>
+    <string name="title_goods_acceptance">Goods acceptance (%1$d)</string>
+    <string name="title_acceptance_number">Acceptance number %1$s</string>
+    <string name="acceptance_product">Acceptance product</string>
+
+    <string name="waybill_error_no_product">You need to create a new product before adding it to acceptance</string>
+
+    <string name="product_search_product">Search products</string>
+
+    <string name="title_quantity_and_unit">%1$s %2$s</string>
+
+    <string name="auth_number_hint">Enter your phone number and password to sign in into your account</string>
+
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_back">Back</string>
+    <string name="action_search">Search</string>
+    <string name="action_create_product">Create Product</string>
+    <string name="action_edit_product">Edit product</string>
+    <string name="action_next">Next</string>
+    <string name="action_create_acceptance">Create Acceptance</string>
+    <string name="action_generate">Generate</string>
+    <string name="action_scan">Scan</string>
+    <string name="action_pay">Pay</string>
+    <string name="action_add_product">Add product</string>
+    <string name="action_update_product">Update product</string>
+
+    <string name="action_conduct">Conduct</string>
+    <string name="action_rollback">Rollback</string>
+
+    <string name="title_empty"></string>
+
+    <!--    Errors-->
+    <string name="error_something_has_gone_wrong">Something went wrong</string>
+    <string name="error_no_internet_connection">No Internet connection</string>
+    <string name="error_host_not_found">Host not found</string>
+    <string name="request_failed">Request ended with error</string>
+    <string name="connection_failed">Connection error</string>
+    <string name="timeout_exceeded">Waiting limit exceeded</string>
+    <string name="auth_error_refresh_token_not_passed">For security reasons, your session was closed</string>
+</resources>

@@ -1,0 +1,102 @@
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$versions.kotlinSerialization"
+
+    implementation "androidx.core:core-ktx:$versions.core"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint"
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+//    Java8 time and other
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+//    Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-runtime-ktx:$versions.navigation"
+
+//    Startup
+    implementation "androidx.startup:startup-runtime:$versions.startup"
+
+//    Lifecycle
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+
+//    Paging
+    implementation "androidx.paging:paging-runtime:$versions.paging"
+
+//    Room
+    implementation "androidx.room:room-ktx:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+
+//    WorkManager
+    implementation "androidx.work:work-runtime-ktx:$versions.workManager"
+
+//    Material
+    implementation "com.google.android.material:material:$versions.material"
+
+//    Timber
+    implementation "com.jakewharton.timber:timber:$versions.timber"
+
+//    Hilt
+    implementation "com.google.dagger:hilt-android:$versions.hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.hilt"
+    kapt "androidx.hilt:hilt-compiler:$versions.hiltAndroidX"
+    implementation "androidx.hilt:hilt-work:$versions.hiltAndroidX"
+    implementation "androidx.hilt:hilt-navigation-fragment:$versions.hiltAndroidX"
+
+    implementation "com.google.dagger:dagger:$versions.dagger2"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger2"
+
+    implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${versions.viewBinding}"
+    implementation 'com.sagar:dslpermission:2.0.3'
+    implementation 'com.redmadrobot:input-mask-android:6.0.0'
+    implementation 'com.poovam:pin-edittext-field:1.2.3'
+
+//    Coil
+    implementation("io.coil-kt:coil:$versions.coil")
+
+//    Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+//    OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+
+//    Gson
+    implementation "com.google.code.gson:gson:$versions.gson"
+
+//    CircularProgressBar
+    implementation "com.mikhaellopez:circularprogressbar:${versions.circularProgressBar}"
+
+    //Recycler animations
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+
+    // Chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:$versions.chucker"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$versions.chuckerNoOp"
+
+    implementation "com.redmadrobot:input-mask-android:6.0.0"
+    implementation "com.github.vipulasri:timelineview:1.1.5"
+
+    implementation 'com.github.Zhuinden:livedata-combinetuple-kt:1.2.1'
+
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.0'
+
+    implementation "io.github.reactivecircus.flowbinding:flowbinding-android:${versions.flowbinding}"
+    implementation "io.github.reactivecircus.flowbinding:flowbinding-material:${versions.flowbinding}"
+
+    debugImplementation "com.amitshekhar.android:debug-db:${versions.debugDb}"
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
