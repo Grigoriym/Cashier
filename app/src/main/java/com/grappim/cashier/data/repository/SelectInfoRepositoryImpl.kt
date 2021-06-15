@@ -10,10 +10,12 @@ import com.grappim.cashier.data.remote.model.cashbox.CashBoxMapper.toDomain
 import com.grappim.cashier.data.remote.model.cashbox.GetCashBoxListRequestDTO
 import com.grappim.cashier.domain.cashier.Cashier
 import com.grappim.cashier.data.remote.model.outlet.OutletMapper.toDomain
+import com.grappim.cashier.di.modules.IoDispatcher
 import com.grappim.cashier.di.modules.QualifierCashierApi
 import com.grappim.cashier.domain.cashbox.CashBox
 import com.grappim.cashier.domain.outlet.Stock
 import com.grappim.cashier.domain.repository.SelectInfoRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,15 +24,15 @@ import javax.inject.Singleton
 @Singleton
 class SelectInfoRepositoryImpl @Inject constructor(
     @QualifierCashierApi private val cashierApi: CashierApi,
-    private val generalStorage: GeneralStorage,
-    private val coroutineContextProvider: CoroutineContextProvider
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val generalStorage: GeneralStorage
 ) : BaseRepository(), SelectInfoRepository {
 
-    override suspend fun saveCashBox(cashBox: CashBox) = withContext(coroutineContextProvider.io) {
+    override suspend fun saveCashBox(cashBox: CashBox) = withContext(ioDispatcher) {
         generalStorage.setCashierInfo(cashBox)
     }
 
-    override suspend fun saveStock(stock: Stock) = withContext(coroutineContextProvider.io) {
+    override suspend fun saveStock(stock: Stock) = withContext(ioDispatcher) {
         generalStorage.setStockInfo(stock)
     }
 
@@ -38,7 +40,7 @@ class SelectInfoRepositoryImpl @Inject constructor(
         apiCall {
             cashierApi.getStocks(generalStorage.getMerchantId())
         }.map {
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 it.stocks.toDomain()
             }
         }
@@ -52,7 +54,7 @@ class SelectInfoRepositoryImpl @Inject constructor(
                 )
             )
         }.map {
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 it.cashBoxes?.toDomain() ?: listOf()
             }
         }

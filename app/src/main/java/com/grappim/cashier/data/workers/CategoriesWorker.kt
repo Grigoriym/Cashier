@@ -12,9 +12,11 @@ import com.grappim.cashier.data.remote.model.category.CategoryMapper.toDomain
 import com.grappim.cashier.data.remote.model.category.FilterCategoriesRequestDTO
 import com.grappim.cashier.data.remote.model.product.GetProductsRequestDTO
 import com.grappim.cashier.data.remote.model.product.ProductsMapper.toDomain
+import com.grappim.cashier.di.modules.IoDispatcher
 import com.grappim.cashier.di.modules.QualifierCashierApi
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
@@ -25,14 +27,14 @@ class CategoriesWorker @AssistedInject constructor(
     @QualifierCashierApi private val cashierApi: CashierApi,
     private val generalStorage: GeneralStorage,
     private val categoryDao: CategoryDao,
-    private val coroutineContextProvider: CoroutineContextProvider
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : CoroutineWorker(context, workerParameters) {
 
     companion object {
         private const val CATEGORIES_LIMIT = 20L
     }
 
-    override suspend fun doWork(): Result = withContext(coroutineContextProvider.io) {
+    override suspend fun doWork(): Result = withContext(ioDispatcher) {
         return@withContext try {
             var newOffset = 0L
             var productsLoaded = false

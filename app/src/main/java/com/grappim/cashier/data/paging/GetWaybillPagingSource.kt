@@ -7,18 +7,19 @@ import com.grappim.cashier.core.executor.CoroutineContextProvider
 import com.grappim.cashier.core.storage.GeneralStorage
 import com.grappim.cashier.data.remote.model.waybill.FilterWaybillsRequestDTO
 import com.grappim.cashier.data.remote.model.waybill.WaybillDTO
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class GetWaybillPagingSource(
-    private val coroutineContextProvider: CoroutineContextProvider,
+    private val ioDispatcher: CoroutineDispatcher,
     private val generalStorage: GeneralStorage,
     private val waybillApi: WaybillApi
 ) : PagingSource<Int, WaybillDTO>() {
     override fun getRefreshKey(state: PagingState<Int, WaybillDTO>): Int? = null
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, WaybillDTO> =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             return@withContext try {
                 val nextOffset = params.key ?: 0
                 val request = FilterWaybillsRequestDTO(

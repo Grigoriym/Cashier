@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.grappim.cashier.api.WaybillApi
-import com.grappim.cashier.core.executor.CoroutineContextProvider
 import com.grappim.cashier.core.functional.Either
 import com.grappim.cashier.core.functional.map
 import com.grappim.cashier.core.storage.GeneralStorage
@@ -17,12 +16,14 @@ import com.grappim.cashier.data.remote.BaseRepository
 import com.grappim.cashier.data.remote.model.waybill.*
 import com.grappim.cashier.data.remote.model.waybill.WaybillMapper.toDTO
 import com.grappim.cashier.data.remote.model.waybill.WaybillMapper.toDomain
+import com.grappim.cashier.di.modules.IoDispatcher
 import com.grappim.cashier.di.modules.QualifierWaybillApi
 import com.grappim.cashier.domain.products.GetProductByBarcodeUseCase
 import com.grappim.cashier.domain.repository.WaybillRepository
 import com.grappim.cashier.domain.waybill.*
 import com.grappim.cashier.ui.waybill.WaybillStatus
 import com.grappim.cashier.ui.waybill.WaybillType
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -32,7 +33,7 @@ import javax.inject.Singleton
 
 @Singleton
 class WaybillRepositoryImpl @Inject constructor(
-    private val coroutineContextProvider: CoroutineContextProvider,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @QualifierWaybillApi private val waybillApi: WaybillApi,
     private val generalStorage: GeneralStorage,
     private val productsDao: ProductsDao
@@ -76,7 +77,7 @@ class WaybillRepositoryImpl @Inject constructor(
         )
     }.map {
         if (it.found) {
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 it.product.toDomain()
             }
         } else {
@@ -87,7 +88,7 @@ class WaybillRepositoryImpl @Inject constructor(
     override suspend fun getProductByBarcode(
         params: GetProductByBarcodeUseCase.GetProductByBarcodeParams
     ): Either<Throwable, ProductEntity> =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             val product = productsDao.getProductByBarcode(barcode = params.barcode)
             if (product == null) {
                 return@withContext Either.Left(IllegalArgumentException("not found"))
@@ -126,7 +127,7 @@ class WaybillRepositoryImpl @Inject constructor(
 
             waybillApi.conductWaybill(waybill.id)
         }.map {
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 it.waybill.toDomain()
             }
         }
@@ -139,7 +140,7 @@ class WaybillRepositoryImpl @Inject constructor(
 
             waybillApi.rollbackWaybill(waybill.id)
         }.map {
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 it.waybill.toDomain()
             }
         }
@@ -159,7 +160,7 @@ class WaybillRepositoryImpl @Inject constructor(
             config = pagingConfig
         ) {
             GetWaybillPagingSource(
-                coroutineContextProvider = coroutineContextProvider,
+                ioDispatcher = ioDispatcher,
                 generalStorage = generalStorage,
                 waybillApi = waybillApi
             )
@@ -177,7 +178,7 @@ class WaybillRepositoryImpl @Inject constructor(
             config = pagingConfig
         ) {
             GetWaybillProductsPagingSource(
-                coroutineContextProvider = coroutineContextProvider,
+                ioDispatcher = ioDispatcher,
                 generalStorage = generalStorage,
                 waybillApi = waybillApi,
                 waybillId = waybillId
@@ -204,7 +205,7 @@ class WaybillRepositoryImpl @Inject constructor(
 
             waybillApi.getWaybillById(responseId.id)
         }.map {
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 it.waybill.toDomain()
             }
         }

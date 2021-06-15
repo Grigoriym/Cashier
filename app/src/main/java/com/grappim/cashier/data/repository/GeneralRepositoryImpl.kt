@@ -25,6 +25,7 @@ import com.grappim.cashier.data.remote.model.product.CreateProductRequestDTO
 import com.grappim.cashier.data.remote.model.product.ProductDTO
 import com.grappim.cashier.data.remote.model.product.ProductsMapper.toDomain
 import com.grappim.cashier.data.remote.model.product.UpdateProductRequestDTO
+import com.grappim.cashier.di.modules.IoDispatcher
 import com.grappim.cashier.di.modules.QualifierCashierApi
 import com.grappim.cashier.domain.products.CreateProductUseCase
 import com.grappim.cashier.domain.products.EditProductUseCase
@@ -32,6 +33,7 @@ import com.grappim.cashier.domain.repository.GeneralRepository
 import com.grappim.cashier.ui.menu.MenuItem
 import com.grappim.cashier.ui.menu.MenuItemType
 import com.grappim.cashier.ui.paymentmethod.PaymentMethod
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -47,7 +49,7 @@ class GeneralRepositoryImpl @Inject constructor(
     private val productsDao: ProductsDao,
     private val categoryDao: CategoryDao,
     private val generalStorage: GeneralStorage,
-    private val coroutineContextProvider: CoroutineContextProvider
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : GeneralRepository, BaseRepository() {
 
     override suspend fun createProduct(
@@ -57,7 +59,7 @@ class GeneralRepositoryImpl @Inject constructor(
             val response = cashierApi.createProduct(
                 CreateProductRequestDTO(params)
             )
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 productsDao.insert(
                     ProductEntity(
                         id = response.id,
@@ -101,7 +103,7 @@ class GeneralRepositoryImpl @Inject constructor(
                 UpdateProductRequestDTO(productDTO)
             )
 
-            withContext(coroutineContextProvider.io) {
+            withContext(ioDispatcher) {
                 productsDao.update(
                     response.product.toDomain()
                 )
@@ -111,7 +113,7 @@ class GeneralRepositoryImpl @Inject constructor(
     override suspend fun getCategories(
         sendDefaultCategory: Boolean
     ): Either<Throwable, List<CategoryEntity>> =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             return@withContext try {
                 val categories = categoryDao.getAllCategories().toMutableList()
                 if (sendDefaultCategory) {
@@ -136,7 +138,7 @@ class GeneralRepositoryImpl @Inject constructor(
         Either.Right(getProductList())
 
     override suspend fun getProductsByCategory(categoryEntity: CategoryEntity): List<ProductEntity> =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             if (categoryEntity.isDefault) {
                 productsDao.getAllProducts()
             } else {
@@ -144,17 +146,17 @@ class GeneralRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun clearBasket() = withContext(coroutineContextProvider.io) {
+    override suspend fun clearBasket() = withContext(ioDispatcher) {
         basketDao.clearBasket()
     }
 
     override suspend fun addBasketProduct(productEntity: ProductEntity) =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             basketDao.insertOrUpdate(productEntity.toBasketProduct())
         }
 
     override suspend fun removeBasketProduct(productEntity: ProductEntity) =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             if (productEntity.basketCount <= bigDecimalZero()) {
                 basketDao.removeProductByUid(productEntity.id)
             } else {
@@ -213,7 +215,7 @@ class GeneralRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchProducts(query: String): List<ProductEntity> =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             val products = productsDao.searchProducts(query.getStringForDbQuery())
 
             val productsUids = products.map { it.id }
@@ -234,7 +236,7 @@ class GeneralRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun clearData() = withContext(coroutineContextProvider.io) {
+    override suspend fun clearData() = withContext(ioDispatcher) {
         generalStorage.clearData()
         basketDao.clearBasket()
         productsDao.clearProducts()
@@ -242,7 +244,7 @@ class GeneralRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBagProducts(): List<ProductEntity> =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             val basketProducts = basketDao.getBasketProducts()
             val products = productsDao.getAllProducts()
             val result = mutableListOf<ProductEntity>()
@@ -258,7 +260,7 @@ class GeneralRepositoryImpl @Inject constructor(
             return@withContext result
         }
 
-    override suspend fun deleteBagProducts() = withContext(coroutineContextProvider.io) {
+    override suspend fun deleteBagProducts() = withContext(ioDispatcher) {
         basketDao.deleteBagProducts()
     }
 
@@ -299,7 +301,7 @@ class GeneralRepositoryImpl @Inject constructor(
         }
 
     private suspend fun getProductList(): List<ProductEntity> =
-        withContext(coroutineContextProvider.io) {
+        withContext(ioDispatcher) {
             val products = productsDao.getAllProducts()
 
             val productsUids = products.map { it.id }

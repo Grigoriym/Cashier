@@ -12,7 +12,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 //    Java8 time and other
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.desugaring"
 
 //    Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
