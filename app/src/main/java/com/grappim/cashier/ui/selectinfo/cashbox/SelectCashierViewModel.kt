@@ -15,6 +15,8 @@ import com.grappim.cashier.domain.cashier.GetCashBoxesUseCase
 import com.grappim.cashier.domain.cashier.SaveCashierUseCase
 import com.grappim.cashier.ui.selectinfo.stock.StockProgressItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +26,8 @@ class SelectCashierViewModel @Inject constructor(
     private val saveCashierUseCase: SaveCashierUseCase
 ) : ViewModel() {
 
-    private val _cashBoxes: SingleLiveEvent<Resource<List<CashBox>>> = SingleLiveEvent()
-    val cashBoxes: LiveData<Resource<List<CashBox>>>
+    private val _cashBoxes= MutableStateFlow<Resource<List<CashBox>>>(Resource.Loading)
+    val cashBoxes: StateFlow<Resource<List<CashBox>>>
         get() = _cashBoxes
 
     val stockProgresses: List<StockProgressItem> = getOutletProgressItems()

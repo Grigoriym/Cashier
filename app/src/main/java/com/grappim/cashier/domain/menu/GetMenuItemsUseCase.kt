@@ -9,5 +9,5 @@ class GetMenuItemsUseCase @Inject constructor(
     private val generalRepository: GeneralRepository
 ) {
 
-    fun getMenuItems(): Flow<List<MenuItem>> = generalRepository.getMenuItems()
+    suspend fun getMenuItems(): List<MenuItem> = generalRepository.getMenuItems()
 }

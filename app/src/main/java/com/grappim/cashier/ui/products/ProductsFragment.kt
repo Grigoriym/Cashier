@@ -2,9 +2,9 @@ package com.grappim.cashier.ui.products
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayout
@@ -16,9 +16,6 @@ import com.grappim.cashier.databinding.FragmentProductsBinding
 import com.grappim.cashier.di.modules.DecimalFormatSimple
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import reactivecircus.flowbinding.android.widget.textChanges
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -63,13 +60,9 @@ class ProductsFragment : Fragment(R.layout.fragment_products),
                 }
 
             })
-
-            editSearchProducts
-                .textChanges()
-                .onEach {
-                    viewModel.searchProducts(it.toString())
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
-
+            editSearchProducts.doOnTextChanged { text, start, before, count ->
+                viewModel.searchProducts(text.toString())
+            }
         }
     }
 

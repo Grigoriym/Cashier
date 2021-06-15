@@ -14,6 +14,8 @@ import com.grappim.cashier.domain.outlet.GetOutletsUseCase
 import com.grappim.cashier.domain.outlet.SaveStockInfoUseCase
 import com.grappim.cashier.domain.outlet.Stock
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +26,8 @@ class SelectStockViewModel @Inject constructor(
     private val workerHelper: WorkerHelper
 ) : ViewModel() {
 
-    private val _stocks: SingleLiveEvent<Resource<List<Stock>>> = SingleLiveEvent()
-    val stocks: LiveData<Resource<List<Stock>>>
+    private val _stocks = MutableStateFlow<Resource<List<Stock>>>(Resource.Loading)
+    val stocks: StateFlow<Resource<List<Stock>>>
         get() = _stocks
 
     val stockProgresses: List<StockProgressItem> = getStockProgressItems()

@@ -3,7 +3,6 @@ package com.grappim.cashier.ui.products.create
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.core.view.children
 import androidx.core.view.get
 import androidx.core.widget.doAfterTextChanged
@@ -24,7 +23,6 @@ import com.grappim.cashier.core.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentCreateEditProductBinding
 import com.zhuinden.livedatacombinetuplekt.combineTupleNonNull
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CreateEditProductFragment : Fragment(R.layout.fragment_create_edit_product) {
@@ -141,19 +139,20 @@ class CreateEditProductFragment : Fragment(R.layout.fragment_create_edit_product
         }
     }
 
-    private fun observeViewModel() {
-        viewModel.createProduct.observe(viewLifecycleOwner) {
-            loader.showOrHide(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    findNavController().popBackStack()
-                }
-                is Resource.Error -> {
-                    showToast(getErrorMessage(it.exception))
-                }
+    private fun createProductResult(data: Resource<Unit>) {
+        loader.showOrHide(data is Resource.Loading)
+        when (data) {
+            is Resource.Success -> {
+                findNavController().popBackStack()
             }
-
+            is Resource.Error -> {
+                showToast(getErrorMessage(data.exception))
+            }
         }
+    }
+
+    private fun observeViewModel() {
+        viewModel.createProduct.observe(viewLifecycleOwner, ::createProductResult)
 
         viewModel.sellingPrice.observe(viewLifecycleOwner) {
             if (!viewBinding.editSellingPrice.isFocused) {

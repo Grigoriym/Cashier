@@ -31,7 +31,7 @@ interface GeneralRepository {
     suspend fun removeBasketProduct(productEntity: ProductEntity)
     fun getAllBasketProducts(): Flow<List<BasketProductEntity>>
 
-    fun getMenuItems(): Flow<List<MenuItem>>
+    suspend fun getMenuItems(): List<MenuItem>
 
     suspend fun searchProducts(query: String): List<ProductEntity>
 

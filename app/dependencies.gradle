@@ -49,13 +49,14 @@ dependencies {
     implementation "androidx.hilt:hilt-work:$versions.hiltAndroidX"
     implementation "androidx.hilt:hilt-navigation-fragment:$versions.hiltAndroidX"
 
+//    Dagger
     implementation "com.google.dagger:dagger:$versions.dagger2"
     kapt "com.google.dagger:dagger-compiler:$versions.dagger2"
 
     implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${versions.viewBinding}"
     implementation 'com.sagar:dslpermission:2.0.3'
-    implementation 'com.redmadrobot:input-mask-android:6.0.0'
-    implementation 'com.poovam:pin-edittext-field:1.2.3'
+    implementation "com.redmadrobot:input-mask-android:$versions.inpuMask"
+    implementation "com.poovam:pin-edittext-field:$versions.pinEditText"
 
 //    Coil
     implementation("io.coil-kt:coil:$versions.coil")
@@ -77,7 +78,7 @@ dependencies {
     implementation "com.mikhaellopez:circularprogressbar:${versions.circularProgressBar}"
 
     //Recycler animations
-    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+    implementation "jp.wasabeef:recyclerview-animators:$versions.recyclerViewAnimators"
 
     // Chucker
     debugImplementation "com.github.chuckerteam.chucker:library:$versions.chucker"
@@ -86,7 +87,7 @@ dependencies {
     implementation "com.redmadrobot:input-mask-android:$versions.inputMask"
     implementation "com.github.vipulasri:timelineview:$versions.timelineView"
 
-    implementation 'com.github.Zhuinden:livedata-combinetuple-kt:1.2.1'
+    implementation "com.github.Zhuinden:livedata-combinetuple-kt:$versions.combineTuple"
 
     implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'

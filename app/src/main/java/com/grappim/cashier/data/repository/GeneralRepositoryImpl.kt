@@ -167,9 +167,9 @@ class GeneralRepositoryImpl @Inject constructor(
     override fun getAllBasketProducts(): Flow<List<BasketProductEntity>> =
         basketDao.getAllBasketProducts()
 
-    override fun getMenuItems(): Flow<List<MenuItem>> = flow {
-        emit(
-            listOf(
+    override suspend fun getMenuItems(): List<MenuItem> =
+        withContext(ioDispatcher) {
+            return@withContext listOf(
                 MenuItem(
                     type = MenuItemType.SALES,
                     text = R.string.title_sales,
@@ -186,8 +186,7 @@ class GeneralRepositoryImpl @Inject constructor(
                     image = R.drawable.ic_store_acceptance
                 )
             )
-        )
-    }
+        }
 
     override fun getProductsByQuery(
         categoryEntity: CategoryEntity?,

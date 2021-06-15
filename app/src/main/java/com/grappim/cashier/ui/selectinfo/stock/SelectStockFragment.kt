@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -14,8 +15,11 @@ import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.showToast
 import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.databinding.FragmentSelectStockCashierBinding
+import com.grappim.cashier.domain.outlet.Stock
 import com.grappim.cashier.ui.root.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SelectStockFragment : Fragment(R.layout.fragment_select_stock_cashier),
@@ -69,18 +73,22 @@ class SelectStockFragment : Fragment(R.layout.fragment_select_stock_cashier),
     }
 
     private fun observeViewModel() {
-        viewModel.stocks.observe(viewLifecycleOwner) {
-            binding.swipeRefresh.isRefreshing = it is Resource.Loading
-            when (it) {
-                is Resource.Error -> {
-                    showToast(getErrorMessage(it.exception))
-                }
-                is Resource.Success -> {
-                    stockAdapter.addItems(it.data)
-                }
-            }
+        lifecycleScope.launch {
+            viewModel.stocks.collectLatest(::showStocks)
         }
         selectInfoProgressAdapter.setItems(viewModel.stockProgresses)
+    }
+
+    private fun showStocks(data: Resource<List<Stock>>) {
+        binding.swipeRefresh.isRefreshing = data is Resource.Loading
+        when (data) {
+            is Resource.Error -> {
+                showToast(getErrorMessage(data.exception))
+            }
+            is Resource.Success -> {
+                stockAdapter.addItems(data.data)
+            }
+        }
     }
 
     override fun onOutletClick() {

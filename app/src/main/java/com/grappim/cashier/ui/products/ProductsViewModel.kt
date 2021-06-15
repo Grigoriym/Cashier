@@ -27,7 +27,7 @@ class ProductsViewModel @Inject constructor(
     val categories: LiveData<List<CategoryEntity>>
         get() = _categories
 
-    private val _query = MutableLiveData<String>()
+    private val _query = MutableLiveData("")
 
     private val _selectedCategory = MutableLiveData<CategoryEntity>()
 

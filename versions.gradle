@@ -2,52 +2,55 @@ ext {
 
     versions = [
 
-            minSdk             : 21,
-            compileSdk         : 30,
+            minSdk               : 21,
+            compileSdk           : 30,
 
-            core               : '1.5.0',
-            appcompat          : '1.3.0',
-            constraint         : '2.0.4',
-            paging             : '3.0.0',
+            gradlePlugin         : '4.2.1',
 
-            gradlePlugin       : '4.2.1',
+            core                 : '1.5.0',
+            appcompat            : '1.3.0',
+            constraint           : '2.0.4',
+            paging               : '3.0.0',
 
-            room               : '2.3.0',
-            workManager        : '2.5.0',
+            room                 : '2.3.0',
+            workManager          : '2.5.0',
 
-            navigation         : '2.3.5',
-            lifecycle          : '2.3.1',
+            navigation           : '2.3.5',
+            lifecycle            : '2.3.1',
 
-            kotlin             : '1.5.10',
-            coroutines         : '1.4.2',
-            kotlinSerialization: '1.0.1',
+            kotlin               : '1.5.10',
+            coroutines           : '1.4.2',
+            kotlinSerialization  : '1.0.1',
+            combineTuple         : '1.2.1',
 
-            retrofit           : '2.9.0',
-            okhttp             : '4.9.1',
-            gson               : '2.8.6',
+            retrofit             : '2.9.0',
+            okhttp               : '4.9.1',
+            gson                 : '2.8.6',
 
-            hilt               : '2.36',
-            hiltAndroidX       : '1.0.0',
-            dagger2            : '2.36',
+            hilt                 : '2.36',
+            hiltAndroidX         : '1.0.0',
+            dagger2              : '2.36',
 
-            coil               : '1.2.0',
+            coil                 : '1.2.0',
 
-            material           : '1.3.0',
-            circularProgressBar: '3.0.3',
-            inputMask          : '6.0.0',
-            timelineView       : '1.1.5',
+            material             : '1.3.0',
+            circularProgressBar  : '3.0.3',
+            inputMask            : '6.0.0',
+            timelineView         : '1.1.5',
+            recyclerViewAnimators: '4.0.2',
+            pinEditText          : '1.2.3',
 
-            timber             : '4.7.1',
-            viewBinding        : '1.4.6',
+            timber               : '4.7.1',
+            viewBinding          : '1.4.6',
 
-            chucker            : '3.4.0',
+            chucker              : '3.4.0',
 
-            startup            : '1.0.0',
+            startup              : '1.0.0',
 
-            flowbinding        : "1.0.0",
+            flowbinding          : "1.0.0",
 
-            debugDb            : '1.0.6',
-            desugaring         : '1.1.5'
+            debugDb              : '1.0.6',
+            desugaring           : '1.1.5'
 
     ]
 }

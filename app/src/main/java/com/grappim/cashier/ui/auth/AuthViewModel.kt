@@ -14,6 +14,8 @@ import com.grappim.cashier.data.workers.WorkerHelper
 import com.grappim.cashier.domain.login.LoginUseCase
 import com.grappim.cashier.domain.repository.GeneralRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,10 +28,10 @@ class AuthViewModel @Inject constructor(
 
     init {
         clearData()
-//        login(
-//            "7023335353",
-//            "qwe"
-//        )
+        login(
+            "7023335353",
+            "qwe"
+        )
     }
 
     private val _password = MutableLiveData<String>()
@@ -42,8 +44,8 @@ class AuthViewModel @Inject constructor(
     val isFullPhoneNumberEntered: LiveData<Boolean>
         get() = _isFullPhoneNumberEntered
 
-    private val _loginStatus = SingleLiveEvent<Resource<Unit>>()
-    val loginStatus: LiveData<Resource<Unit>>
+    private val _loginStatus = MutableStateFlow<Resource<Unit>>(Resource.Loading)
+    val loginStatus: StateFlow<Resource<Unit>>
         get() = _loginStatus
 
     private val _phoneNumber = MutableLiveData<String>()
@@ -75,7 +77,8 @@ class AuthViewModel @Inject constructor(
             loginUseCase.invoke(mobile, password)
                 .onFailure {
                     _loginStatus.value = Resource.Error(it)
-                }.onSuccess {workerHelper.startTokenRefresherWorker()
+                }.onSuccess {
+                    workerHelper.startTokenRefresherWorker()
                     _loginStatus.value = Resource.Success(it)
                 }
         }

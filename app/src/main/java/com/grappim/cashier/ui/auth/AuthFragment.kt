@@ -19,8 +19,10 @@ import com.grappim.cashier.databinding.FragmentAuthBinding
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import reactivecircus.flowbinding.android.widget.textChanges
 import timber.log.Timber
 
@@ -59,15 +61,19 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
                         phoneFullyEntered == true
             }
 
-        viewModel.loginStatus.observe(viewLifecycleOwner) {
-            loader.showOrHide(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    findNavController().navigate(R.id.action_authFragment_to_selectOutletFragment)
-                }
-                is Resource.Error -> {
-                    showToast(getErrorMessage(it.exception))
-                }
+        lifecycleScope.launch {
+            viewModel.loginStatus.collectLatest(::showLoginStatus)
+        }
+    }
+
+    private fun showLoginStatus(data: Resource<Unit>) {
+        loader.showOrHide(data is Resource.Loading)
+        when (data) {
+            is Resource.Success -> {
+                findNavController().navigate(R.id.action_authFragment_to_selectOutletFragment)
+            }
+            is Resource.Error -> {
+                showToast(getErrorMessage(data.exception))
             }
         }
     }
