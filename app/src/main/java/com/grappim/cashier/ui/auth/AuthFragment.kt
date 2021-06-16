@@ -19,7 +19,6 @@ import com.grappim.cashier.databinding.FragmentAuthBinding
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -62,7 +61,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             }
 
         lifecycleScope.launch {
-            viewModel.loginStatus.collectLatest(::showLoginStatus)
+            viewModel.loginStatus.observe(viewLifecycleOwner, ::showLoginStatus)
         }
     }
 

@@ -6,7 +6,9 @@ import timber.log.Timber
 
 open class BaseRepository {
 
-    protected suspend fun <T : Any> apiCall(call: suspend () -> T): Either<Throwable, T> =
+    protected suspend fun <T : Any> apiCall(
+        call: suspend () -> T
+    ): Either<Throwable, T> =
         try {
             Either.Right(call.invoke())
         } catch (throwable: Throwable) {
@@ -14,7 +16,9 @@ open class BaseRepository {
             Either.Left(throwable)
         }
 
-    protected fun <T : Any> apiCallSync(call: () -> Call<T>): Either<Throwable, T> =
+    protected fun <T : Any> apiCallSync(
+        call: () -> Call<T>
+    ): Either<Throwable, T> =
         try {
             Either.Right(call.invoke().execute().body()!!)
         } catch (throwable: Throwable) {

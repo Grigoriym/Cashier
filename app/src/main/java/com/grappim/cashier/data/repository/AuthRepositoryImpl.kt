@@ -18,7 +18,9 @@ class AuthRepositoryImpl @Inject constructor(
     private val generalStorage: GeneralStorage,
 ) : BaseRepository(), AuthRepository {
 
-    override suspend fun login(loginRequestData: LoginUseCase.LoginRequestData): Either<Throwable, Unit> =
+    override suspend fun login(
+        loginRequestData: LoginUseCase.LoginRequestData
+    ): Either<Throwable, Unit> =
         apiCall {
             cashierApi.login(
                 LoginRequestDTO(
