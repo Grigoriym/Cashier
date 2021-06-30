@@ -3,7 +3,6 @@ package com.grappim.cashier.data.repository
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.grappim.cashier.R
 import com.grappim.cashier.api.CashierApi
-import com.grappim.cashier.core.executor.CoroutineContextProvider
 import com.grappim.cashier.core.extensions.bigDecimalZero
 import com.grappim.cashier.core.extensions.getStringForDbQuery
 import com.grappim.cashier.core.functional.Either
@@ -19,12 +18,12 @@ import com.grappim.cashier.data.db.entity.ProductEntityMapper.toBasketProduct
 import com.grappim.cashier.data.remote.BaseRepository
 import com.grappim.cashier.data.remote.model.order.CreateOrderDTO
 import com.grappim.cashier.data.remote.model.order.CreateOrderRequestDTO
-import com.grappim.cashier.data.remote.model.order.OrderDTO
 import com.grappim.cashier.data.remote.model.order.OrderItemDTO
 import com.grappim.cashier.data.remote.model.product.CreateProductRequestDTO
 import com.grappim.cashier.data.remote.model.product.ProductDTO
 import com.grappim.cashier.data.remote.model.product.ProductsMapper.toDomain
 import com.grappim.cashier.data.remote.model.product.UpdateProductRequestDTO
+import com.grappim.cashier.di.modules.ApplicationScope
 import com.grappim.cashier.di.modules.IoDispatcher
 import com.grappim.cashier.di.modules.QualifierCashierApi
 import com.grappim.cashier.domain.products.CreateProductUseCase
@@ -34,9 +33,9 @@ import com.grappim.cashier.ui.menu.MenuItem
 import com.grappim.cashier.ui.menu.MenuItemType
 import com.grappim.cashier.ui.paymentmethod.PaymentMethod
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
@@ -49,7 +48,8 @@ class GeneralRepositoryImpl @Inject constructor(
     private val productsDao: ProductsDao,
     private val categoryDao: CategoryDao,
     private val generalStorage: GeneralStorage,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @ApplicationScope private val applicationScope: CoroutineScope
 ) : GeneralRepository, BaseRepository() {
 
     override suspend fun createProduct(
@@ -147,21 +147,27 @@ class GeneralRepositoryImpl @Inject constructor(
         }
 
     override suspend fun clearBasket() = withContext(ioDispatcher) {
-        basketDao.clearBasket()
+        applicationScope.launch {
+            basketDao.clearBasket()
+        }.join()
     }
 
     override suspend fun addBasketProduct(productEntity: ProductEntity) =
         withContext(ioDispatcher) {
-            basketDao.insertOrUpdate(productEntity.toBasketProduct())
+            applicationScope.launch {
+                basketDao.insertOrUpdate(productEntity.toBasketProduct())
+            }.join()
         }
 
     override suspend fun removeBasketProduct(productEntity: ProductEntity) =
         withContext(ioDispatcher) {
-            if (productEntity.basketCount <= bigDecimalZero()) {
-                basketDao.removeProductByUid(productEntity.id)
-            } else {
-                basketDao.updateBasketProduct(productEntity.toBasketProduct())
-            }
+            applicationScope.launch {
+                if (productEntity.basketCount <= bigDecimalZero()) {
+                    basketDao.removeProductByUid(productEntity.id)
+                } else {
+                    basketDao.updateBasketProduct(productEntity.toBasketProduct())
+                }
+            }.join()
         }
 
     override fun getAllBasketProducts(): Flow<List<BasketProductEntity>> =
@@ -236,10 +242,12 @@ class GeneralRepositoryImpl @Inject constructor(
         }
 
     override suspend fun clearData() = withContext(ioDispatcher) {
-        generalStorage.clearData()
-        basketDao.clearBasket()
-        productsDao.clearProducts()
-        categoryDao.clearCategories()
+        applicationScope.launch {
+            generalStorage.clearData()
+            basketDao.clearBasket()
+            productsDao.clearProducts()
+            categoryDao.clearCategories()
+        }.join()
     }
 
     override suspend fun getBagProducts(): List<ProductEntity> =
@@ -260,7 +268,9 @@ class GeneralRepositoryImpl @Inject constructor(
         }
 
     override suspend fun deleteBagProducts() = withContext(ioDispatcher) {
-        basketDao.deleteBagProducts()
+        applicationScope.launch {
+            basketDao.deleteBagProducts()
+        }.join()
     }
 
     override suspend fun makePayment(

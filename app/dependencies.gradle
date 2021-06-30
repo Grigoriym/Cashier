@@ -25,6 +25,7 @@ dependencies {
 //    Lifecycle
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
 
 //    Paging
     implementation "androidx.paging:paging-runtime:$versions.paging"
@@ -48,10 +49,6 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$versions.hiltAndroidX"
     implementation "androidx.hilt:hilt-work:$versions.hiltAndroidX"
     implementation "androidx.hilt:hilt-navigation-fragment:$versions.hiltAndroidX"
-
-//    Dagger
-    implementation "com.google.dagger:dagger:$versions.dagger2"
-    kapt "com.google.dagger:dagger-compiler:$versions.dagger2"
 
     implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${versions.viewBinding}"
     implementation 'com.sagar:dslpermission:2.0.3'

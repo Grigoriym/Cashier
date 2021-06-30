@@ -1,21 +1,16 @@
 package com.grappim.cashier.ui.selectinfo.stock
 
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
 import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.functional.onFailure
-import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.core.platform.SingleLiveEvent
 import com.grappim.cashier.data.workers.WorkerHelper
 import com.grappim.cashier.domain.outlet.GetOutletsUseCase
 import com.grappim.cashier.domain.outlet.SaveStockInfoUseCase
 import com.grappim.cashier.domain.outlet.Stock
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,11 +34,14 @@ class SelectStockViewModel @Inject constructor(
     @MainThread
     fun getStocks() {
         viewModelScope.launch {
-            _stocks.value = Resource.Loading
-            getOutletsUseCase.invoke()
-                .onFailure {
-                    _stocks.value = Resource.Error(it)
-                }.onSuccess {
+            getOutletsUseCase()
+                .onStart {
+                    _stocks.value = Resource.Loading
+                }
+                .catch { throwable: Throwable ->
+                    _stocks.value = Resource.Error(throwable)
+                }
+                .collect {
                     _stocks.value = Resource.Success(it)
                 }
         }

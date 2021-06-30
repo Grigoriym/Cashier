@@ -1,22 +1,16 @@
 package com.grappim.cashier.ui.selectinfo.cashbox
 
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
-import com.grappim.cashier.domain.cashier.Cashier
 import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.functional.onFailure
-import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.core.platform.SingleLiveEvent
 import com.grappim.cashier.domain.cashbox.CashBox
 import com.grappim.cashier.domain.cashier.GetCashBoxesUseCase
 import com.grappim.cashier.domain.cashier.SaveCashierUseCase
 import com.grappim.cashier.ui.selectinfo.stock.StockProgressItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +20,7 @@ class SelectCashierViewModel @Inject constructor(
     private val saveCashierUseCase: SaveCashierUseCase
 ) : ViewModel() {
 
-    private val _cashBoxes= MutableStateFlow<Resource<List<CashBox>>>(Resource.Loading)
+    private val _cashBoxes = MutableStateFlow<Resource<List<CashBox>>>(Resource.Loading)
     val cashBoxes: StateFlow<Resource<List<CashBox>>>
         get() = _cashBoxes
 
@@ -45,11 +39,13 @@ class SelectCashierViewModel @Inject constructor(
     @MainThread
     fun getCashBoxes() {
         viewModelScope.launch {
-            _cashBoxes.value = Resource.Loading
-            getCashBoxesUseCase.invoke()
-                .onFailure {
+            getCashBoxesUseCase()
+                .onStart {
+                    _cashBoxes.value = Resource.Loading
+                }
+                .catch {
                     _cashBoxes.value = Resource.Error(it)
-                }.onSuccess {
+                }.collect {
                     _cashBoxes.value = Resource.Success(it)
                 }
         }

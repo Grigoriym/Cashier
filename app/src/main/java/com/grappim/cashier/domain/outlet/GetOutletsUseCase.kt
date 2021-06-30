@@ -1,13 +1,13 @@
 package com.grappim.cashier.domain.outlet
 
-import com.grappim.cashier.core.functional.Either
 import com.grappim.cashier.domain.repository.SelectInfoRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetOutletsUseCase @Inject constructor(
     private val selectInfoRepository: SelectInfoRepository
 ) {
 
-    suspend operator fun invoke(): Either<Throwable, List<Stock>> =
+    operator fun invoke(): Flow<List<Stock>> =
         selectInfoRepository.getStocks()
 }
