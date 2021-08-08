@@ -29,6 +29,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
     }
 
     buildTypes {
@@ -51,6 +52,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
     }
 }
 

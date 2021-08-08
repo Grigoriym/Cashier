@@ -125,8 +125,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.grappim.cashier.ui.menu.MenuFragment"
-        android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu">
+        android:label="fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_productsFragment"
             app:destination="@+id/productsFragment"

@@ -3,14 +3,13 @@ package com.grappim.cashier.ui.waybill.scanner
 import android.Manifest
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.eazypermissions.common.model.PermissionResult
-import com.eazypermissions.dsl.extension.requestPermissions
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
 import com.grappim.cashier.R
@@ -38,6 +37,15 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
     }
     private val args by navArgs<WaybillScannerFragmentArgs>()
 
+    private val requestPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                initScanner()
+            } else {
+                showToast("Need camera permissions")
+            }
+        }
+
     private val barcodeCallbackSingle = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult?) {
             result?.text?.let {
@@ -52,27 +60,7 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requestPermissions(
-            Manifest.permission.CAMERA
-        ) {
-            requestCode = CAMERA_REQUEST_CODE
-            resultCallback = {
-                when (this) {
-                    is PermissionResult.PermissionGranted -> {
-                        initScanner()
-                    }
-                    is PermissionResult.PermissionDenied -> {
-
-                    }
-                    is PermissionResult.ShowRational -> {
-                        showToast("Need camera permissions")
-                    }
-                    is PermissionResult.PermissionDeniedPermanently -> {
-                        showToast("Need camera permissions")
-                    }
-                }
-            }
-        }
+        requestPermissions.launch(Manifest.permission.CAMERA)
         viewBinding.scannerView.setStatusText("")
         observeViewModel()
     }

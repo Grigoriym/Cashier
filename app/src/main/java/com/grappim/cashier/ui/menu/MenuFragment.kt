@@ -1,53 +1,64 @@
 package com.grappim.cashier.ui.menu
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.setSafeOnClickListener
+import com.grappim.cashier.compose.BaseTopAppBar
 import com.grappim.cashier.core.storage.GeneralStorage
-import com.grappim.cashier.databinding.FragmentMenuBinding
+import com.grappim.cashier.ui.theme.CashierBlue
+import com.grappim.cashier.ui.theme.CashierGreen
+import com.grappim.cashier.ui.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MenuFragment : Fragment(R.layout.fragment_menu), MenuItemClickListener {
+class MenuFragment : Fragment(), MenuItemClickListener {
 
     @Inject
     lateinit var generalStorage: GeneralStorage
 
     private val viewModel by viewModels<MenuViewModel>()
-    private val menuItemsAdapter: MenuAdapter by lazy {
-        MenuAdapter(this)
-    }
-    private val viewBinding: FragmentMenuBinding by viewBinding(FragmentMenuBinding::bind)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-        observeViewModel()
-    }
-
-    private fun initViews() {
-        with(viewBinding) {
-            recyclerMenu.adapter = menuItemsAdapter
-            buttonBack.setSafeOnClickListener {
-                findNavController().popBackStack()
-            }
-            textCashier.text = generalStorage.getCashierName()
-        }
-    }
-
-    private fun observeViewModel() {
-        lifecycleScope.launch {
-            viewModel.menuItems.collectLatest { menuItems ->
-                menuItemsAdapter.setItems(menuItems)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            CashierTheme() {
+                MenuScreen(
+                    cashierName = generalStorage.getCashierName(),
+                    items = viewModel.menuItems.collectAsState().value,
+                    onItemClick = { menuItem: MenuItem ->
+                        onItemClick(menuItem)
+                    },
+                    onBackButtonPressed = {
+                        findNavController().popBackStack()
+                    }
+                )
             }
         }
     }
@@ -66,4 +77,187 @@ class MenuFragment : Fragment(R.layout.fragment_menu), MenuItemClickListener {
         }
     }
 
+}
+
+@Composable
+private fun MenuScreen(
+    cashierName: String,
+    items: List<MenuItem>,
+    onItemClick: (MenuItem) -> Unit,
+    onBackButtonPressed: () -> Unit
+) {
+    Scaffold(
+        modifier = Modifier,
+        topBar = {
+            BaseTopAppBar(
+                toolbarTitle = stringResource(id = R.string.title_menu),
+                backButtonTitle = stringResource(id = R.string.action_back)
+            ) {
+                onBackButtonPressed()
+            }
+        }
+    ) {
+        MenuItemsSection(
+            cashierName = cashierName,
+            items = items,
+            onItemClick = onItemClick
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+private fun MenuItemsSection(
+    cashierName: String,
+    items: List<MenuItem>,
+    onItemClick: (MenuItem) -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(),
+        color = Color.White
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxWidth()
+        ) {
+            CashierNameSegment(cashierName = cashierName)
+            LazyColumn(
+                modifier = Modifier
+                    .padding(top = 24.dp)
+                    .weight(1f),
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    top = 10.dp,
+                    end = 16.dp,
+                    bottom = 10.dp
+                ),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(items) { menuItem ->
+                    Card(
+                        modifier = Modifier
+                            .fillParentMaxWidth(),
+                        elevation = 4.dp,
+                        shape = RoundedCornerShape(10.dp),
+                        onClick = {
+                            onItemClick(menuItem)
+                        },
+                        backgroundColor = Color.White,
+                        indication = rememberRipple()
+                    ) {
+                        MenuItemRow(
+                            item = menuItem,
+                            modifier = Modifier
+                                .fillParentMaxWidth()
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CashierNameSegment(
+    cashierName: String
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = cashierName,
+            fontSize = 20.sp,
+            modifier = Modifier
+                .padding(start = 18.dp),
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.width(13.dp))
+        Icon(
+            painter = painterResource(id = R.drawable.ic_dot),
+            tint = CashierGreen,
+            contentDescription = "",
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+        )
+    }
+}
+
+@Composable
+private fun MenuItemRow(
+    modifier: Modifier = Modifier,
+    item: MenuItem
+) {
+    Row(
+        modifier = modifier
+            .padding(all = 24.dp)
+            .fillMaxWidth()
+    ) {
+        Image(
+            painter = painterResource(id = item.image),
+            contentDescription = "Menu item image"
+        )
+        Spacer(modifier = Modifier.width(40.dp))
+        Text(
+            text = stringResource(id = item.text),
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+            fontSize = 22.sp,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Icon(
+            painter = painterResource(
+                id = R.drawable.ic_keyboard_arrow_right
+            ),
+            tint = CashierBlue,
+            contentDescription = "",
+            modifier = Modifier
+                .padding(end = 34.dp)
+                .align(Alignment.CenterVertically)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun MenuItemRowPreview() {
+    MenuItemRow(
+        item = MenuItem(
+            type = MenuItemType.SALES,
+            text = R.string.title_sales,
+            image = R.drawable.ic_cash_register
+        )
+    )
+}
+
+@Preview
+@Composable
+private fun CashierNameSegmentPreview() {
+    CashierNameSegment(cashierName = "Test nam")
+}
+
+@Preview
+@Composable
+private fun MenuScreenPreview() {
+    CashierTheme() {
+        MenuScreen(
+            cashierName = "Cashier name",
+            items = listOf(
+                MenuItem(
+                    type = MenuItemType.SALES,
+                    text = R.string.title_sales,
+                    image = R.drawable.ic_cash_register
+                ),
+                MenuItem(
+                    type = MenuItemType.SALES,
+                    text = R.string.title_sales,
+                    image = R.drawable.ic_cash_register
+                )
+            ),
+            onItemClick = {},
+            onBackButtonPressed = {}
+        )
+    }
 }

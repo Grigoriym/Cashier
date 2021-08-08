@@ -3,20 +3,16 @@ package com.grappim.cashier.ui.scanner
 import android.Manifest
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.eazypermissions.common.model.PermissionResult
-import com.eazypermissions.dsl.extension.requestPermissions
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
 import com.grappim.cashier.R
-import com.grappim.cashier.core.delegate.lazyArg
 import com.grappim.cashier.core.extensions.showToast
 import com.grappim.cashier.databinding.FragmentScannerBinding
-import com.grappim.cashier.ui.products.create.CreateEditFlow
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +33,15 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
         BeepManager(requireActivity())
     }
     private val args by navArgs<ScannerFragmentArgs>()
+
+    private val requestPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                initScanner()
+            } else {
+                showToast("Need camera permissions")
+            }
+        }
 
     private val barcodeCallbackSingle = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult?) {
@@ -60,7 +65,6 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
                 handleContinuousScan(it)
                 lastTimeStamp = System.currentTimeMillis()
             }
-
         }
 
         override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
@@ -69,27 +73,7 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requestPermissions(
-            Manifest.permission.CAMERA
-        ) {
-            requestCode = CAMERA_REQUEST_CODE
-            resultCallback = {
-                when (this) {
-                    is PermissionResult.PermissionGranted -> {
-                        initScanner()
-                    }
-                    is PermissionResult.PermissionDenied -> {
-
-                    }
-                    is PermissionResult.ShowRational -> {
-                        showToast("Need camera permissions")
-                    }
-                    is PermissionResult.PermissionDeniedPermanently -> {
-                        showToast("Need camera permissions")
-                    }
-                }
-            }
-        }
+        requestPermissions.launch(Manifest.permission.CAMERA)
         viewBinding.scannerView.setStatusText("")
     }
 
