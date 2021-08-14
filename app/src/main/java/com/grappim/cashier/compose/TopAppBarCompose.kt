@@ -10,12 +10,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.grappim.cashier.R
 import com.grappim.cashier.ui.theme.CashierBlue
+import java.util.*
 
 @Composable
 fun BaseTopAppBar(
@@ -33,7 +37,7 @@ fun BaseTopAppBar(
         contentColor = contentColor,
         backgroundColor = Color.White,
         elevation = elevation
-        ) {
+    ) {
         TextButton(
             modifier = Modifier
                 .padding(start = 14.dp),
@@ -42,7 +46,7 @@ fun BaseTopAppBar(
                     id = R.color.cashier_white
                 )
             ),
-            onClick = backButtonAction
+            onClick = backButtonAction,
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_back_ios_24),
@@ -50,7 +54,9 @@ fun BaseTopAppBar(
                 contentDescription = "Back button"
             )
             Text(
-                text = backButtonTitle,
+                text = backButtonTitle.toUpperCase(
+                    Locale.current
+                ),
                 color = CashierBlue
             )
         }

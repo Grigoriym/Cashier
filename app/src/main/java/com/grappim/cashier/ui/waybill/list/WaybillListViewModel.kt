@@ -10,6 +10,7 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.grappim.cashier.core.extensions.getOffsetDateTimeFromString
 import com.grappim.cashier.core.functional.Resource
+import com.grappim.cashier.core.functional.StatefulResource
 import com.grappim.cashier.core.functional.onFailure
 import com.grappim.cashier.core.functional.onSuccess
 import com.grappim.cashier.core.platform.SingleLiveEvent
@@ -18,8 +19,7 @@ import com.grappim.cashier.domain.waybill.CreateWaybillUseCase
 import com.grappim.cashier.domain.waybill.GetWaybillListPagingUseCase
 import com.grappim.cashier.domain.waybill.Waybill
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,6 +34,16 @@ class WaybillListViewModel @Inject constructor(
         get() = _waybill
 
     private val df = DateTimeUtils.getDatePatternStandard()
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing.asStateFlow()
+
+    fun refresh() {
+        viewModelScope.launch {
+
+        }
+    }
 
     val acceptances: Flow<PagingData<PagingDataModel<Waybill>>> =
         getWaybillListPagingUseCase.invoke()

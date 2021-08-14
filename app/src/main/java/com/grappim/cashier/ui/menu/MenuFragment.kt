@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
 import com.grappim.cashier.compose.BaseTopAppBar
@@ -40,8 +40,6 @@ class MenuFragment : Fragment(), MenuItemClickListener {
     @Inject
     lateinit var generalStorage: GeneralStorage
 
-    private val viewModel by viewModels<MenuViewModel>()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,7 +49,6 @@ class MenuFragment : Fragment(), MenuItemClickListener {
             CashierTheme() {
                 MenuScreen(
                     cashierName = generalStorage.getCashierName(),
-                    items = viewModel.menuItems.collectAsState().value,
                     onItemClick = { menuItem: MenuItem ->
                         onItemClick(menuItem)
                     },
@@ -82,10 +79,11 @@ class MenuFragment : Fragment(), MenuItemClickListener {
 @Composable
 private fun MenuScreen(
     cashierName: String,
-    items: List<MenuItem>,
+    viewModel: MenuViewModel = viewModel(),
     onItemClick: (MenuItem) -> Unit,
     onBackButtonPressed: () -> Unit
 ) {
+    val items = viewModel.menuItems.collectAsState()
     Scaffold(
         modifier = Modifier,
         topBar = {
@@ -99,7 +97,7 @@ private fun MenuScreen(
     ) {
         MenuItemsSection(
             cashierName = cashierName,
-            items = items,
+            items = items.value,
             onItemClick = onItemClick
         )
     }
@@ -220,7 +218,7 @@ private fun MenuItemRow(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun MenuItemRowPreview() {
     MenuItemRow(
@@ -232,30 +230,19 @@ private fun MenuItemRowPreview() {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun CashierNameSegmentPreview() {
-    CashierNameSegment(cashierName = "Test nam")
+    CashierNameSegment(cashierName = "Test name")
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun MenuScreenPreview() {
     CashierTheme() {
         MenuScreen(
             cashierName = "Cashier name",
-            items = listOf(
-                MenuItem(
-                    type = MenuItemType.SALES,
-                    text = R.string.title_sales,
-                    image = R.drawable.ic_cash_register
-                ),
-                MenuItem(
-                    type = MenuItemType.SALES,
-                    text = R.string.title_sales,
-                    image = R.drawable.ic_cash_register
-                )
-            ),
+            viewModel(),
             onItemClick = {},
             onBackButtonPressed = {}
         )

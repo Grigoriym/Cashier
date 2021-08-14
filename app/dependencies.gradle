@@ -19,6 +19,12 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling:$versions.compose"
     implementation "androidx.compose.foundation:foundation:$versions.compose"
     implementation "androidx.compose.foundation:foundation-layout:$versions.compose"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$versions.composeLifecycle"
+    implementation "androidx.compose.runtime:runtime-livedata:$versions.compose"
+    implementation "androidx.paging:paging-compose:$versions.composePaging"
+    implementation "androidx.constraintlayout:constraintlayout-compose:$versions.composeConstraint"
+
+    implementation "com.google.accompanist:accompanist-swiperefresh:$versions.accompanist"
 
 //    Java8 time and other
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.desugaring"
@@ -64,7 +70,8 @@ dependencies {
     implementation "com.github.poovamraj:PinEditTextField:$versions.pinEditText"
 
 //    Coil
-    implementation("io.coil-kt:coil:$versions.coil")
+    implementation "io.coil-kt:coil:$versions.coil"
+    implementation "io.coil-kt:coil-compose:$versions.coil"
 
 //    Retrofit
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
