@@ -3,7 +3,7 @@ ext {
     versions = [
 
             minSdk               : 21,
-            compileSdk           : 30,
+            compileSdk           : 31,
 
             kotlin               : '1.5.10',
             coroutines           : '1.5.1',
@@ -21,13 +21,15 @@ ext {
             composeLifecycle     : '1.0.0-alpha07',
             composePaging        : '1.0.0-alpha12',
             composeConstraint    : '1.0.0-beta02',
+            composeHiltNavigation: '1.0.0-alpha03',
+            composeNavigation    : '2.4.0-alpha07',
 
-            accompanist          : '0.16.0',
+            accompanist          : '0.17.0',
 
             room                 : '2.3.0',
             workManager          : '2.5.0',
 
-            navigation           : '2.4.0-alpha06',
+            navigation           : '2.4.0-alpha07',
             lifecycle            : '2.4.0-alpha03',
 
             retrofit             : '2.9.0',
@@ -46,7 +48,7 @@ ext {
             recyclerViewAnimators: '4.0.2',
             pinEditText          : '1.2.3',
 
-            timber               : '4.7.1',
+            timber               : '5.0.1',
             viewBinding          : '1.4.6',
 
             chucker              : '3.5.2',

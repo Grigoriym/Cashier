@@ -10,25 +10,25 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.cashier.R
 import com.grappim.cashier.ui.theme.CashierBlue
 import com.grappim.cashier.ui.theme.CashierTheme
 
 @Composable
 fun BigActionButtonCompose(
-    onCreateAcceptanceClick: () -> Unit,
-    modifier: Modifier = Modifier
+    buttonText: String,
+    onButtonClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    isEnabled: Boolean = true
 ) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
     ) {
         Button(
-            onClick = onCreateAcceptanceClick,
+            onClick = onButtonClick,
             shape = RoundedCornerShape(25.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = CashierBlue
@@ -39,10 +39,11 @@ fun BigActionButtonCompose(
                     end = 32.dp,
                     bottom = 16.dp,
                     top = 10.dp
-                )
+                ),
+            enabled = isEnabled
         ) {
             Text(
-                text = stringResource(id = R.string.action_create_acceptance),
+                text = buttonText,
                 color = Color.White,
                 fontSize = 17.sp,
                 modifier = Modifier
@@ -60,7 +61,8 @@ fun BigActionButtonCompose(
 private fun BottomButtonSegmentPreview() {
     CashierTheme {
         BigActionButtonCompose(
-            onCreateAcceptanceClick = {}
+            buttonText = "Test Click",
+            onButtonClick = {}
         )
     }
 }

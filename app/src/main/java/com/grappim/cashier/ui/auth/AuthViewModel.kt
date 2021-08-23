@@ -1,11 +1,7 @@
 package com.grappim.cashier.ui.auth
 
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.core.functional.onFailure
 import com.grappim.cashier.core.functional.onSuccess
@@ -14,9 +10,6 @@ import com.grappim.cashier.data.workers.WorkerHelper
 import com.grappim.cashier.domain.login.LoginUseCase
 import com.grappim.cashier.domain.repository.GeneralRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,10 +22,6 @@ class AuthViewModel @Inject constructor(
 
     init {
         clearData()
-        login(
-            "7023335353",
-            "qwe"
-        )
     }
 
     private val _password = MutableLiveData<String>()
@@ -66,6 +55,20 @@ class AuthViewModel @Inject constructor(
     @MainThread
     fun setPhoneNumber(value: String) {
         _phoneNumber.value = value
+    }
+
+    fun login() {
+        login(
+            mobile = _phoneNumber.value!!,
+            password = _password.value!!
+        )
+    }
+
+    fun login(authTextFieldsData: AuthTextFieldsData) {
+        login(
+            mobile = authTextFieldsData.phone,
+            password = authTextFieldsData.password
+        )
     }
 
     @MainThread

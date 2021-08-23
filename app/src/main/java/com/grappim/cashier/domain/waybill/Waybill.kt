@@ -18,5 +18,6 @@ data class Waybill(
     val type: WaybillType,
     val updatedOn: String,
     var reservedTime: String?,
-    val comment: String
+    val comment: String,
+    val updateOnToDemonstrate: String
 ) : Parcelable

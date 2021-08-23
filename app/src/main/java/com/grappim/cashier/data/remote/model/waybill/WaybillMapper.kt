@@ -1,11 +1,15 @@
 package com.grappim.cashier.data.remote.model.waybill
 
+import com.grappim.cashier.core.extensions.getOffsetDateTimeFromString
+import com.grappim.cashier.core.utils.DateTimeUtils
 import com.grappim.cashier.domain.waybill.Waybill
 import com.grappim.cashier.domain.waybill.WaybillProduct
 import com.grappim.cashier.ui.waybill.WaybillStatus
 import com.grappim.cashier.ui.waybill.WaybillType
 
 object WaybillMapper {
+
+    private val dtfDateTime = DateTimeUtils.getDateTimePatternStandard()
 
     fun WaybillDTO.toDomain(): Waybill =
         Waybill(
@@ -19,7 +23,10 @@ object WaybillMapper {
             type = WaybillType.getTypeByValue(type),
             updatedOn = updatedOn,
             reservedTime = reservedTime,
-            comment = comment
+            comment = comment,
+            updateOnToDemonstrate = dtfDateTime.format(
+                updatedOn.getOffsetDateTimeFromString()
+            )
         )
 
     fun Waybill.toDTO(): WaybillDTO =

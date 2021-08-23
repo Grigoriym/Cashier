@@ -19,10 +19,13 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling:$versions.compose"
     implementation "androidx.compose.foundation:foundation:$versions.compose"
     implementation "androidx.compose.foundation:foundation-layout:$versions.compose"
+    implementation "androidx.compose.material:material-icons-extended:$versions.compose"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$versions.composeLifecycle"
     implementation "androidx.compose.runtime:runtime-livedata:$versions.compose"
     implementation "androidx.paging:paging-compose:$versions.composePaging"
     implementation "androidx.constraintlayout:constraintlayout-compose:$versions.composeConstraint"
+    implementation "androidx.hilt:hilt-navigation-compose:$versions.composeHiltNavigation"
+    implementation "androidx.navigation:navigation-compose:$versions.composeNavigation"
 
     implementation "com.google.accompanist:accompanist-swiperefresh:$versions.accompanist"
 

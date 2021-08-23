@@ -9,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -24,7 +23,6 @@ import com.grappim.cashier.ui.theme.CashierGreySuit
 import com.grappim.cashier.ui.theme.CashierLightGray
 import com.grappim.cashier.ui.theme.CashierTheme
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun OutlinedTextFieldCompose(
     text: String,

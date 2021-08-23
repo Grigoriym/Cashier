@@ -52,6 +52,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs += [
+                "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
+                "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
+        ]
     }
     composeOptions {
         kotlinCompilerExtensionVersion versions.compose
