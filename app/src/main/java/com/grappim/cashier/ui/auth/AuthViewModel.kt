@@ -1,15 +1,18 @@
 package com.grappim.cashier.ui.auth
 
 import androidx.annotation.MainThread
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.core.functional.onFailure
 import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.core.platform.SingleLiveEvent
 import com.grappim.cashier.data.workers.WorkerHelper
 import com.grappim.cashier.domain.login.LoginUseCase
 import com.grappim.cashier.domain.repository.GeneralRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +29,7 @@ class AuthViewModel @Inject constructor(
 
     private val _password = MutableLiveData<String>()
     val isPasswordNotBlank: LiveData<Boolean>
-        get() = Transformations.map(_password) {
+        get() = _password.map {
             it.isNotBlank()
         }
 
@@ -34,8 +37,10 @@ class AuthViewModel @Inject constructor(
     val isFullPhoneNumberEntered: LiveData<Boolean>
         get() = _isFullPhoneNumberEntered
 
-    private val _loginStatus = SingleLiveEvent<Resource<Unit>>()
-    val loginStatus: LiveData<Resource<Unit>>
+    private val _loginStatus = mutableStateOf<Resource<Unit>>(
+        Resource.Empty
+    )
+    val loginStatus: State<Resource<Unit>>
         get() = _loginStatus
 
     private val _phoneNumber = MutableLiveData<String>()
@@ -55,13 +60,6 @@ class AuthViewModel @Inject constructor(
     @MainThread
     fun setPhoneNumber(value: String) {
         _phoneNumber.value = value
-    }
-
-    fun login() {
-        login(
-            mobile = _phoneNumber.value!!,
-            password = _password.value!!
-        )
     }
 
     fun login(authTextFieldsData: AuthTextFieldsData) {
@@ -86,6 +84,10 @@ class AuthViewModel @Inject constructor(
                     _loginStatus.value = Resource.Success(it)
                 }
         }
+    }
+
+    fun loginStatusDuctTape() {
+        _loginStatus.value = Resource.Empty
     }
 
     private fun clearData() {

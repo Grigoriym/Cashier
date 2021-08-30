@@ -41,9 +41,6 @@ fun WaybillListScreen(
     onBackButtonPressed: () -> Unit,
     onCreateAcceptanceClick: () -> Unit,
     onWaybillClick: (Waybill) -> Unit,
-    loaderDialog: CashierLoaderDialog,
-    showError: (Throwable) -> Unit,
-    createState: Resource<Waybill>?,
     onRefresh: () -> Unit,
     lazyPagingItems: LazyPagingItems<PagingDataModel<Waybill>>,
     isRefreshing: Boolean
@@ -62,17 +59,6 @@ fun WaybillListScreen(
             }
         },
         bottomBar = {
-            loaderDialog.showOrHide(createState is Resource.Loading)
-
-            when (createState) {
-                is Resource.Success -> {
-                    val waybill = createState.data
-                    onWaybillClick(waybill)
-                }
-                is Resource.Error -> {
-                    showError(createState.exception)
-                }
-            }
             BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_create_acceptance),
                 modifier = Modifier,

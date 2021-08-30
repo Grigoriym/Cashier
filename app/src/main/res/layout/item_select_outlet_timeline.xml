@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lineOrientation="horizontal"
         app:lineWidth="2dp"
-        app:marker="@drawable/ic_check_circle_green"
+        app:marker="@drawable/ic_check_circle_blue"
         app:markerInCenter="false"
         app:markerPaddingLeft="16dp"
         app:markerSize="20dp"

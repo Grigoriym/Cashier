@@ -1,64 +1,93 @@
 package com.grappim.cashier.ui.selectinfo.stock
 
 import androidx.annotation.MainThread
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.data.workers.WorkerHelper
 import com.grappim.cashier.domain.outlet.GetOutletsUseCase
 import com.grappim.cashier.domain.outlet.SaveStockInfoUseCase
 import com.grappim.cashier.domain.outlet.Stock
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SelectStockViewModel @Inject constructor(
-  private val getOutletsUseCase: GetOutletsUseCase,
-  private val saveStockInfoUseCase: SaveStockInfoUseCase,
-  private val workerHelper: WorkerHelper
+    private val getOutletsUseCase: GetOutletsUseCase,
+    private val saveStockInfoUseCase: SaveStockInfoUseCase
 ) : ViewModel() {
 
-  private val _stocks = MutableStateFlow<Resource<List<Stock>>>(Resource.Loading)
-  val stocks: StateFlow<Resource<List<Stock>>>
-    get() = _stocks
+    val stocks = mutableStateListOf<Stock>()
 
-  val stockProgresses: List<StockProgressItem> = getStockProgressItems()
+    val stockProgresses: List<StockProgressItem> = getStockProgressItems()
 
-  init {
-    getStocks()
-  }
+    private var selectedStockPosition by mutableStateOf(-1)
+    val selectedStock: Stock?
+        get() = stocks.getOrNull(selectedStockPosition)
 
-  @MainThread
-  fun getStocks() {
-    viewModelScope.launch {
-      getOutletsUseCase()
-        .onStart {
-          _stocks.value = Resource.Loading
-        }
-        .catch { throwable: Throwable ->
-          _stocks.value = Resource.Error(throwable)
-        }
-        .collect {
-          _stocks.value = Resource.Success(it)
+    var loading by mutableStateOf(false)
+
+    init {
+        getStocks()
+    }
+
+    fun selectStock(stock: Stock) {
+        selectedStockPosition = if (selectedStockPosition == -1 ||
+            selectedStockPosition != stocks.indexOf(stock)
+        ) {
+            stocks.indexOf(stock)
+        } else {
+            -1
         }
     }
-  }
 
-  @MainThread
-  fun saveStock(stock: Stock) {
-    viewModelScope.launch {
-      saveStockInfoUseCase.invoke(stock)
-//            workerHelper.startMainWorkers()
+    fun saveStock() {
+        viewModelScope.launch {
+            val stockToSave = requireNotNull(selectedStock) {
+                "Stock must not be null"
+            }
+            saveStockInfoUseCase.invoke(stockToSave)
+        }
     }
-  }
 
-  private fun getStockProgressItems(): List<StockProgressItem> =
-    listOf(
-      StockProgressItem(R.string.outlet_selecting, true),
-      StockProgressItem(R.string.outlet_checkout, false),
-      StockProgressItem(R.string.title_empty, false)
-    )
+    @MainThread
+    fun getStocks() {
+        viewModelScope.launch {
+            getOutletsUseCase()
+                .onStart {
+                    loading = true
+                }
+                .onCompletion {
+                    loading = false
+                }
+                .catch { throwable: Throwable ->
+//                    _stocks.value = Resource.Error(throwable)
+                }
+                .collect {
+                    stocks.clear()
+                    stocks.addAll(it)
+                }
+        }
+    }
+
+    @MainThread
+    fun saveStock(stock: Stock) {
+        viewModelScope.launch {
+            saveStockInfoUseCase.invoke(stock)
+        }
+    }
+
+    private fun getStockProgressItems(): List<StockProgressItem> =
+        listOf(
+            StockProgressItem(R.string.outlet_selecting, true),
+            StockProgressItem(R.string.outlet_checkout, false)
+        )
 }

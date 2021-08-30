@@ -1,8 +1,13 @@
 package com.grappim.cashier.core.extensions
 
 import android.app.Activity
-import android.view.View
+import androidx.core.view.WindowInsetsCompat.Type
+import androidx.core.view.WindowInsetsControllerCompat
 
-fun Activity.hideKeyboard2() {
-    hideKeyboard(currentFocus ?: View(this))
+fun Activity.openKeyboard() {
+    WindowInsetsControllerCompat(window, window.decorView).show(Type.ime())
+}
+
+fun Activity.hideKeyboard() {
+    WindowInsetsControllerCompat(window, window.decorView).hide(Type.ime())
 }

@@ -7,10 +7,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-fun Fragment.hideKeyboard2() {
-    view?.let { activity?.hideKeyboard(it) }
-}
-
 fun Fragment.showToast(message: String?, long: Boolean = true) =
     requireContext().showToast(message, long)
 

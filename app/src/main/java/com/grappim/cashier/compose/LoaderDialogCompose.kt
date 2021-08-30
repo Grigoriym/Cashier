@@ -1,7 +1,6 @@
 package com.grappim.cashier.compose
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
@@ -12,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.grappim.cashier.ui.theme.CashierTheme
 
 @Composable
@@ -20,14 +20,22 @@ fun LoaderDialogCompose(
     onClose: () -> Unit
 ) {
     if (show) {
-        Dialog(onDismissRequest = onClose) {
+        Dialog(
+            onDismissRequest = onClose,
+            properties = DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true
+            )
+        ) {
             Surface(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .wrapContentSize(),
                 shape = RoundedCornerShape(16.dp),
                 color = Color.LightGray
             ) {
                 Box(
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
                 ) {
                     CircularProgressIndicator(
                         modifier = Modifier
@@ -42,6 +50,9 @@ fun LoaderDialogCompose(
 @Composable
 private fun LoaderDialogComposePreview() {
     CashierTheme {
-        LoaderDialogCompose(true,{})
+        LoaderDialogCompose(
+            show = true,
+            onClose = {}
+        )
     }
 }

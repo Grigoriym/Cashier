@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.cashier.ui.theme.CashierBlue
+import com.grappim.cashier.ui.theme.CashierBlueDisabled
+import com.grappim.cashier.ui.theme.CashierGray
 import com.grappim.cashier.ui.theme.CashierTheme
 
 @Composable
@@ -23,6 +25,11 @@ fun BigActionButtonCompose(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true
 ) {
+    val backgroundColor = if (isEnabled) {
+        CashierBlue
+    } else {
+        CashierBlueDisabled
+    }
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -31,7 +38,7 @@ fun BigActionButtonCompose(
             onClick = onButtonClick,
             shape = RoundedCornerShape(25.dp),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = CashierBlue
+                backgroundColor = backgroundColor
             ),
             modifier = Modifier
                 .padding(

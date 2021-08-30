@@ -1,6 +1,8 @@
 package com.grappim.cashier.ui.waybill.list
 
 import androidx.annotation.MainThread
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,8 +31,10 @@ class WaybillListViewModel @Inject constructor(
     private val createWaybillUseCase: CreateWaybillUseCase
 ) : ViewModel() {
 
-    private val _waybill = SingleLiveEvent<Resource<Waybill>>()
-    val waybill: LiveData<Resource<Waybill>>
+    private val _waybill = mutableStateOf<Resource<Waybill>>(
+        Resource.Initial
+    )
+    val waybill: State<Resource<Waybill>>
         get() = _waybill
 
     private val df = DateTimeUtils.getDatePatternStandard()
@@ -43,6 +47,10 @@ class WaybillListViewModel @Inject constructor(
         viewModelScope.launch {
 
         }
+    }
+
+    fun ductTape() {
+        _waybill.value = Resource.Initial
     }
 
     val acceptances: Flow<PagingData<PagingDataModel<Waybill>>> =

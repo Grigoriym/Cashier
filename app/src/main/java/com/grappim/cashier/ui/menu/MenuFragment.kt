@@ -12,16 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
-import com.grappim.cashier.core.storage.GeneralStorage
 import com.grappim.cashier.ui.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MenuFragment : Fragment() {
-
-    @Inject
-    lateinit var generalStorage: GeneralStorage
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,9 +47,10 @@ class MenuFragment : Fragment() {
     @Composable
     private fun MenuFragmentScreen() {
         val viewModel: MenuViewModel = viewModel()
+        val cashierName by viewModel.cashierName.collectAsState()
         val items by viewModel.menuItems.collectAsState()
         MenuScreen(
-            cashierName = generalStorage.getCashierName(),
+            cashierName = cashierName,
             items = items,
             onItemClick = { menuItem: MenuItem ->
                 onItemClick(menuItem)
