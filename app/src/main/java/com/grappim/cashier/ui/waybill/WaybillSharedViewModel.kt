@@ -1,22 +1,26 @@
 package com.grappim.cashier.ui.waybill
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grappim.cashier.di.modules.DateTimeStandard
 import com.grappim.cashier.domain.waybill.Waybill
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.time.Instant
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
 class WaybillSharedViewModel @Inject constructor(
-
+    @DateTimeStandard private val dateTimeStandard: DateTimeFormatter
 ) : ViewModel() {
 
-    private val _waybill = MutableLiveData<Waybill>()
-    val waybill: LiveData<Waybill>
+    private val _waybill = mutableStateOf<Waybill?>(null)
+    val waybill: State<Waybill?>
         get() = _waybill
 
     fun setCurrentWaybill(waybill: Waybill) {
@@ -30,7 +34,13 @@ class WaybillSharedViewModel @Inject constructor(
     }
 
     fun setReservedTime(time: String) {
-        _waybill.value = _waybill.value!!.copy(reservedTime = time)
+        val isoInstant = Instant.from(DateTimeFormatter.ISO_INSTANT.parse(time))
+        val zonedDateTime = ZonedDateTime.ofInstant(isoInstant, ZonedDateTime.now().zone)
+        val toDemonstrate = dateTimeStandard.format(zonedDateTime)
+        _waybill.value = _waybill.value!!.copy(
+            reservedTime = time,
+            reservedTimeToDemonstrate = toDemonstrate
+        )
     }
 
     fun setTotalCost(totalCost: BigDecimal) {

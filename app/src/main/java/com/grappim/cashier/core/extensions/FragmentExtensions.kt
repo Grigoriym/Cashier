@@ -1,9 +1,8 @@
 package com.grappim.cashier.core.extensions
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -25,5 +24,18 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
         viewLifecycleOwner.lifecycle.repeatOnLifecycle(minActiveState) {
             block()
         }
+    }
+}
+
+inline fun <reified T : ViewModel> Fragment.assistedViewModel(
+    crossinline viewModelProducer: (SavedStateHandle) -> T
+) = viewModels<T> {
+    object : AbstractSavedStateViewModelFactory(this, arguments) {
+        override fun <T : ViewModel?> create(
+            key: String,
+            modelClass: Class<T>,
+            handle: SavedStateHandle
+        ): T =
+            viewModelProducer(handle) as T
     }
 }

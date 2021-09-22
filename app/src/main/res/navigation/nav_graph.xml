@@ -22,8 +22,7 @@
     <fragment
         android:id="@+id/selectOutletFragment"
         android:name="com.grappim.cashier.ui.selectinfo.stock.SelectStockFragment"
-        android:label="fragment_select_outlet"
-        tools:layout="@layout/fragment_select_stock_cashier">
+        android:label="fragment_select_outlet">
         <action
             android:id="@+id/action_selectOutletFragment_to_selectCashierFragment"
             app:destination="@id/selectCashierFragment"
@@ -35,8 +34,7 @@
 
     <fragment
         android:id="@+id/selectCashierFragment"
-        android:name="com.grappim.cashier.ui.selectinfo.cashbox.SelectCashierFragment"
-        tools:layout="@layout/fragment_select_stock_cashier">
+        android:name="com.grappim.cashier.ui.selectinfo.cashbox.SelectCashierFragment">
         <action
             android:id="@+id/action_selectCashierFragment_to_menuFragment"
             app:destination="@id/menuFragment"

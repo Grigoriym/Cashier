@@ -8,14 +8,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
+import com.grappim.cashier.core.functional.Resource
+import com.grappim.cashier.domain.StockProgressItem
+import com.grappim.cashier.domain.extension.withoutParams
 import com.grappim.cashier.domain.outlet.GetOutletsUseCase
 import com.grappim.cashier.domain.outlet.SaveStockInfoUseCase
 import com.grappim.cashier.domain.outlet.Stock
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,6 +34,7 @@ class SelectStockViewModel @Inject constructor(
         get() = stocks.getOrNull(selectedStockPosition)
 
     var loading by mutableStateOf(false)
+    var error by mutableStateOf<Throwable?>(null)
 
     init {
         getStocks()
@@ -61,19 +62,19 @@ class SelectStockViewModel @Inject constructor(
     @MainThread
     fun getStocks() {
         viewModelScope.launch {
-            getOutletsUseCase()
-                .onStart {
-                    loading = true
-                }
-                .onCompletion {
-                    loading = false
-                }
-                .catch { throwable: Throwable ->
-//                    _stocks.value = Resource.Error(throwable)
-                }
+            getOutletsUseCase(withoutParams())
                 .collect {
-                    stocks.clear()
-                    stocks.addAll(it)
+                    loading = it is Resource.Loading
+
+                    when (it) {
+                        is Resource.Success -> {
+                            stocks.clear()
+                            stocks.addAll(it.data)
+                        }
+                        is Resource.Error -> {
+                            error = it.exception
+                        }
+                    }
                 }
         }
     }

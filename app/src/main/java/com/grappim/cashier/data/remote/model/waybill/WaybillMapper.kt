@@ -26,7 +26,8 @@ object WaybillMapper {
             comment = comment,
             updateOnToDemonstrate = dtfDateTime.format(
                 updatedOn.getOffsetDateTimeFromString()
-            )
+            ),
+            reservedTimeToDemonstrate = ""
         )
 
     fun Waybill.toDTO(): WaybillDTO =

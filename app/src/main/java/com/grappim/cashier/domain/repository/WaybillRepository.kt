@@ -2,6 +2,7 @@ package com.grappim.cashier.domain.repository
 
 import androidx.paging.PagingData
 import com.grappim.cashier.core.functional.Either
+import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.data.db.entity.ProductEntity
 import com.grappim.cashier.data.remote.model.waybill.WaybillDTO
 import com.grappim.cashier.domain.products.GetProductByBarcodeUseCase
@@ -16,7 +17,7 @@ import java.math.BigDecimal
 interface WaybillRepository {
 
     fun getAcceptanceListPaging(): Flow<PagingData<Waybill>>
-    suspend fun createDraftWaybill(): Either<Throwable, Waybill>
+    fun createDraftWaybill(): Flow<Resource<Waybill>>
 
     fun getProducts(
         waybillId: Int

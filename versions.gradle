@@ -17,19 +17,19 @@ ext {
             constraint           : '2.1.0',
             paging               : '3.0.1',
 
-            compose              : '1.0.1',
+            compose              : '1.0.2',
             composeLifecycle     : '1.0.0-alpha07',
             composePaging        : '1.0.0-alpha12',
             composeConstraint    : '1.0.0-beta02',
             composeHiltNavigation: '1.0.0-alpha03',
-            composeNavigation    : '2.4.0-alpha07',
+            composeNavigation    : '2.4.0-alpha08',
 
             accompanist          : '0.17.0',
 
             room                 : '2.3.0',
             workManager          : '2.5.0',
 
-            navigation           : '2.4.0-alpha07',
+            navigation           : '2.4.0-alpha08',
             lifecycle            : '2.4.0-alpha03',
 
             retrofit             : '2.9.0',
@@ -43,10 +43,7 @@ ext {
 
             material             : '1.4.0',
             circularProgressBar  : '3.1.0',
-            inputMask            : '6.0.0',
-            timelineView         : '1.1.5',
             recyclerViewAnimators: '4.0.2',
-            pinEditText          : '1.2.3',
 
             timber               : '5.0.1',
             viewBinding          : '1.4.6',
@@ -54,8 +51,6 @@ ext {
             chucker              : '3.5.2',
 
             startup              : '1.1.0',
-
-            flowbinding          : "1.0.0",
 
             debugDb              : '1.0.6',
             desugaring           : '1.1.5'

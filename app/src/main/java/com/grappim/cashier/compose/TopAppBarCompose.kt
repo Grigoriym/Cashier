@@ -29,7 +29,7 @@ fun BaseTopAppBar(
     elevation: Dp = 4.dp,
 
     toolbarTitle: String,
-    backButtonTitle: String,
+    backButtonTitle: String = stringResource(id = R.string.action_back),
     backButtonAction: () -> Unit
 ) {
     TopAppBar(

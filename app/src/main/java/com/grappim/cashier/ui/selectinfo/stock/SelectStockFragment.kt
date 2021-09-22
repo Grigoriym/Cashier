@@ -12,6 +12,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
 import com.grappim.cashier.compose.LoaderDialogCompose
+import com.grappim.cashier.core.extensions.getErrorMessage
+import com.grappim.cashier.core.extensions.showToast
 import com.grappim.cashier.ui.root.MainViewModel
 import com.grappim.cashier.ui.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +38,14 @@ class SelectStockFragment : Fragment() {
     @Composable
     private fun SelectStockFragmentScreen() {
         val viewModel: SelectStockViewModel = viewModel()
+
+        LoaderDialogCompose(show = viewModel.loading) {
+
+        }
+
+        if (viewModel.error != null) {
+            showToast(getErrorMessage(viewModel.error!!))
+        }
 
         SelectStockScreen(
             onBackButtonPressed = {

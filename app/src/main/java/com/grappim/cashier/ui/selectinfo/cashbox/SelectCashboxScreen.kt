@@ -23,6 +23,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.cashier.R
 import com.grappim.cashier.compose.BaseTopAppBar
 import com.grappim.cashier.compose.BigActionButtonCompose
+import com.grappim.cashier.domain.StockProgressItem
 import com.grappim.cashier.domain.cashbox.CashBox
 import com.grappim.cashier.ui.selectinfo.stock.StockProgressItem
 import com.grappim.cashier.ui.theme.CashierGreen
@@ -44,8 +45,7 @@ fun SelectCashBoxScreen(
         modifier = Modifier,
         topBar = {
             BaseTopAppBar(
-                toolbarTitle = "",
-                backButtonTitle = stringResource(id = R.string.action_back)
+                toolbarTitle = ""
             ) {
                 onBackButtonPressed()
             }

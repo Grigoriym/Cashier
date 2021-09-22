@@ -20,7 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -35,6 +37,7 @@ import com.grappim.cashier.domain.waybill.Waybill
 import com.grappim.cashier.ui.theme.*
 import com.grappim.cashier.ui.waybill.WaybillStatus
 import com.grappim.cashier.ui.waybill.WaybillType
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun WaybillListScreen(
@@ -289,12 +292,17 @@ private fun WaybillListHeaderSegment(
 @Preview
 private fun WaybillListScreenPreview() {
     CashierTheme {
-//        WaybillListScreen(
-//            onBackButtonPressed = { },
-//            onCreateAcceptanceClick = {},
-//            onWaybillClick = {},
-//            loaderDialog = CashierLoaderDialog()
-//        )
+        val items = flowOf(
+            PagingData.empty<PagingDataModel<Waybill>>()
+        ).collectAsLazyPagingItems()
+        WaybillListScreen(
+            onBackButtonPressed = { },
+            onCreateAcceptanceClick = {},
+            onWaybillClick = {},
+            onRefresh = {},
+            lazyPagingItems = items,
+            isRefreshing = false
+        )
     }
 }
 
@@ -316,7 +324,8 @@ private fun WaybillItemSegmentPreview() {
                     updatedOn = "23.12.23.20123",
                     reservedTime = "",
                     comment = "",
-                    updateOnToDemonstrate = "23.12.23.20123"
+                    updateOnToDemonstrate = "23.12.23.20123",
+                    reservedTimeToDemonstrate = ""
                 )
             ),
             onWaybillClick = {}

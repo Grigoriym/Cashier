@@ -69,8 +69,6 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-fragment:$versions.hiltAndroidX"
 
     implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${versions.viewBinding}"
-    implementation "com.redmadrobot:input-mask-android:$versions.inputMask"
-    implementation "com.github.poovamraj:PinEditTextField:$versions.pinEditText"
 
 //    Coil
     implementation "io.coil-kt:coil:$versions.coil"
@@ -79,8 +77,6 @@ dependencies {
 //    Retrofit
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-    implementation "com.squareup.retrofit2:converter-scalars:$versions.retrofit"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
 
 //    OkHttp
     implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
@@ -99,16 +95,10 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:$versions.chucker"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$versions.chuckerNoOp"
 
-    implementation "com.redmadrobot:input-mask-android:$versions.inputMask"
-    implementation "com.github.vipulasri:timelineview:$versions.timelineView"
-
     implementation "com.github.Zhuinden:livedata-combinetuple-kt:$versions.combineTuple"
 
     implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'
-
-    implementation "io.github.reactivecircus.flowbinding:flowbinding-android:${versions.flowbinding}"
-    implementation "io.github.reactivecircus.flowbinding:flowbinding-material:${versions.flowbinding}"
 
     debugImplementation "com.github.amitshekhariitbhu.Android-Debug-Database:debug-db:${versions.debugDb}"
 

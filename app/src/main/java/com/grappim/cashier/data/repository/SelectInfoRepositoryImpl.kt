@@ -1,6 +1,7 @@
 package com.grappim.cashier.data.repository
 
 import com.grappim.cashier.api.CashierApi
+import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.core.storage.GeneralStorage
 import com.grappim.cashier.data.remote.BaseRepository
 import com.grappim.cashier.data.remote.model.cashbox.CashBoxMapper.toDomain
@@ -16,8 +17,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -43,24 +42,23 @@ class SelectInfoRepositoryImpl @Inject constructor(
         }.join()
     }
 
-    override fun getStocks(): Flow<List<Stock>> = flow {
+    override fun getStocks(): Flow<Resource<List<Stock>>> = flow {
+        emit(Resource.Loading)
         val response = cashierApi.getStocks(generalStorage.getMerchantId())
-        emit(response)
-    }.map {
-        it.stocks.toDomain()
-    }.flowOn(ioDispatcher)
+        val mappedResponse = response.stocks.toDomain()
+        emit(Resource.Success(mappedResponse))
+    }
 
-    override fun getCashBoxes(): Flow<List<CashBox>> =
+    override fun getCashBoxes(): Flow<Resource<List<CashBox>>> =
         flow {
+            emit(Resource.Loading)
             val response = cashierApi.getCashBoxList(
                 getCashBoxListRequestDTO = GetCashBoxListRequestDTO(
                     merchantId = generalStorage.getMerchantId(),
                     stockId = generalStorage.getStockId()
                 )
             )
-            emit(response)
-        }.map {
-            it.cashBoxes?.toDomain() ?: listOf()
-        }.flowOn(ioDispatcher)
-
+            val mappedResponse = response.cashBoxes?.toDomain() ?: listOf()
+            emit(Resource.Success(mappedResponse))
+        }
 }

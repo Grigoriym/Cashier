@@ -2,8 +2,9 @@ package com.grappim.cashier.ui.waybill.list
 
 import androidx.annotation.MainThread
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -12,11 +13,8 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.grappim.cashier.core.extensions.getOffsetDateTimeFromString
 import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.functional.StatefulResource
-import com.grappim.cashier.core.functional.onFailure
-import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.core.platform.SingleLiveEvent
 import com.grappim.cashier.core.utils.DateTimeUtils
+import com.grappim.cashier.domain.extension.withoutParams
 import com.grappim.cashier.domain.waybill.CreateWaybillUseCase
 import com.grappim.cashier.domain.waybill.GetWaybillListPagingUseCase
 import com.grappim.cashier.domain.waybill.Waybill
@@ -42,6 +40,8 @@ class WaybillListViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
+
+    var loading by mutableStateOf(false)
 
     fun refresh() {
         viewModelScope.launch {
@@ -87,12 +87,10 @@ class WaybillListViewModel @Inject constructor(
     @MainThread
     fun createWaybill() {
         viewModelScope.launch {
-            _waybill.value = Resource.Loading
-            createWaybillUseCase.invoke()
-                .onFailure {
-                    _waybill.value = Resource.Error(it)
-                }.onSuccess {
-                    _waybill.value = Resource.Success(it)
+            createWaybillUseCase(withoutParams())
+                .collect {
+                    loading = it is Resource.Loading
+                    _waybill.value = it
                 }
         }
     }

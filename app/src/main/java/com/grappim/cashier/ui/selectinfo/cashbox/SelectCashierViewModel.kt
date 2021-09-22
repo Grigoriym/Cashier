@@ -8,15 +8,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
+import com.grappim.cashier.core.functional.Resource
+import com.grappim.cashier.domain.StockProgressItem
 import com.grappim.cashier.domain.cashbox.CashBox
 import com.grappim.cashier.domain.cashier.GetCashBoxesUseCase
 import com.grappim.cashier.domain.cashier.SaveCashierUseCase
-import com.grappim.cashier.ui.selectinfo.stock.StockProgressItem
+import com.grappim.cashier.domain.extension.withoutParams
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -62,18 +61,19 @@ class SelectCashierViewModel @Inject constructor(
     @MainThread
     fun getCashBoxes() {
         viewModelScope.launch {
-            getCashBoxesUseCase()
-                .onStart {
-                    loading = true
-                }
-                .onCompletion {
-                    loading = false
-                }
-                .catch {
-//                    _cashBoxes.value = Resource.Error(it)
-                }.collect {
-                    cashBoxes.clear()
-                    cashBoxes.addAll(it)
+            getCashBoxesUseCase(withoutParams())
+                .collect {
+                    loading = it is Resource.Loading
+
+                    when (it) {
+                        is Resource.Success -> {
+                            cashBoxes.clear()
+                            cashBoxes.addAll(it.data)
+                        }
+                        is Resource.Error -> {
+
+                        }
+                    }
                 }
         }
     }

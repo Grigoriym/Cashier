@@ -3,32 +3,29 @@ package com.grappim.cashier.ui.waybill.details
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
-import androidx.paging.LoadState
-import by.kirich1409.viewbindingdelegate.viewBinding
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.cashier.R
 import com.grappim.cashier.core.delegate.lazyArg
 import com.grappim.cashier.core.extensions.*
 import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.core.utils.DateTimeUtils
-import com.grappim.cashier.core.view.CashierLoaderDialog
-import com.grappim.cashier.databinding.FragmentWaybillDetailsBinding
 import com.grappim.cashier.di.modules.DecimalFormatSimple
 import com.grappim.cashier.domain.waybill.Waybill
-import com.grappim.cashier.domain.waybill.WaybillProduct
+import com.grappim.cashier.ui.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.WaybillSharedViewModel
-import com.grappim.cashier.ui.waybill.WaybillStatus
 import com.grappim.cashier.ui.waybill.product.WaybillProductFragment
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
-import kotlinx.coroutines.flow.collectLatest
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -50,78 +47,93 @@ class WaybillDetailsFragment : Fragment(R.layout.fragment_waybill_details) {
     private val dtfFull: DateTimeFormatter = DateTimeUtils.getDateTimeFormatterForFull()
     private val dtf: DateTimeFormatter = DateTimeUtils.getDateTimePatternStandard()
 
-    private val viewBinding: FragmentWaybillDetailsBinding by viewBinding(
-        FragmentWaybillDetailsBinding::bind
-    )
-
-    private val waybill: Waybill by lazy {
-        sharedViewModel.waybill.value!!
-    }
-    private val viewModel by viewModels<WaybillDetailsViewModel>()
-    private val sharedViewModel by navGraphViewModels<WaybillSharedViewModel>(R.id.nav_graph_waybill)
-    private val waybillProductsAdapter by lazy {
-        WaybillProductsAdapter(
-            dfSimple,
-            ::onProductClick
-        )
-    }
-    private val loader: CashierLoaderDialog by lazy {
-        CashierLoaderDialog(requireContext())
-    }
     private val totalCost: BigDecimal? by lazyArg(ARG_TOTAL_COST)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-        observeViewModel()
-    }
-
-    private fun initViews() {
-        with(viewBinding) {
-            textWaybillNumber.text = getString(
-                R.string.title_acceptance_number,
-                waybill.number
-            )
-            buttonBack.setSafeOnClickListener {
-                findNavController().popBackStack()
-            }
-            buttonSearch.setSafeOnClickListener {
-                findNavController()
-                    .navigate(WaybillDetailsFragmentDirections.actionWaybillToSearch(waybill.id))
-            }
-            buttonScan.setSafeOnClickListener {
-                findNavController().navigate(
-                    WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillScanner(
-                        waybill.id
-                    )
-                )
-            }
-            editDate.setSafeOnClickListener {
-                setActualDateTime()
-            }
-            recyclerProducts.adapter = ScaleInAnimationAdapter(waybillProductsAdapter)
-
-            buttonAction.setSafeOnClickListener {
-                viewModel.updateWaybill(sharedViewModel.waybill.value!!)
-            }
-            editComment.doAfterTextChanged {
-                sharedViewModel.setComment(it.toString())
-            }
-            swipeRefresh.setOnRefreshListener {
-                waybillProductsAdapter.refresh()
-            }
-            when (waybill.status) {
-                WaybillStatus.ACTIVE -> {
-                    buttonAction.text = getString(R.string.action_rollback)
-                }
-                WaybillStatus.DRAFT -> {
-                    buttonAction.text = getString(R.string.action_conduct)
-                }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            CashierTheme {
+                WaybillDetailsFragmentScreen()
             }
         }
     }
 
-    private fun setActualDateTime() {
+    private fun handleWaybillUpdate(
+        state: Resource<Waybill>?
+    ) {
+        when (state) {
+            is Resource.Success -> {
+                findNavController()
+                    .navigate(
+                        WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillList()
+                    )
+            }
+            is Resource.Error -> {
+                showToast(getErrorMessage(state.exception))
+            }
+        }
+    }
+
+    @Composable
+    private fun WaybillDetailsFragmentScreen() {
+        val viewModel: WaybillDetailsViewModel = viewModel()
+        val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.nav_graph_waybill)
+
+        val productItems = viewModel.products.collectAsLazyPagingItems()
+
+        val waybillUpdateState by viewModel.waybillUpdate
+        val waybill by sharedViewModel.waybill
+
+        viewModel.setWaybillId(waybill!!.id)
+        sharedViewModel.setTotalCost(totalCost ?: bigDecimalZero())
+
+        handleWaybillUpdate(waybillUpdateState)
+
+        WaybillDetailsScreen(
+            waybill = waybill!!,
+            productsPagingItems = productItems,
+            onBackClick = {
+                findNavController().popBackStack()
+            },
+            onSearchClick = {
+                findNavController()
+                    .navigate(WaybillDetailsFragmentDirections.actionWaybillToSearch(waybill!!.id))
+            },
+            onScanClick = {
+                findNavController().navigate(
+                    WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillScanner(
+                        waybill!!.id
+                    )
+                )
+            },
+            onActionClick = {
+                viewModel.updateWaybill(sharedViewModel.waybill.value!!)
+            },
+            onCommentSet = { comment ->
+                sharedViewModel.setComment(comment)
+            },
+            onProductClick = { waybillProduct ->
+                findNavController()
+                    .navigate(
+                        R.id.action_waybill_to_product,
+                        bundleOf(
+                            WaybillProductFragment.ARG_WAYBILL_ID to waybill!!.id,
+                            WaybillProductFragment.ARG_WAYBILL_PRODUCT to waybillProduct
+                        )
+                    )
+            },
+            onDateClick = {
+                setActualDateTime(sharedViewModel = sharedViewModel)
+            }
+        )
+    }
+
+    private fun setActualDateTime(
+        sharedViewModel: WaybillSharedViewModel
+    ) {
         val now = LocalDateTime.now()
         val lYear = now.year
         val lMonth = now.monthValue
@@ -151,69 +163,6 @@ class WaybillDetailsFragment : Fragment(R.layout.fragment_waybill_details) {
         )
         dpd.datePicker.maxDate = Date().time
         dpd.show()
-    }
-
-    private fun onProductClick(product: WaybillProduct) {
-        findNavController()
-            .navigate(
-                R.id.action_waybill_to_product,
-                bundleOf(
-                    WaybillProductFragment.ARG_WAYBILL_ID to waybill.id,
-                    WaybillProductFragment.ARG_WAYBILL_PRODUCT to product
-                )
-            )
-    }
-
-    private fun observeViewModel() {
-        lifecycleScope.launchWhenCreated {
-            waybillProductsAdapter.loadStateFlow.collectLatest {
-                viewBinding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
-            }
-        }
-        sharedViewModel.waybill.observe(viewLifecycleOwner) {
-            it.reservedTime?.let { reservedTime ->
-                viewBinding.editDate.setText(dtf.format(reservedTime.getOffsetDateTimeFromString()))
-            }
-            it.totalCost.let { totalCost ->
-                viewBinding.textPrice.text = dfSimple.format(totalCost)
-            }
-        }
-        viewModel.setWaybillId(waybill.id)
-        waybill.reservedTime?.let {
-            sharedViewModel.setReservedTime(it)
-        }
-        waybill.comment.let {
-            viewBinding.editComment.setText(it)
-        }
-        sharedViewModel.setTotalCost(totalCost ?: bigDecimalZero())
-
-        lifecycleScope.launchWhenCreated {
-            waybillProductsAdapter.addLoadStateListener {
-                val itemsCount = waybillProductsAdapter.itemCount
-                viewBinding.textLabelGoods.text = getString(
-                    R.string.title_goods_acceptance,
-                    itemsCount
-                )
-            }
-
-            viewModel.products.collectLatest {
-                waybillProductsAdapter.submitData(it)
-            }
-        }
-        viewModel.waybillUpdate.observe(viewLifecycleOwner) {
-            loader.showOrHide(it is Resource.Loading)
-            when (it) {
-                is Resource.Success -> {
-                    findNavController()
-                        .navigate(
-                            WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillList()
-                        )
-                }
-                is Resource.Error -> {
-                    showToast(getErrorMessage(it.exception))
-                }
-            }
-        }
     }
 
 }

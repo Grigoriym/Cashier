@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.grappim.cashier.api.WaybillApi
 import com.grappim.cashier.core.functional.Either
+import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.core.functional.map
 import com.grappim.cashier.core.storage.GeneralStorage
 import com.grappim.cashier.data.db.dao.ProductsDao
@@ -25,6 +26,7 @@ import com.grappim.cashier.ui.waybill.WaybillStatus
 import com.grappim.cashier.ui.waybill.WaybillType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
@@ -190,8 +192,9 @@ class WaybillRepositoryImpl @Inject constructor(
                 }
             }
 
-    override suspend fun createDraftWaybill(): Either<Throwable, Waybill> =
-        apiCall {
+    override fun createDraftWaybill(): Flow<Resource<Waybill>> =
+        flow {
+            emit(Resource.Loading)
             val responseId = waybillApi.createWaybill(
                 CreateWaybillRequestDTO(
                     waybill = PartialWaybill(
@@ -203,11 +206,8 @@ class WaybillRepositoryImpl @Inject constructor(
                 )
             )
 
-            waybillApi.getWaybillById(responseId.id)
-        }.map {
-            withContext(ioDispatcher) {
-                it.waybill.toDomain()
-            }
+            val result = waybillApi.getWaybillById(responseId.id)
+            val mappedResult = result.waybill.toDomain()
+            emit(Resource.Success(mappedResult))
         }
-
 }

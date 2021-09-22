@@ -1,10 +1,11 @@
 package com.grappim.cashier.domain.repository
 
-import com.grappim.cashier.core.functional.Either
+import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.domain.login.LoginUseCase
+import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-    suspend fun login(loginRequestData: LoginUseCase.LoginRequestData): Either<Throwable, Unit>
+    fun login(loginRequestData: LoginUseCase.LoginRequestData): Flow<Resource<Unit>>
 
 }

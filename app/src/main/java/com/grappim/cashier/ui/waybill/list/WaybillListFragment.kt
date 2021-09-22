@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -15,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.cashier.R
+import com.grappim.cashier.compose.LoaderDialogCompose
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.showToast
 import com.grappim.cashier.core.functional.Resource
@@ -26,10 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WaybillListFragment : Fragment() {
-
-    private val loader: CashierLoaderDialog by lazy {
-        CashierLoaderDialog(requireContext())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,8 +43,6 @@ class WaybillListFragment : Fragment() {
         createState: Resource<Waybill>?,
         onWaybillClick: (Waybill) -> Unit
     ) {
-        loader.showOrHide(createState is Resource.Loading)
-
         when (createState) {
             is Resource.Success -> {
                 val waybill = createState.data
@@ -83,6 +77,8 @@ class WaybillListFragment : Fragment() {
                 onWaybillClick(it)
             }
         )
+
+        LoaderDialogCompose(show = viewModel.loading) {}
 
         WaybillListScreen(
             onBackButtonPressed = {
