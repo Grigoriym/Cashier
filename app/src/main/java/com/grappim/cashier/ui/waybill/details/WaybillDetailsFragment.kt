@@ -34,7 +34,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WaybillDetailsFragment : Fragment(R.layout.fragment_waybill_details) {
+class WaybillDetailsFragment : Fragment() {
 
     @DecimalFormatSimple
     @Inject

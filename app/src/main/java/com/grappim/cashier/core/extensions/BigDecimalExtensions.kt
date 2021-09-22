@@ -5,7 +5,7 @@ import java.math.MathContext
 import java.math.RoundingMode
 
 @Throws(NumberFormatException::class)
-fun String?.asBigDecimal(scale: Int = 3): BigDecimal =
+fun String?.asBigDecimal(scale: Int = 2): BigDecimal =
     when {
         this.isNullOrBlank() -> {
             BigDecimal("0").setScale(scale, RoundingMode.HALF_EVEN)
