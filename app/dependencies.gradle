@@ -4,6 +4,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$versions.kotlinSerialization"
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:${versions.kotlinxTime}")
 
     implementation "androidx.core:core-ktx:$versions.core"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"

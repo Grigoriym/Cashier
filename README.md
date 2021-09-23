@@ -1,6 +1,8 @@
 <h1 align="center">Cashier application.</h1></br>  
 
-<p align="center">A Demo Cashier App using compose.</p>  
+<p align="center">A Demo Cashier App using compose.</p>
+
+### This project is under active development and refactoring. And this is a sandbox for me as well.
 
 Login | Select stock
 --- | --- |

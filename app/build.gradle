@@ -20,6 +20,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString(),
+                              "room.incremental"   : "true"]
+            }
+        }
+
         buildConfigField("String", "CASHIER_API", '"https://quiet-shore-01215.herokuapp.com/"')
     }
 
@@ -55,6 +62,8 @@ android {
         freeCompilerArgs += [
                 "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
                 "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
+                "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi",
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
         ]
     }
     composeOptions {
