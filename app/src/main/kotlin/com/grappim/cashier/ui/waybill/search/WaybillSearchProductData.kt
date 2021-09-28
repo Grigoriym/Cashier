@@ -1,6 +1,6 @@
 package com.grappim.cashier.ui.waybill.search
 
-import com.grappim.cashier.data.db.entity.ProductEntity
+import com.grappim.db.entity.ProductEntity
 
 data class WaybillSearchProductData(
     val product: ProductEntity,

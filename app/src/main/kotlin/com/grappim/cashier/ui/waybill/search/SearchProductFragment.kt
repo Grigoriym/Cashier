@@ -10,17 +10,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.core.view.CashierLoaderDialog
-import com.grappim.cashier.data.db.entity.ProductEntity
 import com.grappim.cashier.databinding.FragmentSearchProductBinding
 import com.grappim.cashier.di.modules.DecimalFormatSimple
-import com.grappim.cashier.ui.waybill.product.WaybillProductFragment
 import com.grappim.cashier.ui.products.ProductsAdapter
 import com.grappim.cashier.ui.products.ProductsClickListener
+import com.grappim.cashier.ui.waybill.product.WaybillProductFragment
+import com.grappim.domain.base.Result
+import com.grappim.domain.model.product.Product
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -66,9 +65,9 @@ class SearchProductFragment : Fragment(R.layout.fragment_search_product),
             productsAdapter.updateProducts(it)
         }
         viewModel.product.observe(viewLifecycleOwner) {
-            loader.showOrHide(it is Resource.Loading)
+            loader.showOrHide(it is Result.Loading)
             when (it) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     findNavController().navigate(
                         R.id.action_search_to_waybillProduct,
                         bundleOf(
@@ -77,15 +76,15 @@ class SearchProductFragment : Fragment(R.layout.fragment_search_product),
                         )
                     )
                 }
-                is Resource.Error -> {
+                is Result.Error -> {
                     showToast(getString(R.string.waybill_error_no_product))
                 }
             }
         }
         viewModel.waybillProduct.observe(viewLifecycleOwner) {
-            loader.showOrHide(it is Resource.Loading)
+            loader.showOrHide(it is Result.Loading)
             when (it) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     findNavController()
                         .navigate(
                             R.id.action_search_to_waybillProduct,
@@ -99,9 +98,9 @@ class SearchProductFragment : Fragment(R.layout.fragment_search_product),
         }
     }
 
-    override fun onProductClick(productEntity: ProductEntity) {
+    override fun onProductClick(product: Product) {
         viewModel.checkProductInWaybill(
-            productEntity.barcode,
+            product.barcode,
             args.waybillId
         )
     }

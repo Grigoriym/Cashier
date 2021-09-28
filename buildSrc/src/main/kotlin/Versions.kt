@@ -51,7 +51,6 @@ object Versions {
     const val coil = "1.3.2"
     const val circularProgressbar = "3.1.0"
     const val recyclerAnimators = "4.0.2"
-    const val timber = "5.0.1"
     const val chucker = "3.5.2"
     const val debugDb = "1.0.6"
     const val combineTuple = "1.2.1"

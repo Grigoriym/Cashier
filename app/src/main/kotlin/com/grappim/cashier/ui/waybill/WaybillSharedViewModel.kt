@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grappim.cashier.di.modules.DateTimeStandard
-import com.grappim.cashier.domain.waybill.Waybill
+import com.grappim.date_time.DateTimeStandard
+import com.grappim.domain.model.waybill.Waybill
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.math.BigDecimal

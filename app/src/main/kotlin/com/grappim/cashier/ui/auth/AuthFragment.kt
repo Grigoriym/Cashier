@@ -14,8 +14,8 @@ import com.grappim.cashier.R
 import com.grappim.cashier.compose.LoaderDialogCompose
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.domain.base.Result
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,7 +39,7 @@ class AuthFragment : Fragment() {
         val loginStatus by viewModel.loginStatus
 
         LoaderDialogCompose(
-            show = loginStatus is Resource.Loading,
+            show = loginStatus is Result.Loading,
             onClose = {}
         )
         showLoginStatus(loginStatus, viewModel)
@@ -51,13 +51,13 @@ class AuthFragment : Fragment() {
         )
     }
 
-    private fun showLoginStatus(data: Resource<Unit>?, viewModel: AuthViewModel) {
+    private fun showLoginStatus(data: Result<Unit>?, viewModel: AuthViewModel) {
         when (data) {
-            is Resource.Success -> {
+            is Result.Success -> {
                 viewModel.loginStatusDuctTape()
                 findNavController().navigate(R.id.action_authFragment_to_selectOutletFragment)
             }
-            is Resource.Error -> {
+            is Result.Error -> {
                 showToast(getErrorMessage(data.exception))
             }
         }

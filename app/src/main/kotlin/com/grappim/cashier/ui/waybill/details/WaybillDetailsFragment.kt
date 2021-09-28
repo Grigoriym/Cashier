@@ -18,13 +18,17 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.cashier.R
 import com.grappim.cashier.core.delegate.lazyArg
 import com.grappim.cashier.core.extensions.*
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.utils.DateTimeUtils
 import com.grappim.cashier.di.modules.DecimalFormatSimple
-import com.grappim.cashier.domain.waybill.Waybill
 import com.grappim.cashier.ui.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.WaybillSharedViewModel
 import com.grappim.cashier.ui.waybill.product.WaybillProductFragment
+import com.grappim.date_time.DateTimeUtils
+import com.grappim.date_time.getOffsetDateTimeWithFormatter
+import com.grappim.date_time.toUtc
+import com.grappim.domain.base.Result
+import com.grappim.domain.model.waybill.Waybill
+import com.grappim.calculations.bigDecimalZero
+import com.grappim.date_time.DateTimeStandard
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -40,12 +44,15 @@ class WaybillDetailsFragment : Fragment() {
     @Inject
     lateinit var dfSimple: DecimalFormat
 
+    @Inject
+    @DateTimeStandard
+    lateinit var dtf: DateTimeFormatter
+
     companion object {
         const val ARG_TOTAL_COST = "arg_total_cost"
     }
 
     private val dtfFull: DateTimeFormatter = DateTimeUtils.getDateTimeFormatterForFull()
-    private val dtf: DateTimeFormatter = DateTimeUtils.getDateTimePatternStandard()
 
     private val totalCost: BigDecimal? by lazyArg(ARG_TOTAL_COST)
 
@@ -62,16 +69,16 @@ class WaybillDetailsFragment : Fragment() {
     }
 
     private fun handleWaybillUpdate(
-        state: Resource<Waybill>?
+        state: Result<Waybill>?
     ) {
         when (state) {
-            is Resource.Success -> {
+            is Result.Success -> {
                 findNavController()
                     .navigate(
                         WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillList()
                     )
             }
-            is Resource.Error -> {
+            is Result.Error -> {
                 showToast(getErrorMessage(state.exception))
             }
         }

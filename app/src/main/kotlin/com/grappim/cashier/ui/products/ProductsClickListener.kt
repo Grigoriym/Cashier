@@ -1,8 +1,8 @@
 package com.grappim.cashier.ui.products
 
-import com.grappim.cashier.data.db.entity.ProductEntity
+import com.grappim.domain.model.product.Product
 
 interface ProductsClickListener {
 
-    fun onProductClick(productEntity: ProductEntity)
+    fun onProductClick(product: Product)
 }

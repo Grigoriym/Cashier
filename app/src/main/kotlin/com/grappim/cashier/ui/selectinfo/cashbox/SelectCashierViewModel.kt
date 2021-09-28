@@ -8,12 +8,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
-import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.domain.StockProgressItem
-import com.grappim.cashier.domain.cashbox.CashBox
-import com.grappim.cashier.domain.cashier.GetCashBoxesUseCase
-import com.grappim.cashier.domain.cashier.SaveCashierUseCase
-import com.grappim.cashier.domain.extension.withoutParams
+import com.grappim.domain.base.Result
+import com.grappim.domain.base.withoutParams
+import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
+import com.grappim.domain.interactor.cashier.SaveCashierUseCase
+import com.grappim.domain.model.cashbox.CashBox
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -54,7 +54,7 @@ class SelectCashierViewModel @Inject constructor(
             val cashBoxToSave = requireNotNull(selectedCashBox) {
                 "CashBox must not be null"
             }
-            saveCashierUseCase(cashBoxToSave)
+            saveCashierUseCase(SaveCashierUseCase.Params(cashBoxToSave))
         }
     }
 
@@ -63,14 +63,14 @@ class SelectCashierViewModel @Inject constructor(
         viewModelScope.launch {
             getCashBoxesUseCase(withoutParams())
                 .collect {
-                    loading = it is Resource.Loading
+                    loading = it is Result.Loading
 
                     when (it) {
-                        is Resource.Success -> {
+                        is Result.Success -> {
                             cashBoxes.clear()
                             cashBoxes.addAll(it.data)
                         }
-                        is Resource.Error -> {
+                        is Result.Error -> {
 
                         }
                     }

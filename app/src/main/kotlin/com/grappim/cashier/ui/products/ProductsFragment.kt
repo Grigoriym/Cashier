@@ -10,10 +10,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayout
 import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
-import com.grappim.cashier.data.db.entity.CategoryEntity
-import com.grappim.cashier.data.db.entity.ProductEntity
 import com.grappim.cashier.databinding.FragmentProductsBinding
 import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.domain.model.product.Category
+import com.grappim.domain.model.product.Product
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import java.text.DecimalFormat
@@ -50,7 +50,7 @@ class ProductsFragment : Fragment(R.layout.fragment_products),
             recyclerProducts.adapter = ScaleInAnimationAdapter(productsAdapter)
             tabsCategories.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    viewModel.setCategory(tab?.tag as CategoryEntity)
+                    viewModel.setCategory(tab?.tag as Category)
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -73,7 +73,7 @@ class ProductsFragment : Fragment(R.layout.fragment_products),
         }
     }
 
-    private fun showCategories(categories: List<CategoryEntity>) {
+    private fun showCategories(categories: List<Category>) {
         binding.tabsCategories.removeAllTabs()
         categories.forEach {
             val tab = binding.tabsCategories.newTab().apply {
@@ -84,9 +84,9 @@ class ProductsFragment : Fragment(R.layout.fragment_products),
         }
     }
 
-    override fun onProductClick(productEntity: ProductEntity) {
+    override fun onProductClick(product: Product) {
         findNavController().navigate(
-            ProductsFragmentDirections.actionProductsToEditProduct(product = productEntity)
+            ProductsFragmentDirections.actionProductsToEditProduct(product = product)
         )
     }
 

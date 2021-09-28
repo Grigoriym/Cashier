@@ -9,6 +9,7 @@ import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.inflate
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.databinding.ItemPaymentMethodBinding
+import com.grappim.domain.model.payment.PaymentMethodType
 
 class PaymentMethodAdapter(
     private val listener: PaymentMethodClickListener
@@ -44,11 +45,6 @@ data class PaymentMethod(
     @StringRes val text: Int,
     val type: PaymentMethodType
 )
-
-enum class PaymentMethodType() {
-    CARD,
-    CASH
-}
 
 interface PaymentMethodClickListener {
     fun onClick(paymentMethod: PaymentMethod)

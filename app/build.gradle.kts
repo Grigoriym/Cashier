@@ -25,12 +25,6 @@ android {
                 arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
             }
         }
-
-        buildConfigField(
-            "String",
-            "CASHIER_API",
-            "\"https://quiet-shore-01215.herokuapp.com/\""
-        )
     }
 
     lint {
@@ -40,6 +34,14 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+    }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    hilt {
+        enableAggregatingTask = true
     }
 
     buildTypes {
@@ -69,14 +71,12 @@ android {
     }
 
     kotlinOptions {
-        val options = this
-        options.jvmTarget = "1.8"
+        jvmTarget = ConfigData.kotlinJvmTarget
     }
 
     val compilerArgs = listOf(
         "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
         "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
-        "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi",
         "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
     )
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -85,10 +85,19 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.domain))
+
+    implementation(project(Modules.data_network))
+    implementation(project(Modules.data_db))
+    implementation(project(Modules.data_repository))
+
+    implementation(project(Modules.logger))
+
+    implementation(project(Modules.utils_calculations))
+    implementation(project(Modules.utils_date_time))
+
     implementation(Deps.Kotlin.coroutinesCore)
     implementation(Deps.Kotlin.coroutinesAndroid)
-    implementation(Deps.Kotlin.serialization)
-    implementation(Deps.Kotlin.time)
 
     implementation(Deps.AndroidX.core)
     implementation(Deps.AndroidX.appCompat)
@@ -124,21 +133,14 @@ dependencies {
 
     implementation(Deps.accompanistSwipeRefresh)
 
+    implementation(Deps.Google.hilt)
+    kapt(Deps.Google.hiltAndroidCompiler)
+
     implementation(Deps.AndroidX.hiltNavigation)
     implementation(Deps.AndroidX.hiltWork)
     kapt(Deps.AndroidX.hiltCompiler)
 
-    implementation(Deps.Google.hilt)
-    kapt(Deps.Google.hiltAndroidCompiler)
-
-    implementation(Deps.AndroidX.roomCore)
-    kapt(Deps.AndroidX.roomCompiler)
-
     implementation(Deps.Google.material)
-    implementation(Deps.Google.gson)
-
-    debugImplementation(Deps.chucker)
-    releaseImplementation(Deps.chuckerNoOp)
 
     implementation(Deps.zxing) {
         isTransitive = false
@@ -148,13 +150,8 @@ dependencies {
     implementation(Deps.recyclerViewAnimators)
     implementation(Deps.circularProgressBar)
     implementation(Deps.viewBinding)
-    implementation(Deps.timber)
     implementation(Deps.coil)
     implementation(Deps.coilCompose)
-    implementation(Deps.retrofit)
-    implementation(Deps.retrofitGsonConverter)
-    implementation(Deps.okhttp)
-    implementation(Deps.loggingInterceptor)
 
     coreLibraryDesugaring(Deps.desugar)
 

@@ -3,7 +3,7 @@ package com.grappim.cashier.core.extensions
 import android.content.Context
 import android.widget.Toast
 import com.grappim.cashier.R
-import com.grappim.cashier.core.exception.NetworkException
+import com.grappim.domain.model.exception.NetworkException
 
 fun Context.showToast(message: String?, long: Boolean = true) {
     val duration = when (long) {

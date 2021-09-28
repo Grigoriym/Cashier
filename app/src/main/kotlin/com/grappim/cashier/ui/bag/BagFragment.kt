@@ -8,11 +8,12 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
-import com.grappim.cashier.data.db.entity.ProductEntity
+import com.grappim.db.entity.ProductEntity
 import com.grappim.cashier.databinding.FragmentBagBinding
 import com.grappim.cashier.di.modules.DecimalFormatSimple
 import com.grappim.cashier.ui.sales.SalesItemClickListener
 import com.grappim.cashier.ui.scanner.ScanType
+import com.grappim.domain.model.product.Product
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -74,11 +75,11 @@ class BagFragment : Fragment(R.layout.fragment_bag),
         }
     }
 
-    override fun addProduct(productEntity: ProductEntity) {
-        viewModel.addProductToBasket(productEntity)
+    override fun addProduct(product: Product) {
+        viewModel.addProductToBasket(product)
     }
 
-    override fun removeProduct(productEntity: ProductEntity) {
-        viewModel.removeProductFromBasket(productEntity)
+    override fun removeProduct(product: Product) {
+        viewModel.removeProductFromBasket(product)
     }
 }

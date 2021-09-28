@@ -1,22 +1,17 @@
 package com.grappim.cashier.ui.bag
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
-import com.grappim.cashier.core.functional.onFailure
-import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.data.db.entity.BasketProductEntity
-import com.grappim.cashier.data.db.entity.ProductEntity
-import com.grappim.cashier.domain.products.DeleteBagProductsUseCase
-import com.grappim.cashier.domain.products.GetBagProductsUseCase
-import com.grappim.cashier.domain.products.GetProductsUseCase
-import com.grappim.cashier.domain.sales.AddProductToBasketUseCase
-import com.grappim.cashier.domain.sales.GetAllBasketProductsUseCase
-import com.grappim.cashier.domain.sales.RemoveProductUseCase
+import androidx.lifecycle.*
+import com.grappim.domain.base.NoParams
+import com.grappim.domain.base.Result
+import com.grappim.domain.base.withoutParams
+import com.grappim.domain.interactor.basket.DeleteBagProductsUseCase
+import com.grappim.domain.interactor.products.GetBagProductsUseCase
+import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
+import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
+import com.grappim.domain.interactor.sales.RemoveProductUseCase
+import com.grappim.domain.model.product.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -30,11 +25,11 @@ class BagViewModel @Inject constructor(
     getAllBasketProductsUseCase: GetAllBasketProductsUseCase
 ) : ViewModel() {
 
-    private val _products = MutableLiveData<List<ProductEntity>>()
-    val products: LiveData<List<ProductEntity>>
+    private val _products = MutableLiveData<List<Product>>()
+    val products: LiveData<List<Product>>
         get() = _products
 
-    private val _basketCount = getAllBasketProductsUseCase.invoke()
+    private val _basketCount = getAllBasketProductsUseCase.invoke(withoutParams())
     val basketCount: LiveData<BigDecimal> =
         _basketCount.asLiveData(viewModelScope.coroutineContext).map { list ->
             list.map {
@@ -43,7 +38,7 @@ class BagViewModel @Inject constructor(
                 it
             }
         }
-    private val _basketSum = getAllBasketProductsUseCase.invoke()
+    private val _basketSum = getAllBasketProductsUseCase.invoke(withoutParams())
     val basketSum: LiveData<BigDecimal> =
         _basketSum.asLiveData(viewModelScope.coroutineContext).map { list ->
             list.map {
@@ -59,27 +54,34 @@ class BagViewModel @Inject constructor(
 
     fun deleteBagProducts() {
         viewModelScope.launch {
-            deleteBagProductsUseCase.invoke()
+            deleteBagProductsUseCase.invoke(withoutParams())
             getBagProducts()
         }
     }
 
     fun getBagProducts() {
         viewModelScope.launch {
-            _products.value = getBagProductsUseCase.invoke()
+            getBagProductsUseCase.invoke(NoParams())
+                .collect {
+                    when (it) {
+                        is Result.Success -> {
+                            _products.value = it.data!!
+                        }
+                    }
+                }
         }
     }
 
-    fun addProductToBasket(basketProductEntity: ProductEntity) {
+    fun addProductToBasket(product: Product) {
         viewModelScope.launch {
-            addProductToBasketUseCase.invoke(basketProductEntity)
+            addProductToBasketUseCase.invoke(AddProductToBasketUseCase.Params(product))
             getBagProducts()
         }
     }
 
-    fun removeProductFromBasket(basketProductEntity: ProductEntity) {
+    fun removeProductFromBasket(product: Product) {
         viewModelScope.launch {
-            removeProductUseCase.invoke(basketProductEntity)
+            removeProductUseCase.invoke(RemoveProductUseCase.Params(product))
             getBagProducts()
         }
     }

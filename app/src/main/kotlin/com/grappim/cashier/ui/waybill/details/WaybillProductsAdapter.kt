@@ -12,7 +12,7 @@ import com.grappim.cashier.core.extensions.inflate
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.setStandardSettings
 import com.grappim.cashier.databinding.ItemProductBinding
-import com.grappim.cashier.domain.waybill.WaybillProduct
+import com.grappim.domain.model.waybill.WaybillProduct
 import java.text.DecimalFormat
 
 class WaybillProductsAdapter(

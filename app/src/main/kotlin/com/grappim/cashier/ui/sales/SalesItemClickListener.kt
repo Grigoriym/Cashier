@@ -1,8 +1,8 @@
 package com.grappim.cashier.ui.sales
 
-import com.grappim.cashier.data.db.entity.ProductEntity
+import com.grappim.domain.model.product.Product
 
 interface SalesItemClickListener {
-    fun addProduct(productEntity: ProductEntity)
-    fun removeProduct(productEntity: ProductEntity)
+    fun addProduct(product: Product)
+    fun removeProduct(product: Product)
 }

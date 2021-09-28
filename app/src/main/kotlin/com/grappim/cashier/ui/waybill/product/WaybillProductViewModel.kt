@@ -6,19 +6,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.asBigDecimal
-import com.grappim.cashier.core.extensions.bigDecimalOne
-import com.grappim.cashier.core.extensions.bigDecimalZero
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.functional.onFailure
-import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.data.db.entity.ProductEntity
 import com.grappim.cashier.di.modules.DecimalFormatSimple
-import com.grappim.cashier.domain.waybill.CreateWaybillProductUseCase
-import com.grappim.cashier.domain.waybill.UpdateWaybillProductUseCase
-import com.grappim.cashier.domain.waybill.WaybillProduct
+import com.grappim.db.entity.ProductEntity
+import com.grappim.domain.base.Result
+import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase
+import com.grappim.domain.interactor.waybill.UpdateWaybillProductUseCase
+import com.grappim.domain.model.waybill.WaybillProduct
+import com.grappim.calculations.asBigDecimal
+import com.grappim.calculations.bigDecimalOne
+import com.grappim.calculations.bigDecimalZero
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -38,10 +37,10 @@ class WaybillProductViewModel @Inject constructor(
     val waybillProductState: State<WaybillProductStates>
         get() = _waybillProductState
 
-    private val _productCreated = mutableStateOf<Resource<BigDecimal>>(
-        Resource.Initial
+    private val _productCreated = mutableStateOf<Result<BigDecimal>>(
+        Result.Initial
     )
-    val productCreated: State<Resource<BigDecimal>>
+    val productCreated: State<Result<BigDecimal>>
         get() = _productCreated
 
     fun setBarcode(barcode: String) {
@@ -201,20 +200,20 @@ class WaybillProductViewModel @Inject constructor(
         id: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = Resource.Loading
+            _productCreated.value = Result.Loading
             updateWaybillProductUseCase.invoke(
-                waybillId = waybillId,
-                barcode = barcode,
-                name = name,
-                purchasePrice = purchasePrice,
-                sellingPrice = sellingPrice,
-                amount = amount,
-                productId = productId,
-                id = id
-            ).onSuccess {
-                _productCreated.value = Resource.Success(it)
-            }.onFailure {
-                _productCreated.value = Resource.Error(it)
+                UpdateWaybillProductUseCase.Params(
+                    waybillId = waybillId,
+                    barcode = barcode,
+                    name = name,
+                    purchasePrice = purchasePrice,
+                    sellingPrice = sellingPrice,
+                    amount = amount,
+                    productId = productId,
+                    id = id
+                )
+            ).collect {
+                _productCreated.value = it
             }
         }
     }
@@ -229,19 +228,19 @@ class WaybillProductViewModel @Inject constructor(
         productId: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = Resource.Loading
+            _productCreated.value = Result.Loading
             createWaybillProductUseCase.invoke(
-                waybillId = waybillId,
-                barcode = barcode,
-                name = name,
-                purchasePrice = purchasePrice,
-                sellingPrice = sellingPrice,
-                amount = amount,
-                productId = productId
-            ).onFailure {
-                _productCreated.value = Resource.Error(it)
-            }.onSuccess {
-                _productCreated.value = Resource.Success(it)
+                CreateWaybillProductUseCase.Params(
+                    waybillId = waybillId,
+                    barcode = barcode,
+                    name = name,
+                    purchasePrice = purchasePrice,
+                    sellingPrice = sellingPrice,
+                    amount = amount,
+                    productId = productId
+                )
+            ).collect {
+                _productCreated.value = it
             }
         }
     }
@@ -258,11 +257,11 @@ sealed class WaybillProductStates {
         val name: String,
 
         val purchasePrice: BigDecimal,
-        val purchasePriceToShow:String,
+        val purchasePriceToShow: String,
         val sellingPrice: BigDecimal,
-        val sellingPriceToShow:String,
+        val sellingPriceToShow: String,
         val amount: BigDecimal,
-        val amountToShow:String
+        val amountToShow: String
     ) : WaybillProductStates()
 
     object EmptyState : WaybillProductStates()

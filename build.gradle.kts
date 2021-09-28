@@ -22,8 +22,9 @@ buildscript {
 allprojects {
     repositories {
         google()
-        maven { setUrl("https://jitpack.io") }
         mavenCentral()
+
+        maven { setUrl("https://jitpack.io") }
     }
 }
 tasks.register("clean", Delete::class) {

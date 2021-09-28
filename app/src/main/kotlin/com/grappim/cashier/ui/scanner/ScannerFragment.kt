@@ -13,10 +13,10 @@ import com.google.zxing.client.android.BeepManager
 import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.showToast
 import com.grappim.cashier.databinding.FragmentScannerBinding
+import com.grappim.logger.logD
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ScannerFragment : Fragment(R.layout.fragment_scanner) {
@@ -99,11 +99,11 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
     }
 
     private fun handleContinuousScan(result: String) {
-        Timber.tag("cashier").d("scanned barcode $result")
+        logD("scanned barcode $result")
     }
 
     private fun handleSingleScan(result: String) {
-        Timber.tag("cashier").d("scanned barcode $result")
+        logD("scanned barcode $result")
         findNavController().navigate(
             ScannerFragmentDirections.actionScannerToCreateProduct(result)
         )

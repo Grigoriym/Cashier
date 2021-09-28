@@ -31,7 +31,7 @@
             tools:node="merge">
 
             <meta-data
-                android:name="com.grappim.cashier.core.utils.TimberInitializer"
+                android:name="com.grappim.cashier.core.startup.LoggerInitializer"
                 android:value="androidx.startup" />
 
         </provider>

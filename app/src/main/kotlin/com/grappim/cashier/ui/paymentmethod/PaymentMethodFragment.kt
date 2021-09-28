@@ -10,10 +10,10 @@ import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.core.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentPaymentMethodBinding
 import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.domain.base.Result
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -57,13 +57,13 @@ class PaymentMethodFragment : Fragment(R.layout.fragment_payment_method),
             )
         }
         viewModel.paymentStatus.observe(viewLifecycleOwner) {
-            loader.showOrHide(it is Resource.Loading)
+            loader.showOrHide(it is Result.Loading)
             when (it) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     findNavController()
                         .navigate(R.id.action_paymentMethod_to_salesFragment)
                 }
-                is Resource.Error -> {
+                is Result.Error -> {
                     showToast(getErrorMessage(it.exception))
                 }
             }

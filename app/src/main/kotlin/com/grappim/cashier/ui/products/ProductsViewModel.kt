@@ -1,19 +1,14 @@
 package com.grappim.cashier.ui.products
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.grappim.cashier.core.functional.onFailure
-import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.data.db.entity.CategoryEntity
-import com.grappim.cashier.data.db.entity.ProductEntity
-import com.grappim.cashier.domain.products.GetCategoryListUseCase
-import com.grappim.cashier.domain.products.GetProductsByQueryUseCase
+import androidx.lifecycle.*
+import com.grappim.domain.base.Result
+import com.grappim.domain.interactor.products.GetCategoryListUseCase
+import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
+import com.grappim.domain.model.product.Category
+import com.grappim.domain.model.product.Product
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,22 +18,23 @@ class ProductsViewModel @Inject constructor(
     private val getCategoryListUseCase: GetCategoryListUseCase
 ) : ViewModel() {
 
-    private val _categories: MutableLiveData<List<CategoryEntity>> = MutableLiveData()
-    val categories: LiveData<List<CategoryEntity>>
+    private val _categories: MutableLiveData<List<Category>> = MutableLiveData()
+    val categories: LiveData<List<Category>>
         get() = _categories
 
     private val _query = MutableLiveData("")
 
-    private val _selectedCategory = MutableLiveData<CategoryEntity>()
+    private val _selectedCategory = MutableLiveData<Category>()
 
-    val products: LiveData<List<ProductEntity>> = Transformations.switchMap(
-        combineTuple(
-            _query,
-            _selectedCategory
-        )
-    ) { (query, category) ->
-        getProductsByQueryUseCase.invoke(category, query!!)
-            .asLiveData(viewModelScope.coroutineContext)
+    val products: LiveData<List<Product>> = combineTuple(
+        _query,
+        _selectedCategory
+    ).switchMap { (query, category) ->
+        getProductsByQueryUseCase.invoke(
+            GetProductsByQueryUseCase.Params(
+                category, query!!
+            )
+        ).asLiveData(viewModelScope.coroutineContext)
     }
 
     init {
@@ -47,11 +43,11 @@ class ProductsViewModel @Inject constructor(
 
     private fun getCategories() {
         viewModelScope.launch {
-            getCategoryListUseCase.invoke()
-                .onFailure {
-
-                }.onSuccess {
-                    _categories.value = it
+            getCategoryListUseCase.invoke(GetCategoryListUseCase.Params())
+                .collect {
+                    if (it is Result.Success) {
+                        _categories.value = it.data!!
+                    }
                 }
         }
     }
@@ -62,9 +58,9 @@ class ProductsViewModel @Inject constructor(
         }
     }
 
-    fun setCategory(categoryEntity: CategoryEntity) {
+    fun setCategory(category: Category) {
         viewModelScope.launch {
-            _selectedCategory.value = categoryEntity
+            _selectedCategory.value = category
         }
     }
 

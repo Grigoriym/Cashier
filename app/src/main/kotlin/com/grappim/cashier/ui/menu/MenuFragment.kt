@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
+import com.grappim.cashier.model.menu.MenuItemPm
 import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.domain.model.menu.MenuItemType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +32,7 @@ class MenuFragment : Fragment() {
         }
     }
 
-    private fun onItemClick(item: MenuItem) {
+    private fun onItemClick(item: MenuItemPm) {
         when (item.type) {
             MenuItemType.ACCEPTANCE -> {
                 findNavController().navigate(R.id.action_menuFragment_to_acceptanceFragment)
@@ -52,7 +54,7 @@ class MenuFragment : Fragment() {
         MenuScreen(
             cashierName = cashierName,
             items = items,
-            onItemClick = { menuItem: MenuItem ->
+            onItemClick = { menuItem: MenuItemPm ->
                 onItemClick(menuItem)
             },
             onBackButtonPressed = {

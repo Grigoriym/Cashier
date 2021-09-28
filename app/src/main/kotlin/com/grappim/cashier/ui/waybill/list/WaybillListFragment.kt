@@ -17,11 +17,10 @@ import com.grappim.cashier.R
 import com.grappim.cashier.compose.LoaderDialogCompose
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.view.CashierLoaderDialog
-import com.grappim.cashier.domain.waybill.Waybill
 import com.grappim.cashier.ui.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.WaybillSharedViewModel
+import com.grappim.domain.base.Result
+import com.grappim.domain.model.waybill.Waybill
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,15 +39,15 @@ class WaybillListFragment : Fragment() {
     }
 
     private fun handleCreateState(
-        createState: Resource<Waybill>?,
+        createState: Result<Waybill>?,
         onWaybillClick: (Waybill) -> Unit
     ) {
         when (createState) {
-            is Resource.Success -> {
+            is Result.Success -> {
                 val waybill = createState.data
                 onWaybillClick(waybill)
             }
-            is Resource.Error -> {
+            is Result.Error -> {
                 showToast(getErrorMessage(createState.exception))
             }
         }

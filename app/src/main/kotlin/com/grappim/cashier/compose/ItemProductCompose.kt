@@ -18,13 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.grappim.calculations.asBigDecimal
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.asBigDecimal
-import com.grappim.cashier.domain.waybill.WaybillProduct
 import com.grappim.cashier.ui.theme.CashierBlue
 import com.grappim.cashier.ui.theme.CashierGray
 import com.grappim.cashier.ui.theme.CashierLightGray
 import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.domain.model.waybill.WaybillProduct
 
 @Composable
 fun ItemProductCompose(

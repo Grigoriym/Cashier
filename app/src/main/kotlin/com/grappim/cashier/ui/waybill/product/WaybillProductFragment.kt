@@ -15,12 +15,12 @@ import com.grappim.cashier.R
 import com.grappim.cashier.core.delegate.lazyArg
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.data.db.entity.ProductEntity
 import com.grappim.cashier.di.modules.DecimalFormatSimple
-import com.grappim.cashier.domain.waybill.WaybillProduct
 import com.grappim.cashier.ui.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.details.WaybillDetailsFragment
+import com.grappim.db.entity.ProductEntity
+import com.grappim.domain.base.Result
+import com.grappim.domain.model.waybill.WaybillProduct
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -69,7 +69,7 @@ class WaybillProductFragment : Fragment() {
 
         val productCreatedState by viewModel.productCreated
         when (val state = productCreatedState) {
-            is Resource.Success -> {
+            is Result.Success -> {
                 findNavController()
                     .navigate(
                         R.id.action_waybillProduct_to_waybillDetails,
@@ -78,7 +78,7 @@ class WaybillProductFragment : Fragment() {
                         )
                     )
             }
-            is Resource.Error -> {
+            is Result.Error -> {
                 showToast(getErrorMessage(state.exception))
             }
         }

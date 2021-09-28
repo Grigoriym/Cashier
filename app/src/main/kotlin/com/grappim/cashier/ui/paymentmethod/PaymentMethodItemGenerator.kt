@@ -1,6 +1,7 @@
 package com.grappim.cashier.ui.paymentmethod
 
 import com.grappim.cashier.R
+import com.grappim.domain.model.payment.PaymentMethodType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

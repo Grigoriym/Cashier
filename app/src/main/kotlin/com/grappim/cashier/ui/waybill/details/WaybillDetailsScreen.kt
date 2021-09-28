@@ -25,18 +25,18 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.grappim.calculations.bigDecimalOne
 import com.grappim.cashier.R
 import com.grappim.cashier.compose.BaseTopAppBar
 import com.grappim.cashier.compose.BigActionButtonCompose
 import com.grappim.cashier.compose.ItemProductCompose
 import com.grappim.cashier.compose.StandardFilledButton
-import com.grappim.cashier.core.extensions.bigDecimalOne
-import com.grappim.cashier.domain.waybill.Waybill
-import com.grappim.cashier.domain.waybill.WaybillProduct
 import com.grappim.cashier.ui.theme.CashierBlue
 import com.grappim.cashier.ui.theme.CashierTheme
-import com.grappim.cashier.ui.waybill.WaybillStatus
-import com.grappim.cashier.ui.waybill.WaybillType
+import com.grappim.domain.model.waybill.Waybill
+import com.grappim.domain.model.waybill.WaybillProduct
+import com.grappim.domain.model.waybill.WaybillStatus
+import com.grappim.domain.model.waybill.WaybillType
 import kotlinx.coroutines.flow.flowOf
 
 @Composable

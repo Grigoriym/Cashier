@@ -5,20 +5,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grappim.cashier.core.extensions.asBigDecimal
-import com.grappim.cashier.core.extensions.bigDecimalOne
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.functional.onFailure
-import com.grappim.cashier.core.functional.onSuccess
-import com.grappim.cashier.core.utils.PriceCalculationsUtils
-import com.grappim.cashier.core.utils.ProductUnit
-import com.grappim.cashier.data.db.entity.CategoryEntity
-import com.grappim.cashier.data.db.entity.ProductEntity
+import com.grappim.calculations.asBigDecimal
+import com.grappim.calculations.bigDecimalOne
 import com.grappim.cashier.di.modules.DecimalFormatSimple
-import com.grappim.cashier.domain.products.CreateProductUseCase
-import com.grappim.cashier.domain.products.EditProductUseCase
-import com.grappim.cashier.domain.products.GetCategoryListUseCase
+import com.grappim.date_time.DateTimeUtils
+import com.grappim.domain.base.Result
+import com.grappim.domain.interactor.products.CreateProductUseCase
+import com.grappim.domain.interactor.products.EditProductUseCase
+import com.grappim.domain.interactor.products.GetCategoryListUseCase
+import com.grappim.domain.model.base.ProductUnit
+import com.grappim.domain.model.product.Category
+import com.grappim.domain.model.product.Product
+import com.grappim.domain.storage.GeneralStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -27,9 +27,10 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateEditProductViewModel @Inject constructor(
     private val createProductUseCase: CreateProductUseCase,
-    private val priceCalculationsUtils: PriceCalculationsUtils,
+    private val priceCalculationsUtils: com.grappim.calculations.PriceCalculationsUtils,
     private val editProductUseCase: EditProductUseCase,
     private val getCategoryListUseCase: GetCategoryListUseCase,
+    private val generalStorage: GeneralStorage,
     @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : ViewModel() {
 
@@ -45,8 +46,8 @@ class CreateEditProductViewModel @Inject constructor(
     val quantity: LiveData<String>
         get() = _quantity
 
-    private val _createProduct = MutableLiveData<Resource<Unit>>()
-    val createProduct: LiveData<Resource<Unit>>
+    private val _createProduct = MutableLiveData<Result<Unit>>()
+    val createProduct: LiveData<Result<Unit>>
         get() = _createProduct
 
     private val _sellingPrice = MutableLiveData<String>("0")
@@ -61,12 +62,12 @@ class CreateEditProductViewModel @Inject constructor(
     val markup: LiveData<String>
         get() = _markup
 
-    private val _categories = MutableLiveData<List<CategoryEntity>>()
-    val categories: LiveData<List<CategoryEntity>>
+    private val _categories = MutableLiveData<List<Category>>()
+    val categories: LiveData<List<Category>>
         get() = _categories
 
-    private val _selectedCategory = MutableLiveData<CategoryEntity?>()
-    val selectedCategory: LiveData<CategoryEntity?>
+    private val _selectedCategory = MutableLiveData<Category?>()
+    val selectedCategory: LiveData<Category?>
         get() = _selectedCategory
 
     init {
@@ -83,11 +84,11 @@ class CreateEditProductViewModel @Inject constructor(
 
     private fun getCategories() {
         viewModelScope.launch {
-            getCategoryListUseCase.invoke(false)
-                .onSuccess {
-                    _categories.value = it
-                }.onFailure {
-
+            getCategoryListUseCase.invoke(GetCategoryListUseCase.Params(false))
+                .collect {
+                    if (it is Result.Success) {
+                        _categories.value = it.data!!
+                    }
                 }
         }
     }
@@ -169,43 +170,50 @@ class CreateEditProductViewModel @Inject constructor(
         purchasePrice: BigDecimal,
         amount: BigDecimal,
         unit: ProductUnit,
-        productEntity: ProductEntity?
+        product: Product?
     ) {
         when (createEditFlow) {
             CreateEditFlow.EDIT -> {
                 viewModelScope.launch {
-                    _createProduct.value = Resource.Loading
                     editProductUseCase.invoke(
-                        name = name,
-                        barcode = barcode,
-                        sellingPrice = sellingPrice,
-                        purchasePrice = purchasePrice,
-                        amount = amount,
-                        unit = unit,
-                        productEntity = productEntity!!,
-                        categoryEntity = _selectedCategory.value
-                    ).onFailure {
-                        _createProduct.value = Resource.Error(it)
-                    }.onSuccess {
-                        _createProduct.value = Resource.Success(it)
+                        EditProductUseCase.Params(
+                            name = name,
+                            barcode = barcode,
+                            sellingPrice = sellingPrice,
+                            purchasePrice = purchasePrice,
+                            amount = amount,
+                            unit = unit,
+                            productMerchantId = product?.merchantId ?: "",
+                            productCreatedOn = product?.createdOn ?: "",
+                            productId = product?.id ?: 0,
+                            productStockId = product?.stockId ?: "",
+                            categoryId = _selectedCategory.value?.id ?: 0,
+                            category = _selectedCategory.value?.name ?: ""
+                        )
+                    ).collect {
+                        _createProduct.value = it
                     }
                 }
             }
             CreateEditFlow.CREATE -> {
                 viewModelScope.launch {
-                    _createProduct.value = Resource.Loading
                     createProductUseCase.invoke(
-                        name = name,
-                        barcode = barcode,
-                        sellingPrice = sellingPrice,
-                        purchasePrice = purchasePrice,
-                        amount = amount,
-                        unit = unit,
-                        categoryEntity = _selectedCategory.value
-                    ).onFailure {
-                        _createProduct.value = Resource.Error(it)
-                    }.onSuccess {
-                        _createProduct.value = Resource.Success(it)
+                        CreateProductUseCase.Params(
+                            name = name,
+                            barcode = barcode,
+                            sellingPrice = sellingPrice,
+                            purchasePrice = purchasePrice,
+                            stockId = generalStorage.getStockId(),
+                            merchantId = generalStorage.getMerchantId(),
+                            unit = unit.value,
+                            amount = amount,
+                            createdOn = DateTimeUtils.getNowFullDate(),
+                            updatedOn = DateTimeUtils.getNowFullDate(),
+                            categoryName = _selectedCategory.value?.name ?: "",
+                            categoryId = _selectedCategory.value?.id ?: 0
+                        )
+                    ).collect {
+                        _createProduct.value = it
                     }
                 }
             }

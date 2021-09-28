@@ -14,13 +14,13 @@ import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
 import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.databinding.FragmentScannerBinding
 import com.grappim.cashier.ui.waybill.product.WaybillProductFragment
+import com.grappim.domain.base.Result
+import com.grappim.logger.logD
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
@@ -82,7 +82,7 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
     private fun observeViewModel() {
         viewModel.product.observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     findNavController().navigate(
                         R.id.action_scanner_to_waybillProduct,
                         bundleOf(
@@ -91,14 +91,14 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
                         )
                     )
                 }
-                is Resource.Error -> {
+                is Result.Error -> {
                     showToast(getString(R.string.waybill_error_no_product))
                 }
             }
         }
         viewModel.waybillProduct.observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     findNavController().navigate(
                         R.id.action_scanner_to_waybillProduct,
                         bundleOf(
@@ -112,7 +112,7 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
     }
 
     private fun handleSingleScan(result: String) {
-        Timber.tag("cashier").d("scanned barcode $result")
+        logD("scanned barcode $result")
         viewModel.checkProductInWaybill(
             barcode = result,
             waybillId = args.waybillId

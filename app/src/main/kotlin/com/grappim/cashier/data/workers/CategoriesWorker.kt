@@ -4,21 +4,19 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.grappim.cashier.api.CashierApi
-import com.grappim.cashier.core.executor.CoroutineContextProvider
-import com.grappim.cashier.core.storage.GeneralStorage
-import com.grappim.cashier.data.db.dao.CategoryDao
-import com.grappim.cashier.data.remote.model.category.CategoryMapper.toDomain
-import com.grappim.cashier.data.remote.model.category.FilterCategoriesRequestDTO
-import com.grappim.cashier.data.remote.model.product.GetProductsRequestDTO
-import com.grappim.cashier.data.remote.model.product.ProductsMapper.toDomain
-import com.grappim.cashier.di.modules.IoDispatcher
-import com.grappim.cashier.di.modules.QualifierCashierApi
+import com.grappim.db.dao.CategoryDao
+import com.grappim.domain.di.IoDispatcher
+import com.grappim.domain.storage.GeneralStorage
+import com.grappim.logger.logD
+import com.grappim.logger.logE
+import com.grappim.network.api.CashierApi
+import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.mappers.category.CategoryMapper
+import com.grappim.network.model.category.FilterCategoriesRequestDTO
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 @HiltWorker
 class CategoriesWorker @AssistedInject constructor(
@@ -27,7 +25,8 @@ class CategoriesWorker @AssistedInject constructor(
     @QualifierCashierApi private val cashierApi: CashierApi,
     private val generalStorage: GeneralStorage,
     private val categoryDao: CategoryDao,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val categoryMapper: CategoryMapper
 ) : CoroutineWorker(context, workerParameters) {
 
     companion object {
@@ -48,18 +47,20 @@ class CategoriesWorker @AssistedInject constructor(
                 )
 
                 val response = cashierApi.filterCategories(request)
-                if (response.categories?.isNotEmpty() == true) {
-                    categoryDao.insert(response.categories.toDomain())
+                val categories = response.categories
+                if (categories?.isNotEmpty() == true) {
+                    val entities = categoryMapper.dtoToEntityList(categories)
+                    categoryDao.insert(entities)
                     newOffset += CATEGORIES_LIMIT
                 } else {
                     productsLoaded = true
                 }
             }
 
-            Timber.d("worker CategoriesWorker success")
+            logD("worker CategoriesWorker success")
             Result.success()
         } catch (e: Throwable) {
-            Timber.e(e)
+            logE(e)
             Result.failure()
         }
     }

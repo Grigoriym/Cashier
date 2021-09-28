@@ -30,13 +30,11 @@ import com.grappim.cashier.R
 import com.grappim.cashier.compose.BaseTopAppBar
 import com.grappim.cashier.compose.BigActionButtonCompose
 import com.grappim.cashier.compose.OutlinedTextFieldCompose
-import com.grappim.cashier.core.extensions.bigDecimalOne
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.view.CashierLoaderDialog
-import com.grappim.cashier.domain.waybill.Waybill
 import com.grappim.cashier.ui.theme.*
-import com.grappim.cashier.ui.waybill.WaybillStatus
-import com.grappim.cashier.ui.waybill.WaybillType
+import com.grappim.domain.model.waybill.Waybill
+import com.grappim.domain.model.waybill.WaybillStatus
+import com.grappim.domain.model.waybill.WaybillType
+import com.grappim.calculations.bigDecimalOne
 import kotlinx.coroutines.flow.flowOf
 
 @Composable

@@ -66,7 +66,7 @@
                 app:argType="com.grappim.cashier.ui.products.create.CreateEditFlow" />
             <argument
                 android:name="product"
-                app:argType="com.grappim.cashier.data.db.entity.ProductEntity" />
+                app:argType="com.grappim.domain.model.product.Product" />
         </action>
     </fragment>
 
@@ -107,7 +107,7 @@
         <argument
             android:name="product"
             android:defaultValue="@null"
-            app:argType="com.grappim.cashier.data.db.entity.ProductEntity"
+            app:argType="com.grappim.domain.model.product.Product"
             app:nullable="true" />
         <action
             android:id="@+id/action_createProduct_to_scanner"
@@ -299,7 +299,7 @@
                 app:popExitAnim="@anim/pop_exit_to_right">
                 <argument
                     android:name="waybill"
-                    app:argType="com.grappim.cashier.domain.waybill.Waybill" />
+                    app:argType="com.grappim.domain.model.waybill.Waybill" />
             </action>
         </fragment>
     </navigation>

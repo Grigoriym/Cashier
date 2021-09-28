@@ -8,12 +8,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
-import com.grappim.cashier.core.functional.Resource
 import com.grappim.cashier.domain.StockProgressItem
-import com.grappim.cashier.domain.extension.withoutParams
-import com.grappim.cashier.domain.outlet.GetOutletsUseCase
-import com.grappim.cashier.domain.outlet.SaveStockInfoUseCase
-import com.grappim.cashier.domain.outlet.Stock
+import com.grappim.domain.base.Result
+import com.grappim.domain.base.withoutParams
+import com.grappim.domain.interactor.outlet.GetOutletsUseCase
+import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
+import com.grappim.domain.model.outlet.Stock
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -55,7 +55,7 @@ class SelectStockViewModel @Inject constructor(
             val stockToSave = requireNotNull(selectedStock) {
                 "Stock must not be null"
             }
-            saveStockInfoUseCase.invoke(stockToSave)
+            saveStockInfoUseCase.invoke(SaveStockInfoUseCase.Params(stockToSave))
         }
     }
 
@@ -64,14 +64,14 @@ class SelectStockViewModel @Inject constructor(
         viewModelScope.launch {
             getOutletsUseCase(withoutParams())
                 .collect {
-                    loading = it is Resource.Loading
+                    loading = it is Result.Loading
 
                     when (it) {
-                        is Resource.Success -> {
+                        is Result.Success -> {
                             stocks.clear()
                             stocks.addAll(it.data)
                         }
-                        is Resource.Error -> {
+                        is Result.Error -> {
                             error = it.exception
                         }
                     }
@@ -82,7 +82,7 @@ class SelectStockViewModel @Inject constructor(
     @MainThread
     fun saveStock(stock: Stock) {
         viewModelScope.launch {
-            saveStockInfoUseCase.invoke(stock)
+            saveStockInfoUseCase.invoke(SaveStockInfoUseCase.Params(stock))
         }
     }
 

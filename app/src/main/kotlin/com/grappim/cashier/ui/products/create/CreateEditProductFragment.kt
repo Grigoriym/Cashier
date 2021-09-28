@@ -13,14 +13,14 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.chip.Chip
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.asBigDecimal
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.core.functional.Resource
-import com.grappim.cashier.core.utils.ProductUnit
 import com.grappim.cashier.core.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentCreateEditProductBinding
+import com.grappim.domain.base.Result
+import com.grappim.domain.model.base.ProductUnit
+import com.grappim.calculations.asBigDecimal
 import com.zhuinden.livedatacombinetuplekt.combineTupleNonNull
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,7 +77,7 @@ class CreateEditProductFragment : Fragment(R.layout.fragment_create_edit_product
                     purchasePrice = editPurchasePrice.text.toString().asBigDecimal(),
                     amount = viewModel.quantity.value!!.asBigDecimal(),
                     unit = viewModel.unit.value!!,
-                    productEntity = args.product
+                    product = args.product
                 )
             }
             buttonBack.setSafeOnClickListener {
@@ -139,13 +139,13 @@ class CreateEditProductFragment : Fragment(R.layout.fragment_create_edit_product
         }
     }
 
-    private fun createProductResult(data: Resource<Unit>) {
-        loader.showOrHide(data is Resource.Loading)
+    private fun createProductResult(data: Result<Unit>) {
+        loader.showOrHide(data is Result.Loading)
         when (data) {
-            is Resource.Success -> {
+            is Result.Success -> {
                 findNavController().popBackStack()
             }
-            is Resource.Error -> {
+            is Result.Error -> {
                 showToast(getErrorMessage(data.exception))
             }
         }

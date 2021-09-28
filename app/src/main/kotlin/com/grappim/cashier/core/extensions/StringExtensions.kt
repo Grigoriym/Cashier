@@ -17,4 +17,3 @@ fun String.isPasswordValid(): Boolean =
 
 fun String.containsNumbers() = Regex(".*\\d.*").containsMatchIn(this)
 
-fun String.getStringForDbQuery(): String = "%$this%"

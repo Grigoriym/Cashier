@@ -9,8 +9,8 @@ import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.inflate
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.setStandardSettings
-import com.grappim.cashier.data.db.entity.ProductEntity
 import com.grappim.cashier.databinding.ItemProductBinding
+import com.grappim.domain.model.product.Product
 import java.text.DecimalFormat
 
 class ProductsAdapter(
@@ -18,7 +18,7 @@ class ProductsAdapter(
     private val clickListener: ProductsClickListener
 ) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
-    private val productEntities: MutableList<ProductEntity> = mutableListOf()
+    private val productEntities: MutableList<Product> = mutableListOf()
 
     inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val viewBinding by viewBinding(ItemProductBinding::bind)
@@ -49,7 +49,7 @@ class ProductsAdapter(
         }
     }
 
-    fun updateProducts(newProductEntities: List<ProductEntity>) {
+    fun updateProducts(newProductEntities: List<Product>) {
         productEntities.clear()
         productEntities.addAll(newProductEntities)
         notifyDataSetChanged()

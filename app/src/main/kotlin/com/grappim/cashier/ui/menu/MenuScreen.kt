@@ -18,15 +18,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.cashier.R
 import com.grappim.cashier.compose.BaseTopAppBar
+import com.grappim.cashier.model.menu.MenuItemPm
 import com.grappim.cashier.ui.theme.CashierBlue
 import com.grappim.cashier.ui.theme.CashierGreen
 import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.domain.model.menu.MenuItemType
 
 @Composable
 fun MenuScreen(
     cashierName: String,
-    items: List<MenuItem>,
-    onItemClick: (MenuItem) -> Unit,
+    items: List<MenuItemPm>,
+    onItemClick: (MenuItemPm) -> Unit,
     onBackButtonPressed: () -> Unit
 ) {
     Scaffold(
@@ -51,8 +53,8 @@ fun MenuScreen(
 @Composable
 private fun MenuItemsSection(
     cashierName: String,
-    items: List<MenuItem>,
-    onItemClick: (MenuItem) -> Unit
+    items: List<MenuItemPm>,
+    onItemClick: (MenuItemPm) -> Unit
 ) {
     Surface(
         modifier = Modifier
@@ -129,7 +131,7 @@ private fun CashierNameSegment(
 @Composable
 private fun MenuItemRow(
     modifier: Modifier = Modifier,
-    item: MenuItem
+    item: MenuItemPm
 ) {
     Row(
         modifier = modifier
@@ -166,7 +168,7 @@ private fun MenuItemRow(
 @Composable
 private fun MenuItemRowPreview() {
     MenuItemRow(
-        item = MenuItem(
+        item = MenuItemPm(
             type = MenuItemType.SALES,
             text = R.string.title_sales,
             image = R.drawable.ic_cash_register
@@ -187,7 +189,7 @@ private fun MenuScreenPreview() {
         MenuScreen(
             cashierName = "Cashier name",
             items = listOf(
-                MenuItem(
+                MenuItemPm(
                     type = MenuItemType.SALES,
                     text = R.string.title_sales,
                     image = R.drawable.ic_cash_register

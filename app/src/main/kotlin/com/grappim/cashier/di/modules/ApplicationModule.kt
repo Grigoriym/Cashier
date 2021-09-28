@@ -1,22 +1,22 @@
 package com.grappim.cashier.di.modules
 
+import com.grappim.db.di.DatabaseModule
+import com.grappim.domain.di.DomainModule
+import com.grappim.network.di.DataNetworkModule
+import com.grappim.repository.di.RepositoryModule
+import com.grappim.repository.di.StorageModule
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import javax.inject.Singleton
 
-@Module
+@Module(
+    includes = [
+        DomainModule::class,
+        DataNetworkModule::class,
+        RepositoryModule::class,
+        DatabaseModule::class,
+        StorageModule::class
+    ]
+)
 @InstallIn(SingletonComponent::class)
-object ApplicationModule {
-
-    @ApplicationScope
-    @Provides
-    @Singleton
-    fun provideApplicationScope(
-        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
-    ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
-}
+object ApplicationModule
