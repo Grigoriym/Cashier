@@ -4,4 +4,6 @@ object ConfigData {
     const val targetSdk = 31
 
     const val kotlinJvmTarget = "1.8"
+
+    const val FLAVOR_ENVIRONMENT = "environment"
 }

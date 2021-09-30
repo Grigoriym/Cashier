@@ -23,9 +23,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.cashier.R
 import com.grappim.cashier.compose.BaseTopAppBar
 import com.grappim.cashier.compose.BigActionButtonCompose
-import com.grappim.cashier.domain.StockProgressItem
-import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.cashier.ui.selectinfo.stock.StockProgressItem
+import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.cashier.ui.theme.CashierGreen
 import com.grappim.cashier.ui.theme.CashierLightGray
 import com.grappim.cashier.ui.theme.CashierTheme

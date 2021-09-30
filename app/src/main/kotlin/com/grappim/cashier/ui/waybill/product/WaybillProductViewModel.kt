@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
-import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.db.entity.ProductEntity
 import com.grappim.domain.base.Result
 import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase

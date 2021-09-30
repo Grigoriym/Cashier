@@ -8,9 +8,8 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
-import com.grappim.db.entity.ProductEntity
 import com.grappim.cashier.databinding.FragmentBagBinding
-import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.cashier.ui.sales.SalesItemClickListener
 import com.grappim.cashier.ui.scanner.ScanType
 import com.grappim.domain.model.product.Product

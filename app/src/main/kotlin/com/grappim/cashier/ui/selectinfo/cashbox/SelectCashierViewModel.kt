@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.R
-import com.grappim.cashier.domain.StockProgressItem
+import com.grappim.cashier.ui.selectinfo.stock.StockProgressItem
 import com.grappim.domain.base.Result
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase

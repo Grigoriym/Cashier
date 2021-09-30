@@ -14,11 +14,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(
-            "String",
-            "CASHIER_API",
-            "\"https://quiet-shore-01215.herokuapp.com/\""
-        )
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true"
+                )
+            }
+        }
     }
 
     buildTypes {
@@ -53,7 +56,7 @@ android {
 dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.logger))
-    implementation(project(Modules.utils_calculations))
+    implementation(project(Modules.utilsCalculations))
 
     implementation(Deps.Kotlin.coroutinesCore)
     implementation(Deps.Kotlin.coroutinesAndroid)

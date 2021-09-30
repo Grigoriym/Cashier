@@ -14,7 +14,7 @@ import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.showToast
 import com.grappim.cashier.core.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentSearchProductBinding
-import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.cashier.ui.products.ProductsAdapter
 import com.grappim.cashier.ui.products.ProductsClickListener
 import com.grappim.cashier.ui.waybill.product.WaybillProductFragment

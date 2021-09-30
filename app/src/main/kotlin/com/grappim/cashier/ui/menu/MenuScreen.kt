@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.cashier.R
 import com.grappim.cashier.compose.BaseTopAppBar
-import com.grappim.cashier.model.menu.MenuItemPm
 import com.grappim.cashier.ui.theme.CashierBlue
 import com.grappim.cashier.ui.theme.CashierGreen
 import com.grappim.cashier.ui.theme.CashierTheme

@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import com.grappim.cashier.R
 import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.databinding.FragmentProductsBinding
-import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
 import dagger.hilt.android.AndroidEntryPoint

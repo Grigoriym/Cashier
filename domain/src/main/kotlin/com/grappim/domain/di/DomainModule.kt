@@ -9,11 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
-@Module(
-    includes = [
-        CoroutinesModule::class
-    ]
-)
+@Module
 @InstallIn(SingletonComponent::class)
 object DomainModule {
 

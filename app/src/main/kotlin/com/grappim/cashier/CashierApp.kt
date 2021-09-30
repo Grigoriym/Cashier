@@ -1,6 +1,7 @@
 package com.grappim.cashier
 
 import android.app.Application
+import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.grappim.cashier.core.platform.FocusedActivityHolder
@@ -24,6 +25,6 @@ class CashierApp : Application(), Configuration.Provider {
     override fun getWorkManagerConfiguration(): Configuration =
         Configuration.Builder()
             .setWorkerFactory(workerFactory)
-            .setMinimumLoggingLevel(android.util.Log.DEBUG)
+            .setMinimumLoggingLevel(Log.DEBUG)
             .build()
 }

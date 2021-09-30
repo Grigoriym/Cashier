@@ -1,14 +1,14 @@
 object Modules {
 
+    const val app = ":app"
     const val domain = ":domain"
 
-    const val data_network = ":data:network"
-    const val data_db = ":data:db"
-    const val data_repository = ":data:repository"
+    const val dataNetwork = ":data:network"
+    const val dataDb = ":data:db"
+    const val dataRepository = ":data:repository"
 
-    const val logger = ":logger"
-
-    const val utils_calculations = ":utils:calculations"
-    const val utils_date_time = ":utils:date-time"
+    const val logger = ":utils:logger"
+    const val utilsCalculations = ":utils:calculations"
+    const val utilsDateTime = ":utils:date-time"
 
 }

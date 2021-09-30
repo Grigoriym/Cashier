@@ -1,9 +1,9 @@
 buildscript {
 
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
-        gradlePluginPortal()
     }
     dependencies {
         classpath(BuildPlugins.androidGradle)
@@ -16,6 +16,7 @@ buildscript {
         classpath(BuildPlugins.safeArgs)
 
         classpath(BuildPlugins.detekt)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
     }
 }
 

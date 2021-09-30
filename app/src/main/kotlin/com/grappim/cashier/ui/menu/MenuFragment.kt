@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
-import com.grappim.cashier.model.menu.MenuItemPm
 import com.grappim.cashier.ui.theme.CashierTheme
 import com.grappim.domain.model.menu.MenuItemType
 import dagger.hilt.android.AndroidEntryPoint

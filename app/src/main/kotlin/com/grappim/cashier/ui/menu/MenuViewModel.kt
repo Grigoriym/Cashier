@@ -3,7 +3,6 @@ package com.grappim.cashier.ui.menu
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.core.functional.WhileViewSubscribed
-import com.grappim.cashier.model.menu.MenuItemPm
 import com.grappim.domain.storage.GeneralStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow

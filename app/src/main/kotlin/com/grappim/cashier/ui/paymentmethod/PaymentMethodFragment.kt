@@ -12,7 +12,7 @@ import com.grappim.cashier.core.extensions.setSafeOnClickListener
 import com.grappim.cashier.core.extensions.showToast
 import com.grappim.cashier.core.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentPaymentMethodBinding
-import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.domain.base.Result
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat

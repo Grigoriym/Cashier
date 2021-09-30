@@ -15,7 +15,7 @@ import com.grappim.cashier.R
 import com.grappim.cashier.core.delegate.lazyArg
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.cashier.ui.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.details.WaybillDetailsFragment
 import com.grappim.db.entity.ProductEntity

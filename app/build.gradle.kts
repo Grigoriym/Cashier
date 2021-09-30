@@ -19,12 +19,6 @@ android {
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
-            }
-        }
     }
 
     lint {
@@ -38,6 +32,10 @@ android {
 
     kapt {
         correctErrorTypes = true
+
+        javacOptions {
+            option("-Xmaxerrs", 500)
+        }
     }
 
     hilt {
@@ -45,13 +43,16 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
-            isMinifyEnabled = false
-            isDebuggable = true
+        getByName(BuildType.DEBUG) {
+            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
+            isDebuggable = BuildTypeDebug.isDebuggable
+            isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
         }
-        getByName("release") {
-            isMinifyEnabled = true
-            isDebuggable = false
+
+        getByName(BuildType.RELEASE) {
+            isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
+            isDebuggable = BuildTypeRelease.isDebuggable
+            isTestCoverageEnabled = BuildTypeRelease.isTestCoverageEnabled
 
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -59,6 +60,26 @@ android {
             )
         }
     }
+
+    flavorDimensions.add(ConfigData.FLAVOR_ENVIRONMENT)
+    productFlavors {
+        create(ProductFlavor.DEV) {
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            dimension = ConfigData.FLAVOR_ENVIRONMENT
+        }
+        create(ProductFlavor.QA) {
+            applicationIdSuffix = ".qa"
+            versionNameSuffix = "-qa"
+            dimension = ConfigData.FLAVOR_ENVIRONMENT
+        }
+        create(ProductFlavor.PROD) {
+            applicationIdSuffix = ".prod"
+            versionNameSuffix = "-prod"
+            dimension = ConfigData.FLAVOR_ENVIRONMENT
+        }
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
 
@@ -87,14 +108,14 @@ android {
 dependencies {
     implementation(project(Modules.domain))
 
-    implementation(project(Modules.data_network))
-    implementation(project(Modules.data_db))
-    implementation(project(Modules.data_repository))
+    implementation(project(Modules.dataNetwork))
+    implementation(project(Modules.dataDb))
+    implementation(project(Modules.dataRepository))
 
     implementation(project(Modules.logger))
 
-    implementation(project(Modules.utils_calculations))
-    implementation(project(Modules.utils_date_time))
+    implementation(project(Modules.utilsCalculations))
+    implementation(project(Modules.utilsDateTime))
 
     implementation(Deps.Kotlin.coroutinesCore)
     implementation(Deps.Kotlin.coroutinesAndroid)

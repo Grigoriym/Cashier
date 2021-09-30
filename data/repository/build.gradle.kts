@@ -41,10 +41,10 @@ android {
 dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.logger))
-    implementation(project(Modules.data_network))
-    implementation(project(Modules.data_db))
-    implementation(project(Modules.utils_calculations))
-    implementation(project(Modules.utils_date_time))
+    implementation(project(Modules.dataNetwork))
+    implementation(project(Modules.dataDb))
+    implementation(project(Modules.utilsCalculations))
+    implementation(project(Modules.utilsDateTime))
 
     implementation(Deps.Kotlin.coroutinesCore)
     implementation(Deps.Kotlin.coroutinesAndroid)

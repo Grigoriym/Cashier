@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
-import com.grappim.cashier.di.modules.DecimalFormatSimple
+import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.date_time.DateTimeUtils
 import com.grappim.domain.base.Result
 import com.grappim.domain.interactor.products.CreateProductUseCase

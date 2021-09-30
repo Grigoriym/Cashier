@@ -1,7 +1,6 @@
 package com.grappim.cashier.ui.menu
 
 import com.grappim.cashier.R
-import com.grappim.cashier.model.menu.MenuItemPm
 import com.grappim.domain.model.menu.MenuItemType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

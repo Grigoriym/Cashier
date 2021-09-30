@@ -21,7 +21,7 @@ import com.grappim.db.entity.ProductEntity
         BasketProductEntity::class
     ],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 @TypeConverters(
     BigDecimalConverter::class,
