@@ -1,4 +1,4 @@
-package com.grappim.cashier.compose
+package com.grappim.uikit.compose
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

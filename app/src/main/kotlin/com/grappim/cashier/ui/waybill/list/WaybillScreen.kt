@@ -27,10 +27,10 @@ import androidx.paging.compose.items
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.cashier.R
-import com.grappim.cashier.compose.BaseTopAppBar
-import com.grappim.cashier.compose.BigActionButtonCompose
-import com.grappim.cashier.compose.OutlinedTextFieldCompose
-import com.grappim.cashier.ui.theme.*
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.OutlinedTextFieldCompose
+import com.grappim.uikit.theme.*
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.domain.model.waybill.WaybillType
@@ -52,7 +52,7 @@ fun WaybillListScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            BaseTopAppBar(
+            com.grappim.uikit.compose.BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_acceptance),
                 backButtonTitle = stringResource(id = R.string.title_menu)
             ) {
@@ -60,7 +60,7 @@ fun WaybillListScreen(
             }
         },
         bottomBar = {
-            BigActionButtonCompose(
+            com.grappim.uikit.compose.BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_create_acceptance),
                 modifier = Modifier,
                 onButtonClick = onCreateAcceptanceClick
@@ -71,7 +71,7 @@ fun WaybillListScreen(
             modifier = Modifier
                 .padding(innerPadding)
         ) {
-            OutlinedTextFieldCompose(
+            com.grappim.uikit.compose.OutlinedTextFieldCompose(
                 modifier = Modifier
                     .padding(
                         top = 24.dp,

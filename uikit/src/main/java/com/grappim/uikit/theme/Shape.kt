@@ -1,4 +1,4 @@
-package com.grappim.cashier.ui.theme
+package com.grappim.uikit.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

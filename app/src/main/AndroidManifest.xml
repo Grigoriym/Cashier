@@ -44,7 +44,6 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Cashier.Splash"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>

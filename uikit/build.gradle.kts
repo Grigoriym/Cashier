@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
 }
 
@@ -12,60 +12,51 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    buildTypes {
-        getByName(BuildType.DEBUG) {
-            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-            isDebuggable = BuildTypeDebug.isDebuggable
-            isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
-        }
-
-        getByName(BuildType.RELEASE) {
-            isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
-            isDebuggable = BuildTypeRelease.isDebuggable
-            isTestCoverageEnabled = BuildTypeRelease.isTestCoverageEnabled
-
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    flavorDimensions.add(ConfigData.FLAVOR_ENVIRONMENT)
-    productFlavors {
-        create(ProductFlavor.DEV) {
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = "-dev"
-            dimension = ConfigData.FLAVOR_ENVIRONMENT
-        }
-        create(ProductFlavor.QA) {
-            applicationIdSuffix = ".qa"
-            versionNameSuffix = "-qa"
-            dimension = ConfigData.FLAVOR_ENVIRONMENT
-        }
-        create(ProductFlavor.PROD) {
-            applicationIdSuffix = ".prod"
-            versionNameSuffix = "-prod"
-            dimension = ConfigData.FLAVOR_ENVIRONMENT
-        }
+    buildFeatures {
+        compose = true
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
+    }
     kotlinOptions {
         jvmTarget = ConfigData.kotlinJvmTarget
+    }
+
+    val compilerArgs = listOf(
+        "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
+        "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi"
+    )
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions.freeCompilerArgs = compilerArgs
     }
 }
 
 dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.logger))
+    implementation(project(Modules.utilsCalculations))
 
-    implementation(Deps.Kotlin.coroutinesCore)
-    implementation(Deps.Kotlin.coroutinesAndroid)
+//    implementation(Deps.Kotlin.coroutinesCore)
+//    implementation(Deps.Kotlin.coroutinesAndroid)
+//
+//    implementation(Deps.AndroidX.core)
+//    implementation(Deps.AndroidX.appCompat)
 
-    implementation(Deps.AndroidX.core)
-    implementation(Deps.AndroidX.appCompat)
+    implementation(Deps.Google.material)
+
+    implementation(Deps.Compose.ui)
+    implementation(Deps.Compose.material)
+    implementation(Deps.Compose.toolingPreview)
+    implementation(Deps.Compose.uiTooling)
+    implementation(Deps.Compose.runtime)
+    implementation(Deps.Compose.runtimeLivedata)
+    implementation(Deps.Compose.foundation)
+    implementation(Deps.Compose.foundationLayout)
+    implementation(Deps.Compose.icons)
+    implementation(Deps.Compose.constraint)
 }

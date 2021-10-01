@@ -1,4 +1,4 @@
-package com.grappim.cashier.compose
+package com.grappim.uikit.compose
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,10 +18,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.cashier.R
-import com.grappim.cashier.ui.theme.CashierGreySuit
-import com.grappim.cashier.ui.theme.CashierLightGray
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.R
+import com.grappim.uikit.theme.CashierGreySuit
+import com.grappim.uikit.theme.CashierLightGray
+import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 fun OutlinedTextFieldCompose(

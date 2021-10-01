@@ -7,21 +7,16 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.grappim.cashier.R
-import com.grappim.cashier.compose.BaseTopAppBar
-import com.grappim.cashier.compose.BigActionButtonCompose
-import com.grappim.cashier.ui.theme.CashierLightGray
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 fun WaybillProductScreen(
@@ -37,13 +32,13 @@ fun WaybillProductScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            BaseTopAppBar(
+            com.grappim.uikit.compose.BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.acceptance_product),
                 backButtonAction = onBackClick
             )
         },
         bottomBar = {
-            BigActionButtonCompose(
+            com.grappim.uikit.compose.BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_add_product),
                 onButtonClick = onActionClick
             )

@@ -1,13 +1,3 @@
-//pluginManagement {
-//    repositories {
-//        gradlePluginPortal()
-//        google()
-//        mavenCentral()
-//    }
-//}
-
-rootProject.name = "Cashier"
-
 include(":app")
 include(":domain")
 
@@ -23,4 +13,5 @@ include(":feature:auth")
 include(":feature:waybill")
 
 include(":uikit")
-include(":dependencies")
+
+rootProject.name = "Cashier"

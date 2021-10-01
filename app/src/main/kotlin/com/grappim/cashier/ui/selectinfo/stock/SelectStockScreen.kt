@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.cashier.R
-import com.grappim.cashier.compose.BaseTopAppBar
-import com.grappim.cashier.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.domain.model.outlet.Stock
-import com.grappim.cashier.ui.theme.*
+import com.grappim.uikit.theme.*
 
 @Composable
 fun SelectStockScreen(
@@ -41,7 +41,7 @@ fun SelectStockScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            BaseTopAppBar(
+            com.grappim.uikit.compose.BaseTopAppBar(
                 toolbarTitle = "",
                 backButtonTitle = stringResource(id = R.string.action_back)
             ) {
@@ -49,7 +49,7 @@ fun SelectStockScreen(
             }
         },
         bottomBar = {
-            BigActionButtonCompose(
+            com.grappim.uikit.compose.BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_next),
                 onButtonClick = onNextClick,
                 isEnabled = selectedStock != null

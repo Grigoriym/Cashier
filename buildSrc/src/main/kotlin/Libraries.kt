@@ -7,6 +7,7 @@ object BuildPlugins {
     const val safeArgs =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}"
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
+    const val gradleVersions = "com.github.ben-manes:gradle-versions-plugin:${Versions.gradleVersions}"
 }
 
 object Deps {

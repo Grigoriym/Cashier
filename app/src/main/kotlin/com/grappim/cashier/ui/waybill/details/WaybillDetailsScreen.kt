@@ -27,12 +27,12 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.cashier.R
-import com.grappim.cashier.compose.BaseTopAppBar
-import com.grappim.cashier.compose.BigActionButtonCompose
-import com.grappim.cashier.compose.ItemProductCompose
-import com.grappim.cashier.compose.StandardFilledButton
-import com.grappim.cashier.ui.theme.CashierBlue
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.ItemProductCompose
+import com.grappim.uikit.compose.StandardFilledButton
+import com.grappim.uikit.theme.CashierBlue
+import com.grappim.uikit.theme.CashierTheme
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.model.waybill.WaybillStatus
@@ -54,7 +54,7 @@ fun WaybillDetailsScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            BaseTopAppBar(
+            com.grappim.uikit.compose.BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_create_acceptance),
                 backButtonAction = onBackClick
             )
@@ -163,7 +163,7 @@ private fun BottomBarSegment(
                     R.string.action_conduct
                 }
             }
-            BigActionButtonCompose(
+            com.grappim.uikit.compose.BigActionButtonCompose(
                 buttonText = stringResource(id = actionButtonText),
                 onButtonClick = onActionButtonClick
             )
@@ -242,7 +242,7 @@ private fun ActionButtonsSegment(
                 end = 16.dp
             )
     ) {
-        StandardFilledButton(
+        com.grappim.uikit.compose.StandardFilledButton(
             onButtonClick = onSearchClick,
             iconDrawable = R.drawable.ic_search,
             modifier = Modifier
@@ -251,7 +251,7 @@ private fun ActionButtonsSegment(
                     end = 8.dp
                 )
         )
-        StandardFilledButton(
+        com.grappim.uikit.compose.StandardFilledButton(
             onButtonClick = onScanClick,
             iconDrawable = R.drawable.ic_barcode,
             modifier = Modifier

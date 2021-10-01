@@ -1,4 +1,4 @@
-package com.grappim.cashier.compose
+package com.grappim.uikit.compose
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 fun LoaderDialogCompose(

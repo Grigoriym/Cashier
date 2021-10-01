@@ -1,4 +1,4 @@
-package com.grappim.cashier.compose
+package com.grappim.uikit.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.grappim.calculations.asBigDecimal
-import com.grappim.cashier.R
-import com.grappim.cashier.ui.theme.CashierBlue
-import com.grappim.cashier.ui.theme.CashierGray
-import com.grappim.cashier.ui.theme.CashierLightGray
-import com.grappim.cashier.ui.theme.CashierTheme
 import com.grappim.domain.model.waybill.WaybillProduct
+import com.grappim.uikit.R
+import com.grappim.uikit.theme.CashierBlue
+import com.grappim.uikit.theme.CashierGray
+import com.grappim.uikit.theme.CashierLightGray
+import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 fun ItemProductCompose(

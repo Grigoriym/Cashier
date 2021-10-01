@@ -11,4 +11,6 @@ object Modules {
     const val utilsCalculations = ":utils:calculations"
     const val utilsDateTime = ":utils:date-time"
 
+    const val uikit = ":uikit"
+
 }

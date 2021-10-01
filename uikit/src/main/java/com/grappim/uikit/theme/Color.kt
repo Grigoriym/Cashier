@@ -1,4 +1,4 @@
-package com.grappim.cashier.ui.theme
+package com.grappim.uikit.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -14,10 +14,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.cashier.R
-import com.grappim.cashier.compose.LoaderDialogCompose
+import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.WaybillSharedViewModel
 import com.grappim.domain.base.Result
 import com.grappim.domain.model.waybill.Waybill
@@ -77,7 +77,7 @@ class WaybillListFragment : Fragment() {
             }
         )
 
-        LoaderDialogCompose(show = viewModel.loading) {}
+        com.grappim.uikit.compose.LoaderDialogCompose(show = viewModel.loading) {}
 
         WaybillListScreen(
             onBackButtonPressed = {

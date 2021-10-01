@@ -113,6 +113,7 @@ dependencies {
     implementation(project(Modules.dataRepository))
 
     implementation(project(Modules.logger))
+    implementation(project(Modules.uikit))
 
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))

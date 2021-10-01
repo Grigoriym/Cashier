@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

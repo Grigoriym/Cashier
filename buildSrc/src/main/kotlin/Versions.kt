@@ -1,13 +1,14 @@
 object Versions {
 
     const val gradlePlugin = "7.0.2"
-    const val detekt = "1.17.1"
+    const val detekt = "1.18.1"
+    const val gradleVersions = "0.39.0"
 
     object Kotlin {
-        const val core = "1.5.30"
+        const val core = "1.5.31"
         const val coroutines = "1.5.2"
-        const val serialization = "1.3.0-RC"
-        const val time = "0.2.1"
+        const val serialization = "1.3.0"
+        const val time = "0.3.0"
     }
 
     object AndroidX {
@@ -26,12 +27,12 @@ object Versions {
         const val hiltAndroidX = "1.0.0"
 
         object Compose {
-            const val core = "1.1.0-alpha04"
-            const val lifecycle = "2.4.0-beta01"
+            const val core = "1.1.0-alpha05"
+            const val lifecycle = "2.4.0-rc01"
             const val paging = "1.0.0-alpha12"
-            const val constraint = "1.0.0-beta02"
+            const val constraint = "1.0.0-rc01"
             const val hiltNavigation = "1.0.0-alpha03"
-            const val navigation = "2.4.0-alpha09"
+            const val navigation = "2.4.0-alpha10"
         }
     }
 
@@ -42,7 +43,7 @@ object Versions {
         const val zxing = "3.3.0"
     }
 
-    const val accompanist = "0.17.0"
+    const val accompanist = "0.19.0"
 
     const val retrofit = "2.9.0"
     const val okHttp = "5.0.0-alpha.2"

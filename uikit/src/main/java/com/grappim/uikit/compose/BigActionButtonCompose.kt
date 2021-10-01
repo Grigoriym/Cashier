@@ -1,4 +1,4 @@
-package com.grappim.cashier.compose
+package com.grappim.uikit.compose
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,10 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.cashier.ui.theme.CashierBlue
-import com.grappim.cashier.ui.theme.CashierBlueDisabled
-import com.grappim.cashier.ui.theme.CashierGray
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.theme.CashierBlue
+import com.grappim.uikit.theme.CashierBlueDisabled
+import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 fun BigActionButtonCompose(

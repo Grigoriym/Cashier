@@ -17,10 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.cashier.R
-import com.grappim.cashier.compose.BaseTopAppBar
-import com.grappim.cashier.ui.theme.CashierBlue
-import com.grappim.cashier.ui.theme.CashierGreen
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.theme.CashierBlue
+import com.grappim.uikit.theme.CashierGreen
+import com.grappim.uikit.theme.CashierTheme
 import com.grappim.domain.model.menu.MenuItemType
 
 @Composable
@@ -33,7 +33,7 @@ fun MenuScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            BaseTopAppBar(
+            com.grappim.uikit.compose.BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_menu),
                 backButtonTitle = stringResource(id = R.string.action_back)
             ) {

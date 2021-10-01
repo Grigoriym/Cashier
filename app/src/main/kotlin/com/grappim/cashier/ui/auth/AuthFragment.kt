@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
-import com.grappim.cashier.compose.LoaderDialogCompose
+import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.cashier.core.extensions.getErrorMessage
 import com.grappim.cashier.core.extensions.showToast
-import com.grappim.cashier.ui.theme.CashierTheme
+import com.grappim.uikit.theme.CashierTheme
 import com.grappim.domain.base.Result
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +38,7 @@ class AuthFragment : Fragment() {
         val viewModel: AuthViewModel = viewModel()
         val loginStatus by viewModel.loginStatus
 
-        LoaderDialogCompose(
+        com.grappim.uikit.compose.LoaderDialogCompose(
             show = loginStatus is Result.Loading,
             onClose = {}
         )
