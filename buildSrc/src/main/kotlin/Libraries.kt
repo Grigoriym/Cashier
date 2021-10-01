@@ -7,7 +7,25 @@ object BuildPlugins {
     const val safeArgs =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}"
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
-    const val gradleVersions = "com.github.ben-manes:gradle-versions-plugin:${Versions.gradleVersions}"
+    const val gradleVersions =
+        "com.github.ben-manes:gradle-versions-plugin:${Versions.gradleVersions}"
+}
+
+object Plugins {
+    const val androidApplication = "com.android.application"
+    const val androidLibrary = "com.android.library"
+
+    const val kotlinParcelize = "kotlin-parcelize"
+    const val kotlinAndroid = "android"
+    const val kotlinKapt = "kapt"
+    const val kotlinJvm = "jvm"
+
+    const val javaLibrary = "java-library"
+
+    const val hiltAndroid = "dagger.hilt.android.plugin"
+    const val safeArgs = "androidx.navigation.safeargs.kotlin"
+    const val detekt = "io.gitlab.arturbosch.detekt"
+    const val gradleVersions = "com.github.ben-manes.versions"
 }
 
 object Deps {
@@ -24,6 +42,7 @@ object Deps {
     object AndroidX {
         const val core = "androidx.core:core-ktx:${Versions.AndroidX.core}"
         const val appCompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appCompat}"
+        const val fragment = "androidx.fragment:fragment-ktx:${Versions.AndroidX.fragment}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraint}"
         const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.AndroidX.viewPager2}"

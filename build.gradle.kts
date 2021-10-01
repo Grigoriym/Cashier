@@ -18,10 +18,11 @@ buildscript {
 
         classpath(BuildPlugins.detekt)
         classpath(BuildPlugins.gradleVersions)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
     }
 }
 
-apply(plugin = "com.github.ben-manes.versions")
+apply(plugin = Plugins.gradleVersions)
 
 allprojects {
     repositories {
@@ -44,27 +45,9 @@ fun isNonStable(version: String): Boolean {
 }
 
 tasks.withType<DependencyUpdatesTask> {
-
-    // Example 1: reject all non stable versions
-    rejectVersionIf {
-        isNonStable(candidate.version)
-    }
-
-//    // Example 2: disallow release candidates as upgradable versions from stable versions
     rejectVersionIf {
         isNonStable(candidate.version) && !isNonStable(currentVersion)
     }
-//
-//    // Example 3: using the full syntax
-//    resolutionStrategy {
-//        componentSelection {
-//            all {
-//                if (isNonStable(candidate.version) && !isNonStable(currentVersion)) {
-//                    reject("Release candidate")
-//                }
-//            }
-//        }
-//    }
 
     checkForGradleUpdate = true
     outputFormatter = "json"

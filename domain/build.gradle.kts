@@ -1,7 +1,7 @@
 plugins {
-    id("java-library")
-    kotlin("jvm")
-    kotlin("kapt")
+    id(Plugins.javaLibrary)
+    kotlin(Plugins.kotlinJvm)
+    kotlin(Plugins.kotlinKapt)
 }
 
 dependencies {

@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    id(Plugins.androidLibrary)
+    kotlin(Plugins.kotlinAndroid)
 }
 
 android {
@@ -12,10 +12,16 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        compose = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
     kotlinOptions {
         jvmTarget = ConfigData.kotlinJvmTarget
@@ -25,6 +31,7 @@ android {
 dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.logger))
+    implementation(project(Modules.uikit))
 
     implementation(Deps.Kotlin.coroutinesCore)
     implementation(Deps.Kotlin.coroutinesAndroid)

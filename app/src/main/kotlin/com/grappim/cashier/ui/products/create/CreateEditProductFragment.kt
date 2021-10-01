@@ -13,9 +13,9 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.chip.Chip
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.getErrorMessage
-import com.grappim.cashier.core.extensions.setSafeOnClickListener
-import com.grappim.cashier.core.extensions.showToast
+import com.grappim.extensions.getErrorMessage
+import com.grappim.extensions.setSafeOnClickListener
+import com.grappim.extensions.showToast
 import com.grappim.cashier.core.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentCreateEditProductBinding
 import com.grappim.domain.base.Result

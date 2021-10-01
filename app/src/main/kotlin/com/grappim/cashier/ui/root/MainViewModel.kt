@@ -2,8 +2,8 @@ package com.grappim.cashier.ui.root
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grappim.cashier.core.extensions.interval
-import com.grappim.cashier.data.workers.WorkerHelper
+import com.grappim.extensions.interval
+import com.grappim.myapplication.WorkerHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val workerHelper: WorkerHelper
+    private val workerHelper: com.grappim.myapplication.WorkerHelper
 ) : ViewModel() {
 
     private val sync = interval(15, TimeUnit.SECONDS)

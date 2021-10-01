@@ -1,11 +1,10 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
-    id("io.gitlab.arturbosch.detekt")
+    id(Plugins.androidApplication)
+    kotlin(Plugins.kotlinAndroid)
+    kotlin(Plugins.kotlinKapt)
+    id(Plugins.hiltAndroid)
+    id(Plugins.safeArgs)
+    id(Plugins.detekt)
 }
 
 android {
@@ -111,12 +110,17 @@ dependencies {
     implementation(project(Modules.dataNetwork))
     implementation(project(Modules.dataDb))
     implementation(project(Modules.dataRepository))
+    implementation(project(Modules.dataWorkers))
 
     implementation(project(Modules.logger))
     implementation(project(Modules.uikit))
 
+    implementation(project(Modules.featureAuth))
+    implementation(project(Modules.featureWaybill))
+
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
+    implementation(project(Modules.utilsExtensions))
 
     implementation(Deps.Kotlin.coroutinesCore)
     implementation(Deps.Kotlin.coroutinesAndroid)

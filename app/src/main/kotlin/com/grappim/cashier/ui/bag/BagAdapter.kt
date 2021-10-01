@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.hide
-import com.grappim.cashier.core.extensions.inflate
-import com.grappim.cashier.core.extensions.setStandardSettings
+import com.grappim.extensions.hide
+import com.grappim.extensions.inflate
+import com.grappim.extensions.setStandardSettings
 import com.grappim.cashier.databinding.ItemSalesProductBinding
 import com.grappim.cashier.ui.sales.SalesItemClickListener
 import com.grappim.domain.model.product.Product

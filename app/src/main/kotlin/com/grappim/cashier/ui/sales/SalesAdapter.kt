@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.*
 import com.grappim.cashier.databinding.ItemSalesProductBinding
 import com.grappim.domain.model.product.Product
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.calculations.bigDecimalZero
+import com.grappim.extensions.*
 import java.text.DecimalFormat
 
 class SalesAdapter(

@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    id(Plugins.androidLibrary)
+    kotlin(Plugins.kotlinAndroid)
 }
 
 android {
@@ -40,12 +40,6 @@ dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.logger))
     implementation(project(Modules.utilsCalculations))
-
-//    implementation(Deps.Kotlin.coroutinesCore)
-//    implementation(Deps.Kotlin.coroutinesAndroid)
-//
-//    implementation(Deps.AndroidX.core)
-//    implementation(Deps.AndroidX.appCompat)
 
     implementation(Deps.Google.material)
 

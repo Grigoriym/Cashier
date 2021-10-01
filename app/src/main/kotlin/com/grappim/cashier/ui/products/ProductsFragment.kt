@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayout
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.setSafeOnClickListener
+import com.grappim.extensions.setSafeOnClickListener
 import com.grappim.cashier.databinding.FragmentProductsBinding
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.domain.model.product.Category

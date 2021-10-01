@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.inflate
-import com.grappim.cashier.core.extensions.setSafeOnClickListener
+import com.grappim.extensions.inflate
+import com.grappim.extensions.setSafeOnClickListener
 import com.grappim.cashier.databinding.ItemPaymentMethodBinding
 import com.grappim.domain.model.payment.PaymentMethodType
 

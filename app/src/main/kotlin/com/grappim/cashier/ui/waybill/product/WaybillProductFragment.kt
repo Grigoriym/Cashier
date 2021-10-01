@@ -13,8 +13,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
 import com.grappim.cashier.core.delegate.lazyArg
-import com.grappim.cashier.core.extensions.getErrorMessage
-import com.grappim.cashier.core.extensions.showToast
+import com.grappim.extensions.getErrorMessage
+import com.grappim.extensions.showToast
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.details.WaybillDetailsFragment

@@ -11,7 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.showToast
+import com.grappim.extensions.showToast
 import com.grappim.cashier.databinding.FragmentScannerBinding
 import com.grappim.logger.logD
 import com.journeyapps.barcodescanner.BarcodeCallback

@@ -14,10 +14,11 @@ object Versions {
     object AndroidX {
         const val core = "1.6.0"
         const val appCompat = "1.3.1"
-        const val constraint = "2.1.0"
+        const val fragment = "1.3.6"
+        const val constraint = "2.1.1"
         const val paging = "3.0.1"
-        const val navigation = "2.4.0-alpha09"
-        const val lifecycle = "2.4.0-beta01"
+        const val navigation = "2.4.0-alpha10"
+        const val lifecycle = "2.4.0-rc01"
         const val room = "2.3.0"
         const val workManager = "2.5.0"
         const val startup = "1.1.0"
@@ -29,7 +30,7 @@ object Versions {
         object Compose {
             const val core = "1.1.0-alpha05"
             const val lifecycle = "2.4.0-rc01"
-            const val paging = "1.0.0-alpha12"
+            const val paging = "1.0.0-alpha13"
             const val constraint = "1.0.0-rc01"
             const val hiltNavigation = "1.0.0-alpha03"
             const val navigation = "2.4.0-alpha10"
@@ -39,7 +40,7 @@ object Versions {
     object Google {
         const val material = "1.4.0"
         const val gson = "2.8.8"
-        const val hilt = "2.38.1"
+        const val hilt = "2.39"
         const val zxing = "3.3.0"
     }
 
@@ -55,7 +56,7 @@ object Versions {
     const val chucker = "3.5.2"
     const val debugDb = "1.0.6"
     const val combineTuple = "1.2.1"
-    const val viewBinding = "1.4.6"
+    const val viewBinding = "1.4.7"
     const val zxing = "3.6.0"
 
 }

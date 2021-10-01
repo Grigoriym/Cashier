@@ -17,7 +17,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.cashier.R
 import com.grappim.cashier.core.delegate.lazyArg
-import com.grappim.cashier.core.extensions.*
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.cashier.ui.waybill.WaybillSharedViewModel
@@ -29,6 +28,9 @@ import com.grappim.domain.base.Result
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.date_time.DateTimeStandard
+import com.grappim.extensions.getErrorMessage
+import com.grappim.extensions.padWithZeros
+import com.grappim.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.DecimalFormat

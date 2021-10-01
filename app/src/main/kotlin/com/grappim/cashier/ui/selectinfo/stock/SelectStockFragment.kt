@@ -11,9 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
-import com.grappim.uikit.compose.LoaderDialogCompose
-import com.grappim.cashier.core.extensions.getErrorMessage
-import com.grappim.cashier.core.extensions.showToast
+import com.grappim.extensions.getErrorMessage
+import com.grappim.extensions.showToast
 import com.grappim.cashier.ui.root.MainViewModel
 import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint

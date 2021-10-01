@@ -7,9 +7,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
-import com.grappim.cashier.core.extensions.getErrorMessage
-import com.grappim.cashier.core.extensions.setSafeOnClickListener
-import com.grappim.cashier.core.extensions.showToast
+import com.grappim.extensions.getErrorMessage
+import com.grappim.extensions.setSafeOnClickListener
+import com.grappim.extensions.showToast
 import com.grappim.cashier.core.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentPaymentMethodBinding
 import com.grappim.calculations.DecimalFormatSimple
