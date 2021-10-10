@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
-import com.grappim.cashier.ui.root.MainViewModel
+import com.grappim.core.MainViewModel
 import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
 

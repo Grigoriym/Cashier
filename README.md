@@ -6,15 +6,23 @@
 
 ## There are different modules in this app:
 - app
+- core
 - domain
+- navigation
+- uikit
 - data
-    - data-db
-    - data-network
-    - data-repository
+    - db
+    - network
+    - repository
+    - workers
 - utils
-    - utils-date-time
-    - utils-logger
-    - utils-calculations
+    - date-time
+    - logger
+    - calculations
+    - extensions
+- features
+    - auth
+    - waybill
 
 ## Build With
 - [Kotlin](https://kotlinlang.org/)
@@ -40,3 +48,4 @@ Edit Product | Sales
 
 ## Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
+2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component

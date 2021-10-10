@@ -12,12 +12,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.grappim.cashier.R
-import com.grappim.uikit.theme.CashierTheme
 import com.grappim.domain.model.menu.MenuItemType
+import com.grappim.navigation.NavigationFlow
+import com.grappim.navigation.Navigator
+import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MenuFragment : Fragment() {
+
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +40,7 @@ class MenuFragment : Fragment() {
     private fun onItemClick(item: MenuItemPm) {
         when (item.type) {
             MenuItemType.ACCEPTANCE -> {
-                findNavController().navigate(R.id.action_menuFragment_to_acceptanceFragment)
+                navigator.navigateToFlow(NavigationFlow.WaybillFlow)
             }
             MenuItemType.PRODUCTS -> {
                 findNavController().navigate(R.id.action_menuFragment_to_productsFragment)

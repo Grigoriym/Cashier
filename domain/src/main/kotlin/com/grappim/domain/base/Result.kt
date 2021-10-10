@@ -6,4 +6,8 @@ sealed class Result<out Data> {
     object Initial : Result<Nothing>()
     data class Error(val exception: Throwable) : Result<Nothing>()
     data class Success<out Data>(val data: Data) : Result<Data>()
+
+    override fun toString(): String {
+        return super.toString()
+    }
 }

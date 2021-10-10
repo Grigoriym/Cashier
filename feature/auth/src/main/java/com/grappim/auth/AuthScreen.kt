@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierGreen
@@ -48,7 +49,7 @@ fun AuthScreen(
     Scaffold(
         modifier = Modifier,
         bottomBar = {
-            com.grappim.uikit.compose.BigActionButtonCompose(
+            BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_sign_in),
                 modifier = Modifier,
                 onButtonClick = {
@@ -296,7 +297,7 @@ fun PasswordTextField(
 @Preview
 fun PasswordTextFieldPreview() {
     CashierTheme {
-        com.grappim.auth.PasswordTextField(
+        PasswordTextField(
             password = "",
             onPasswordChange = {},
             onImeAction = {}
@@ -308,7 +309,7 @@ fun PasswordTextFieldPreview() {
 @Preview
 fun PhoneNumberTextFieldComposablePreview() {
     CashierTheme {
-        com.grappim.auth.PhoneNumberTextFieldComposable(
+        PhoneNumberTextFieldComposable(
             text = "",
             onTextChange = {},
             onImeAction = {},
@@ -321,7 +322,7 @@ fun PhoneNumberTextFieldComposablePreview() {
 @Preview
 fun AuthScreenPreview() {
     CashierTheme {
-        com.grappim.auth.AuthScreen(
+        AuthScreen(
             onSignInClick = {}
         )
     }
@@ -331,7 +332,7 @@ fun AuthScreenPreview() {
 @Preview(showBackground = true)
 fun AuthScreenContentPreview() {
     CashierTheme {
-        com.grappim.auth.AuthScreenContent(
+        AuthScreenContent(
             modifier = Modifier,
             phoneText = "",
             phoneSetText = {},

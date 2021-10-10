@@ -12,8 +12,8 @@ import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
 import com.grappim.cashier.R
 import com.grappim.extensions.showToast
-import com.grappim.cashier.databinding.FragmentScannerBinding
 import com.grappim.logger.logD
+import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import dagger.hilt.android.AndroidEntryPoint

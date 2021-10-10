@@ -2,8 +2,8 @@ plugins {
     id(Plugins.androidLibrary)
     kotlin(Plugins.kotlinAndroid)
     kotlin(Plugins.kotlinKapt)
-    id(Plugins.safeArgs)
     id(Plugins.hiltAndroid)
+    id(Plugins.safeArgs)
 }
 
 android {
@@ -44,6 +44,8 @@ dependencies {
     implementation(project(Modules.uikit))
     implementation(project(Modules.utilsExtensions))
     implementation(project(Modules.dataWorkers))
+    implementation(project(Modules.core))
+    implementation(project(Modules.navigation))
 
     implementation(Deps.Kotlin.coroutinesCore)
     implementation(Deps.Kotlin.coroutinesAndroid)
@@ -55,7 +57,6 @@ dependencies {
     implementation(Deps.AndroidX.appCompat)
 
     implementation(Deps.AndroidX.navigationFragment)
-    implementation(Deps.AndroidX.navigationRuntime)
     implementation(Deps.AndroidX.navigationUi)
 
     implementation(Deps.Google.material)

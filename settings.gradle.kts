@@ -1,5 +1,8 @@
+rootProject.name = "Cashier"
+
 include(":app")
 include(":domain")
+include(":core")
 
 include(":data:network")
 include(":data:repository")
@@ -15,5 +18,4 @@ include(":feature:auth")
 include(":feature:waybill")
 
 include(":uikit")
-
-rootProject.name = "Cashier"
+include(":navigation")

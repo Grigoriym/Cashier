@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/auth_flow">
+
+    <include app:graph="@navigation/auth_flow" />
+
+    <include app:graph="@navigation/main_flow" />
+
+    <include app:graph="@navigation/waybill_flow"/>
+
+    <action
+        android:id="@+id/action_authFlow_to_mainFlow"
+        app:destination="@id/main_flow"
+        app:enterAnim="@anim/enter_from_right"
+        app:exitAnim="@anim/exit_to_left"
+        app:popEnterAnim="@anim/pop_enter_from_left"
+        app:popExitAnim="@anim/pop_exit_to_right" />
+
+    <action
+        android:id="@+id/action_mainFlow_to_waybillFlow"
+        app:destination="@id/waybill_flow"
+        app:enterAnim="@anim/enter_from_right"
+        app:exitAnim="@anim/exit_to_left"
+        app:popEnterAnim="@anim/pop_enter_from_left"
+        app:popExitAnim="@anim/pop_exit_to_right" />
+
+</navigation>

@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.grappim.cashier.R
+import com.grappim.domain.model.product.Product
 import com.grappim.extensions.inflate
 import com.grappim.extensions.setSafeOnClickListener
 import com.grappim.extensions.setStandardSettings
-import com.grappim.cashier.databinding.ItemProductBinding
-import com.grappim.domain.model.product.Product
+import com.grappim.uikit.databinding.ItemProductBinding
 import java.text.DecimalFormat
 
 class ProductsAdapter(

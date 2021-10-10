@@ -2,6 +2,9 @@ object Modules {
 
     const val app = ":app"
     const val domain = ":domain"
+    const val core = ":core"
+    const val navigation = ":navigation"
+    const val uikit = ":uikit"
 
     const val dataNetwork = ":data:network"
     const val dataDb = ":data:db"
@@ -12,8 +15,6 @@ object Modules {
     const val utilsCalculations = ":utils:calculations"
     const val utilsDateTime = ":utils:date-time"
     const val utilsExtensions = ":utils:extensions"
-
-    const val uikit = ":uikit"
 
     const val featureAuth = ":feature:auth"
     const val featureWaybill = ":feature:waybill"

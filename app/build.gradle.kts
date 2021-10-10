@@ -106,14 +106,15 @@ android {
 
 dependencies {
     implementation(project(Modules.domain))
+    implementation(project(Modules.core))
+    implementation(project(Modules.navigation))
+    implementation(project(Modules.logger))
+    implementation(project(Modules.uikit))
 
     implementation(project(Modules.dataNetwork))
     implementation(project(Modules.dataDb))
     implementation(project(Modules.dataRepository))
     implementation(project(Modules.dataWorkers))
-
-    implementation(project(Modules.logger))
-    implementation(project(Modules.uikit))
 
     implementation(project(Modules.featureAuth))
     implementation(project(Modules.featureWaybill))
@@ -135,7 +136,6 @@ dependencies {
     implementation(Deps.AndroidX.startup)
 
     implementation(Deps.AndroidX.navigationFragment)
-    implementation(Deps.AndroidX.navigationRuntime)
     implementation(Deps.AndroidX.navigationUi)
 
     implementation(Deps.AndroidX.lifecycleLiveData)
@@ -174,7 +174,6 @@ dependencies {
     implementation(Deps.Google.zxingCore)
     implementation(Deps.combineTuple)
     implementation(Deps.recyclerViewAnimators)
-    implementation(Deps.circularProgressBar)
     implementation(Deps.viewBinding)
     implementation(Deps.coil)
     implementation(Deps.coilCompose)

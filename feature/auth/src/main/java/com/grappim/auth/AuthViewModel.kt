@@ -1,10 +1,10 @@
 package com.grappim.auth
 
 import androidx.annotation.MainThread
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grappim.core.SingleLiveEvent
 import com.grappim.domain.base.Result
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.GeneralRepository
@@ -25,10 +25,8 @@ class AuthViewModel @Inject constructor(
         clearData()
     }
 
-    private val _loginStatus = mutableStateOf<Result<Unit>>(
-        Result.Empty
-    )
-    val loginStatus: State<Result<Unit>>
+    private val _loginStatus = SingleLiveEvent<Result<Unit>>()
+    val loginStatus: LiveData<Result<Unit>>
         get() = _loginStatus
 
     fun login(authTextFieldsData: AuthTextFieldsData) {
@@ -56,10 +54,6 @@ class AuthViewModel @Inject constructor(
                 _loginStatus.value = it
             }
         }
-    }
-
-    fun loginStatusDuctTape() {
-        _loginStatus.value = Result.Empty
     }
 
     private fun clearData() {

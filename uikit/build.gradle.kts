@@ -13,6 +13,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
+        viewBinding = true
         compose = true
     }
 
@@ -42,6 +43,15 @@ dependencies {
     implementation(project(Modules.utilsCalculations))
 
     implementation(Deps.Google.material)
+
+    implementation(Deps.zxing) {
+        isTransitive = false
+    }
+    implementation(Deps.Google.zxingCore)
+
+    implementation(Deps.AndroidX.swipeRefresh)
+    implementation(Deps.circularProgressBar)
+    implementation(Deps.viewBinding)
 
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)

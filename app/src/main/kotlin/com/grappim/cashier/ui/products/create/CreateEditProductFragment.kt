@@ -16,7 +16,7 @@ import com.grappim.cashier.R
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.setSafeOnClickListener
 import com.grappim.extensions.showToast
-import com.grappim.cashier.core.view.CashierLoaderDialog
+import com.grappim.uikit.view.CashierLoaderDialog
 import com.grappim.cashier.databinding.FragmentCreateEditProductBinding
 import com.grappim.domain.base.Result
 import com.grappim.domain.model.base.ProductUnit
