@@ -24,11 +24,43 @@ class Navigator @Inject constructor(
     fun navigateToFlow(
         navigationFlow: NavigationFlow
     ) = when (navigationFlow) {
-        NavigationFlow.MainFlow -> {
-            navController.navigate(MainNavGraphDirections.actionAuthFlowToMainFlow())
+        NavigationFlow.SelectInfoStockFlow -> {
+            navController.navigate(MainNavGraphDirections.actionAuthFlowToStockFlow())
+        }
+        NavigationFlow.SelectInfoCashierFlow -> {
+            navController.navigate(MainNavGraphDirections.actionSelectStockFlowToSelectCashboxFlow())
+        }
+        NavigationFlow.MenuFlow -> {
+            navController.navigate(MainNavGraphDirections.actionSelectCashboxFlowToMenuFlow())
         }
         NavigationFlow.WaybillFlow -> {
             navController.navigate(MainNavGraphDirections.actionMainFlowToWaybillFlow())
+        }
+        NavigationFlow.BagFlow -> {
+            navController.navigate(MainNavGraphDirections.actionSalesFlowToBagFlow())
+        }
+        NavigationFlow.PaymentMethod -> {
+            navController.navigate(MainNavGraphDirections.actionBagFlowToPaymentMethodFlow())
+        }
+        NavigationFlow.SalesFlow -> {
+            navController.navigate(MainNavGraphDirections.actionMenuFlowToSalesFlow())
+        }
+        NavigationFlow.PaymentMethodToSales -> {
+            navController.deepLinkNavigateTo(
+                DeepLinkDestination.PaymentMethodFlowToSalesFlow
+            )
+        }
+        NavigationFlow.ProductsFlow -> {
+            navController.navigate(MainNavGraphDirections.actionMenuFlowToProductsFlow())
+        }
+        NavigationFlow.CreateEditProductFlow -> {
+
+        }
+        NavigationFlow.ScannerFlow -> {
+
+        }
+        NavigationFlow.MainFlow -> {
+//            navController.navigate()
         }
     }
 }

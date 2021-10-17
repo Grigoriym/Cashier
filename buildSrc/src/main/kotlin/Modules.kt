@@ -18,5 +18,13 @@ object Modules {
 
     const val featureAuth = ":feature:auth"
     const val featureWaybill = ":feature:waybill"
+    const val featureSelectStock = ":feature:select-stock"
+    const val featureSelectCashBox = ":feature:select-cashbox"
+    const val featureBag = ":feature:bag"
+    const val featurePaymentMethod = ":feature:payment-method"
+    const val featureSales = ":feature:sales"
+    const val featureMenu = ":feature:menu"
+    const val featureProducts = ":feature:products"
+    const val featureScanner = ":feature:scanner"
 
 }

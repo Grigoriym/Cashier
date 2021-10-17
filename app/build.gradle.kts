@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id(Plugins.androidApplication)
     kotlin(Plugins.kotlinAndroid)
@@ -99,7 +101,7 @@ android {
         "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
         "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
     )
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions.freeCompilerArgs = compilerArgs
     }
 }
@@ -118,6 +120,14 @@ dependencies {
 
     implementation(project(Modules.featureAuth))
     implementation(project(Modules.featureWaybill))
+    implementation(project(Modules.featureSelectCashBox))
+    implementation(project(Modules.featureSelectStock))
+    implementation(project(Modules.featureBag))
+    implementation(project(Modules.featurePaymentMethod))
+    implementation(project(Modules.featureSales))
+    implementation(project(Modules.featureMenu))
+    implementation(project(Modules.featureProducts))
+    implementation(project(Modules.featureScanner))
 
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))

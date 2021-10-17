@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/waybill_flow"
+    android:id="@id/waybill_flow"
     app:startDestination="@id/waybillListFragment">
+
+    <fragment
+        android:id="@+id/waybillListFragment"
+        android:name="com.grappim.waybill.list.WaybillListFragment">
+        <action
+            android:id="@+id/action_waybill_to_waybillDetails"
+            app:destination="@id/waybillDetailsFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/pop_enter_from_left"
+            app:popExitAnim="@anim/pop_exit_to_right">
+            <argument
+                android:name="waybill"
+                app:argType="com.grappim.domain.model.waybill.Waybill" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/waybillScannerFragment"
@@ -83,21 +99,6 @@
             app:popExitAnim="@anim/pop_exit_to_right"
             app:popUpTo="@id/waybillListFragment"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/waybillListFragment"
-        android:name="com.grappim.waybill.list.WaybillListFragment">
-        <action
-            android:id="@+id/action_waybill_to_waybillDetails"
-            app:destination="@id/waybillDetailsFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/pop_enter_from_left"
-            app:popExitAnim="@anim/pop_exit_to_right">
-            <argument
-                android:name="waybill"
-                app:argType="com.grappim.domain.model.waybill.Waybill" />
-        </action>
     </fragment>
 
 </navigation>

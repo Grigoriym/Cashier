@@ -69,7 +69,7 @@ class AuthFragment : Fragment() {
     private fun showLoginStatus(data: Result<Unit>?) {
         when (data) {
             is Result.Success -> {
-                navigator.navigateToFlow(NavigationFlow.MainFlow)
+                navigator.navigateToFlow(NavigationFlow.SelectInfoStockFlow)
             }
             is Result.Error -> {
                 showToast(getErrorMessage(data.exception))

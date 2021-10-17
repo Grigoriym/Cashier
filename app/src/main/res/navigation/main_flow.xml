@@ -1,164 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@id/main_flow"
-    app:startDestination="@id/selectOutletFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <fragment
-        android:id="@+id/selectOutletFragment"
-        android:name="com.grappim.cashier.ui.selectinfo.stock.SelectStockFragment">
-        <action
-            android:id="@+id/action_selectOutletFragment_to_selectCashierFragment"
-            app:destination="@id/selectCashierFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/pop_enter_from_left"
-            app:popExitAnim="@anim/pop_exit_to_right" />
-    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/scannerFragment"-->
+<!--        android:name="com.grappim.scanner.ScannerFragment">-->
+<!--        <argument-->
+<!--            android:name="scan_type"-->
+<!--            android:defaultValue="SINGLE"-->
+<!--            app:argType="com.grappim.scanner.ScanType" />-->
 
-    <fragment
-        android:id="@+id/selectCashierFragment"
-        android:name="com.grappim.cashier.ui.selectinfo.cashbox.SelectCashierFragment">
-        <action
-            android:id="@+id/action_selectCashierFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/pop_enter_from_left"
-            app:popExitAnim="@anim/pop_exit_to_right" />
-    </fragment>
+<!--        <action-->
+<!--            android:id="@+id/action_scanner_to_createProduct"-->
+<!--            app:destination="@id/createEditProductFragment"-->
+<!--            app:popUpTo="@id/scannerFragment"-->
+<!--            app:popUpToInclusive="true">-->
+<!--            <argument-->
+<!--                android:name="barcode"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+<!--    </fragment>-->
 
-    <fragment
-        android:id="@+id/productsFragment"
-        android:name="com.grappim.cashier.ui.products.ProductsFragment">
-        <action
-            android:id="@+id/action_products_to_createProduct"
-            app:destination="@id/createEditProductFragment">
-            <argument
-                android:name="flow_type"
-                android:defaultValue="CREATE"
-                app:argType="com.grappim.cashier.ui.products.create.CreateEditFlow" />
-        </action>
-        <action
-            android:id="@+id/action_products_to_editProduct"
-            app:destination="@id/createEditProductFragment">
-            <argument
-                android:name="flow_type"
-                android:defaultValue="EDIT"
-                app:argType="com.grappim.cashier.ui.products.create.CreateEditFlow" />
-            <argument
-                android:name="product"
-                app:argType="com.grappim.domain.model.product.Product" />
-        </action>
-    </fragment>
 
-    <fragment
-        android:id="@+id/scannerFragment"
-        android:name="com.grappim.cashier.ui.scanner.ScannerFragment">
-        <argument
-            android:name="scan_type"
-            android:defaultValue="SINGLE"
-            app:argType="com.grappim.cashier.ui.scanner.ScanType" />
-
-        <action
-            android:id="@+id/action_scanner_to_createProduct"
-            app:destination="@id/createEditProductFragment"
-            app:popUpTo="@id/scannerFragment"
-            app:popUpToInclusive="true">
-            <argument
-                android:name="barcode"
-                app:argType="string" />
-        </action>
-    </fragment>
-
-    <fragment
-        android:id="@+id/createEditProductFragment"
-        android:name="com.grappim.cashier.ui.products.create.CreateEditProductFragment">
-        <argument
-            android:name="flow_type"
-            android:defaultValue="CREATE"
-            app:argType="com.grappim.cashier.ui.products.create.CreateEditFlow" />
-        <argument
-            android:name="barcode"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="product"
-            android:defaultValue="@null"
-            app:argType="com.grappim.domain.model.product.Product"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_createProduct_to_scanner"
-            app:destination="@id/scannerFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/pop_enter_from_left"
-            app:popExitAnim="@anim/pop_exit_to_right"
-            app:popUpTo="@id/salesFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/menuFragment"
-        android:name="com.grappim.cashier.ui.menu.MenuFragment">
-        <action
-            android:id="@+id/action_menuFragment_to_productsFragment"
-            app:destination="@+id/productsFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/pop_enter_from_left"
-            app:popExitAnim="@anim/pop_exit_to_right" />
-        <action
-            android:id="@+id/action_menuFragment_to_salesFragment"
-            app:destination="@id/salesFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/pop_enter_from_left"
-            app:popExitAnim="@anim/pop_exit_to_right" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/salesFragment"
-        android:name="com.grappim.cashier.ui.sales.SalesFragment">
-        <action
-            android:id="@+id/action_salesFragment_to_scannerFragment"
-            app:destination="@id/scannerFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/pop_enter_from_left"
-            app:popExitAnim="@anim/pop_exit_to_right">
-            <argument
-                android:name="scan_type"
-                android:defaultValue="SINGLE"
-                app:argType="com.grappim.cashier.ui.scanner.ScanType" />
-        </action>
-
-        <action
-            android:id="@+id/action_salesFragment_to_bagFragment"
-            app:destination="@id/bagFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/bagFragment"
-        android:name="com.grappim.cashier.ui.bag.BagFragment">
-        <action
-            android:id="@+id/action_bagFragment_to_paymentMethod"
-            app:destination="@id/paymentMethodFragment" />
-        <action
-            android:id="@+id/action_bagFragment_to_scannerFragment"
-            app:destination="@id/scannerFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/paymentMethodFragment"
-        android:name="com.grappim.cashier.ui.paymentmethod.PaymentMethodFragment">
-        <action
-            android:id="@+id/action_paymentMethod_to_salesFragment"
-            app:destination="@id/salesFragment"
-            app:popUpTo="@id/salesFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/salesFragment"-->
+<!--        android:name="com.grappim.sales.SalesFragment">-->
+<!--        <action-->
+<!--            android:id="@+id/action_salesFragment_to_scannerFragment"-->
+<!--            app:destination="@id/scannerFragment"-->
+<!--            app:enterAnim="@anim/enter_from_right"-->
+<!--            app:exitAnim="@anim/exit_to_left"-->
+<!--            app:popEnterAnim="@anim/pop_enter_from_left"-->
+<!--            app:popExitAnim="@anim/pop_exit_to_right">-->
+<!--            <argument-->
+<!--                android:name="scan_type"-->
+<!--                android:defaultValue="SINGLE"-->
+<!--                app:argType="com.grappim.scanner.ScanType" />-->
+<!--        </action>-->
+<!--    </fragment>-->
 
 </navigation>

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="auth_flow" type="id"/>
-    <item name="main_flow" type="id"/>
-    <item name="waybill_flow" type="id"/>
+    <item name="auth_flow" type="id" />
+    <item name="main_flow" type="id" />
+    <item name="waybill_flow" type="id" />
+    <item name="bag_flow" type="id" />
+    <item name="payment_method_flow" type="id" />
+    <item name="sales_flow" type="id" />
+    <item name="select_cashbox_flow" type="id" />
+    <item name="select_stock_flow" type="id" />
+    <item name="menu_flow" type="id" />
+    <item name="products_flow" type="id" />
+    <item name="scanner_flow" type="id" />
 </resources>
