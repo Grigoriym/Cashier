@@ -1,27 +1,11 @@
 plugins {
     id(Plugins.androidLibrary)
-    kotlin(Plugins.kotlinAndroid)
-    kotlin(Plugins.kotlinKapt)
+    id(Plugins.grappimAndroidPlugin)
     id(Plugins.safeArgs)
 }
 
 android {
-    compileSdk = ConfigData.compileSdk
 
-    defaultConfig {
-        minSdk = ConfigData.minSdk
-        targetSdk = ConfigData.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = ConfigData.kotlinJvmTarget
-    }
 }
 
 dependencies {

@@ -1,27 +1,10 @@
 plugins {
     id(Plugins.androidLibrary)
-    kotlin(Plugins.kotlinAndroid)
+    id(Plugins.grappimAndroidPlugin)
 }
 
 android {
-    compileSdk = ConfigData.compileSdk
 
-    defaultConfig {
-        minSdk = ConfigData.minSdk
-        targetSdk = ConfigData.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = ConfigData.kotlinJvmTarget
-    }
 }
 
 dependencies {
@@ -29,8 +12,6 @@ dependencies {
     implementation(project(Modules.uikit))
     implementation(project(Modules.domain))
 
-    implementation(Deps.AndroidX.core)
-    implementation(Deps.AndroidX.appCompat)
     implementation(Deps.AndroidX.fragment)
 
     implementation(Deps.AndroidX.lifecycleViewModel)

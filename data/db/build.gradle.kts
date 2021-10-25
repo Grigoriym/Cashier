@@ -1,19 +1,11 @@
 plugins {
     id(Plugins.androidLibrary)
-    kotlin(Plugins.kotlinAndroid)
-    kotlin(Plugins.kotlinKapt)
+    id(Plugins.grappimAndroidPlugin)
     id(Plugins.kotlinParcelize)
 }
 
 android {
-    compileSdk = ConfigData.compileSdk
-
     defaultConfig {
-        minSdk = ConfigData.minSdk
-        targetSdk = ConfigData.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += mapOf(
@@ -23,20 +15,6 @@ android {
             }
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = ConfigData.kotlinJvmTarget
-    }
-
-    val compilerArgs = listOf(
-        "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi",
-    )
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs = compilerArgs
-    }
 }
 
 dependencies {
@@ -44,8 +22,6 @@ dependencies {
     implementation(project(Modules.logger))
     implementation(project(Modules.utilsCalculations))
 
-    implementation(Deps.Kotlin.coroutinesCore)
-    implementation(Deps.Kotlin.coroutinesAndroid)
     implementation(Deps.Kotlin.serialization)
 
     api(Deps.AndroidX.roomCore)

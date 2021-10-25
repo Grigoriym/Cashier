@@ -1,47 +1,19 @@
 plugins {
     id(Plugins.androidLibrary)
-    kotlin(Plugins.kotlinAndroid)
-    kotlin(Plugins.kotlinKapt)
+    id(Plugins.grappimAndroidPlugin)
     id(Plugins.hiltAndroid)
 }
 
 android {
-    compileSdk = ConfigData.compileSdk
-
     defaultConfig {
-        minSdk = ConfigData.minSdk
-        targetSdk = ConfigData.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         buildConfigField(
             "String",
             "CASHIER_API",
             "\"https://quiet-shore-01215.herokuapp.com/\""
         )
     }
-
-    buildTypes {
-        getByName("debug") {
-            isMinifyEnabled = false
-        }
-        getByName("release") {
-            isMinifyEnabled = true
-
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = ConfigData.kotlinJvmTarget
     }
 }
 
@@ -50,9 +22,6 @@ dependencies {
     implementation(project(Modules.logger))
     implementation(project(Modules.dataDb))
     implementation(project(Modules.utilsDateTime))
-
-    implementation(Deps.Kotlin.coroutinesCore)
-    implementation(Deps.Kotlin.coroutinesAndroid)
 
     implementation(Deps.Google.hilt)
     kapt(Deps.Google.hiltAndroidCompiler)

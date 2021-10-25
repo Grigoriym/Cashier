@@ -2,24 +2,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id(Plugins.androidApplication)
-    kotlin(Plugins.kotlinAndroid)
-    kotlin(Plugins.kotlinKapt)
+    id(Plugins.grappimAndroidPlugin)
     id(Plugins.hiltAndroid)
     id(Plugins.safeArgs)
     id(Plugins.detekt)
 }
 
 android {
-    compileSdk = ConfigData.compileSdk
-
     defaultConfig {
         applicationId = "com.grappim.cashier"
-        minSdk = ConfigData.minSdk
-        targetSdk = ConfigData.targetSdk
         versionCode = 1
         versionName = "1.0.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     lint {
@@ -48,6 +41,9 @@ android {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
             isDebuggable = BuildTypeDebug.isDebuggable
             isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
+
+            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
+            versionNameSuffix = BuildTypeDebug.versionNameSuffix
         }
 
         getByName(BuildType.RELEASE) {
@@ -81,28 +77,22 @@ android {
         }
     }
 
+    variantFilter {
+        val flavorNames = flavors.map { it.name }
+        if (buildType.name == BuildType.RELEASE && flavorNames.contains(ProductFlavor.DEV)) {
+            ignore = true
+        }
+        if (buildType.name == BuildType.RELEASE && flavorNames.contains(ProductFlavor.QA)) {
+            ignore = true
+        }
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
-
-    kotlinOptions {
-        jvmTarget = ConfigData.kotlinJvmTarget
-    }
-
-    val compilerArgs = listOf(
-        "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
-        "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
-        "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
-    )
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs = compilerArgs
     }
 }
 

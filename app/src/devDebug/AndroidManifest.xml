@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.grappim.cashier">
+
+    <application
+        android:label="@string/app_name_dev"
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,MissingApplicationIcon,UnusedAttribute"
+        tools:replace="usesCleartextTraffic,label" />
+
+</manifest>

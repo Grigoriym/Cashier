@@ -1,39 +1,16 @@
 plugins {
     id(Plugins.androidLibrary)
-    kotlin(Plugins.kotlinAndroid)
+    id(Plugins.grappimAndroidPlugin)
 }
 
 android {
-    compileSdk = ConfigData.compileSdk
-
-    defaultConfig {
-        minSdk = ConfigData.minSdk
-        targetSdk = ConfigData.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
     buildFeatures {
         viewBinding = true
         compose = true
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
-    kotlinOptions {
-        jvmTarget = ConfigData.kotlinJvmTarget
-    }
-
-    val compilerArgs = listOf(
-        "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
-        "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi"
-    )
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs = compilerArgs
     }
 }
 
