@@ -18,15 +18,10 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.domain))
-    implementation(project(Modules.logger))
     implementation(project(Modules.utilsCalculations))
 
     implementation(Deps.Kotlin.serialization)
 
     api(Deps.AndroidX.roomCore)
     kapt(Deps.AndroidX.roomCompiler)
-
-    implementation(Deps.Google.hilt)
-    kapt(Deps.Google.hiltAndroidCompiler)
 }

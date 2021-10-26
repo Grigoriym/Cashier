@@ -8,7 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.logger))
     implementation(project(Modules.uikit))
     implementation(project(Modules.domain))
 

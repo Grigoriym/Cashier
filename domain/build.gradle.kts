@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.logger))
+    implementation(project(Modules.utilsLogger))
     implementation(project(Modules.utilsCalculations))
 
     implementation(Deps.Kotlin.coroutinesCore)

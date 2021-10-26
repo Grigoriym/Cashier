@@ -18,7 +18,6 @@ buildscript {
 
         classpath(BuildPlugins.detekt)
         classpath(BuildPlugins.gradleVersions)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
     }
 }
 

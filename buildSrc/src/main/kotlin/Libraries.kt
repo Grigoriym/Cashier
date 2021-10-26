@@ -1,35 +1,3 @@
-object BuildPlugins {
-    const val androidGradle = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
-    const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Kotlin.core}"
-    const val kotlinSerialization =
-        "org.jetbrains.kotlin:kotlin-serialization:${Versions.Kotlin.core}"
-    const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.Google.hilt}"
-    const val safeArgs =
-        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}"
-    const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
-    const val gradleVersions =
-        "com.github.ben-manes:gradle-versions-plugin:${Versions.gradleVersions}"
-}
-
-object Plugins {
-    const val androidApplication = "com.android.application"
-    const val androidLibrary = "com.android.library"
-
-    const val grappimAndroidPlugin = "com.grappim.plugin.android"
-
-    const val kotlinParcelize = "kotlin-parcelize"
-    const val kotlinAndroid = "android"
-    const val kotlinKapt = "kapt"
-    const val kotlinJvm = "jvm"
-
-    const val javaLibrary = "java-library"
-
-    const val hiltAndroid = "dagger.hilt.android.plugin"
-    const val safeArgs = "androidx.navigation.safeargs.kotlin"
-    const val detekt = "io.gitlab.arturbosch.detekt"
-    const val gradleVersions = "com.github.ben-manes.versions"
-}
-
 object Deps {
     object Kotlin {
         const val coroutinesCore =

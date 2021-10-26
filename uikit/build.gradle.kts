@@ -16,7 +16,6 @@ android {
 
 dependencies {
     implementation(project(Modules.domain))
-    implementation(project(Modules.logger))
     implementation(project(Modules.utilsCalculations))
 
     implementation(Deps.Google.material)

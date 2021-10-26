@@ -9,7 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.logger))
     implementation(project(Modules.uikit))
 
     implementation(Deps.AndroidX.navigationFragment)

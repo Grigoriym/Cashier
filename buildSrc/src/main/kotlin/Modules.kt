@@ -11,7 +11,7 @@ object Modules {
     const val dataRepository = ":data:repository"
     const val dataWorkers = ":data:workers"
 
-    const val logger = ":utils:logger"
+    const val utilsLogger = ":utils:logger"
     const val utilsCalculations = ":utils:calculations"
     const val utilsDateTime = ":utils:date-time"
     const val utilsExtensions = ":utils:extensions"

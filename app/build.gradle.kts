@@ -1,10 +1,12 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import commons.buildTypes.BuildTypeDebug
+import commons.buildTypes.BuildTypeRelease
+import commons.flavors.ProductFlavorDev
+import commons.flavors.ProductFlavorProd
+import commons.flavors.ProductFlavorQa
 
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.grappimAndroidPlugin)
-    id(Plugins.hiltAndroid)
-    id(Plugins.safeArgs)
     id(Plugins.detekt)
 }
 
@@ -36,57 +38,6 @@ android {
         enableAggregatingTask = true
     }
 
-    buildTypes {
-        getByName(BuildType.DEBUG) {
-            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-            isDebuggable = BuildTypeDebug.isDebuggable
-            isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
-
-            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
-            versionNameSuffix = BuildTypeDebug.versionNameSuffix
-        }
-
-        getByName(BuildType.RELEASE) {
-            isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
-            isDebuggable = BuildTypeRelease.isDebuggable
-            isTestCoverageEnabled = BuildTypeRelease.isTestCoverageEnabled
-
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    flavorDimensions.add(ConfigData.FLAVOR_ENVIRONMENT)
-    productFlavors {
-        create(ProductFlavor.DEV) {
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = "-dev"
-            dimension = ConfigData.FLAVOR_ENVIRONMENT
-        }
-        create(ProductFlavor.QA) {
-            applicationIdSuffix = ".qa"
-            versionNameSuffix = "-qa"
-            dimension = ConfigData.FLAVOR_ENVIRONMENT
-        }
-        create(ProductFlavor.PROD) {
-            applicationIdSuffix = ".prod"
-            versionNameSuffix = "-prod"
-            dimension = ConfigData.FLAVOR_ENVIRONMENT
-        }
-    }
-
-    variantFilter {
-        val flavorNames = flavors.map { it.name }
-        if (buildType.name == BuildType.RELEASE && flavorNames.contains(ProductFlavor.DEV)) {
-            ignore = true
-        }
-        if (buildType.name == BuildType.RELEASE && flavorNames.contains(ProductFlavor.QA)) {
-            ignore = true
-        }
-    }
-
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
@@ -94,49 +45,46 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
+
+    buildTypes {
+        BuildTypeDebug.appCreate(this)
+        BuildTypeRelease.appCreate(
+            namedDomainObjectContainer = this,
+            proguardFile = getDefaultProguardFile("proguard-android-optimize.txt")
+        )
+    }
+    flavorDimensions.add(ConfigData.FLAVOR_ENVIRONMENT)
+    productFlavors {
+        ProductFlavorDev.appCreate(this)
+        ProductFlavorQa.appCreate(this)
+        ProductFlavorProd.appCreate(this)
+    }
+    variantFilter {
+        val flavorNames = flavors.map { it.name }
+        if (buildType.name == BuildTypeRelease.name && flavorNames.contains(ProductFlavorDev.name)) {
+            ignore = true
+        }
+        if (buildType.name == BuildTypeRelease.name && flavorNames.contains(ProductFlavorQa.name)) {
+            ignore = true
+        }
+    }
 }
 
 dependencies {
-    implementation(project(Modules.domain))
-    implementation(project(Modules.core))
-    implementation(project(Modules.navigation))
-    implementation(project(Modules.logger))
-    implementation(project(Modules.uikit))
-
     implementation(project(Modules.dataNetwork))
     implementation(project(Modules.dataDb))
     implementation(project(Modules.dataRepository))
     implementation(project(Modules.dataWorkers))
 
-    implementation(project(Modules.featureAuth))
-    implementation(project(Modules.featureWaybill))
-    implementation(project(Modules.featureSelectCashBox))
-    implementation(project(Modules.featureSelectStock))
-    implementation(project(Modules.featureBag))
-    implementation(project(Modules.featurePaymentMethod))
-    implementation(project(Modules.featureSales))
-    implementation(project(Modules.featureMenu))
-    implementation(project(Modules.featureProducts))
-    implementation(project(Modules.featureScanner))
-
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
-    implementation(project(Modules.utilsExtensions))
 
-    implementation(Deps.Kotlin.coroutinesCore)
-    implementation(Deps.Kotlin.coroutinesAndroid)
-
-    implementation(Deps.AndroidX.core)
-    implementation(Deps.AndroidX.appCompat)
     implementation(Deps.AndroidX.constraintLayout)
     implementation(Deps.AndroidX.viewPager2)
     implementation(Deps.AndroidX.swipeRefresh)
     implementation(Deps.AndroidX.paging)
     implementation(Deps.AndroidX.workManager)
     implementation(Deps.AndroidX.startup)
-
-    implementation(Deps.AndroidX.navigationFragment)
-    implementation(Deps.AndroidX.navigationUi)
 
     implementation(Deps.AndroidX.lifecycleLiveData)
     implementation(Deps.AndroidX.lifecycleViewModel)
@@ -159,14 +107,9 @@ dependencies {
 
     implementation(Deps.accompanistSwipeRefresh)
 
-    implementation(Deps.Google.hilt)
-    kapt(Deps.Google.hiltAndroidCompiler)
-
     implementation(Deps.AndroidX.hiltNavigation)
     implementation(Deps.AndroidX.hiltWork)
     kapt(Deps.AndroidX.hiltCompiler)
-
-    implementation(Deps.Google.material)
 
     implementation(Deps.zxing) {
         isTransitive = false
