@@ -4,10 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
@@ -34,8 +37,9 @@ import com.grappim.uikit.theme.CashierGreen
 import com.grappim.uikit.theme.CashierTheme
 
 @Composable
-fun AuthScreen(
-    onSignInClick: (AuthTextFieldsData) -> Unit
+internal fun AuthScreen(
+    onSignInClick: (AuthTextFieldsData) -> Unit,
+    onRegisterClick: () -> Unit
 ) {
     val (phoneText, phoneSetText) = remember {
         mutableStateOf("")
@@ -70,7 +74,8 @@ fun AuthScreen(
             phoneSetText = phoneSetText,
             password = password,
             passwordSetText = setPassword,
-            isPhoneFullyEntered = isPhoneFullyEntered
+            isPhoneFullyEntered = isPhoneFullyEntered,
+            onRegisterClick = onRegisterClick
         )
     }
 }
@@ -82,7 +87,8 @@ private fun AuthScreenContent(
     phoneSetText: (String) -> Unit,
     password: String,
     passwordSetText: (String) -> Unit,
-    isPhoneFullyEntered: Boolean
+    isPhoneFullyEntered: Boolean,
+    onRegisterClick: () -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -164,11 +170,50 @@ private fun AuthScreenContent(
                 onImeAction = {}
             )
         }
+
+        item {
+            RegisterButton(
+                onRegisterClick = onRegisterClick
+            )
+        }
     }
 }
 
 @Composable
-fun PhoneNumberTextFieldComposable(
+private fun RegisterButton(
+    onRegisterClick: () -> Unit
+) {
+    Button(
+        onClick = onRegisterClick,
+        modifier = Modifier
+            .fillMaxWidth(
+                fraction = 0.8f
+            )
+            .padding(
+                start = 32.dp,
+                end = 32.dp,
+                top = 16.dp
+            ),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = CashierBlue
+        ),
+        shape = RoundedCornerShape(25.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.title_sign_up),
+            color = Color.White,
+            fontSize = 17.sp,
+            modifier = Modifier
+                .padding(
+                    top = 4.dp,
+                    bottom = 4.dp
+                )
+        )
+    }
+}
+
+@Composable
+private fun PhoneNumberTextFieldComposable(
     modifier: Modifier = Modifier,
     text: String,
     onTextChange: (String) -> Unit,
@@ -184,7 +229,7 @@ fun PhoneNumberTextFieldComposable(
             .fillMaxWidth(),
         leadingIcon = {
             Icon(
-                painter = painterResource(id = R.drawable.ic_local_phone_24),
+                imageVector = Icons.Filled.Phone,
                 contentDescription = "",
                 tint = CashierBlue
             )
@@ -225,7 +270,7 @@ fun PhoneNumberTextFieldComposable(
 }
 
 @Composable
-fun PasswordTextField(
+private fun PasswordTextField(
     modifier: Modifier = Modifier,
     password: String,
     onPasswordChange: (String) -> Unit,
@@ -242,7 +287,7 @@ fun PasswordTextField(
         modifier = modifier.fillMaxWidth(),
         leadingIcon = {
             Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_lock_24),
+                imageVector = Icons.Filled.Lock,
                 contentDescription = "",
                 tint = CashierBlue
             )
@@ -295,7 +340,7 @@ fun PasswordTextField(
 
 @Composable
 @Preview
-fun PasswordTextFieldPreview() {
+private fun PasswordTextFieldPreview() {
     CashierTheme {
         PasswordTextField(
             password = "",
@@ -307,7 +352,7 @@ fun PasswordTextFieldPreview() {
 
 @Composable
 @Preview
-fun PhoneNumberTextFieldComposablePreview() {
+private fun PhoneNumberTextFieldComposablePreview() {
     CashierTheme {
         PhoneNumberTextFieldComposable(
             text = "",
@@ -320,17 +365,18 @@ fun PhoneNumberTextFieldComposablePreview() {
 
 @Composable
 @Preview
-fun AuthScreenPreview() {
+private fun AuthScreenPreview() {
     CashierTheme {
         AuthScreen(
-            onSignInClick = {}
+            onSignInClick = {},
+            onRegisterClick = {}
         )
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun AuthScreenContentPreview() {
+private fun AuthScreenContentPreview() {
     CashierTheme {
         AuthScreenContent(
             modifier = Modifier,
@@ -338,7 +384,8 @@ fun AuthScreenContentPreview() {
             phoneSetText = {},
             password = "",
             passwordSetText = {},
-            isPhoneFullyEntered = false
+            isPhoneFullyEntered = false,
+            onRegisterClick = {}
         )
     }
 }

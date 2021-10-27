@@ -11,7 +11,6 @@ import commons.flavors.ProductFlavorQa
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.internal.project.DefaultProject
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.project
@@ -28,6 +27,7 @@ class AndroidModulePlugin : Plugin<Project> {
                 configurePlugins()
                 configureAndroidBlock()
                 configureCommonDependencies()
+                configureCommonTestDependencies()
                 configureLibraryBuildVariants()
             }
         }
@@ -103,6 +103,17 @@ internal fun Project.configureLibraryBuildVariants() =
         }
     }
 
+internal fun Project.configureCommonTestDependencies() {
+    extensions.getByType<BaseExtension>().run {
+        dependencies {
+            testImplementation("junit:junit:4.13.2")
+
+            androidTestImplementation("androidx.test.ext:junit:1.1.3")
+            androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+        }
+    }
+}
+
 internal fun Project.configureCommonDependencies() {
     extensions.getByType<BaseExtension>().run {
         dependencies {
@@ -124,6 +135,7 @@ internal fun Project.configureCommonDependencies() {
                 implementation(project(Modules.featureMenu))
                 implementation(project(Modules.featureProducts))
                 implementation(project(Modules.featureScanner))
+                implementation(project(Modules.featureSignUp))
             }
 
             if (isFeatureModule() || isAppModule()) {
@@ -157,6 +169,12 @@ internal fun Project.configureCommonDependencies() {
 
 private fun DependencyHandlerDelegate.implementation(dependencyNotation: Any) =
     add("implementation", dependencyNotation)
+
+private fun DependencyHandlerDelegate.testImplementation(dependencyNotation: Any) =
+    add("testImplementation", dependencyNotation)
+
+private fun DependencyHandlerDelegate.androidTestImplementation(dependencyNotation: Any) =
+    add("androidTestImplementation", dependencyNotation)
 
 private fun DependencyHandlerDelegate.kapt(dependencyNotation: Any) =
     add("kapt", dependencyNotation)

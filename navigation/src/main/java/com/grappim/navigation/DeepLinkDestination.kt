@@ -12,4 +12,10 @@ internal sealed class DeepLinkDestination(
         destinationId = R.id.sales_flow,
         popUpTo = true
     )
+
+    object RegisterToAuthFlow : DeepLinkDestination(
+        address = "com.grappim.cashier://sign-up-to-auth",
+        destinationId = R.id.auth_flow,
+        popUpTo = true
+    )
 }

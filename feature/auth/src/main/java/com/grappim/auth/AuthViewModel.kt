@@ -9,16 +9,19 @@ import com.grappim.domain.base.Result
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.myapplication.WorkerHelper
+import com.grappim.navigation.NavigationFlow
+import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
+internal class AuthViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val generalRepository: GeneralRepository,
-    private val workerHelper: WorkerHelper
+    private val workerHelper: WorkerHelper,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     init {
@@ -37,6 +40,16 @@ class AuthViewModel @Inject constructor(
     }
 
     @MainThread
+    fun goToRegisterFlow() {
+        navigator.navigateToFlow(NavigationFlow.RegisterFlow)
+    }
+
+    @MainThread
+    fun goToSelectStockFlow() {
+        navigator.navigateToFlow(NavigationFlow.SelectInfoStockFlow)
+    }
+
+    @MainThread
     fun login(
         mobile: String,
         password: String
@@ -44,13 +57,13 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             loginUseCase(
                 LoginUseCase.Params(
-                    mobile = mobile,
+                    phone = mobile,
                     password = password
                 )
             ).collect {
-                if (it is Result.Success) {
-                    workerHelper.startTokenRefresherWorker()
-                }
+//                if (it is Result.Success) {
+//                    workerHelper.startTokenRefresherWorker()
+//                }
                 _loginStatus.value = it
             }
         }

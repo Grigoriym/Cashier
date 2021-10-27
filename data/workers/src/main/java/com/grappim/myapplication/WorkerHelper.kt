@@ -46,7 +46,7 @@ class WorkerHelper @Inject constructor(
     }
 
     fun startTokenRefresherWorker() {
-        startTokenRefresher(context)
+//        startTokenRefresher(context)
     }
 
     private inline fun <reified T : ListenableWorker> buildWorkRequest(): OneTimeWorkRequest =

@@ -28,9 +28,9 @@ object Versions {
         const val hiltAndroidX = "1.0.0"
 
         object Compose {
-            const val core = "1.1.0-alpha05"
+            const val core = "1.1.0-alpha06"
             const val lifecycle = "2.4.0-rc01"
-            const val paging = "1.0.0-alpha13"
+            const val paging = "1.0.0-alpha14"
             const val constraint = "1.0.0-rc01"
             const val hiltNavigation = "1.0.0-alpha03"
             const val navigation = "2.4.0-alpha10"
@@ -44,13 +44,13 @@ object Versions {
         const val zxing = "3.3.0"
     }
 
-    const val accompanist = "0.19.0"
+    const val accompanist = "0.20.0"
 
     const val retrofit = "2.9.0"
     const val okHttp = "5.0.0-alpha.2"
 
     const val desugaring = "1.1.5"
-    const val coil = "1.3.2"
+    const val coil = "1.4.0"
     const val circularProgressbar = "3.1.0"
     const val recyclerAnimators = "4.0.2"
     const val chucker = "3.5.2"

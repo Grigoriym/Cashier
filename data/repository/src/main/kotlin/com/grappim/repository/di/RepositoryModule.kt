@@ -40,4 +40,9 @@ interface RepositoryModule {
     fun bindPaymentRepository(
         paymentRepositoryImpl: PaymentRepositoryImpl
     ): PaymentRepository
+
+    @Binds
+    fun bindSignUpRepository(
+        signUpRepositoryImpl: SignUpRepositoryImpl
+    ): SignUpRepository
 }

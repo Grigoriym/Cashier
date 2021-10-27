@@ -11,7 +11,7 @@ import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.CashierApi
 import com.grappim.network.di.QualifierCashierApi
 import com.grappim.network.mappers.cashbox.CashBoxMapper
-import com.grappim.network.mappers.outlet.OutletMapper
+import com.grappim.network.mappers.outlet.StockMapper
 import com.grappim.network.model.cashbox.GetCashBoxListRequestDTO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +26,7 @@ class SelectInfoRepositoryImpl @Inject constructor(
     @ApplicationScope private val applicationScope: CoroutineScope,
     private val generalStorage: GeneralStorage,
     private val cashBoxMapper: CashBoxMapper,
-    private val outletMapper: OutletMapper
+    private val stockMapper: StockMapper
 ) : SelectInfoRepository {
 
     override suspend fun saveCashBox(
@@ -44,7 +44,7 @@ class SelectInfoRepositoryImpl @Inject constructor(
     override fun getStocks(): Flow<Result<List<Stock>>> = flow {
         emit(Result.Loading)
         val response = cashierApi.getStocks(generalStorage.getMerchantId())
-        val mappedResponse = outletMapper.dtoToDomainList(response.stocks)
+        val mappedResponse = stockMapper.dtoToDomainList(response)
         emit(Result.Success(mappedResponse))
     }
 
@@ -57,9 +57,7 @@ class SelectInfoRepositoryImpl @Inject constructor(
                     stockId = generalStorage.getStockId()
                 )
             )
-            val domain = cashBoxMapper.dtoToDomainList(
-                response.cashBoxes ?: listOf()
-            )
+            val domain = cashBoxMapper.dtoToDomainList(response)
             emit(Result.Success(domain))
         }
 }

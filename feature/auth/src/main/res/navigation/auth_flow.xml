@@ -6,6 +6,9 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.grappim.auth.AuthFragment"/>
+        android:name="com.grappim.auth.AuthFragment">
+        <deepLink
+            app:uri="com.grappim.cashier://sign-up-to-auth" />
+    </fragment>
 
 </navigation>

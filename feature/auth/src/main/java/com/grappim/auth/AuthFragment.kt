@@ -9,12 +9,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.fragment.findNavController
-import com.grappim.core.MainActivity
 import com.grappim.domain.base.Result
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
@@ -26,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AuthFragment : Fragment() {
+internal class AuthFragment : Fragment() {
 
     @Inject
     lateinit var navigator: Navigator
@@ -62,6 +58,9 @@ class AuthFragment : Fragment() {
         AuthScreen(
             onSignInClick = {
                 viewModel.login(it)
+            },
+            onRegisterClick = {
+                viewModel.goToRegisterFlow()
             }
         )
     }

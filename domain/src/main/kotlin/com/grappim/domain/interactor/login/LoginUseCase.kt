@@ -14,7 +14,7 @@ class LoginUseCase @Inject constructor(
 ) : FlowUseCase<LoginUseCase.Params, Unit>(ioDispatcher) {
 
     data class Params(
-        val mobile: String,
+        val phone: String,
         val password: String
     )
 

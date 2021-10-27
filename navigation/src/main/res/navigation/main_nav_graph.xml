@@ -24,9 +24,19 @@
 
     <include app:graph="@navigation/scanner_flow" />
 
+    <include app:graph="@navigation/register_flow" />
+
     <action
         android:id="@+id/action_authFlow_to_stockFlow"
         app:destination="@id/select_stock_flow"
+        app:enterAnim="@anim/enter_from_right"
+        app:exitAnim="@anim/exit_to_left"
+        app:popEnterAnim="@anim/pop_enter_from_left"
+        app:popExitAnim="@anim/pop_exit_to_right" />
+
+    <action
+        android:id="@+id/action_authFlow_to_registerFlow"
+        app:destination="@id/register_flow"
         app:enterAnim="@anim/enter_from_right"
         app:exitAnim="@anim/exit_to_left"
         app:popEnterAnim="@anim/pop_enter_from_left"

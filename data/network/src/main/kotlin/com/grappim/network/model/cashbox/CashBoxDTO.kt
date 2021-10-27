@@ -3,11 +3,12 @@ package com.grappim.network.model.cashbox
 import com.google.gson.annotations.SerializedName
 
 data class CashBoxDTO(
+    @SerializedName("name")
     val name: String,
-    @SerializedName("cash_box_id")
+    @SerializedName("cashBoxId")
     val cashBoxId: String,
-    @SerializedName("merchant_id")
+    @SerializedName("merchantId")
     val merchantId: String,
-    @SerializedName("stock_id")
+    @SerializedName("stockId")
     val stockId: String
 )

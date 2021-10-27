@@ -1,6 +1,6 @@
 package com.grappim.auth
 
-data class AuthTextFieldsData(
+internal data class AuthTextFieldsData(
     val phone: String,
     val password: String
 )

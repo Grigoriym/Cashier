@@ -27,6 +27,14 @@ class Navigator @Inject constructor(
         NavigationFlow.SelectInfoStockFlow -> {
             navController.navigate(MainNavGraphDirections.actionAuthFlowToStockFlow())
         }
+        NavigationFlow.RegisterFlow -> {
+            navController.navigate(MainNavGraphDirections.actionAuthFlowToRegisterFlow())
+        }
+        NavigationFlow.RegisterToAuthFlow -> {
+            navController.deepLinkNavigateTo(
+                DeepLinkDestination.RegisterToAuthFlow
+            )
+        }
         NavigationFlow.SelectInfoCashierFlow -> {
             navController.navigate(MainNavGraphDirections.actionSelectStockFlowToSelectCashboxFlow())
         }

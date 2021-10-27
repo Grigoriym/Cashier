@@ -1,21 +1,21 @@
 package com.grappim.network.mappers.outlet
 
 import com.grappim.domain.model.outlet.Stock
-import com.grappim.network.model.outlet.OutletDTO
+import com.grappim.network.model.stock.StockDTO
 import javax.inject.Inject
 
-class OutletMapper @Inject constructor(
+class StockMapper @Inject constructor(
 
 ) {
 
-    fun dtoToDomain(from: OutletDTO): Stock =
+    fun dtoToDomain(from: StockDTO): Stock =
         Stock(
-            name = from.stockName,
+            name = from.name,
             merchantId = from.merchantId,
-            stockId = from.stockId
+            stockId = from.id
         )
 
-    fun dtoToDomainList(from: List<OutletDTO>): List<Stock> =
+    fun dtoToDomainList(from: List<StockDTO>): List<Stock> =
         ArrayList<Stock>(from.size).apply {
             from.forEach {
                 add(dtoToDomain(it))

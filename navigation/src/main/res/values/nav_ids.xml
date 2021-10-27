@@ -11,4 +11,5 @@
     <item name="menu_flow" type="id" />
     <item name="products_flow" type="id" />
     <item name="scanner_flow" type="id" />
+    <item name="register_flow" type="id" />
 </resources>

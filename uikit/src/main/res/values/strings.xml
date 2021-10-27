@@ -28,6 +28,8 @@
     <string name="title_card_payment">Payment by card</string>
     <string name="title_category">Category</string>
     <string name="title_amount">Amount</string>
+    <string name="title_sign_up">Sign up</string>
+    <string name="title_email">E-mail</string>
 
     <string name="title_products">Products</string>
     <string name="title_create_product">Create product</string>

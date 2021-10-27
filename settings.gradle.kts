@@ -21,9 +21,10 @@ include(":feature:select-stock")
 include(":feature:bag")
 include(":feature:payment-method")
 include(":feature:sales")
-
-include(":uikit")
-include(":navigation")
 include(":feature:menu")
 include(":feature:products")
 include(":feature:scanner")
+include(":feature:sign-up")
+
+include(":uikit")
+include(":navigation")

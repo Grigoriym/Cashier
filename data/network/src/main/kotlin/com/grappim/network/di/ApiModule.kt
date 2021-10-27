@@ -1,6 +1,7 @@
 package com.grappim.network.di
 
 import com.grappim.network.api.CashierApi
+import com.grappim.network.api.SignUpApi
 import com.grappim.network.api.WaybillApi
 import dagger.Module
 import dagger.Provides
@@ -15,6 +16,9 @@ annotation class QualifierCashierApi
 
 @Qualifier
 annotation class QualifierWaybillApi
+
+@Qualifier
+annotation class QualifierSignUpApi
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -33,5 +37,12 @@ object ApiModule {
     fun provideWaybillApi(
         retrofit: Retrofit
     ): WaybillApi = retrofit.create(WaybillApi::class.java)
+
+    @Provides
+    @Singleton
+    @QualifierSignUpApi
+    fun provideSignUpApi(
+        retrofit: Retrofit
+    ): SignUpApi = retrofit.create(SignUpApi::class.java)
 
 }

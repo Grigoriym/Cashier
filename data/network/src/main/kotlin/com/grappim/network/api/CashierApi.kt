@@ -7,10 +7,10 @@ import com.grappim.network.model.category.*
 import com.grappim.network.model.login.LoginRequestDTO
 import com.grappim.network.model.login.LoginResponseDTO
 import com.grappim.network.model.login.SendTokenToRefreshRequestDTO
-import com.grappim.network.model.outlet.GetOutletsResponseDTO
 import com.grappim.network.model.payment.CreateOrderRequestDTO
 import com.grappim.network.model.payment.CreateOrderResponseDTO
 import com.grappim.network.model.products.*
+import com.grappim.network.model.stock.GetStocksResponseDTO
 import retrofit2.http.*
 
 interface CashierApi {
@@ -20,7 +20,7 @@ interface CashierApi {
         @Body request: SendTokenToRefreshRequestDTO
     ): SendTokenToRefreshRequestDTO
 
-    @POST("merch/login")
+    @POST("user/login")
     suspend fun login(
         @Body loginRequest: LoginRequestDTO
     ): LoginResponseDTO
@@ -29,7 +29,7 @@ interface CashierApi {
     @RequestWithAuthToken
     suspend fun getStocks(
         @Path("merchantId") merchantId: String
-    ): GetOutletsResponseDTO
+    ): GetStocksResponseDTO
 
     @GET("product/{productId}")
     @RequestWithAuthToken

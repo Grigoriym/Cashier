@@ -14,5 +14,7 @@ sealed class NavigationFlow {
     object ProductsFlow : NavigationFlow()
     object CreateEditProductFlow : NavigationFlow()
 
-    object ScannerFlow:NavigationFlow()
+    object ScannerFlow : NavigationFlow()
+    object RegisterFlow : NavigationFlow()
+    object RegisterToAuthFlow : NavigationFlow()
 }

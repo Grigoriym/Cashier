@@ -26,5 +26,6 @@ object Modules {
     const val featureMenu = ":feature:menu"
     const val featureProducts = ":feature:products"
     const val featureScanner = ":feature:scanner"
+    const val featureSignUp = ":feature:sign-up"
 
 }
