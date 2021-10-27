@@ -4,7 +4,7 @@ import commons.flavors.ProductFlavorQa
 
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidPlugin)
+    id(Plugins.grappimDataPlugin)
     id(Plugins.hiltAndroid)
 }
 

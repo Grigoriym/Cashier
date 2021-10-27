@@ -9,7 +9,6 @@ android {
     }
 }
 
-
 dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))

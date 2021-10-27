@@ -88,6 +88,12 @@ object Deps {
         const val hiltPureKotlinCompiler = "com.google.dagger:hilt-compiler:${Versions.Google.hilt}"
     }
 
+    object Testing {
+        const val junit = "junit:junit:${Versions.Testing.junit}"
+        const val androidJunit = "androidx.test.ext:junit:${Versions.Testing.androidJunit}"
+        const val androidEspressoCore = "androidx.test.espresso:espresso-core:${Versions.Testing.androidEspressoCore}"
+    }
+
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"

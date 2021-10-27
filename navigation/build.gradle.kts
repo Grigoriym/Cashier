@@ -4,10 +4,6 @@ plugins {
     id(Plugins.safeArgs)
 }
 
-android {
-
-}
-
 dependencies {
     implementation(project(Modules.uikit))
 

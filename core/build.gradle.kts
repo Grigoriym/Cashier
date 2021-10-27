@@ -4,10 +4,6 @@ plugins {
     id(Plugins.hiltAndroid)
 }
 
-android {
-
-}
-
 dependencies {
     implementation(project(Modules.uikit))
     implementation(project(Modules.utilsExtensions))

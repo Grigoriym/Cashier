@@ -1,10 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidPlugin)
-}
-
-android {
-
+    id(Plugins.grappimDataPlugin)
 }
 
 dependencies {

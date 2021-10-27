@@ -44,6 +44,12 @@ object Versions {
         const val zxing = "3.3.0"
     }
 
+    object Testing {
+        const val junit = "4.13.2"
+        const val androidJunit = "1.1.3"
+        const val androidEspressoCore = "3.4.0"
+    }
+
     const val accompanist = "0.20.0"
 
     const val retrofit = "2.9.0"

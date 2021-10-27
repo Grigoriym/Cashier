@@ -3,9 +3,12 @@ object Plugins {
     const val androidLibrary = "com.android.library"
 
     const val grappimAndroidPlugin = "com.grappim.plugin.android"
+    const val grappimDataPlugin = "com.grappim.plugin.data"
+    const val grappimAndroidAppPlugin = "com.grappim.plugin.android.app"
 
     const val kotlinParcelize = "kotlin-parcelize"
     const val kotlinAndroid = "kotlin-android"
+    const val kotlinKaptFull = "kotlin-kapt"
     const val kotlinKapt = "kapt"
     const val kotlinJvm = "jvm"
 
