@@ -7,7 +7,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
-internal class AndroidModulePlugin : Plugin<Project> {
+internal class AndroidLibraryModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         println("gradlePlugin info: $target | ${target.properties["android"]}")
 

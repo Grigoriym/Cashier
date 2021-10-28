@@ -22,13 +22,13 @@ internal fun DependencyHandlerDelegate.androidTestImplementation(dependencyNotat
 internal fun DependencyHandlerDelegate.kapt(dependencyNotation: Any) =
     add("kapt", dependencyNotation)
 
-fun DependencyHandler.coreLibraryDesugaring(dependencyNotation: Any): Dependency? =
+internal fun DependencyHandler.coreLibraryDesugaring(dependencyNotation: Any): Dependency? =
     add("coreLibraryDesugaring", dependencyNotation)
 
-fun DependencyHandler.debugImplementation(dependencyNotation: Any): Dependency? =
+internal fun DependencyHandler.debugImplementation(dependencyNotation: Any): Dependency? =
     add("debugImplementation", dependencyNotation)
 
-fun DependencyHandler.implementation(
+internal fun DependencyHandler.implementation(
     dependencyNotation: String,
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
@@ -38,5 +38,5 @@ fun DependencyHandler.implementation(
     configurationAction = dependencyConfiguration
 ) as ExternalModuleDependency
 
-fun Project.kapt(configure: Action<KaptExtension>): Unit =
+internal fun Project.kapt(configure: Action<KaptExtension>): Unit =
     (this as ExtensionAware).extensions.configure("kapt", configure)

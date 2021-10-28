@@ -1,6 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidPlugin)
+    id(Plugins.grappimAndroidLibraryPlugin)
     id(Plugins.safeArgs)
 }
 

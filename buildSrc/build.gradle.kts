@@ -20,9 +20,9 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("com.grappim.plugin.android") {
-            id = "com.grappim.plugin.android"
-            implementationClass = "commons.plugins.AndroidModulePlugin"
+        register("com.grappim.plugin.android.library") {
+            id = "com.grappim.plugin.android.library"
+            implementationClass = "commons.plugins.AndroidLibraryModulePlugin"
         }
         register("com.grappim.plugin.data") {
             id = "com.grappim.plugin.data"

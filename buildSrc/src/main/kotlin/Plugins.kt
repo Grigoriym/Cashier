@@ -2,7 +2,7 @@ object Plugins {
     const val androidApplication = "com.android.application"
     const val androidLibrary = "com.android.library"
 
-    const val grappimAndroidPlugin = "com.grappim.plugin.android"
+    const val grappimAndroidLibraryPlugin = "com.grappim.plugin.android.library"
     const val grappimDataPlugin = "com.grappim.plugin.data"
     const val grappimAndroidAppPlugin = "com.grappim.plugin.android.app"
 
