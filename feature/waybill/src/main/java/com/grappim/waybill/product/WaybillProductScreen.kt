@@ -13,6 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
 
@@ -30,13 +32,13 @@ fun WaybillProductScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            com.grappim.uikit.compose.BaseTopAppBar(
+            BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.acceptance_product),
                 backButtonAction = onBackClick
             )
         },
         bottomBar = {
-            com.grappim.uikit.compose.BigActionButtonCompose(
+            BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_add_product),
                 onButtonClick = onActionClick
             )

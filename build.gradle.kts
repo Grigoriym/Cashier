@@ -18,6 +18,8 @@ buildscript {
 
         classpath(BuildPlugins.detekt)
         classpath(BuildPlugins.gradleVersions)
+
+        classpath(BuildPlugins.googleServices)
     }
 }
 

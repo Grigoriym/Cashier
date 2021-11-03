@@ -44,7 +44,7 @@ class SelectInfoRepositoryImpl @Inject constructor(
     override fun getStocks(): Flow<Result<List<Stock>>> = flow {
         emit(Result.Loading)
         val response = cashierApi.getStocks(generalStorage.getMerchantId())
-        val mappedResponse = stockMapper.dtoToDomainList(response)
+        val mappedResponse = stockMapper.dtoToDomainList(response.stocks)
         emit(Result.Success(mappedResponse))
     }
 
@@ -57,7 +57,7 @@ class SelectInfoRepositoryImpl @Inject constructor(
                     stockId = generalStorage.getStockId()
                 )
             )
-            val domain = cashBoxMapper.dtoToDomainList(response)
+            val domain = cashBoxMapper.dtoToDomainList(response.cashBoxes)
             emit(Result.Success(domain))
         }
 }

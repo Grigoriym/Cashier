@@ -49,10 +49,15 @@
 
 ### Roadmap
 - [ ] Move all UI to compose
-- [ ] Add tests
+- [ ] Add tests and all that stuff
 - [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
 - [ ] Learn proguard and somehow do something with it here
 - [ ] Enhance navigation
+- [ ] Some modules are kinda useless or a bit messy: core, extensions, app
+- [ ] Add CI and all that cool automated features
+- [ ] I don't know the right way to integrate communication between composeScreen and viewModel, especially when there are many data to send
+- [ ] Make usable caching of data
+- [ ] Is SingleLiveData a good choice? But I have no other options with compose, at least for now.
 
 Login | Select stock
 --- | --- |  

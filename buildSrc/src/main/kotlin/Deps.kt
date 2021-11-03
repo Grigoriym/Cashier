@@ -91,7 +91,13 @@ object Deps {
     object Testing {
         const val junit = "junit:junit:${Versions.Testing.junit}"
         const val androidJunit = "androidx.test.ext:junit:${Versions.Testing.androidJunit}"
-        const val androidEspressoCore = "androidx.test.espresso:espresso-core:${Versions.Testing.androidEspressoCore}"
+        const val androidEspressoCore =
+            "androidx.test.espresso:espresso-core:${Versions.Testing.androidEspressoCore}"
+    }
+
+    object Firebase {
+        const val bom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
     }
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"

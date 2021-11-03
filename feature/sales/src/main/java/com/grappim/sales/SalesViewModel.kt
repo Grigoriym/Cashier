@@ -1,6 +1,8 @@
 package com.grappim.sales
 
 import androidx.lifecycle.*
+import com.grappim.calculations.DecimalFormatSimple
+import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.products.GetProductsUseCase
 import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
@@ -8,67 +10,78 @@ import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
 import com.grappim.domain.interactor.sales.RemoveProductUseCase
 import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.model.product.Product
+import com.grappim.navigation.NavigationFlow
+import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 @HiltViewModel
-class SalesViewModel @Inject constructor(
+internal class SalesViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
     private val addProductToBasketUseCase: AddProductToBasketUseCase,
     private val removeProductUseCase: RemoveProductUseCase,
     private val searchProductsUseCase: SearchProductsUseCase,
-    getAllBasketProductsUseCase: GetAllBasketProductsUseCase
+    getAllBasketProductsUseCase: GetAllBasketProductsUseCase,
+    @DecimalFormatSimple private val dfSimple: DecimalFormat,
+    private val navigator: Navigator
 ) : ViewModel() {
 
-    private val _products: MutableLiveData<List<Product>> = MutableLiveData()
-    val products: LiveData<List<Product>>
-        get() = _products
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String>
+        get() = _searchQuery.asStateFlow()
 
-    private val _basketCount = getAllBasketProductsUseCase.invoke(withoutParams())
-    val basketCount: LiveData<BigDecimal> =
-        _basketCount.asLiveData(viewModelScope.coroutineContext).map { list ->
-            list.map {
-                it.basketCount
-            }.sumOf {
-                it
-            }
-        }
+    val products: StateFlow<List<Product>> = _searchQuery
+        .flatMapLatest {
+            searchProductsUseCase.invoke(SearchProductsUseCase.Params(it))
+        }.stateIn(
+            scope = viewModelScope,
+            started = WhileViewSubscribed,
+            initialValue = emptyList()
+        )
 
-    init {
-        getProducts()
+    fun setQuery(query: String) {
+        _searchQuery.value = query
     }
 
-    fun addProductToBasket(product: Product) {
+    private val _basketCount = getAllBasketProductsUseCase.invoke(withoutParams())
+    val basketCount: LiveData<String> =
+        _basketCount
+            .asLiveData(viewModelScope.coroutineContext)
+            .map { list ->
+                list.map {
+                    it.basketCount
+                }.sumOf {
+                    it
+                }
+            }.map {
+                dfSimple.format(it)
+            }
+
+    fun addProduct(product: Product) {
         viewModelScope.launch {
             addProductToBasketUseCase.invoke(AddProductToBasketUseCase.Params(product))
         }
     }
 
-    fun removeProductFromBasket(product: Product) {
+    fun subtractProduct(product: Product) {
         viewModelScope.launch {
             removeProductUseCase.invoke(RemoveProductUseCase.Params(product))
         }
     }
 
-    fun searchProducts(query: String) {
-        viewModelScope.launch {
-            searchProductsUseCase.invoke(SearchProductsUseCase.Params(query))
-                .collect {
-                    _products.value = it
-                }
-        }
+    fun onCartClicked(product: Product) {
+
     }
 
-    fun getProducts() {
-        viewModelScope.launch {
-            getProductsUseCase.invoke(withoutParams())
-                .collect {
-                    _products.value = it
-                }
-        }
+    fun showScanner() {
+//        findNavController().navigate(SalesFragmentDirections.actionSalesFragmentToScannerFragment())
+    }
+
+    fun showBasket() {
+        navigator.navigateToFlow(NavigationFlow.BagFlow)
     }
 
 }

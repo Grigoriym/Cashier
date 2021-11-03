@@ -3,6 +3,7 @@ object Versions {
     const val gradlePlugin = "7.0.3"
     const val detekt = "1.18.1"
     const val gradleVersions = "0.39.0"
+    const val gradleDoctor = "0.7.3"
 
     object Kotlin {
         const val core = "1.5.31"
@@ -49,6 +50,8 @@ object Versions {
         const val androidJunit = "1.1.3"
         const val androidEspressoCore = "3.4.0"
     }
+
+    const val firebaseBom = "28.4.2"
 
     const val accompanist = "0.20.0"
 

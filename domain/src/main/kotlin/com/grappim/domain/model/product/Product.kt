@@ -1,5 +1,6 @@
 package com.grappim.domain.model.product
 
+import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.domain.model.base.ProductUnit
 import java.io.Serializable
@@ -22,4 +23,20 @@ data class Product(
     val categoryId: Int? = null,
 
     var basketCount: BigDecimal = bigDecimalZero()
-) : Serializable
+) : Serializable {
+    companion object {
+        fun empty(): Product = Product(
+            id = 1,
+            barcode = "123",
+            name = "title",
+            sellingPrice = "100".asBigDecimal(),
+            purchasePrice = "120".asBigDecimal(),
+            amount = "6".asBigDecimal(),
+            stockId = "123",
+            unit = ProductUnit.KG,
+            merchantId = "234",
+            createdOn = "",
+            updatedOn = ""
+        )
+    }
+}

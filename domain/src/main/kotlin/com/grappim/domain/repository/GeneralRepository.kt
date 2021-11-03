@@ -14,6 +14,10 @@ interface GeneralRepository {
         params: GetCategoryListUseCase.Params
     ): Flow<Result<List<Category>>>
 
+    fun getCategories2(
+        params: GetCategoryListUseCase.Params
+    ): Flow<List<Category>>
+
     fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params
     ): Flow<Result<List<Product>>>
@@ -21,7 +25,7 @@ interface GeneralRepository {
     suspend fun clearData()
 
     fun getProductsByQuery(
-        params:GetProductsByQueryUseCase.Params
+        params: GetProductsByQueryUseCase.Params
     ): Flow<List<Product>>
 
 }

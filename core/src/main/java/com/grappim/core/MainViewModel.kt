@@ -17,26 +17,26 @@ class MainViewModel @Inject constructor(
     private val workerHelper: WorkerHelper
 ) : ViewModel() {
 
-//    private val sync = interval(15, TimeUnit.SECONDS)
-//        .onStart {
-//            workerHelper.startMainWorkers()
-//        }
-//        .onEach {
-//            workerHelper.startMainWorkers()
-//        }
-//        .launchIn(viewModelScope)
+    private val sync = interval(15, TimeUnit.SECONDS)
+        .onStart {
+            workerHelper.startMainWorkers()
+        }
+        .onEach {
+            workerHelper.startMainWorkers()
+        }
+        .launchIn(viewModelScope)
 
     fun startSync() {
-//        viewModelScope.launch {
-//            if (!sync.isActive) {
-//                sync.start()
-//            }
-//        }
+        viewModelScope.launch {
+            if (!sync.isActive) {
+                sync.start()
+            }
+        }
     }
 
     fun stopSync() {
-//        viewModelScope.launch {
-//            sync.cancel()
-//        }
+        viewModelScope.launch {
+            sync.cancel()
+        }
     }
 }

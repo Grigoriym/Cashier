@@ -1,96 +1,68 @@
 package com.grappim.products
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.core.widget.doOnTextChanged
+import android.view.ViewGroup
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.tabs.TabLayout
-import com.grappim.calculations.DecimalFormatSimple
-import com.grappim.domain.model.product.Category
-import com.grappim.domain.model.product.Product
-import com.grappim.extensions.setSafeOnClickListener
-import com.grappim.navigation.Navigator
-import com.grappim.products.databinding.FragmentProductsBinding
+import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
-import java.text.DecimalFormat
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProductsFragment : Fragment(R.layout.fragment_products),
-    ProductsClickListener {
+class ProductsFragment : Fragment() {
 
-    @Inject
-    @DecimalFormatSimple
-    lateinit var dfSimple: DecimalFormat
-
-    @Inject
-    lateinit var navigator: Navigator
-
-    private val viewModel: ProductsViewModel by viewModels()
-    private val binding: FragmentProductsBinding by viewBinding(FragmentProductsBinding::bind)
-    private val productsAdapter: ProductsAdapter by lazy {
-        ProductsAdapter(dfSimple, this)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            CashierTheme {
+                ProductsFragmentScreen()
+            }
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-        observeViewModel()
-    }
+    @Composable
+    private fun ProductsFragmentScreen() {
+        val viewModel: ProductsViewModel = viewModel()
 
-    private fun initViews() {
-        with(binding) {
-            buttonMenu.setSafeOnClickListener {
+        val categories by viewModel.categories.collectAsState()
+        val products by viewModel.products.observeAsState(emptyList())
+        val searchQuery by viewModel.query.observeAsState("")
+        val index by viewModel.selectedIndex.collectAsState()
+
+        ProductsScreen(
+            onBackPressed = {
                 findNavController().popBackStack()
+            },
+            onCreateProductClick = {
+                findNavController().navigate(
+                    ProductsFragmentDirections.actionProductsToCreateProduct()
+                )
+            },
+            searchText = searchQuery,
+            setSearchText = {
+                viewModel.searchProducts(it)
+            },
+            categories = categories,
+            selectedIndex = index,
+            onTabClick = { idx, category ->
+                viewModel.setCategory(category, idx)
+            },
+            products = products,
+            onProductClick = {
+                findNavController().navigate(
+                    ProductsFragmentDirections.actionProductsToEditProduct(product = it)
+                )
             }
-            buttonEditCreateProduct.setSafeOnClickListener {
-                findNavController().navigate(ProductsFragmentDirections.actionProductsToCreateProduct())
-            }
-            recyclerProducts.adapter = ScaleInAnimationAdapter(productsAdapter)
-            tabsCategories.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    viewModel.setCategory(tab?.tag as Category)
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                }
-
-            })
-            editSearchProducts.doOnTextChanged { text, start, before, count ->
-                viewModel.searchProducts(text.toString())
-            }
-        }
-    }
-
-    private fun observeViewModel() {
-        viewModel.categories.observe(viewLifecycleOwner, ::showCategories)
-        viewModel.products.observe(viewLifecycleOwner) {
-            productsAdapter.updateProducts(it)
-        }
-    }
-
-    private fun showCategories(categories: List<Category>) {
-        binding.tabsCategories.removeAllTabs()
-        categories.forEach {
-            val tab = binding.tabsCategories.newTab().apply {
-                text = it.name
-                tag = it
-            }
-            binding.tabsCategories.addTab(tab)
-        }
-    }
-
-    override fun onProductClick(product: Product) {
-        findNavController().navigate(
-            ProductsFragmentDirections.actionProductsToEditProduct(product = product)
         )
     }
-
 }

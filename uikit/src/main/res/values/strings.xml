@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Cashier</string>
     <string name="app_name_dev">Cashier DEV</string>
+    <string name="app_name_qa">Cashier QA</string>
 
     <string name="auth_forgot_password">Forgot your password?</string>
 

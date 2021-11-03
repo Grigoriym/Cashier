@@ -1,3 +1,8 @@
 package com.grappim.network.model.cashbox
 
-class GetCashBoxListResponseDTO : ArrayList<CashBoxDTO>()
+import com.google.gson.annotations.SerializedName
+
+data class GetCashBoxListResponseDTO(
+    @SerializedName("cash_boxes")
+    val cashBoxes: List<CashBoxDTO>
+)

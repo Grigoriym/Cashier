@@ -63,6 +63,24 @@ class GeneralRepositoryImpl @Inject constructor(
         emit(Result.Success(domain))
     }
 
+    override fun getCategories2(params: GetCategoryListUseCase.Params): Flow<List<Category>> =
+        flow {
+            val categories = categoryDao.getAllCategories().toMutableList()
+            if (params.sendDefaultCategory) {
+                categories.add(
+                    0,
+                    CategoryEntity(
+                        id = -1,
+                        name = "All",
+                        merchantId = "",
+                        stockId = "",
+                        isDefault = true
+                    )
+                )
+            }
+            val domain = categoryMapper.dbToDomainList(categories.toList())
+            emit(domain)
+        }
 
     override fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params

@@ -20,7 +20,7 @@ interface CashierApi {
         @Body request: SendTokenToRefreshRequestDTO
     ): SendTokenToRefreshRequestDTO
 
-    @POST("user/login")
+    @POST("merch/login")
     suspend fun login(
         @Body loginRequest: LoginRequestDTO
     ): LoginResponseDTO

@@ -20,4 +20,7 @@ class GetCategoryListUseCase @Inject constructor(
 
     override fun execute(params: Params): Flow<Result<List<Category>>> =
         generalRepository.getCategories(params)
+
+    fun execute2(params: Params): Flow<List<Category>> =
+        generalRepository.getCategories2(params)
 }

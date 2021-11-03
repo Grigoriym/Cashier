@@ -13,6 +13,7 @@ import commons.flavors.ProductFlavorProd
 import commons.flavors.ProductFlavorQa
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.project
@@ -26,6 +27,7 @@ internal class AndroidAppModulePlugin : Plugin<Project> {
                 configurePlugins()
                 configureAndroidBlock()
                 configureBuildVariants()
+                getCommonVariantFilters()
                 configureCommonDependencies()
                 configureCommonTestDependencies()
             }
@@ -38,6 +40,23 @@ private fun Project.configurePlugins() =
         getCommonPlugins()
         plugins.apply(Plugins.hiltAndroid)
         plugins.apply(Plugins.safeArgs)
+
+        plugins.apply(Plugins.googleServices)
+        plugins.apply(Plugins.detekt)
+
+        applicationVariants.all {
+            println("asd ${this.name}")
+            if (this.name.contains("qa") ||
+                this.name.contains("dev")
+            ) {
+                tasks.all {
+                    println("asd tasks: ${this.name}")
+                    if (this.name.contains("GoogleServices")) {
+                        this.enabled = false
+                    }
+                }
+            }
+        }
     }
 
 private fun Project.configureAndroidBlock() =
@@ -60,15 +79,6 @@ private fun Project.configureBuildVariants() =
             ProductFlavorDev.appCreate(this)
             ProductFlavorQa.appCreate(this)
             ProductFlavorProd.appCreate(this)
-        }
-        variantFilter {
-            val flavorNames = flavors.map { it.name }
-            if (buildType.name == BuildTypeRelease.name && flavorNames.contains(ProductFlavorDev.name)) {
-                ignore = true
-            }
-            if (buildType.name == BuildTypeRelease.name && flavorNames.contains(ProductFlavorQa.name)) {
-                ignore = true
-            }
         }
     }
 
@@ -144,6 +154,9 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.featureSignUp))
             implementation(project(Modules.utilsCalculations))
             implementation(project(Modules.utilsDateTime))
+
+            implementation(platform(Deps.Firebase.bom))
+            implementation(Deps.Firebase.analytics)
 
             implementation(Deps.AndroidX.constraintLayout)
             implementation(Deps.AndroidX.viewPager2)

@@ -30,6 +30,8 @@ import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.domain.model.waybill.WaybillType
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.uikit.compose.ItemProductCompose
 import com.grappim.uikit.compose.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
@@ -52,7 +54,7 @@ fun WaybillDetailsScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            com.grappim.uikit.compose.BaseTopAppBar(
+            BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_create_acceptance),
                 backButtonAction = onBackClick
             )
@@ -161,7 +163,7 @@ private fun BottomBarSegment(
                     R.string.action_conduct
                 }
             }
-            com.grappim.uikit.compose.BigActionButtonCompose(
+            BigActionButtonCompose(
                 buttonText = stringResource(id = actionButtonText),
                 onButtonClick = onActionButtonClick
             )

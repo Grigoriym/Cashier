@@ -61,9 +61,9 @@ internal class AuthViewModel @Inject constructor(
                     password = password
                 )
             ).collect {
-//                if (it is Result.Success) {
-//                    workerHelper.startTokenRefresherWorker()
-//                }
+                if (it is Result.Success) {
+                    workerHelper.startTokenRefresherWorker()
+                }
                 _loginStatus.value = it
             }
         }

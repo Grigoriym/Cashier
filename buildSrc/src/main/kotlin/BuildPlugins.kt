@@ -9,4 +9,5 @@ object BuildPlugins {
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
     const val gradleVersions =
         "com.github.ben-manes:gradle-versions-plugin:${Versions.gradleVersions}"
+    const val googleServices = "com.google.gms:google-services:4.3.10"
 }

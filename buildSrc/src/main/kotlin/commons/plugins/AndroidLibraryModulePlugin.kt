@@ -40,6 +40,7 @@ private fun Project.configureAndroidBlock() =
 private fun Project.configureLibraryBuildVariants() =
     extensions.getByType<BaseExtension>().run {
         getCommonLibraryBuildVariants()
+        getCommonVariantFilters()
     }
 
 private fun Project.configureCommonDependencies() {

@@ -3,8 +3,8 @@ package com.grappim.network.model.cashbox
 import com.google.gson.annotations.SerializedName
 
 data class GetCashBoxListRequestDTO(
-    @SerializedName("merchantId")
+    @SerializedName("merchant_id")
     val merchantId: String,
-    @SerializedName("stockId")
+    @SerializedName("stock_id")
     val stockId: String
 )

@@ -25,7 +25,7 @@ class AuthRepositoryImpl @Inject constructor(
             emit(Result.Loading)
             val response = cashierApi.login(
                 LoginRequestDTO(
-                    phone = loginRequestData.phone,
+                    mobile = loginRequestData.phone,
                     password = loginRequestData.password
                 )
             )

@@ -9,7 +9,6 @@ dependencies {
     implementation(project(Modules.utilsCalculations))
 
     implementation(Deps.Kotlin.coroutinesCore)
-    implementation(Deps.Kotlin.coroutinesAndroid)
 
     implementation(Deps.Google.hiltPureKotlinCore)
     kapt(Deps.Google.hiltPureKotlinCompiler)

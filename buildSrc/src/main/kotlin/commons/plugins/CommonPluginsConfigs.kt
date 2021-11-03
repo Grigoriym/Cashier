@@ -112,6 +112,10 @@ internal fun Project.getCommonLibraryBuildVariants() =
             ProductFlavorQa.libraryCreate(this)
             ProductFlavorProd.libraryCreate(this)
         }
+    }
+
+internal fun Project.getCommonVariantFilters() =
+    extensions.getByType<BaseExtension>().run {
         variantFilter {
             val flavorNames = flavors.map { it.name }
             if (buildType.name == BuildTypeRelease.name && flavorNames.contains(ProductFlavorDev.name)) {

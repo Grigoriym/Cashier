@@ -1,5 +1,7 @@
 package com.grappim.repository.remote
 
+import com.grappim.calculations.bigDecimalZero
+import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
@@ -14,6 +16,7 @@ import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
+import com.grappim.logger.logD
 import com.grappim.network.api.CashierApi
 import com.grappim.network.di.QualifierCashierApi
 import com.grappim.network.mappers.products.ProductMapper
@@ -22,8 +25,6 @@ import com.grappim.network.model.products.CreateProductRequestParamsDTO
 import com.grappim.network.model.products.ProductDTO
 import com.grappim.network.model.products.UpdateProductRequestDTO
 import com.grappim.repository.extensions.getStringForDbQuery
-import com.grappim.calculations.bigDecimalZero
-import com.grappim.date_time.DateTimeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -191,7 +192,13 @@ class ProductsRepositoryImpl @Inject constructor(
     ): Flow<List<Product>> =
         flow {
             val query = params.query
-            val products = productsDao.searchProducts(query.getStringForDbQuery())
+            logD("searchingProducts query: $query")
+            val products = if (query.isBlank()) {
+                productsDao.getAllProducts()
+            } else {
+                productsDao.searchProducts(query.getStringForDbQuery())
+            }
+            logD("foundProducts: ${products.joinToString()}")
 
             val productsUids = products.map { it.id }
             val storedBasketProducts = basketDao.getProductsByUids(productsUids)

@@ -75,7 +75,7 @@ class ProductMapper @Inject constructor(
         Product(
             id = from.id,
             barcode = from.barcode,
-            name = from.barcode,
+            name = from.name,
             sellingPrice = from.sellingPrice,
             purchasePrice = from.purchasePrice,
             amount = from.amount,

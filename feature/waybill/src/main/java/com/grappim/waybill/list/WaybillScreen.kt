@@ -30,6 +30,9 @@ import com.grappim.calculations.bigDecimalOne
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.domain.model.waybill.WaybillType
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.OutlinedTextFieldCompose
 import com.grappim.uikit.theme.*
 import com.grappim.waybill.R
 import kotlinx.coroutines.flow.flowOf
@@ -49,7 +52,7 @@ fun WaybillListScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            com.grappim.uikit.compose.BaseTopAppBar(
+            BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_acceptance),
                 backButtonTitle = stringResource(id = R.string.title_menu)
             ) {
@@ -57,7 +60,7 @@ fun WaybillListScreen(
             }
         },
         bottomBar = {
-            com.grappim.uikit.compose.BigActionButtonCompose(
+            BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_create_acceptance),
                 modifier = Modifier,
                 onButtonClick = onCreateAcceptanceClick
@@ -68,7 +71,7 @@ fun WaybillListScreen(
             modifier = Modifier
                 .padding(innerPadding)
         ) {
-            com.grappim.uikit.compose.OutlinedTextFieldCompose(
+            OutlinedTextFieldCompose(
                 modifier = Modifier
                     .padding(
                         top = 24.dp,
@@ -305,23 +308,9 @@ private fun WaybillListScreenPreview() {
 @Preview
 private fun WaybillItemSegmentPreview() {
     CashierTheme {
-        com.grappim.waybill.list.WaybillItemSegment(
-            item = com.grappim.waybill.list.PagingDataModel.Item(
-                item = Waybill(
-                    id = 1,
-                    createdOn = "",
-                    merchantId = "",
-                    number = "2312312",
-                    status = WaybillStatus.ACTIVE,
-                    stockId = "",
-                    totalCost = bigDecimalOne(),
-                    type = WaybillType.INWAYBILL,
-                    updatedOn = "23.12.23.20123",
-                    reservedTime = "",
-                    comment = "",
-                    updateOnToDemonstrate = "23.12.23.20123",
-                    reservedTimeToDemonstrate = ""
-                )
+        WaybillItemSegment(
+            item = PagingDataModel.Item(
+                item = Waybill.empty()
             ),
             onWaybillClick = {}
         )
