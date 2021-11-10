@@ -37,3 +37,5 @@ fun bigDecimalHundred(): BigDecimal = "100".asBigDecimal()
 fun bigDecimalSignedOne(): BigDecimal = "-1".asBigDecimal()
 
 fun mcEven(precision: Int = 9) = MathContext(precision, RoundingMode.HALF_EVEN)
+
+fun BigDecimal.isNotEqualsZero(): Boolean = this.compareTo(bigDecimalZero()) != 0

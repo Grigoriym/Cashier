@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.bag.databinding.FragmentBagBinding
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.domain.model.product.Product
 import com.grappim.extensions.setSafeOnClickListener
-import com.grappim.navigation.NavigationFlow
-import com.grappim.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -23,9 +20,6 @@ class BagFragment : Fragment(R.layout.fragment_bag),
     @Inject
     @DecimalFormatSimple
     lateinit var dfSimple: DecimalFormat
-
-    @Inject
-    lateinit var navigator: Navigator
 
     private val viewBinding: FragmentBagBinding by viewBinding(FragmentBagBinding::bind)
     private val viewModel: BagViewModel by viewModels()
@@ -58,7 +52,7 @@ class BagFragment : Fragment(R.layout.fragment_bag),
         with(viewBinding) {
             recyclerBag.adapter = bagAdapter
             buttonBack.setSafeOnClickListener {
-                findNavController().popBackStack()
+                viewModel.onBackPressed()
             }
             buttonDelete.setSafeOnClickListener {
                 viewModel.deleteBagProducts()
@@ -71,7 +65,7 @@ class BagFragment : Fragment(R.layout.fragment_bag),
 //                )
             }
             buttonPay.setSafeOnClickListener {
-                navigator.navigateToFlow(NavigationFlow.PaymentMethod)
+                viewModel.goToPaymentMethod()
             }
         }
     }

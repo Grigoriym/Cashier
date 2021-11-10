@@ -108,7 +108,8 @@ object Deps {
     const val desugar = "com.android.tools:desugar_jdk_libs:${Versions.desugaring}"
     const val debugDb =
         "com.github.amitshekhariitbhu.Android-Debug-Database:debug-db:${Versions.debugDb}"
-    const val combineTuple = "com.github.Zhuinden:livedata-combinetuple-kt:${Versions.combineTuple}"
+    const val combineTupleLiveData = "com.github.Zhuinden:livedata-combinetuple-kt:${Versions.combineTupleLiveData}"
+    const val combineTupleFlow = "com.github.Zhuinden:flow-combinetuple-kt:${Versions.combineTupleFlow}"
     const val chucker = "com.github.chuckerteam.chucker:library:${Versions.chucker}"
     const val chuckerNoOp = "com.github.chuckerteam.chucker:library-no-op:${Versions.chucker}"
     const val zxing = "com.journeyapps:zxing-android-embedded:${Versions.zxing}"

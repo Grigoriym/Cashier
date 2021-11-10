@@ -20,6 +20,10 @@ class Navigator @Inject constructor(
         _navController = controller
     }
 
+    fun popBackStack() {
+        navController.popBackStack()
+    }
+
     @MainThread
     fun navigateToFlow(
         navigationFlow: NavigationFlow

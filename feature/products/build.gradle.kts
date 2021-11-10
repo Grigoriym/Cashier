@@ -5,7 +5,6 @@ plugins {
 
 android {
     buildFeatures {
-        viewBinding = true
         compose = true
     }
     composeOptions {
@@ -17,14 +16,8 @@ dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
 
-    implementation(Deps.AndroidX.lifecycleLiveData)
-    implementation(Deps.AndroidX.lifecycleViewModel)
-    implementation(Deps.AndroidX.lifecycleRuntime)
-
-    implementation(Deps.viewBinding)
-    implementation(Deps.coil)
-    implementation(Deps.recyclerViewAnimators)
-    implementation(Deps.combineTuple)
+    implementation(Deps.combineTupleFlow)
+    implementation(Deps.combineTupleLiveData)
 
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)

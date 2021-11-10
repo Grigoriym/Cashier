@@ -14,18 +14,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grappim.domain.base.Result
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
-import com.grappim.navigation.NavigationFlow
-import com.grappim.navigation.Navigator
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 internal class AuthFragment : Fragment() {
-
-    @Inject
-    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,9 +61,6 @@ internal class AuthFragment : Fragment() {
 
     private fun showLoginStatus(data: Result<Unit>?) {
         when (data) {
-            is Result.Success -> {
-                navigator.navigateToFlow(NavigationFlow.SelectInfoStockFlow)
-            }
             is Result.Error -> {
                 showToast(getErrorMessage(data.exception))
             }

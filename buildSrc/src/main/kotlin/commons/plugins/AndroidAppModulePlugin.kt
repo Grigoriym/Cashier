@@ -13,7 +13,6 @@ import commons.flavors.ProductFlavorProd
 import commons.flavors.ProductFlavorQa
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.project
@@ -191,7 +190,8 @@ private fun Project.getAppDependencies() {
             kapt(Deps.AndroidX.hiltCompiler)
 
             implementation(Deps.Google.zxingCore)
-            implementation(Deps.combineTuple)
+            implementation(Deps.combineTupleLiveData)
+            implementation(Deps.combineTupleFlow)
             implementation(Deps.recyclerViewAnimators)
             implementation(Deps.viewBinding)
             implementation(Deps.coil)

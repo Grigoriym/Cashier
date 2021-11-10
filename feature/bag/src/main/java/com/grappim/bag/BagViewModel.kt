@@ -10,6 +10,8 @@ import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
 import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
 import com.grappim.domain.interactor.sales.RemoveProductUseCase
 import com.grappim.domain.model.product.Product
+import com.grappim.navigation.NavigationFlow
+import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ class BagViewModel @Inject constructor(
     private val removeProductUseCase: RemoveProductUseCase,
     private val getBagProductsUseCase: GetBagProductsUseCase,
     private val deleteBagProductsUseCase: DeleteBagProductsUseCase,
+    private val navigator: Navigator,
     getAllBasketProductsUseCase: GetAllBasketProductsUseCase
 ) : ViewModel() {
 
@@ -52,6 +55,14 @@ class BagViewModel @Inject constructor(
         getBagProducts()
     }
 
+    fun onBackPressed() {
+        navigator.popBackStack()
+    }
+
+    fun goToPaymentMethod(){
+        navigator.navigateToFlow(NavigationFlow.PaymentMethod)
+    }
+
     fun deleteBagProducts() {
         viewModelScope.launch {
             deleteBagProductsUseCase.invoke(withoutParams())
@@ -64,8 +75,8 @@ class BagViewModel @Inject constructor(
             getBagProductsUseCase.invoke(NoParams())
                 .collect {
                     when (it) {
-                        is Result.Success-> {
-                            _products.value = it.data
+                        is Result.Success -> {
+                            _products.value = it.data!!
                         }
                     }
                 }

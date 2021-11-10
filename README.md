@@ -58,6 +58,8 @@
 - [ ] I don't know the right way to integrate communication between composeScreen and viewModel, especially when there are many data to send
 - [ ] Make usable caching of data
 - [ ] Is SingleLiveData a good choice? But I have no other options with compose, at least for now.
+- [ ] Compose has problems with the soft keyboard.
+- [ ] I have not a general ui kit
 
 Login | Select stock
 --- | --- |  

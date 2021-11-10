@@ -53,9 +53,7 @@ fun BaseTopAppBar(
                 contentDescription = "Back button"
             )
             Text(
-                text = backButtonTitle.toUpperCase(
-                    Locale.current
-                ),
+                text = backButtonTitle,
                 color = CashierBlue
             )
         }

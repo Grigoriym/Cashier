@@ -45,11 +45,6 @@ internal class AuthViewModel @Inject constructor(
     }
 
     @MainThread
-    fun goToSelectStockFlow() {
-        navigator.navigateToFlow(NavigationFlow.SelectInfoStockFlow)
-    }
-
-    @MainThread
     fun login(
         mobile: String,
         password: String
@@ -61,10 +56,11 @@ internal class AuthViewModel @Inject constructor(
                     password = password
                 )
             ).collect {
+                _loginStatus.value = it
                 if (it is Result.Success) {
                     workerHelper.startTokenRefresherWorker()
+                    navigator.navigateToFlow(NavigationFlow.SelectInfoStockFlow)
                 }
-                _loginStatus.value = it
             }
         }
     }

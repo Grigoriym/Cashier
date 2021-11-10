@@ -22,7 +22,7 @@ class PriceCalculationsUtils @Inject constructor(
         purchasePrice: BigDecimal,
         doOnValid: (markup: BigDecimal) -> Unit
     ) {
-        if (purchasePrice != bigDecimalZero()) {
+        if (purchasePrice.isNotEqualsZero()) {
             val markup = calculateMarkup(
                 sellingPrice,
                 purchasePrice
@@ -31,12 +31,25 @@ class PriceCalculationsUtils @Inject constructor(
         }
     }
 
+    fun calculateOnChangingSellingPrice(
+        sellingPrice: BigDecimal,
+        purchasePrice: BigDecimal
+    ): BigDecimal =
+        if (purchasePrice.isNotEqualsZero()) {
+            calculateMarkup(
+                sellingPrice,
+                purchasePrice
+            )
+        } else {
+            bigDecimalZero()
+        }
+
     private fun calculateMarkup(
         sellingPrice: BigDecimal,
         purchasePrice: BigDecimal,
     ): BigDecimal =
         ((sellingPrice.subtract(purchasePrice))
             .divide(purchasePrice, mcEven())
-            ).multiply(bigDecimalHundred())
+                ).multiply(bigDecimalHundred())
 
 }

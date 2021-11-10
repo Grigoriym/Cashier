@@ -20,7 +20,7 @@ dependencies {
     implementation(Deps.viewBinding)
     implementation(Deps.coil)
     implementation(Deps.recyclerViewAnimators)
-    implementation(Deps.combineTuple)
+    implementation(Deps.combineTupleLiveData)
 
     implementation(Deps.zxing) {
         isTransitive = false

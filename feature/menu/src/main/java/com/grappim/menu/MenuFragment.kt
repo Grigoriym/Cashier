@@ -10,19 +10,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.fragment.findNavController
-import com.grappim.domain.model.menu.MenuItemType
-import com.grappim.navigation.NavigationFlow
-import com.grappim.navigation.Navigator
 import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MenuFragment : Fragment() {
-
-    @Inject
-    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,20 +28,6 @@ class MenuFragment : Fragment() {
         }
     }
 
-    private fun onItemClick(item: MenuItemPm) {
-        when (item.type) {
-            MenuItemType.ACCEPTANCE -> {
-                navigator.navigateToFlow(NavigationFlow.WaybillFlow)
-            }
-            MenuItemType.PRODUCTS -> {
-                navigator.navigateToFlow(NavigationFlow.ProductsFlow)
-            }
-            MenuItemType.SALES -> {
-                navigator.navigateToFlow(NavigationFlow.SalesFlow)
-            }
-        }
-    }
-
     @Composable
     private fun MenuFragmentScreen() {
         val viewModel: MenuViewModel = viewModel()
@@ -59,10 +37,10 @@ class MenuFragment : Fragment() {
             cashierName = cashierName,
             items = items,
             onItemClick = { menuItem: MenuItemPm ->
-                onItemClick(menuItem)
+                viewModel.onItemClick(menuItem)
             },
             onBackButtonPressed = {
-                findNavController().popBackStack()
+                viewModel.onBackPressed()
             }
         )
     }

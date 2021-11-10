@@ -1,13 +1,13 @@
 package com.grappim.products.create
 
-import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grappim.calculations.DecimalFormatSimple
+import com.grappim.calculations.PriceCalculationsUtils
 import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
-import com.grappim.calculations.DecimalFormatSimple
+import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.date_time.DateTimeUtils
 import com.grappim.domain.base.Result
 import com.grappim.domain.interactor.products.CreateProductUseCase
@@ -17,202 +17,258 @@ import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.storage.GeneralStorage
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
+import com.grappim.navigation.Navigator
+import com.zhuinden.flowcombinetuplekt.combineTuple
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.text.DecimalFormat
-import javax.inject.Inject
 
-@HiltViewModel
-class CreateEditProductViewModel @Inject constructor(
+class CreateEditProductViewModel @AssistedInject constructor(
     private val createProductUseCase: CreateProductUseCase,
-    private val priceCalculationsUtils: com.grappim.calculations.PriceCalculationsUtils,
+    private val priceCalculationsUtils: PriceCalculationsUtils,
     private val editProductUseCase: EditProductUseCase,
     private val getCategoryListUseCase: GetCategoryListUseCase,
     private val generalStorage: GeneralStorage,
-    @DecimalFormatSimple private val dfSimple: DecimalFormat
+    @DecimalFormatSimple private val dfSimple: DecimalFormat,
+    @Assisted private val createEditFlow: CreateEditFlow,
+    @Assisted private val productToEdit: Product?,
+    @Assisted private val scannedBarcode: String?,
+    private val navigator: Navigator
 ) : ViewModel() {
 
-    private val _unit = MutableLiveData<ProductUnit>(
-        ProductUnit.values().first()
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            createEditFlow: CreateEditFlow,
+            productToEdit: Product?,
+            scannedBarcode: String?
+        ): CreateEditProductViewModel
+    }
+
+    val productUnits = flow {
+        emit(ProductUnit.values().toList())
+    }.stateIn(
+        scope = viewModelScope,
+        started = WhileViewSubscribed,
+        initialValue = emptyList()
     )
-    val unit: LiveData<ProductUnit>
-        get() = _unit
 
-    private val _quantity = MutableLiveData(
-        dfSimple.format(bigDecimalOne())
+    val categoriesFlow =
+        getCategoryListUseCase
+            .execute2(GetCategoryListUseCase.Params(false))
+            .stateIn(
+                scope = viewModelScope,
+                started = WhileViewSubscribed,
+                initialValue = emptyList()
+            )
+
+    private val _selectedCategory = MutableStateFlow<Category?>(null)
+    val selectedCategory: StateFlow<Category?>
+        get() = _selectedCategory.asStateFlow()
+
+    private val _productName = MutableStateFlow<String>(
+        productToEdit?.name ?: ""
     )
-    val quantity: LiveData<String>
-        get() = _quantity
+    val productName: StateFlow<String>
+        get() = _productName.asStateFlow()
 
-    private val _createProduct = MutableLiveData<Result<Unit>>()
-    val createProduct: LiveData<Result<Unit>>
-        get() = _createProduct
+    private val _selectedUnit = MutableStateFlow<ProductUnit>(
+        productToEdit?.unit ?: ProductUnit.PIECE
+    )
+    val selectedUnit: StateFlow<ProductUnit>
+        get() = _selectedUnit.asStateFlow()
 
-    private val _sellingPrice = MutableLiveData<String>("0")
-    val sellingPrice: LiveData<String>
-        get() = _sellingPrice
+    private val _barcode = MutableStateFlow(
+        productToEdit?.barcode ?: ""
+    )
+    val barcode: StateFlow<String>
+        get() = _barcode.asStateFlow()
 
-    private val _purchasePrice = MutableLiveData<String>("0")
-    val purchasePrice: LiveData<String>
-        get() = _purchasePrice
-
-    private val _markup = MutableLiveData<String>("0")
-    val markup: LiveData<String>
-        get() = _markup
-
-    private val _categories = MutableLiveData<List<Category>>()
-    val categories: LiveData<List<Category>>
-        get() = _categories
-
-    private val _selectedCategory = MutableLiveData<Category?>()
-    val selectedCategory: LiveData<Category?>
-        get() = _selectedCategory
-
-    init {
-        getCategories()
-    }
-
-    fun setUnit(unit: ProductUnit) {
-        _unit.value = unit
-    }
-
-    fun setQuantity(quantity: BigDecimal) {
-        _quantity.value = dfSimple.format(quantity)
-    }
-
-    private fun getCategories() {
-        viewModelScope.launch {
-            getCategoryListUseCase.invoke(GetCategoryListUseCase.Params(false))
-                .collect {
-                    if (it is Result.Success) {
-                        _categories.value = it.data!!
-                    }
-                }
+    private val _purchasePrice = MutableStateFlow<String>(
+        if (productToEdit?.purchasePrice != null) {
+            dfSimple.format(productToEdit.purchasePrice)
+        } else {
+            ""
         }
-    }
+    )
+    val purchasePrice: StateFlow<String>
+        get() = _purchasePrice.asStateFlow()
 
-    fun minusQuantity() {
-        val quantityToChange = _quantity.value!!.asBigDecimal()
-        if (quantityToChange > bigDecimalOne()) {
-            _quantity.value = dfSimple.format(quantityToChange - bigDecimalOne())
+    private val _sellingPrice = MutableStateFlow<String>(
+        if (productToEdit?.sellingPrice != null) {
+            dfSimple.format(productToEdit.sellingPrice)
+        } else {
+            ""
         }
+    )
+    val sellingPrice: StateFlow<String>
+        get() = _sellingPrice.asStateFlow()
+
+    private val _markup = MutableStateFlow(
+        dfSimple.format(
+            priceCalculationsUtils.calculateOnChangingSellingPrice(
+                _sellingPrice.value.asBigDecimal(),
+                _purchasePrice.value.asBigDecimal()
+            )
+        )
+    )
+    val markup: StateFlow<String>
+        get() = _markup.asStateFlow()
+
+    private val _amount = MutableStateFlow(
+        productToEdit?.amount ?: bigDecimalOne()
+    )
+    val amount: StateFlow<BigDecimal>
+        get() = _amount.asStateFlow()
+
+    private val _dropDownExpanded = MutableStateFlow(false)
+    val dropDownExpanded: StateFlow<Boolean>
+        get() = _dropDownExpanded
+
+    val amountAndUnit = combineTuple(
+        amount,
+        selectedUnit
+    ).map { (amount, unit) ->
+        val formattedAmount = dfSimple.format(amount)
+        val readableUnit = unit.value
+        "$formattedAmount $readableUnit"
+    }.stateIn(
+        scope = viewModelScope,
+        started = WhileViewSubscribed,
+        initialValue = "${productToEdit?.amount ?: bigDecimalOne()} ${productToEdit?.unit ?: ProductUnit.PIECE}"
+    )
+
+    private val _createProduct = MutableStateFlow<Result<Unit>>(
+        Result.Initial
+    )
+    val createProduct: StateFlow<Result<Unit>>
+        get() = _createProduct.asStateFlow()
+
+    fun onBackPressed() {
+        navigator.popBackStack()
     }
 
-    fun plusQuantity() {
-        val quantityToChange = _quantity.value!!.asBigDecimal()
-        _quantity.value = dfSimple.format(quantityToChange + bigDecimalOne())
+    fun dismissDropDown() {
+        _dropDownExpanded.value = false
     }
 
-    @MainThread
-    fun setCategory(position: Int) {
-        _selectedCategory.value = _categories.value?.get(position)
+    fun onDropDownExpand() {
+        _dropDownExpanded.value = true
     }
 
-    @MainThread
-    fun onSalesPriceChanged(salesPrice: String) {
-        _sellingPrice.value = dfSimple.format(salesPrice.asBigDecimal())
+    fun selectCategory(category: Category) {
+        _selectedCategory.value = category
+        _dropDownExpanded.value = false
+    }
+
+    fun setProductName(name: String) {
+        _productName.value = name
+    }
+
+    fun setProductUnit(unit: ProductUnit) {
+        _selectedUnit.value = unit
+    }
+
+    fun setBarcode(barcode: String) {
+        _barcode.value = barcode
+    }
+
+    fun setPurchasePrice(price: String) {
+        _purchasePrice.value = price
+        val newSellingPrice = priceCalculationsUtils.calculateOnChangingMarkup(
+            _purchasePrice.value.asBigDecimal(),
+            _markup.value.asBigDecimal()
+        )
+        _sellingPrice.value = dfSimple.format(newSellingPrice)
+    }
+
+    fun setSellingPrice(price: String) {
+        _sellingPrice.value = price
         priceCalculationsUtils.calculateOnChangingSellingPrice(
-            _sellingPrice.value!!.asBigDecimal(),
-            _purchasePrice.value!!.asBigDecimal()
+            _sellingPrice.value.asBigDecimal(),
+            _purchasePrice.value.asBigDecimal()
         ) { markup ->
             _markup.value = dfSimple.format(markup)
         }
     }
 
-    @MainThread
-    fun onCostPriceChanged(costPrice: String) {
-        _purchasePrice.value = dfSimple.format(costPrice.asBigDecimal())
-        val newSellingPrice = priceCalculationsUtils.calculateOnChangingMarkup(
-            _purchasePrice.value!!.asBigDecimal(),
-            _markup.value!!.asBigDecimal()
-        )
-        _sellingPrice.value = dfSimple.format(newSellingPrice)
-    }
-
-    @MainThread
-    fun onExtraPriceChanged(extraPrice: String) {
-        _markup.value = dfSimple.format(extraPrice.asBigDecimal())
-        val newSellingPrice = priceCalculationsUtils.calculateOnChangingMarkup(
-            _purchasePrice.value!!.asBigDecimal(),
-            _markup.value!!.asBigDecimal()
-        )
-        _sellingPrice.value = dfSimple.format(newSellingPrice)
-    }
-
-    @MainThread
-    fun setExtraPrice() {
-        priceCalculationsUtils.calculateOnChangingSellingPrice(
-            _sellingPrice.value!!.asBigDecimal(),
-            _purchasePrice.value!!.asBigDecimal()
-        ) { markup ->
-            _markup.value = dfSimple.format(markup)
+    fun setMarkup(markup: String) {
+        if (markup.isDigitsOnly()) {
+            _markup.value = markup
+            val newSellingPrice = priceCalculationsUtils.calculateOnChangingMarkup(
+                _purchasePrice.value.asBigDecimal(),
+                _markup.value.asBigDecimal()
+            )
+            _sellingPrice.value = dfSimple.format(newSellingPrice)
         }
     }
 
-    @MainThread
-    fun setSellingPrice(sellingPrice: BigDecimal) {
-        onSalesPriceChanged(dfSimple.format(sellingPrice))
+    fun addQuantity() {
+        val currentAmount = _amount.value
+        _amount.value = currentAmount + bigDecimalOne()
     }
 
-    @MainThread
-    fun setPurchasePrice(purchasePrice: BigDecimal) {
-        onCostPriceChanged(dfSimple.format(purchasePrice))
+    fun subtractQuantity() {
+        val currentAmount = _amount.value
+        _amount.value = currentAmount + bigDecimalOne()
     }
 
-    @MainThread
-    fun editCreateProduct(
-        createEditFlow: CreateEditFlow,
-        name: String,
-        barcode: String,
-        sellingPrice: BigDecimal,
-        purchasePrice: BigDecimal,
-        amount: BigDecimal,
-        unit: ProductUnit,
-        product: Product?
-    ) {
+    fun createEditProduct() {
         when (createEditFlow) {
-            CreateEditFlow.EDIT -> {
-                viewModelScope.launch {
-                    editProductUseCase.invoke(
-                        EditProductUseCase.Params(
-                            name = name,
-                            barcode = barcode,
-                            sellingPrice = sellingPrice,
-                            purchasePrice = purchasePrice,
-                            amount = amount,
-                            unit = unit,
-                            productMerchantId = product?.merchantId ?: "",
-                            productCreatedOn = product?.createdOn ?: "",
-                            productId = product?.id ?: 0,
-                            productStockId = product?.stockId ?: "",
-                            categoryId = _selectedCategory.value?.id ?: 0,
-                            category = _selectedCategory.value?.name ?: ""
-                        )
-                    ).collect {
-                        _createProduct.value = it
-                    }
-                }
-            }
             CreateEditFlow.CREATE -> {
                 viewModelScope.launch {
                     createProductUseCase.invoke(
                         CreateProductUseCase.Params(
-                            name = name,
-                            barcode = barcode,
-                            sellingPrice = sellingPrice,
-                            purchasePrice = purchasePrice,
+                            name = productName.value,
+                            barcode = barcode.value,
+                            sellingPrice = sellingPrice.value.asBigDecimal(),
+                            purchasePrice = purchasePrice.value.asBigDecimal(),
                             stockId = generalStorage.getStockId(),
                             merchantId = generalStorage.getMerchantId(),
-                            unit = unit.value,
-                            amount = amount,
+                            unit = selectedUnit.value.value,
+                            amount = amount.value,
                             createdOn = DateTimeUtils.getNowFullDate(),
                             updatedOn = DateTimeUtils.getNowFullDate(),
                             categoryName = _selectedCategory.value?.name ?: "",
                             categoryId = _selectedCategory.value?.id ?: 0
                         )
                     ).collect {
+                        when (it) {
+                            is Result.Success -> {
+                                onBackPressed()
+                            }
+                        }
+                        _createProduct.value = it
+                    }
+                }
+            }
+            CreateEditFlow.EDIT -> {
+                viewModelScope.launch {
+                    editProductUseCase.invoke(
+                        EditProductUseCase.Params(
+                            name = productName.value,
+                            barcode = barcode.value,
+                            sellingPrice = sellingPrice.value.asBigDecimal(),
+                            purchasePrice = purchasePrice.value.asBigDecimal(),
+                            amount = amount.value,
+                            unit = selectedUnit.value,
+                            productMerchantId = productToEdit?.merchantId ?: "",
+                            productCreatedOn = productToEdit?.createdOn ?: "",
+                            productId = productToEdit?.id ?: 0,
+                            productStockId = productToEdit?.stockId ?: "",
+                            categoryId = _selectedCategory.value?.id ?: 0,
+                            category = _selectedCategory.value?.name ?: ""
+                        )
+                    ).collect {
+                        when (it) {
+                            is Result.Success -> {
+                                onBackPressed()
+                            }
+                        }
                         _createProduct.value = it
                     }
                 }

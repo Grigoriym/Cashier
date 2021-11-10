@@ -24,5 +24,13 @@ enum class ProductUnit(
                 METER_3.value -> METER_3
                 else -> PIECE
             }
+
+        fun getValuesForDemonstration(): List<String> =
+            ProductUnit
+                .values()
+                .asList()
+                .map {
+                    it.value
+                }
     }
 }

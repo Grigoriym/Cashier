@@ -64,7 +64,8 @@ object Versions {
     const val recyclerAnimators = "4.0.2"
     const val chucker = "3.5.2"
     const val debugDb = "1.0.6"
-    const val combineTuple = "1.2.1"
+    const val combineTupleLiveData = "1.2.1"
+    const val combineTupleFlow = "1.1.1"
     const val viewBinding = "1.4.7"
     const val zxing = "3.6.0"
 
