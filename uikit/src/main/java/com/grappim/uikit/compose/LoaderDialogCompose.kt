@@ -17,11 +17,13 @@ import com.grappim.uikit.theme.CashierTheme
 @Composable
 fun LoaderDialogCompose(
     show: Boolean,
-    onClose: () -> Unit
+    onClose: (() -> Unit)? = null
 ) {
     if (show) {
         Dialog(
-            onDismissRequest = onClose,
+            onDismissRequest = {
+                onClose?.invoke()
+            },
             properties = DialogProperties(
                 dismissOnBackPress = true,
                 dismissOnClickOutside = true

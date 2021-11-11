@@ -5,7 +5,10 @@ plugins {
 
 android {
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
 }
 
@@ -17,6 +20,15 @@ dependencies {
     implementation(Deps.AndroidX.lifecycleViewModel)
     implementation(Deps.AndroidX.lifecycleRuntime)
 
-    implementation(Deps.viewBinding)
-    implementation(Deps.coil)
+    implementation(Deps.Compose.ui)
+    implementation(Deps.Compose.material)
+    implementation(Deps.Compose.toolingPreview)
+    implementation(Deps.Compose.uiTooling)
+    implementation(Deps.Compose.runtime)
+    implementation(Deps.Compose.runtimeLivedata)
+    implementation(Deps.Compose.foundation)
+    implementation(Deps.Compose.foundationLayout)
+    implementation(Deps.Compose.icons)
+    implementation(Deps.Compose.constraint)
+    implementation(Deps.Compose.lifecycleViewModel)
 }

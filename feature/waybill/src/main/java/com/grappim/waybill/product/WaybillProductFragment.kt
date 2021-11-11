@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.fragment.findNavController
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.core.delegate.lazyArg
 import com.grappim.domain.base.Result
@@ -19,8 +17,6 @@ import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.theme.CashierTheme
-import com.grappim.waybill.R
-import com.grappim.waybill.details.WaybillDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -69,15 +65,6 @@ class WaybillProductFragment : Fragment() {
 
         val productCreatedState by viewModel.productCreated
         when (val state = productCreatedState) {
-            is Result.Success -> {
-                findNavController()
-                    .navigate(
-                        R.id.action_waybillProduct_to_waybillDetails,
-                        bundleOf(
-                            WaybillDetailsFragment.ARG_TOTAL_COST to state.data
-                        )
-                    )
-            }
             is Result.Error -> {
                 showToast(getErrorMessage(state.exception))
             }
@@ -85,7 +72,9 @@ class WaybillProductFragment : Fragment() {
 
         WaybillProductScreen(
             waybillProductStates = waybillProduct,
-            onBackClick = { findNavController().popBackStack() },
+            onBackClick = {
+                viewModel.onBackPressed()
+            },
             onActionClick = {
                 viewModel.waybillProductAction()
             },

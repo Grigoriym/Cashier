@@ -1,80 +1,49 @@
 package com.grappim.bag
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.grappim.bag.databinding.FragmentBagBinding
-import com.grappim.calculations.DecimalFormatSimple
-import com.grappim.domain.model.product.Product
-import com.grappim.extensions.setSafeOnClickListener
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class BagFragment : Fragment(R.layout.fragment_bag),
-    BagItemClickListener {
+class BagFragment : Fragment() {
 
-    @Inject
-    @DecimalFormatSimple
-    lateinit var dfSimple: DecimalFormat
-
-    private val viewBinding: FragmentBagBinding by viewBinding(FragmentBagBinding::bind)
-    private val viewModel: BagViewModel by viewModels()
-    private val bagAdapter: BagAdapter by lazy {
-        BagAdapter(dfSimple, this)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
-        viewModel.products.observe(viewLifecycleOwner) {
-            bagAdapter.updateProducts(it)
-        }
-        viewModel.basketCount.observe(viewLifecycleOwner) {
-            viewBinding.textItemsCount.text = dfSimple.format(it)
-        }
-        viewModel.basketSum.observe(viewLifecycleOwner) {
-            viewBinding.textPrice.text = getString(
-                R.string.title_price_with_currency,
-                dfSimple.format(it)
-            )
-        }
-    }
-
-    private fun initViews() {
-        with(viewBinding) {
-            recyclerBag.adapter = bagAdapter
-            buttonBack.setSafeOnClickListener {
-                viewModel.onBackPressed()
-            }
-            buttonDelete.setSafeOnClickListener {
-                viewModel.deleteBagProducts()
-            }
-            buttonScan.setSafeOnClickListener {
-//                findNavController().navigate(
-//                    BagFragmentDirections.actionBagFragmentToScannerFragment(
-//                        ScanType.SINGLE
-//                    )
-//                )
-            }
-            buttonPay.setSafeOnClickListener {
-                viewModel.goToPaymentMethod()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            CashierTheme {
+                BagFragmentScreen()
             }
         }
     }
 
-    override fun addProduct(product: Product) {
-        viewModel.addProductToBasket(product)
-    }
+    @Composable
+    private fun BagFragmentScreen() {
+        val viewModel: BagViewModel = viewModel()
 
-    override fun removeProduct(product: Product) {
-        viewModel.removeProductFromBasket(product)
+        val products by viewModel.products.observeAsState(emptyList())
+        val basketSum by viewModel.basketSum.collectAsState()
+
+        BagScreen(
+            onBackClick = viewModel::onBackPressed,
+            onScanClick = viewModel::showScanner,
+            onPayClick = viewModel::goToPaymentMethod,
+            onMinusClick = viewModel::removeProductFromBasket,
+            onPlusClick = viewModel::addProductToBasket,
+            items = products,
+            price = basketSum
+        )
     }
 }

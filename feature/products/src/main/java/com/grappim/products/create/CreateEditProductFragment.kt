@@ -74,64 +74,36 @@ class CreateEditProductFragment : Fragment() {
         val dropDownExpanded by viewModel.dropDownExpanded.collectAsState()
         val createEditProductResult by viewModel.createProduct.collectAsState()
 
-        LoaderDialogCompose(show = createEditProductResult is Result.Loading) {
-
-        }
+        LoaderDialogCompose(show = createEditProductResult is Result.Loading)
 
         LaunchedEffect(key1 = createEditProductResult) {
             showCreateEditResult(createEditProductResult)
         }
 
         CreateEditProductScreen(
-            onBackPressed = {
-                viewModel.onBackPressed()
-            },
-            onCreateProductClick = {
-                viewModel.createEditProduct()
-            },
+            onBackPressed = viewModel::onBackPressed,
+            onCreateProductClick = viewModel::createEditProduct,
             productName = productName,
-            setProductName = {
-                viewModel.setProductName(it)
-            },
+            setProductName = viewModel::setProductName,
             units = productUnits,
             selectedUnit = selectedUnit,
-            onUnitChanged = {
-                viewModel.setProductUnit(it)
-            },
-            onMinusClick = {
-                viewModel.subtractQuantity()
-            },
-            onPlusClick = {
-                viewModel.addQuantity()
-            },
+            onUnitChanged = viewModel::setProductUnit,
+            onMinusClick = viewModel::subtractQuantity,
+            onPlusClick = viewModel::addQuantity,
             quantityAndUnitText = amountAndUnit,
             purchasePrice = purchasePrice,
-            setPurchasePrice = {
-                viewModel.setPurchasePrice(it)
-            },
+            setPurchasePrice = viewModel::setPurchasePrice,
             extraPrice = markup,
-            setExtraPrice = {
-                viewModel.setMarkup(it)
-            },
+            setExtraPrice = viewModel::setMarkup,
             sellingPrice = sellingPrice,
-            setSellingPrice = {
-                viewModel.setSellingPrice(it)
-            },
+            setSellingPrice = viewModel::setSellingPrice,
             barcode = barcode,
-            setBarcode = {
-                viewModel.setBarcode(it)
-            },
+            setBarcode = viewModel::setBarcode,
             dropDownExpanded = dropDownExpanded,
-            onDismissDropDown = {
-                viewModel.dismissDropDown()
-            },
-            onDropDownClick = {
-                viewModel.onDropDownExpand()
-            },
+            onDismissDropDown = viewModel::dismissDropDown,
+            onDropDownClick = viewModel::onDropDownExpand,
             categoryItems = categoryList,
-            onCategoryClick = {
-                viewModel.selectCategory(it)
-            },
+            onCategoryClick = viewModel::selectCategory,
             createEditFlow = createEditFlow,
             selectedCategory = selectedCategory,
             onScanClick = {

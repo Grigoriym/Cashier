@@ -17,7 +17,6 @@ dependencies {
     implementation(project(Modules.utilsDateTime))
 
     implementation(Deps.combineTupleFlow)
-    implementation(Deps.combineTupleLiveData)
 
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)

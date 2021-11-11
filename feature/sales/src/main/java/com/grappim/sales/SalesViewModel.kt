@@ -47,9 +47,8 @@ internal class SalesViewModel @Inject constructor(
     }
 
     private val _basketCount = getAllBasketProductsUseCase.invoke(withoutParams())
-    val basketCount: LiveData<String> =
+    val basketCount: StateFlow<String> =
         _basketCount
-            .asLiveData(viewModelScope.coroutineContext)
             .map { list ->
                 list.map {
                     it.basketCount
@@ -59,11 +58,20 @@ internal class SalesViewModel @Inject constructor(
             }.map {
                 dfSimple.format(it)
             }
+            .stateIn(
+                scope = viewModelScope,
+                started = WhileViewSubscribed,
+                initialValue = "0"
+            )
 
     fun addProduct(product: Product) {
         viewModelScope.launch {
             addProductToBasketUseCase.invoke(AddProductToBasketUseCase.Params(product))
         }
+    }
+
+    fun onBackPressed() {
+        navigator.popBackStack()
     }
 
     fun subtractProduct(product: Product) {

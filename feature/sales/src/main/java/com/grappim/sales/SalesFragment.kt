@@ -11,7 +11,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.fragment.findNavController
 import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,12 +33,12 @@ internal class SalesFragment : Fragment() {
     private fun SalesFragmentScreen() {
         val viewModel: SalesViewModel = viewModel()
         val productItems by viewModel.products.collectAsState()
-        val basketCount by viewModel.basketCount.observeAsState("")
-        val searchQuery by viewModel.searchQuery.collectAsState("")
+        val basketCount by viewModel.basketCount.collectAsState()
+        val searchQuery by viewModel.searchQuery.collectAsState()
 
         SalesScreen(
             onBackClick = {
-                findNavController().popBackStack()
+                viewModel.onBackPressed()
             },
             onScanClick = {
                 viewModel.showScanner()

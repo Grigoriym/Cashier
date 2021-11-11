@@ -35,34 +35,22 @@ class ProductsFragment : Fragment() {
         val viewModel: ProductsViewModel = viewModel()
 
         val categories by viewModel.categories.collectAsState()
-        val products by viewModel.products.observeAsState(emptyList())
-        val searchQuery by viewModel.query.observeAsState("")
+        val products by viewModel.products.collectAsState(initial = emptyList())
+        val searchQuery by viewModel.query.collectAsState()
         val index by viewModel.selectedIndex.collectAsState()
 
         ProductsScreen(
-            onBackPressed = {
-                findNavController().popBackStack()
-            },
-            onCreateProductClick = {
-                findNavController().navigate(
-                    ProductsFragmentDirections.actionProductsToCreateProduct()
-                )
-            },
+            onBackPressed = viewModel::onBackPressed,
+            onCreateProductClick = viewModel::showCreateProduct,
             searchText = searchQuery,
-            setSearchText = {
-                viewModel.searchProducts(it)
-            },
+            setSearchText = viewModel::searchProducts,
             categories = categories,
             selectedIndex = index,
             onTabClick = { idx, category ->
                 viewModel.setCategory(category, idx)
             },
             products = products,
-            onProductClick = {
-                findNavController().navigate(
-                    ProductsFragmentDirections.actionProductsToEditProduct(product = it)
-                )
-            }
+            onProductClick = viewModel::showEditProduct
         )
     }
 }

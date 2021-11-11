@@ -23,6 +23,7 @@ import com.grappim.uikit.compose.OutlinedTextFieldCompose
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierTheme
+import kotlin.reflect.KFunction2
 
 @Composable
 internal fun ProductsScreen(

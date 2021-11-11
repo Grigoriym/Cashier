@@ -3,6 +3,7 @@ package com.grappim.waybill.product
 import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
@@ -14,7 +15,9 @@ import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.domain.model.product.Product
+import com.grappim.navigation.Navigator
 import com.grappim.waybill.R
+import com.grappim.waybill.details.WaybillDetailsFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.collect
@@ -28,7 +31,8 @@ class WaybillProductViewModel @Inject constructor(
     private val createWaybillProductUseCase: CreateWaybillProductUseCase,
     private val updateWaybillProductUseCase: UpdateWaybillProductUseCase,
     @ApplicationContext private val context: Context,
-    @DecimalFormatSimple private val dfSimple: DecimalFormat
+    @DecimalFormatSimple private val dfSimple: DecimalFormat,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     private val _waybillProductState = mutableStateOf<WaybillProductStates>(
@@ -42,6 +46,10 @@ class WaybillProductViewModel @Inject constructor(
     )
     val productCreated: State<Result<BigDecimal>>
         get() = _productCreated
+
+    fun onBackPressed() {
+        navigator.popBackStack()
+    }
 
     fun setBarcode(barcode: String) {
         checkIfStateValid {
@@ -214,6 +222,16 @@ class WaybillProductViewModel @Inject constructor(
                 )
             ).collect {
                 _productCreated.value = it
+                when (it) {
+                    is Result.Success -> {
+                        navigator.navigate(
+                            R.id.action_waybillProduct_to_waybillDetails,
+                            bundleOf(
+                                WaybillDetailsFragment.ARG_TOTAL_COST to it.data
+                            )
+                        )
+                    }
+                }
             }
         }
     }

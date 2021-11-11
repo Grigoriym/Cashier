@@ -31,7 +31,8 @@ fun ItemAddProductCompose(
     product: Product,
     onMinusClick: (Product) -> Unit,
     onPlusClick: (Product) -> Unit,
-    onCartClick: (Product) -> Unit
+    onCartClick: ((Product) -> Unit)?=null,
+    showCart: Boolean = true
 ) {
     Card(
         modifier = modifier
@@ -97,7 +98,8 @@ fun ItemAddProductCompose(
                 modifier = Modifier
                     .constrainAs(price) {
                         end.linkTo(
-                            anchor = cart.end
+                            anchor = parent.end,
+                            margin = 16.dp
                         )
                         top.linkTo(
                             anchor = title.top
@@ -107,27 +109,29 @@ fun ItemAddProductCompose(
                 fontSize = 16.sp
             )
 
-            StandardFilledButton(
-                onButtonClick = {
-                    onCartClick(product)
-                },
-                iconDrawable = R.drawable.ic_shopping_cart,
-                modifier = Modifier
-                    .constrainAs(cart) {
-                        end.linkTo(
-                            anchor = parent.end,
-                            margin = 16.dp
-                        )
-                        bottom.linkTo(
-                            anchor = parent.bottom
-                        )
-                        top.linkTo(
-                            anchor = price.bottom,
-                        )
+            if (showCart) {
+                StandardFilledButton(
+                    onButtonClick = {
+                        onCartClick?.invoke(product)
                     },
-                backgroundColor = Color.White,
-                iconTint = CashierBlue
-            )
+                    iconDrawable = R.drawable.ic_shopping_cart,
+                    modifier = Modifier
+                        .constrainAs(cart) {
+                            end.linkTo(
+                                anchor = parent.end,
+                                margin = 16.dp
+                            )
+                            bottom.linkTo(
+                                anchor = parent.bottom
+                            )
+                            top.linkTo(
+                                anchor = price.bottom,
+                            )
+                        },
+                    backgroundColor = Color.White,
+                    iconTint = CashierBlue
+                )
+            }
 
             Counter(
                 modifier = Modifier
@@ -276,7 +280,21 @@ private fun ItemAddProductPreview() {
             product = Product.empty(),
             onPlusClick = {},
             onMinusClick = {},
-            onCartClick = {}
+            onCartClick = {},
+        )
+    }
+}
+
+@Composable
+@Preview
+private fun ItemAddProductPreview2() {
+    CashierTheme {
+        ItemAddProductCompose(
+            product = Product.empty(),
+            onPlusClick = {},
+            onMinusClick = {},
+            onCartClick = {},
+            showCart = false
         )
     }
 }

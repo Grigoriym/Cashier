@@ -1,7 +1,10 @@
 package com.grappim.navigation
 
+import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.annotation.MainThread
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,6 +25,14 @@ class Navigator @Inject constructor(
 
     fun popBackStack() {
         navController.popBackStack()
+    }
+
+    fun navigate(@IdRes resId: Int, args: Bundle?) {
+        navController.navigate(resId, args)
+    }
+
+    fun navigate(directions: NavDirections) {
+        navController.navigate(directions)
     }
 
     @MainThread
