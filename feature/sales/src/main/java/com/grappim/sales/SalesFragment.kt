@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -37,30 +36,16 @@ internal class SalesFragment : Fragment() {
         val searchQuery by viewModel.searchQuery.collectAsState()
 
         SalesScreen(
-            onBackClick = {
-                viewModel.onBackPressed()
-            },
-            onScanClick = {
-                viewModel.showScanner()
-            },
-            onBagClick = {
-                viewModel.showBasket()
-            },
+            onBackClick = viewModel::onBackPressed,
+            onScanClick = viewModel::showScanner,
+            onBagClick = viewModel::showBasket,
             bagCount = basketCount,
             items = productItems,
-            onMinusClick = {
-                viewModel.subtractProduct(it)
-            },
-            onPlusClick = {
-                viewModel.addProduct(it)
-            },
-            onCartClick = {
-                viewModel.onCartClicked(it)
-            },
+            onMinusClick = viewModel::subtractProduct,
+            onPlusClick = viewModel::addProduct,
+            onCartClick = viewModel::onCartClicked,
             searchText = searchQuery,
-            setSearchText = {
-                viewModel.setQuery(it)
-            }
+            setSearchText = viewModel::setQuery
         )
     }
 }

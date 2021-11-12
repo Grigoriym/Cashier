@@ -1,54 +1,82 @@
 package com.grappim.payment_method
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.grappim.calculations.DecimalFormatSimple
+import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.domain.base.Result
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
+import com.grappim.navigation.NavigationFlow
+import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 @HiltViewModel
 class PaymentMethodViewModel @Inject constructor(
     paymentMethodItemGenerator: PaymentMethodItemGenerator,
     private val makePaymentUseCase: MakePaymentUseCase,
-    getAllBasketProductsUseCase: GetAllBasketProductsUseCase
+    getAllBasketProductsUseCase: GetAllBasketProductsUseCase,
+    @DecimalFormatSimple private val dfSimple: DecimalFormat,
+    private val navigator: Navigator
 ) : ViewModel() {
 
-    private val _paymentStatus = MutableLiveData<Result<Unit>>()
-    val paymentStatus: LiveData<Result<Unit>>
-        get() = _paymentStatus
+    private val _paymentStatus = MutableStateFlow<Result<Unit>>(
+        Result.Initial
+    )
+    val paymentStatus: StateFlow<Result<Unit>>
+        get() = _paymentStatus.asStateFlow()
 
-    private val _paymentItems = paymentMethodItemGenerator.paymentMethodItems
-    val paymentItems = _paymentItems.asLiveData(viewModelScope.coroutineContext)
+    val paymentItems = paymentMethodItemGenerator.paymentMethodItems
 
-    private val _basketCount = getAllBasketProductsUseCase.invoke(withoutParams())
-    val basketCount: LiveData<BigDecimal> =
-        _basketCount.asLiveData(viewModelScope.coroutineContext).map { list ->
+    val basketCount: StateFlow<String> =
+        getAllBasketProductsUseCase.invoke(withoutParams()).map { list ->
             list.map {
                 it.basketCount
             }.sumOf {
                 it
             }
-        }
-    private val _basketSum = getAllBasketProductsUseCase.invoke(withoutParams())
-    val basketSum: LiveData<BigDecimal> =
-        _basketSum.asLiveData(viewModelScope.coroutineContext).map { list ->
+        }.map {
+            dfSimple.format(it)
+        }.stateIn(
+            scope = viewModelScope,
+            started = WhileViewSubscribed,
+            initialValue = "0"
+        )
+
+    val basketSum: StateFlow<String> =
+        getAllBasketProductsUseCase.invoke(withoutParams()).map { list ->
             list.map {
                 it.sellingPrice * it.basketCount
             }.sumOf {
                 it
             }
-        }
+        }.map {
+            dfSimple.format(it)
+        }.stateIn(
+            scope = viewModelScope,
+            started = WhileViewSubscribed,
+            initialValue = "0"
+        )
+
+    fun onBackPressed() {
+        navigator.popBackStack()
+    }
 
     fun makePayment(paymentMethod: PaymentMethod) {
         viewModelScope.launch {
             makePaymentUseCase.invoke(MakePaymentUseCase.Params(paymentMethod.type))
                 .collect {
                     _paymentStatus.value = it
+                    when (it) {
+                        is Result.Success -> {
+                            navigator.navigateToFlow(NavigationFlow.PaymentMethodToSales)
+                        }
+                    }
                 }
         }
     }

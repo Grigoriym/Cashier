@@ -2,12 +2,13 @@ package com.grappim.uikit.compose
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,13 +30,18 @@ fun StandardFilledButton(
     text: String? = null,
     iconTint: Color? = null
 ) {
+    val borderStroke = if (backgroundColor == CashierBlue) {
+        null
+    } else {
+        BorderStroke(
+            width = 1.dp,
+            color = CashierBlue
+        )
+    }
     Button(
         onClick = onButtonClick,
         modifier = modifier,
-        border = BorderStroke(
-            width = 1.dp,
-            color = CashierBlue
-        ),
+        border = borderStroke,
         shape = RoundedCornerShape(15.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor

@@ -116,12 +116,17 @@ private fun BottomBarSegment(
     onBagClick: () -> Unit,
     bagCount: String
 ) {
-    Surface {
+    Surface(
+        modifier = Modifier,
+        elevation = 16.dp
+    ) {
         Row(
             modifier = Modifier
                 .padding(
                     start = 16.dp,
-                    end = 16.dp
+                    end = 16.dp,
+                    bottom = 32.dp,
+                    top = 16.dp
                 )
         ) {
             StandardFilledButton(
@@ -144,7 +149,8 @@ private fun BottomBarSegment(
                     .padding(
                         start = 8.dp
                     ),
-                backgroundColor = Color.White
+                backgroundColor = Color.White,
+                iconTint = CashierBlue
             )
         }
     }

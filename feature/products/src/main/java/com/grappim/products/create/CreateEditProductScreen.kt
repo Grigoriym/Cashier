@@ -1,8 +1,6 @@
 package com.grappim.products.create
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,19 +11,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,9 +29,11 @@ import com.grappim.domain.model.product.Category
 import com.grappim.products.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.CounterComposable
 import com.grappim.uikit.compose.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
+import com.grappim.uikit.theme.CashierLightGray
 import com.grappim.uikit.theme.CashierTheme
 
 @Composable
@@ -173,7 +168,9 @@ private fun CreateEditProductScreenMainSegment(
                     keyboardType = KeyboardType.Text
                 ),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
+                    backgroundColor = Color.White,
+                    focusedIndicatorColor = CashierBlue,
+                    unfocusedIndicatorColor = CashierLightGray
                 )
             )
         }
@@ -224,7 +221,9 @@ private fun CreateEditProductScreenMainSegment(
                     keyboardType = KeyboardType.Number
                 ),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
+                    backgroundColor = Color.White,
+                    focusedIndicatorColor = CashierBlue,
+                    unfocusedIndicatorColor = CashierLightGray
                 )
             )
         }
@@ -282,13 +281,13 @@ private fun CategoryDropDownSegment(
             )
             .fillMaxWidth()
             .drawBehind {
-                val strokeWidth = 2 * density
+                val strokeWidth = 3f
                 val y = size.height - strokeWidth / 2
                 drawLine(
-                    Color.LightGray,
-                    Offset(0f, y),
-                    Offset(size.width, y),
-                    strokeWidth
+                    color = CashierLightGray,
+                    start = Offset(0f, y),
+                    end = Offset(size.width, y),
+                    strokeWidth = strokeWidth
                 )
             }
             .clickable {
@@ -415,7 +414,9 @@ private fun PricesSegment(
                 keyboardType = KeyboardType.Number
             ),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White
+                backgroundColor = Color.White,
+                focusedIndicatorColor = CashierBlue,
+                unfocusedIndicatorColor = CashierLightGray
             )
         )
 
@@ -435,7 +436,9 @@ private fun PricesSegment(
                 keyboardType = KeyboardType.Number
             ),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White
+                backgroundColor = Color.White,
+                focusedIndicatorColor = CashierBlue,
+                unfocusedIndicatorColor = CashierLightGray
             )
         )
 
@@ -455,7 +458,9 @@ private fun PricesSegment(
                 keyboardType = KeyboardType.Number
             ),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White
+                backgroundColor = Color.White,
+                focusedIndicatorColor = CashierBlue,
+                unfocusedIndicatorColor = CashierLightGray
             )
         )
     }
@@ -478,97 +483,11 @@ private fun QuantitySegment(
             fontSize = 16.sp
         )
 
-        Row(
-            modifier = Modifier
-                .padding(
-                    top = 16.dp
-                )
-                .height(IntrinsicSize.Min)
-                .defaultMinSize(
-                    minHeight = 30.dp
-                )
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Button(
-                onClick = onMinusClick,
-                shape = RoundedCornerShape(
-                    topStart = 16.dp,
-                    bottomStart = 16.dp,
-                    topEnd = 0.dp,
-                    bottomEnd = 0.dp
-                ),
-                modifier = Modifier
-                    .height(30.dp)
-                    .weight(1f),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.White
-                ),
-                elevation = ButtonDefaults.elevation(
-                    defaultElevation = 0.dp
-                ),
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = CashierGray
-                )
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Remove,
-                    contentDescription = "",
-                    tint = CashierBlue
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .background(
-                        color = Color.White
-                    )
-                    .border(
-                        width = 1.dp,
-                        color = Color.Gray
-                    )
-                    .weight(1f)
-            ) {
-                Text(
-                    text = quantityAndUnitText,
-                    modifier = Modifier
-                        .align(Alignment.Center),
-                    color = CashierGray,
-                    textAlign = TextAlign.Center
-                )
-            }
-
-            Button(
-                onClick = onPlusClick,
-                shape = RoundedCornerShape(
-                    topStart = 0.dp,
-                    bottomStart = 0.dp,
-                    topEnd = 16.dp,
-                    bottomEnd = 16.dp
-                ),
-                modifier = Modifier
-                    .height(30.dp)
-                    .weight(1f),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.White
-                ),
-                elevation = ButtonDefaults.elevation(
-                    defaultElevation = 0.dp
-                ),
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = CashierGray
-                )
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Add,
-                    contentDescription = "",
-                    tint = CashierBlue
-                )
-            }
-        }
+        CounterComposable(
+            onMinusClick = onMinusClick,
+            onPlusClick = onPlusClick,
+            text = quantityAndUnitText
+        )
     }
 }
 

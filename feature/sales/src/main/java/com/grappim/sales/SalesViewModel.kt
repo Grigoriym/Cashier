@@ -1,6 +1,7 @@
 package com.grappim.sales
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.domain.base.withoutParams
@@ -81,7 +82,7 @@ internal class SalesViewModel @Inject constructor(
     }
 
     fun onCartClicked(product: Product) {
-
+        addProduct(product)
     }
 
     fun showScanner() {

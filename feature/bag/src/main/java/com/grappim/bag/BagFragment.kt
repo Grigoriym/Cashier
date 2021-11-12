@@ -33,7 +33,7 @@ class BagFragment : Fragment() {
     private fun BagFragmentScreen() {
         val viewModel: BagViewModel = viewModel()
 
-        val products by viewModel.products.observeAsState(emptyList())
+        val products by viewModel.products.collectAsState()
         val basketSum by viewModel.basketSum.collectAsState()
 
         BagScreen(

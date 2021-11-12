@@ -1,6 +1,9 @@
 package com.grappim.uikit.compose
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -10,6 +13,8 @@ import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,6 +28,7 @@ import com.grappim.domain.model.product.Product
 import com.grappim.uikit.R
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
+import com.grappim.uikit.theme.CashierLightGray
 import com.grappim.uikit.theme.CashierTheme
 
 @Composable
@@ -31,7 +37,7 @@ fun ItemAddProductCompose(
     product: Product,
     onMinusClick: (Product) -> Unit,
     onPlusClick: (Product) -> Unit,
-    onCartClick: ((Product) -> Unit)?=null,
+    onCartClick: ((Product) -> Unit)? = null,
     showCart: Boolean = true
 ) {
     Card(
@@ -122,18 +128,19 @@ fun ItemAddProductCompose(
                                 margin = 16.dp
                             )
                             bottom.linkTo(
-                                anchor = parent.bottom
+                                anchor = counter.bottom
                             )
                             top.linkTo(
-                                anchor = price.bottom,
+                                anchor = counter.top,
                             )
+                            height = Dimension.fillToConstraints
                         },
                     backgroundColor = Color.White,
                     iconTint = CashierBlue
                 )
             }
 
-            Counter(
+            CounterComposable(
                 modifier = Modifier
                     .constrainAs(counter) {
                         start.linkTo(
@@ -170,101 +177,10 @@ fun ItemAddProductCompose(
 }
 
 @Composable
-private fun Counter(
-    modifier: Modifier = Modifier,
-    onMinusClick: () -> Unit,
-    onPlusClick: () -> Unit,
-    text: String
-) {
-    Row(
-        modifier = modifier
-            .height(IntrinsicSize.Min),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Button(
-            onClick = onMinusClick,
-            shape = RoundedCornerShape(
-                topStart = 16.dp,
-                bottomStart = 16.dp,
-                topEnd = 0.dp,
-                bottomEnd = 0.dp
-            ),
-            modifier = Modifier
-                .width(60.dp)
-                .height(30.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.White
-            ),
-            elevation = ButtonDefaults.elevation(
-                defaultElevation = 0.dp
-            ),
-            border = BorderStroke(
-                width = 1.dp,
-                color = CashierGray
-            )
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Remove,
-                contentDescription = ""
-            )
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxHeight()
-                .background(
-                    color = Color.White
-                )
-                .border(
-                    width = 1.dp,
-                    color = Color.Gray
-                )
-        ) {
-            Text(
-                text = text,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .width(90.dp),
-                color = CashierGray,
-                textAlign = TextAlign.Center
-            )
-        }
-
-        Button(
-            onClick = onPlusClick,
-            shape = RoundedCornerShape(
-                topStart = 0.dp,
-                bottomStart = 0.dp,
-                topEnd = 16.dp,
-                bottomEnd = 16.dp
-            ),
-            modifier = Modifier
-                .width(60.dp)
-                .height(30.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.White
-            ),
-            elevation = ButtonDefaults.elevation(
-                defaultElevation = 0.dp
-            ),
-            border = BorderStroke(
-                width = 1.dp,
-                color = CashierGray
-            )
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Add,
-                contentDescription = ""
-            )
-        }
-    }
-}
-
-@Composable
 @Preview
 private fun CounterPreview() {
     CashierTheme {
-        Counter(
+        CounterComposable(
             onMinusClick = {},
             onPlusClick = {},
             text = "1 pc"

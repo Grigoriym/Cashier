@@ -15,10 +15,7 @@ import com.grappim.domain.model.product.Product
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -35,9 +32,11 @@ class BagViewModel @Inject constructor(
     @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : ViewModel() {
 
-    private val _products = MutableLiveData<List<Product>>()
-    val products: LiveData<List<Product>>
-        get() = _products
+    private val _products = MutableStateFlow<List<Product>>(
+        emptyList()
+    )
+    val products: StateFlow<List<Product>>
+        get() = _products.asStateFlow()
 
     private val _basketCount = getAllBasketProductsUseCase.invoke(withoutParams())
     val basketCount: LiveData<BigDecimal> =

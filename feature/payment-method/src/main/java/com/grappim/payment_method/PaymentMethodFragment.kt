@@ -1,88 +1,68 @@
 package com.grappim.payment_method
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.grappim.calculations.DecimalFormatSimple
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grappim.domain.base.Result
 import com.grappim.extensions.getErrorMessage
-import com.grappim.extensions.setSafeOnClickListener
 import com.grappim.extensions.showToast
-import com.grappim.navigation.NavigationFlow
-import com.grappim.navigation.Navigator
-import com.grappim.payment_method.databinding.FragmentPaymentMethodBinding
-import com.grappim.uikit.view.CashierLoaderDialog
+import com.grappim.uikit.compose.LoaderDialogCompose
+import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class PaymentMethodFragment : Fragment(R.layout.fragment_payment_method),
-    PaymentMethodClickListener {
+class PaymentMethodFragment : Fragment() {
 
-    @Inject
-    @DecimalFormatSimple
-    lateinit var dfSimple: DecimalFormat
-
-    @Inject
-    lateinit var navigator: Navigator
-
-    private val viewBinding: FragmentPaymentMethodBinding by viewBinding(
-        FragmentPaymentMethodBinding::bind
-    )
-    private val viewModel: PaymentMethodViewModel by viewModels()
-    private val paymentMethodAdapter by lazy {
-        PaymentMethodAdapter(this)
-    }
-    private val loader: CashierLoaderDialog by lazy {
-        CashierLoaderDialog(requireContext())
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
-        viewModel.paymentItems.observe(viewLifecycleOwner) {
-            paymentMethodAdapter.setItems(it)
-        }
-        viewModel.basketCount.observe(viewLifecycleOwner) {
-            viewBinding.textItemsCount.text = dfSimple.format(it)
-        }
-        viewModel.basketSum.observe(viewLifecycleOwner) {
-            viewBinding.textPrice.text = getString(
-                R.string.title_price_with_currency,
-                dfSimple.format(it)
-            )
-        }
-        viewModel.paymentStatus.observe(viewLifecycleOwner) {
-            loader.showOrHide(it is Result.Loading)
-            when (it) {
-                is Result.Success -> {
-                    navigator.navigateToFlow(NavigationFlow.PaymentMethodToSales)
-                }
-                is Result.Error -> {
-                    showToast(getErrorMessage(it.exception))
-                }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            CashierTheme {
+                PaymentMethodFragmentScreen()
             }
         }
     }
 
-    private fun initViews() {
-        with(viewBinding) {
-            buttonBack.setSafeOnClickListener {
-                findNavController().popBackStack()
+    private fun showPaymentStatusResult(data: Result<Unit>) {
+        when (data) {
+            is Result.Error -> {
+                showToast(getErrorMessage(data.exception))
             }
-            recyclerPaymentMethods.adapter = paymentMethodAdapter
         }
     }
 
-    override fun onClick(paymentMethod: PaymentMethod) {
-        viewModel.makePayment(paymentMethod)
+    @Composable
+    private fun PaymentMethodFragmentScreen() {
+        val viewModel: PaymentMethodViewModel = viewModel()
+
+        val basketSum by viewModel.basketSum.collectAsState()
+        val basketCount by viewModel.basketCount.collectAsState()
+
+        val paymentStatus by viewModel.paymentStatus.collectAsState()
+
+        LoaderDialogCompose(show = paymentStatus is Result.Loading)
+
+        LaunchedEffect(key1 = paymentStatus) {
+            showPaymentStatusResult(paymentStatus)
+        }
+
+        PaymentMethodScreen(
+            onBackClick = viewModel::onBackPressed,
+            itemCount = basketCount,
+            basketPrice = basketSum,
+            menuItems = viewModel.paymentItems,
+            onItemClick = viewModel::makePayment
+        )
     }
+
 }

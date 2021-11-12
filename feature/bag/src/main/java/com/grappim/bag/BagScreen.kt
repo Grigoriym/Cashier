@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -99,84 +100,104 @@ private fun BottomSegment(
     itemSize: Int,
     price: String
 ) {
-    Column {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(id = R.string.title_item1),
-                fontSize = 16.sp,
-                color = Color.Black,
-                modifier = Modifier
-                    .weight(1f),
-                textAlign = TextAlign.Start
-            )
-
-            Text(
-                text = "$itemSize",
-                fontSize = 16.sp,
-                color = CashierBlue,
-                modifier = Modifier
-                    .weight(1f),
-                textAlign = TextAlign.End
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(id = R.string.title_price1),
-                fontSize = 16.sp,
-                color = Color.Black,
-                modifier = Modifier
-                    .weight(1f),
-                textAlign = TextAlign.Start
-            )
-            Text(
-                text = stringResource(
-                    id = R.string.title_price_with_currency,
-                    price
-                ),
-                fontSize = 16.sp,
-                color = CashierBlue,
-                modifier = Modifier
-                    .weight(1f),
-                textAlign = TextAlign.End
-            )
-        }
-
-        Row(
+    Surface(
+        modifier = Modifier,
+        elevation = 16.dp
+    ) {
+        Column(
             modifier = Modifier
                 .padding(
+                    top = 16.dp,
                     start = 16.dp,
-                    end = 16.dp
+                    end = 16.dp,
+                    bottom = 32.dp
                 )
         ) {
-            StandardFilledButton(
-                onButtonClick = onPayClick,
-                iconDrawable = R.drawable.ic_shopping_cart,
+            Row(
                 modifier = Modifier
-                    .weight(2f)
+                    .fillMaxWidth()
                     .padding(
-                        start = 8.dp
-                    ),
-                backgroundColor = CashierBlue,
-                text = stringResource(id = R.string.action_pay),
-                iconTint = Color.White
-            )
-            StandardFilledButton(
-                onButtonClick = onScanClick,
-                iconDrawable = R.drawable.ic_barcode,
+                        bottom = 10.dp
+                    )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.title_item1),
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .weight(1f),
+                    textAlign = TextAlign.Start
+                )
+
+                Text(
+                    text = "$itemSize",
+                    fontSize = 16.sp,
+                    color = CashierBlue,
+                    modifier = Modifier
+                        .weight(1f),
+                    textAlign = TextAlign.End
+                )
+            }
+
+            Row(
                 modifier = Modifier
-                    .weight(1f)
+                    .fillMaxWidth()
                     .padding(
-                        start = 8.dp
+                        bottom = 10.dp
+                    )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.title_price1),
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .weight(1f),
+                    textAlign = TextAlign.Start
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.title_price_with_currency,
+                        price
                     ),
-                backgroundColor = Color.White
-            )
+                    fontSize = 16.sp,
+                    color = CashierBlue,
+                    modifier = Modifier
+                        .weight(1f),
+                    textAlign = TextAlign.End
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp
+                    )
+            ) {
+                StandardFilledButton(
+                    onButtonClick = onPayClick,
+                    iconDrawable = R.drawable.ic_shopping_cart,
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(
+                            start = 8.dp
+                        ),
+                    backgroundColor = CashierBlue,
+                    text = stringResource(id = R.string.action_pay),
+                    iconTint = Color.White
+                )
+                StandardFilledButton(
+                    onButtonClick = onScanClick,
+                    iconDrawable = R.drawable.ic_barcode,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(
+                            start = 8.dp
+                        ),
+                    backgroundColor = Color.White,
+                    iconTint = CashierBlue
+                )
+            }
         }
     }
 }

@@ -190,6 +190,16 @@ private fun MenuScreenPreview() {
                     type = MenuItemType.SALES,
                     text = R.string.title_sales,
                     image = R.drawable.ic_cash_register
+                ),
+                MenuItemPm(
+                    type = MenuItemType.PRODUCTS,
+                    text = R.string.title_products,
+                    image = R.drawable.ic_store
+                ),
+                MenuItemPm(
+                    type = MenuItemType.ACCEPTANCE,
+                    text = R.string.title_acceptance,
+                    image = R.drawable.ic_store_acceptance
                 )
             ),
             onItemClick = {},
