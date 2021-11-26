@@ -10,8 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -26,10 +24,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.grappim.calculations.bigDecimalOne
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillStatus
-import com.grappim.domain.model.waybill.WaybillType
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.uikit.compose.OutlinedTextFieldCompose
@@ -44,20 +40,18 @@ fun WaybillListScreen(
     onWaybillClick: (Waybill) -> Unit,
     onRefresh: () -> Unit,
     lazyPagingItems: LazyPagingItems<PagingDataModel<Waybill>>,
-    isRefreshing: Boolean
+    isRefreshing: Boolean,
+    searchText: String,
+    setSearchText: (String) -> Unit
 ) {
-    val (text, setText) = remember {
-        mutableStateOf("")
-    }
     Scaffold(
         modifier = Modifier,
         topBar = {
             BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_acceptance),
-                backButtonTitle = stringResource(id = R.string.title_menu)
-            ) {
-                onBackButtonPressed()
-            }
+                backButtonTitle = stringResource(id = R.string.title_menu),
+                backButtonAction = onBackButtonPressed
+            )
         },
         bottomBar = {
             BigActionButtonCompose(
@@ -78,8 +72,8 @@ fun WaybillListScreen(
                         start = 16.dp,
                         end = 16.dp
                     ),
-                text = text,
-                onTextChange = setText
+                text = searchText,
+                onTextChange = setSearchText
             )
             WaybillListSegment(
                 onWaybillClick = onWaybillClick,
@@ -94,15 +88,15 @@ fun WaybillListScreen(
 
 @Composable
 private fun WaybillListSegment(
-    onWaybillClick: (Waybill) -> Unit,
     modifier: Modifier = Modifier,
+    onWaybillClick: (Waybill) -> Unit,
     onRefresh: () -> Unit,
     lazyPagingItems: LazyPagingItems<PagingDataModel<Waybill>>,
     isRefreshing: Boolean
 ) {
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-        onRefresh = { onRefresh() }
+        onRefresh = onRefresh
     ) {
         LazyColumn(
             modifier = modifier
@@ -299,7 +293,9 @@ private fun WaybillListScreenPreview() {
             onWaybillClick = {},
             onRefresh = {},
             lazyPagingItems = items,
-            isRefreshing = false
+            isRefreshing = false,
+            searchText = "searccc",
+            setSearchText = {}
         )
     }
 }

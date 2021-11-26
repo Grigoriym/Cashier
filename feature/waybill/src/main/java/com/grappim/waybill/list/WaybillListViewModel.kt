@@ -1,16 +1,14 @@
 package com.grappim.waybill.list
 
 import androidx.annotation.MainThread
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
+import com.grappim.core.SingleLiveEvent
 import com.grappim.date_time.DateStandard
 import com.grappim.date_time.getOffsetDateTimeFromString
 import com.grappim.domain.base.Result
@@ -18,6 +16,9 @@ import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.waybill.CreateWaybillUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillListPagingUseCase
 import com.grappim.domain.model.waybill.Waybill
+import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.navigation.Navigator
+import com.grappim.waybill.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -28,29 +29,33 @@ import javax.inject.Inject
 class WaybillListViewModel @Inject constructor(
     getWaybillListPagingUseCase: GetWaybillListPagingUseCase,
     private val createWaybillUseCase: CreateWaybillUseCase,
+    private val navigator: Navigator,
+    private val waybillLocalRepository: WaybillLocalRepository,
     @DateStandard private val df: DateTimeFormatter
 ) : ViewModel() {
 
-    private val _waybill = mutableStateOf<Result<Waybill>>(
-        Result.Initial
-    )
-    val waybill: State<Result<Waybill>>
+    private val _waybill = SingleLiveEvent<Result<Waybill>>()
+    val waybill: LiveData<Result<Waybill>>
         get() = _waybill
 
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-    var loading by mutableStateOf(false)
+    private val _searchText = MutableStateFlow<String>(
+        ""
+    )
+    val searchText: StateFlow<String>
+        get() = _searchText.asStateFlow()
+
+    fun setSearchText(text: String) {
+        _searchText.value = text
+    }
 
     fun refresh() {
         viewModelScope.launch {
 
         }
-    }
-
-    fun ductTape() {
-        _waybill.value = Result.Initial
     }
 
     val acceptances: Flow<PagingData<PagingDataModel<Waybill>>> =
@@ -87,19 +92,23 @@ class WaybillListViewModel @Inject constructor(
             }
 
     @MainThread
-    fun createWaybill() {
+    fun createDraftWaybill() {
         viewModelScope.launch {
             createWaybillUseCase(withoutParams())
                 .collect {
-                    loading = it is Result.Loading
                     _waybill.value = it
+                    when (it) {
+                        is Result.Success -> {
+                            showDetails(it.data)
+                        }
+                    }
                 }
         }
     }
 
-}
+    fun showDetails(waybill: Waybill) {
+        waybillLocalRepository.setWaybill(waybill)
+        navigator.navigate(R.id.action_waybill_to_waybillDetails)
+    }
 
-sealed class PagingDataModel<out T> {
-    data class Item<out T>(val item: T) : PagingDataModel<T>()
-    data class Separator(val text: String) : PagingDataModel<Nothing>()
 }

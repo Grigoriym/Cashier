@@ -14,6 +14,9 @@ annotation class DateTimeStandard
 @Qualifier
 annotation class DateStandard
 
+@Qualifier
+annotation class DateTimeIsoInstant
+
 @Module
 @InstallIn(SingletonComponent::class)
 object DateTimeModule {
@@ -21,8 +24,6 @@ object DateTimeModule {
     private const val DATE_TIME_PATTERN_STANDARD = "dd.MM.yyyy HH:mm"
 
     private const val DATE_PATTERN_STANDARD = "dd.MM.yyyy"
-
-    private const val DATE_TIME_PATTERN_FULL = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
 
     @DateTimeStandard
     @Provides
@@ -35,5 +36,11 @@ object DateTimeModule {
     @Singleton
     fun provideDateStandard(): DateTimeFormatter =
         DateTimeFormatter.ofPattern(DATE_PATTERN_STANDARD)
+
+    @DateTimeIsoInstant
+    @Provides
+    @Singleton
+    fun provideIsoInstant(): DateTimeFormatter =
+        DateTimeFormatter.ISO_INSTANT
 
 }

@@ -2,5 +2,5 @@ package com.grappim.core
 
 import androidx.fragment.app.Fragment
 
-class BaseFragment : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 }

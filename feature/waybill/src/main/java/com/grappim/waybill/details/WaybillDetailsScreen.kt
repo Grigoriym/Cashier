@@ -25,11 +25,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.grappim.calculations.bigDecimalOne
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.model.waybill.WaybillStatus
-import com.grappim.domain.model.waybill.WaybillType
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.uikit.compose.ItemProductCompose
@@ -47,9 +45,12 @@ fun WaybillDetailsScreen(
     onScanClick: () -> Unit,
     onBackClick: () -> Unit,
     onActionClick: () -> Unit,
-    onCommentSet: (String) -> Unit,
     onProductClick: (WaybillProduct) -> Unit,
-    onDateClick: () -> Unit
+    onDateClick: () -> Unit,
+    onRefresh: () -> Unit,
+    comment: String,
+    setComment: (String) -> Unit,
+    actualDate: String
 ) {
     Scaffold(
         modifier = Modifier,
@@ -87,9 +88,9 @@ fun WaybillDetailsScreen(
 
             TextFieldsSegment(
                 onDateClick = onDateClick,
-                date = waybill.reservedTimeToDemonstrate ?: "",
-                commentValue = waybill.comment,
-                onCommentSet = onCommentSet
+                date = actualDate,
+                comment = comment,
+                setComment = setComment
             )
 
             Text(
@@ -115,9 +116,7 @@ fun WaybillDetailsScreen(
             WaybillProductsList(
                 productsPagingItems = productsPagingItems,
                 onProductClick = onProductClick,
-                onRefresh = {
-
-                }
+                onRefresh = onRefresh
             )
         }
     }
@@ -175,8 +174,8 @@ private fun BottomBarSegment(
 private fun TextFieldsSegment(
     onDateClick: () -> Unit,
     date: String,
-    commentValue: String,
-    onCommentSet: (String) -> Unit
+    comment: String,
+    setComment: (String) -> Unit
 ) {
     val source = remember {
         MutableInteractionSource()
@@ -207,8 +206,8 @@ private fun TextFieldsSegment(
         )
 
         TextField(
-            value = commentValue,
-            onValueChange = onCommentSet,
+            value = comment,
+            onValueChange = setComment,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -259,7 +258,8 @@ private fun ActionButtonsSegment(
                 .padding(
                     start = 8.dp
                 ),
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            iconTint = CashierBlue
         )
     }
 }
@@ -299,8 +299,8 @@ private fun TextFieldsSegmentPreview() {
         TextFieldsSegment(
             onDateClick = {},
             date = "24.24.24",
-            commentValue = "comment",
-            onCommentSet = {}
+            comment = "comment",
+            setComment = {}
         )
     }
 }
@@ -325,29 +325,18 @@ private fun WaybillDetailsScreenPreview() {
                 .empty<WaybillProduct>()
         ).collectAsLazyPagingItems()
         WaybillDetailsScreen(
-            waybill = Waybill(
-                id = 1,
-                createdOn = "",
-                merchantId = "",
-                number = "",
-                status = WaybillStatus.ACTIVE,
-                stockId = "",
-                totalCost = bigDecimalOne(),
-                type = WaybillType.INWAYBILL,
-                updatedOn = "",
-                reservedTime = "",
-                comment = "",
-                updateOnToDemonstrate = "",
-                reservedTimeToDemonstrate = "24.24.24"
-            ),
+            waybill = Waybill.empty(),
             productsPagingItems = products,
             onBackClick = {},
             onSearchClick = {},
             onScanClick = {},
             onActionClick = {},
-            onCommentSet = {},
             onProductClick = {},
-            onDateClick = {}
+            onDateClick = {},
+            onRefresh = {},
+            comment = "",
+            setComment = {},
+            actualDate = ""
         )
     }
 }

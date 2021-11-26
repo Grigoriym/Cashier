@@ -1,20 +1,35 @@
 package com.grappim.network.mappers.waybill
 
+import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.date_time.DateTimeStandard
 import com.grappim.date_time.getOffsetDateTimeFromString
+import com.grappim.date_time.getZonedDateTimeWithFormatter
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.domain.model.waybill.WaybillType
+import com.grappim.logger.logD
 import com.grappim.network.model.waybill.WaybillDTO
+import java.time.Instant
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class WaybillMapper @Inject constructor(
-    @DateTimeStandard private val dtfStandard: DateTimeFormatter
+    @DateTimeStandard private val dtfStandard: DateTimeFormatter,
+    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
 ) {
 
-    suspend fun dtoToDomain(from: WaybillDTO): Waybill =
-        Waybill(
+    fun dtoToDomain(from: WaybillDTO): Waybill {
+        val reservedTimeToDemonstrate = if (from.reservedTime != null) {
+            val parsed = dtfIso.parse(from.reservedTime)
+            val zdt = Instant.from(parsed).atZone(ZoneId.systemDefault())
+            val formatted = dtfStandard.format(zdt)
+            logD("formatted: $formatted, orig: ${from.reservedTime}")
+            formatted
+        } else {
+            null
+        }
+        return Waybill(
             createdOn = from.createdOn,
             id = from.id,
             merchantId = from.merchantId,
@@ -29,10 +44,11 @@ class WaybillMapper @Inject constructor(
             updateOnToDemonstrate = dtfStandard.format(
                 from.updatedOn.getOffsetDateTimeFromString()
             ),
-            reservedTimeToDemonstrate = ""
+            reservedTimeToDemonstrate = reservedTimeToDemonstrate
         )
+    }
 
-    suspend fun domainToDto(from: Waybill): WaybillDTO =
+    fun domainToDto(from: Waybill): WaybillDTO =
         WaybillDTO(
             createdOn = from.createdOn,
             id = from.id,

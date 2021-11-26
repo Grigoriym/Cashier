@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.core.delegate.lazyArg
@@ -17,6 +18,8 @@ import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.theme.CashierTheme
+import com.grappim.waybill.R
+import com.grappim.waybill.WaybillSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -55,6 +58,8 @@ class WaybillProductFragment : Fragment() {
     @Composable
     private fun WaybillProductFragmentScreen() {
         val viewModel = viewModel<WaybillProductViewModel>()
+        val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
+
         viewModel.setWaybillProductState(
             product = product,
             waybillId = waybillId,
@@ -72,12 +77,8 @@ class WaybillProductFragment : Fragment() {
 
         WaybillProductScreen(
             waybillProductStates = waybillProduct,
-            onBackClick = {
-                viewModel.onBackPressed()
-            },
-            onActionClick = {
-                viewModel.waybillProductAction()
-            },
+            onBackClick = sharedViewModel::onBackPressed,
+            onActionClick = viewModel::waybillProductAction,
             setBarcode = viewModel::setBarcode,
             setProductName = viewModel::setWaybillProductName,
             setAmount = viewModel::setAmount,

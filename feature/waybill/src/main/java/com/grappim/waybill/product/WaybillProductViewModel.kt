@@ -47,10 +47,6 @@ class WaybillProductViewModel @Inject constructor(
     val productCreated: State<Result<BigDecimal>>
         get() = _productCreated
 
-    fun onBackPressed() {
-        navigator.popBackStack()
-    }
-
     fun setBarcode(barcode: String) {
         checkIfStateValid {
             _waybillProductState.value = it.copy(

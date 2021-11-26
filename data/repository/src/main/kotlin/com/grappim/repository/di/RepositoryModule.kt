@@ -1,6 +1,8 @@
 package com.grappim.repository.di
 
 import com.grappim.domain.repository.*
+import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.repository.local.WaybillLocalRepositoryImpl
 import com.grappim.repository.remote.*
 import dagger.Binds
 import dagger.Module
@@ -45,4 +47,9 @@ interface RepositoryModule {
     fun bindSignUpRepository(
         signUpRepositoryImpl: SignUpRepositoryImpl
     ): SignUpRepository
+
+    @Binds
+    fun bindWaybillLocalRepository(
+        waybillLocalRepositoryImpl: WaybillLocalRepositoryImpl
+    ): WaybillLocalRepository
 }

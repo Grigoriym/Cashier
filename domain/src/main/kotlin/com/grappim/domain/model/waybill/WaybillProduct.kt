@@ -1,5 +1,6 @@
 package com.grappim.domain.model.waybill
 
+import java.io.Serializable
 import java.math.BigDecimal
 
 data class WaybillProduct(
@@ -13,4 +14,4 @@ data class WaybillProduct(
     val sellingPrice: BigDecimal,
     val updatedOn: String,
     val waybillId: Int
-)
+) : Serializable

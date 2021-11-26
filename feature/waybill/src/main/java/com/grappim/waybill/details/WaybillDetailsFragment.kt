@@ -7,21 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.calculations.DecimalFormatSimple
-import com.grappim.calculations.bigDecimalZero
-import com.grappim.core.delegate.lazyArg
 import com.grappim.date_time.DateTimeStandard
-import com.grappim.date_time.DateTimeUtils
-import com.grappim.date_time.getOffsetDateTimeWithFormatter
-import com.grappim.date_time.toUtc
 import com.grappim.domain.base.Result
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.extensions.getErrorMessage
@@ -30,9 +24,7 @@ import com.grappim.extensions.showToast
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
 import com.grappim.waybill.WaybillSharedViewModel
-import com.grappim.waybill.product.WaybillProductFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -54,9 +46,10 @@ class WaybillDetailsFragment : Fragment() {
         const val ARG_TOTAL_COST = "arg_total_cost"
     }
 
-    private val dtfFull: DateTimeFormatter = DateTimeUtils.getDateTimeFormatterForFull()
+//    private val totalCost: BigDecimal? by lazyArg(ARG_TOTAL_COST)
 
-    private val totalCost: BigDecimal? by lazyArg(ARG_TOTAL_COST)
+    private val viewModel by viewModels<WaybillDetailsViewModel>()
+    private val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,15 +64,9 @@ class WaybillDetailsFragment : Fragment() {
     }
 
     private fun handleWaybillUpdate(
-        state: Result<Waybill>?
+        state: Result<Waybill>
     ) {
         when (state) {
-            is Result.Success -> {
-                findNavController()
-                    .navigate(
-                        WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillList()
-                    )
-            }
             is Result.Error -> {
                 showToast(getErrorMessage(state.exception))
             }
@@ -88,61 +75,40 @@ class WaybillDetailsFragment : Fragment() {
 
     @Composable
     private fun WaybillDetailsFragmentScreen() {
-        val viewModel: WaybillDetailsViewModel = viewModel()
-        val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
-
         val productItems = viewModel.products.collectAsLazyPagingItems()
 
         val waybillUpdateState by viewModel.waybillUpdate
-        val waybill by sharedViewModel.waybill
+        val waybill by sharedViewModel.waybillFlow.collectAsState()
+        val comment by viewModel.comment.collectAsState()
+        val actualDate by viewModel.actualDate.collectAsState()
 
-        viewModel.setWaybillId(waybill!!.id)
-        sharedViewModel.setTotalCost(totalCost ?: bigDecimalZero())
+//        sharedViewModel.setTotalCost(totalCost ?: bigDecimalZero())
 
         handleWaybillUpdate(waybillUpdateState)
 
         WaybillDetailsScreen(
-            waybill = waybill!!,
+            waybill = waybill,
             productsPagingItems = productItems,
-            onBackClick = {
-                findNavController().popBackStack()
-            },
-            onSearchClick = {
-                findNavController()
-                    .navigate(WaybillDetailsFragmentDirections.actionWaybillToSearch(waybill!!.id))
-            },
-            onScanClick = {
-                findNavController().navigate(
-                    WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillScanner(
-                        waybill!!.id
-                    )
-                )
-            },
+            onBackClick = sharedViewModel::onBackPressed,
+            onSearchClick = sharedViewModel::showSearchProducts,
+            onScanClick = viewModel::showScanner,
             onActionClick = {
-                viewModel.updateWaybill(sharedViewModel.waybill.value!!)
+                viewModel.updateWaybill(waybill)
             },
-            onCommentSet = { comment ->
-                sharedViewModel.setComment(comment)
-            },
-            onProductClick = { waybillProduct ->
-                findNavController()
-                    .navigate(
-                        R.id.action_waybill_to_product,
-                        bundleOf(
-                            WaybillProductFragment.ARG_WAYBILL_ID to waybill!!.id,
-                            WaybillProductFragment.ARG_WAYBILL_PRODUCT to waybillProduct
-                        )
-                    )
-            },
+            onProductClick = sharedViewModel::showWaybillProduct,
             onDateClick = {
-                setActualDateTime(sharedViewModel = sharedViewModel)
-            }
+                setActualDateTime()
+            },
+            onRefresh = {
+
+            },
+            comment = comment,
+            setComment = viewModel::setComment,
+            actualDate = actualDate
         )
     }
 
-    private fun setActualDateTime(
-        sharedViewModel: WaybillSharedViewModel
-    ) {
+    private fun setActualDateTime() {
         val now = LocalDateTime.now()
         val lYear = now.year
         val lMonth = now.monthValue
@@ -157,9 +123,7 @@ class WaybillDetailsFragment : Fragment() {
             { _, hourOfDay, minute ->
                 fullTime = "${hourOfDay.padWithZeros(2)}:${minute.padWithZeros(2)}"
                 val fullDateTime = "$fullDate $fullTime"
-                val parsedDt = fullDateTime.getOffsetDateTimeWithFormatter(false, dtf)
-                val parsedDtToUtc = parsedDt.toUtc()
-                sharedViewModel.setReservedTime(dtfFull.format(parsedDtToUtc))
+                viewModel.setActualDate(fullDateTime)
             }, lHour, lMinute, true
         )
 

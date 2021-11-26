@@ -34,7 +34,7 @@ data class Waybill(
                 reservedTime = "",
                 comment = "",
                 updateOnToDemonstrate = "23.12.23.20123",
-                reservedTimeToDemonstrate = ""
+                reservedTimeToDemonstrate = "23.12.23.20123"
             )
     }
 }

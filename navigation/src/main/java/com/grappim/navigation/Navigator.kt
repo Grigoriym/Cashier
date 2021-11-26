@@ -27,7 +27,7 @@ class Navigator @Inject constructor(
         navController.popBackStack()
     }
 
-    fun navigate(@IdRes resId: Int, args: Bundle?) {
+    fun navigate(@IdRes resId: Int, args: Bundle? = null) {
         navController.navigate(resId, args)
     }
 

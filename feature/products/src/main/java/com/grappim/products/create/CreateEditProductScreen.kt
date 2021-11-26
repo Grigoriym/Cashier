@@ -484,6 +484,7 @@ private fun QuantitySegment(
         )
 
         CounterComposable(
+            modifier = Modifier.fillMaxWidth(),
             onMinusClick = onMinusClick,
             onPlusClick = onPlusClick,
             text = quantityAndUnitText

@@ -30,7 +30,7 @@ class MenuViewModel @Inject constructor(
             )
 
     val cashierName: StateFlow<String> = flow {
-        emit(generalStorage.getCashierName())
+        emit(generalStorage.cashierName)
     }.stateIn(
         scope = viewModelScope,
         started = WhileViewSubscribed,

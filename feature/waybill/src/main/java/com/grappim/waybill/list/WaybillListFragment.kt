@@ -7,23 +7,26 @@ import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.waybill.R
-import com.grappim.extensions.getErrorMessage
-import com.grappim.extensions.showToast
-import com.grappim.waybill.WaybillSharedViewModel
 import com.grappim.domain.base.Result
 import com.grappim.domain.model.waybill.Waybill
+import com.grappim.extensions.getErrorMessage
+import com.grappim.extensions.showToast
+import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
+import com.grappim.waybill.R
+import com.grappim.waybill.WaybillSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WaybillListFragment : Fragment() {
+
+    private val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,14 +41,9 @@ class WaybillListFragment : Fragment() {
     }
 
     private fun handleCreateState(
-        createState: Result<Waybill>?,
-        onWaybillClick: (Waybill) -> Unit
+        createState: Result<Waybill>
     ) {
         when (createState) {
-            is Result.Success -> {
-                val waybill = createState.data
-                onWaybillClick(waybill)
-            }
             is Result.Error -> {
                 showToast(getErrorMessage(createState.exception))
             }
@@ -55,42 +53,28 @@ class WaybillListFragment : Fragment() {
     @Composable
     private fun WaybillListFragmentScreen() {
         val viewModel: WaybillListViewModel = viewModel()
-        val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
-        val createState by viewModel.waybill
 
+        val createState by viewModel.waybill.observeAsState(Result.Initial)
         val lazyPagingItems = viewModel.acceptances.collectAsLazyPagingItems()
         val isRefreshing by viewModel.isRefreshing.collectAsState()
-        val onWaybillClick: (Waybill) -> Unit = { waybill ->
-            viewModel.ductTape()
-            sharedViewModel.setCurrentWaybill(waybill)
-            findNavController()
-                .navigate(
-                    R.id.action_waybill_to_waybillDetails
-                )
-        }
+
+        val searchText by viewModel.searchText.collectAsState()
 
         handleCreateState(
-            createState = createState,
-            onWaybillClick = {
-                onWaybillClick(it)
-            }
+            createState = createState
         )
 
-        com.grappim.uikit.compose.LoaderDialogCompose(show = viewModel.loading) {}
+        LoaderDialogCompose(show = createState is Result.Loading)
 
         WaybillListScreen(
-            onBackButtonPressed = {
-                findNavController().popBackStack()
-            },
-            onCreateAcceptanceClick = {
-                viewModel.createWaybill()
-            },
-            onWaybillClick = {
-                onWaybillClick(it)
-            },
-            onRefresh = { viewModel.refresh() },
+            onBackButtonPressed = sharedViewModel::onBackPressed,
+            onCreateAcceptanceClick = viewModel::createDraftWaybill,
+            onWaybillClick = viewModel::    showDetails,
+            onRefresh = viewModel::refresh,
             lazyPagingItems = lazyPagingItems,
-            isRefreshing = isRefreshing
+            isRefreshing = isRefreshing,
+            searchText = searchText,
+            setSearchText = viewModel::setSearchText
         )
     }
 }
