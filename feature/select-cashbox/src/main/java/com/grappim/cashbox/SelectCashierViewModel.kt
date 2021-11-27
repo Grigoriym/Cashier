@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
 import com.grappim.domain.interactor.cashier.SaveCashierUseCase
@@ -61,14 +61,14 @@ class SelectCashierViewModel @Inject constructor(
         viewModelScope.launch {
             getCashBoxesUseCase(withoutParams())
                 .collect {
-                    loading = it is Result.Loading
+                    loading = it is Try.Loading
 
                     when (it) {
-                        is Result.Success -> {
+                        is Try.Success -> {
                             cashBoxes.clear()
                             cashBoxes.addAll(it.data)
                         }
-                        is Result.Error -> {
+                        is Try.Error -> {
 
                         }
                     }

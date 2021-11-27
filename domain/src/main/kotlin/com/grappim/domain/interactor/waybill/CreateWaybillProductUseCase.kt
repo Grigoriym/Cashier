@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.waybill
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.repository.WaybillRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -24,6 +24,6 @@ class CreateWaybillProductUseCase @Inject constructor(
         val productId: Long
     )
 
-    override fun execute(params: Params): Flow<Result<BigDecimal>> =
+    override fun execute(params: Params): Flow<Try<BigDecimal>> =
         waybillRepository.createWaybillProduct(params)
 }

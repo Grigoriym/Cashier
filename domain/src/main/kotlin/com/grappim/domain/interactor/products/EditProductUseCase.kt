@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.products
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.repository.ProductsRepository
@@ -30,7 +30,7 @@ class EditProductUseCase @Inject constructor(
         val category: String
     )
 
-    override fun execute(params: Params): Flow<Result<Unit>> =
+    override fun execute(params: Params): Flow<Try<Unit>> =
         productsRepository.updateProduct(params)
 
 }

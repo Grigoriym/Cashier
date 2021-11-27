@@ -1,7 +1,7 @@
 package com.grappim.repository.remote
 
 import com.grappim.db.dao.BasketDao
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.repository.PaymentRepository
 import com.grappim.domain.storage.GeneralStorage
@@ -22,9 +22,9 @@ class PaymentRepositoryImpl @Inject constructor(
     private val generalStorage: GeneralStorage
 ) : PaymentRepository {
 
-    override fun makePayment(params: MakePaymentUseCase.Params): Flow<Result<Unit>> =
+    override fun makePayment(params: MakePaymentUseCase.Params): Flow<Try<Unit>> =
         flow {
-            emit(Result.Loading)
+            emit(Try.Loading)
             val paymentType = params.paymentMethodType
 
             val totalSum = basketDao.getBasketProducts().map {
@@ -57,7 +57,7 @@ class PaymentRepositoryImpl @Inject constructor(
             )
             basketDao.deleteBagProducts()
 
-            emit(Result.Success(Unit))
+            emit(Try.Success(Unit))
         }
 
 }

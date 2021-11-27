@@ -1,6 +1,6 @@
 package com.grappim.repository.remote
 
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.sign_up.SignUpUseCase
 import com.grappim.domain.repository.SignUpRepository
 import com.grappim.network.api.SignUpApi
@@ -18,15 +18,15 @@ class SignUpRepositoryImpl @Inject constructor(
 
     override fun signUp(
         params: SignUpUseCase.Params
-    ): Flow<Result<Unit>> =
+    ): Flow<Try<Unit>> =
         flow {
-            emit(Result.Loading)
+            emit(Try.Loading)
             val requestBody = SignUpDTO(
                 phone = params.phone,
                 email = params.email,
                 password = params.password
             )
             signUpApi.signUp(requestBody)
-            emit(Result.Success(Unit))
+            emit(Try.Success(Unit))
         }
 }

@@ -2,7 +2,7 @@ package com.grappim.repository.remote
 
 import com.grappim.network.api.CashierApi
 import com.grappim.network.di.QualifierCashierApi
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.AuthRepository
 import com.grappim.domain.storage.GeneralStorage
@@ -20,9 +20,9 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun login(
         loginRequestData: LoginUseCase.Params
-    ): Flow<Result<Unit>> =
+    ): Flow<Try<Unit>> =
         flow {
-            emit(Result.Loading)
+            emit(Try.Loading)
             val response = cashierApi.login(
                 LoginRequestDTO(
                     mobile = loginRequestData.phone,
@@ -35,7 +35,7 @@ class AuthRepositoryImpl @Inject constructor(
             )
             generalStorage.setAuthToken(response.token)
 
-            emit(Result.Success(Unit))
+            emit(Try.Success(Unit))
         }
 
 }

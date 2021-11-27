@@ -2,7 +2,7 @@ package com.grappim.domain.interactor.products
 
 import com.grappim.domain.base.FlowUseCase
 import com.grappim.domain.base.NoParams
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
@@ -15,7 +15,7 @@ class GetBagProductsUseCase @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : FlowUseCase<NoParams, List<Product>>(ioDispatcher) {
 
-    override fun execute(params: NoParams): Flow<Result<List<Product>>> =
+    override fun execute(params: NoParams): Flow<Try<List<Product>>> =
         productsRepository.getBagProducts()
 
 }

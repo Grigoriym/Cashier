@@ -11,7 +11,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.compose.LoaderDialogCompose
@@ -37,9 +37,9 @@ internal class AuthFragment : Fragment() {
     @Composable
     private fun AuthFragmentScreen() {
         val viewModel: AuthViewModel = viewModel()
-        val loginStatus by viewModel.loginStatus.observeAsState(Result.Initial)
+        val loginStatus by viewModel.loginStatus.observeAsState(Try.Initial)
 
-        val showLoader = loginStatus is Result.Loading
+        val showLoader = loginStatus is Try.Loading
         LoaderDialogCompose(
             show = showLoader,
             onClose = {}
@@ -59,9 +59,9 @@ internal class AuthFragment : Fragment() {
         )
     }
 
-    private fun showLoginStatus(data: Result<Unit>?) {
+    private fun showLoginStatus(data: Try<Unit>?) {
         when (data) {
-            is Result.Error -> {
+            is Try.Error -> {
                 showToast(getErrorMessage(data.exception))
             }
         }

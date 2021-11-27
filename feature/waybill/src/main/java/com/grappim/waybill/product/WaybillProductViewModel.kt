@@ -7,7 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase
 import com.grappim.domain.interactor.waybill.UpdateWaybillProductUseCase
 import com.grappim.domain.model.waybill.WaybillProduct
@@ -41,10 +41,10 @@ class WaybillProductViewModel @Inject constructor(
     val waybillProductState: State<WaybillProductStates>
         get() = _waybillProductState
 
-    private val _productCreated = mutableStateOf<Result<BigDecimal>>(
-        Result.Initial
+    private val _productCreated = mutableStateOf<Try<BigDecimal>>(
+        Try.Initial
     )
-    val productCreated: State<Result<BigDecimal>>
+    val productCreated: State<Try<BigDecimal>>
         get() = _productCreated
 
     fun setBarcode(barcode: String) {
@@ -204,7 +204,7 @@ class WaybillProductViewModel @Inject constructor(
         id: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = Result.Loading
+            _productCreated.value = Try.Loading
             updateWaybillProductUseCase.invoke(
                 UpdateWaybillProductUseCase.Params(
                     waybillId = waybillId,
@@ -219,7 +219,7 @@ class WaybillProductViewModel @Inject constructor(
             ).collect {
                 _productCreated.value = it
                 when (it) {
-                    is Result.Success -> {
+                    is Try.Success -> {
                         navigator.navigate(
                             R.id.action_waybillProduct_to_waybillDetails,
                             bundleOf(
@@ -242,7 +242,7 @@ class WaybillProductViewModel @Inject constructor(
         productId: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = Result.Loading
+            _productCreated.value = Try.Loading
             createWaybillProductUseCase.invoke(
                 CreateWaybillProductUseCase.Params(
                     waybillId = waybillId,

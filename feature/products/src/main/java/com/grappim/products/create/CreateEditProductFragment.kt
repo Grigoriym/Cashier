@@ -11,7 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.extensions.assistedViewModel
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
@@ -51,9 +51,9 @@ class CreateEditProductFragment : Fragment() {
         }
     }
 
-    private fun showCreateEditResult(data: Result<Unit>) {
+    private fun showCreateEditResult(data: Try<Unit>) {
         when (data) {
-            is Result.Error -> {
+            is Try.Error -> {
                 showToast(getErrorMessage(data.exception))
             }
         }
@@ -74,7 +74,7 @@ class CreateEditProductFragment : Fragment() {
         val dropDownExpanded by viewModel.dropDownExpanded.collectAsState()
         val createEditProductResult by viewModel.createProduct.collectAsState()
 
-        LoaderDialogCompose(show = createEditProductResult is Result.Loading)
+        LoaderDialogCompose(show = createEditProductResult is Try.Loading)
 
         LaunchedEffect(key1 = createEditProductResult) {
             showCreateEditResult(createEditProductResult)

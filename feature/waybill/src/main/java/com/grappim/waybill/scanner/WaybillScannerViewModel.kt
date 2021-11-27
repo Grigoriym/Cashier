@@ -3,7 +3,7 @@ package com.grappim.waybill.scanner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
@@ -19,19 +19,19 @@ class WaybillScannerViewModel @Inject constructor(
     private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase
 ) : ViewModel() {
 
-    private val _waybillProduct = com.grappim.core.SingleLiveEvent<Result<WaybillProduct>>()
-    val waybillProduct: LiveData<Result<WaybillProduct>>
+    private val _waybillProduct = com.grappim.core.SingleLiveEvent<Try<WaybillProduct>>()
+    val waybillProduct: LiveData<Try<WaybillProduct>>
         get() = _waybillProduct
 
-    private val _product = com.grappim.core.SingleLiveEvent<Result<Product>>()
-    val product: LiveData<Result<Product>>
+    private val _product = com.grappim.core.SingleLiveEvent<Try<Product>>()
+    val product: LiveData<Try<Product>>
         get() = _product
 
     private fun findProductByBarcode(
         barcode: String
     ) {
         viewModelScope.launch {
-            _product.value = Result.Loading
+            _product.value = Try.Loading
             getProductByBarcodeUseCase.invoke(GetProductByBarcodeUseCase.Params(barcode))
                 .collect {
                     _product.value = it
@@ -44,7 +44,7 @@ class WaybillScannerViewModel @Inject constructor(
         waybillId: Int
     ) {
         viewModelScope.launch {
-            _waybillProduct.value = Result.Loading
+            _waybillProduct.value = Try.Loading
             getWaybillProductByBarcodeUseCase.invoke(
                 GetWaybillProductByBarcodeUseCase.Params(
                     barcode = barcode,
@@ -52,10 +52,10 @@ class WaybillScannerViewModel @Inject constructor(
                 )
             ).collect {
                 when (it) {
-                    is Result.Success -> {
+                    is Try.Success -> {
                         _waybillProduct.value = it
                     }
-                    is Result.Error -> {
+                    is Try.Error -> {
                         findProductByBarcode(barcode)
                     }
                 }

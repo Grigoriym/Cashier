@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.products
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.repository.GeneralRepository
@@ -18,7 +18,7 @@ class GetCategoryListUseCase @Inject constructor(
         val sendDefaultCategory: Boolean = true
     )
 
-    override fun execute(params: Params): Flow<Result<List<Category>>> =
+    override fun execute(params: Params): Flow<Try<List<Category>>> =
         generalRepository.getCategories(params)
 
     fun execute2(params: Params): Flow<List<Category>> =

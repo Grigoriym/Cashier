@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.sign_up
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.repository.SignUpRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,6 +19,6 @@ class SignUpUseCase @Inject constructor(
         val password: String
     )
 
-    override fun execute(params: Params): Flow<Result<Unit>> =
+    override fun execute(params: Params): Flow<Try<Unit>> =
         signUpRepository.signUp(params)
 }

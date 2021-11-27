@@ -5,7 +5,7 @@ import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.ApplicationScope
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
@@ -44,8 +44,8 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override fun createProduct(
         params: CreateProductUseCase.Params
-    ): Flow<Result<Unit>> = flow {
-        emit(Result.Loading)
+    ): Flow<Try<Unit>> = flow {
+        emit(Try.Loading)
         val response = cashierApi.createProduct(
             createProduct = CreateProductRequestDTO(
                 CreateProductRequestParamsDTO(
@@ -83,13 +83,13 @@ class ProductsRepositoryImpl @Inject constructor(
             )
         )
 
-        emit(Result.Success(Unit))
+        emit(Try.Success(Unit))
     }
 
     override fun updateProduct(
         params: EditProductUseCase.Params
-    ): Flow<Result<Unit>> = flow {
-        emit(Result.Loading)
+    ): Flow<Try<Unit>> = flow {
+        emit(Try.Loading)
         val productDTO = ProductDTO(
             id = params.productId,
             barcode = params.barcode,
@@ -113,12 +113,12 @@ class ProductsRepositoryImpl @Inject constructor(
         val entity = productMapper.dtoToEntity(response.product)
         productsDao.update(entity)
 
-        emit(Result.Success(Unit))
+        emit(Try.Success(Unit))
     }
 
-    override fun getBagProducts(): Flow<Result<List<Product>>> =
+    override fun getBagProducts(): Flow<Try<List<Product>>> =
         flow {
-            emit(Result.Loading)
+            emit(Try.Loading)
             val basketProducts = basketDao.getBasketProducts()
             val products = productsDao.getAllProducts()
             val result = mutableListOf<ProductEntity>()
@@ -132,7 +132,7 @@ class ProductsRepositoryImpl @Inject constructor(
                 }
             }
             val domain = productMapper.entityToDomainList(result.toList())
-            emit(Result.Success(domain))
+            emit(Try.Success(domain))
         }
 
     override suspend fun addBasketProduct(

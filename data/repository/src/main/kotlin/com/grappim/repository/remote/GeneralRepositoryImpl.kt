@@ -6,7 +6,7 @@ import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.CategoryEntity
 import com.grappim.db.entity.productEntityTableName
 import com.grappim.db.helper.RoomQueryHelper
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.ApplicationScope
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.interactor.products.GetCategoryListUseCase
@@ -44,8 +44,8 @@ class GeneralRepositoryImpl @Inject constructor(
 
     override fun getCategories(
         params: GetCategoryListUseCase.Params
-    ): Flow<Result<List<Category>>> = flow {
-        emit(Result.Loading)
+    ): Flow<Try<List<Category>>> = flow {
+        emit(Try.Loading)
         val categories = categoryDao.getAllCategories().toMutableList()
         if (params.sendDefaultCategory) {
             categories.add(
@@ -60,7 +60,7 @@ class GeneralRepositoryImpl @Inject constructor(
             )
         }
         val domain = categoryMapper.dbToDomainList(categories.toList())
-        emit(Result.Success(domain))
+        emit(Try.Success(domain))
     }
 
     override fun getCategories2(params: GetCategoryListUseCase.Params): Flow<List<Category>> =
@@ -84,8 +84,8 @@ class GeneralRepositoryImpl @Inject constructor(
 
     override fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params
-    ): Flow<Result<List<Product>>> = flow {
-        emit(Result.Loading)
+    ): Flow<Try<List<Product>>> = flow {
+        emit(Try.Loading)
         val category = params.category
         val entities = if (category.isDefault) {
             productsDao.getAllProducts()
@@ -95,7 +95,7 @@ class GeneralRepositoryImpl @Inject constructor(
 
         val domain = productMapper.entityToDomainList(entities)
 
-        emit(Result.Success(domain))
+        emit(Try.Success(domain))
     }
 
     override fun getProductsByQuery(

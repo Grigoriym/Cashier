@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
@@ -41,10 +41,10 @@ class WaybillListFragment : Fragment() {
     }
 
     private fun handleCreateState(
-        createState: Result<Waybill>
+        createState: Try<Waybill>
     ) {
         when (createState) {
-            is Result.Error -> {
+            is Try.Error -> {
                 showToast(getErrorMessage(createState.exception))
             }
         }
@@ -54,7 +54,7 @@ class WaybillListFragment : Fragment() {
     private fun WaybillListFragmentScreen() {
         val viewModel: WaybillListViewModel = viewModel()
 
-        val createState by viewModel.waybill.observeAsState(Result.Initial)
+        val createState by viewModel.waybill.observeAsState(Try.Initial)
         val lazyPagingItems = viewModel.acceptances.collectAsLazyPagingItems()
         val isRefreshing by viewModel.isRefreshing.collectAsState()
 
@@ -64,7 +64,7 @@ class WaybillListFragment : Fragment() {
             createState = createState
         )
 
-        LoaderDialogCompose(show = createState is Result.Loading)
+        LoaderDialogCompose(show = createState is Try.Loading)
 
         WaybillListScreen(
             onBackButtonPressed = sharedViewModel::onBackPressed,

@@ -1,6 +1,6 @@
 package com.grappim.domain.repository
 
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
 import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
@@ -14,13 +14,13 @@ interface ProductsRepository {
 
     fun createProduct(
         params: CreateProductUseCase.Params
-    ): Flow<Result<Unit>>
+    ): Flow<Try<Unit>>
 
     fun updateProduct(
         params: EditProductUseCase.Params
-    ): Flow<Result<Unit>>
+    ): Flow<Try<Unit>>
 
-    fun getBagProducts(): Flow<Result<List<Product>>>
+    fun getBagProducts(): Flow<Try<List<Product>>>
 
     suspend fun addBasketProduct(params: AddProductToBasketUseCase.Params)
     suspend fun removeBasketProduct(params: RemoveProductUseCase.Params)

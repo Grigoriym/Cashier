@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.SingleLiveEvent
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.sign_up.SignUpUseCase
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
@@ -19,8 +19,8 @@ class SignUpViewModel @Inject constructor(
     private val navigator: Navigator
 ) : ViewModel() {
 
-    private val _signUpStatus = SingleLiveEvent<Result<Unit>>()
-    val signUpStatus: LiveData<Result<Unit>>
+    private val _signUpStatus = SingleLiveEvent<Try<Unit>>()
+    val signUpStatus: LiveData<Try<Unit>>
         get() = _signUpStatus
 
     private val _signUpData = SingleLiveEvent<SignUpData>()
@@ -57,7 +57,7 @@ class SignUpViewModel @Inject constructor(
                 )
             ).collect {
                 when (it) {
-                    is Result.Success -> {
+                    is Try.Success -> {
                         navigator.navigateToFlow(NavigationFlow.RegisterToAuthFlow)
                     }
                 }

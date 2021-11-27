@@ -1,6 +1,6 @@
 package com.grappim.repository.remote
 
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.ApplicationScope
 import com.grappim.domain.interactor.cashier.SaveCashierUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
@@ -41,16 +41,16 @@ class SelectInfoRepositoryImpl @Inject constructor(
         generalStorage.setStockInfo(params.stock)
     }.join()
 
-    override fun getStocks(): Flow<Result<List<Stock>>> = flow {
-        emit(Result.Loading)
+    override fun getStocks(): Flow<Try<List<Stock>>> = flow {
+        emit(Try.Loading)
         val response = cashierApi.getStocks(generalStorage.getMerchantId())
         val mappedResponse = stockMapper.dtoToDomainList(response.stocks)
-        emit(Result.Success(mappedResponse))
+        emit(Try.Success(mappedResponse))
     }
 
-    override fun getCashBoxes(): Flow<Result<List<CashBox>>> =
+    override fun getCashBoxes(): Flow<Try<List<CashBox>>> =
         flow {
-            emit(Result.Loading)
+            emit(Try.Loading)
             val response = cashierApi.getCashBoxList(
                 getCashBoxListRequestDTO = GetCashBoxListRequestDTO(
                     merchantId = generalStorage.getMerchantId(),
@@ -58,6 +58,6 @@ class SelectInfoRepositoryImpl @Inject constructor(
                 )
             )
             val domain = cashBoxMapper.dtoToDomainList(response.cashBoxes)
-            emit(Result.Success(domain))
+            emit(Try.Success(domain))
         }
 }

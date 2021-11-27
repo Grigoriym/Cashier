@@ -9,7 +9,7 @@ import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.date_time.DateTimeUtils
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
 import com.grappim.domain.interactor.products.GetCategoryListUseCase
@@ -142,10 +142,10 @@ class CreateEditProductViewModel @AssistedInject constructor(
         initialValue = "${productToEdit?.amount ?: bigDecimalOne()} ${productToEdit?.unit ?: ProductUnit.PIECE}"
     )
 
-    private val _createProduct = MutableStateFlow<Result<Unit>>(
-        Result.Initial
+    private val _createProduct = MutableStateFlow<Try<Unit>>(
+        Try.Initial
     )
-    val createProduct: StateFlow<Result<Unit>>
+    val createProduct: StateFlow<Try<Unit>>
         get() = _createProduct.asStateFlow()
 
     fun onBackPressed() {
@@ -238,7 +238,7 @@ class CreateEditProductViewModel @AssistedInject constructor(
                         )
                     ).collect {
                         when (it) {
-                            is Result.Success -> {
+                            is Try.Success -> {
                                 onBackPressed()
                             }
                         }
@@ -265,7 +265,7 @@ class CreateEditProductViewModel @AssistedInject constructor(
                         )
                     ).collect {
                         when (it) {
-                            is Result.Success -> {
+                            is Try.Success -> {
                                 onBackPressed()
                             }
                         }

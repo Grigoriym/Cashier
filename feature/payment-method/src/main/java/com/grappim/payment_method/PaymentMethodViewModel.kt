@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.cashier.core.functional.WhileViewSubscribed
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
@@ -25,10 +25,10 @@ class PaymentMethodViewModel @Inject constructor(
     private val navigator: Navigator
 ) : ViewModel() {
 
-    private val _paymentStatus = MutableStateFlow<Result<Unit>>(
-        Result.Initial
+    private val _paymentStatus = MutableStateFlow<Try<Unit>>(
+        Try.Initial
     )
-    val paymentStatus: StateFlow<Result<Unit>>
+    val paymentStatus: StateFlow<Try<Unit>>
         get() = _paymentStatus.asStateFlow()
 
     val paymentItems = paymentMethodItemGenerator.paymentMethodItems
@@ -73,7 +73,7 @@ class PaymentMethodViewModel @Inject constructor(
                 .collect {
                     _paymentStatus.value = it
                     when (it) {
-                        is Result.Success -> {
+                        is Try.Success -> {
                             navigator.navigateToFlow(NavigationFlow.PaymentMethodToSales)
                         }
                     }

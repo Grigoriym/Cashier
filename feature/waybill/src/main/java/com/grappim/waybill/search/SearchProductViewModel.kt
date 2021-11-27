@@ -1,20 +1,19 @@
 package com.grappim.waybill.search
 
-import androidx.lifecycle.LiveData
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.cashier.core.functional.WhileViewSubscribed
-import com.grappim.core.SingleLiveEvent
-import com.grappim.domain.base.Result
-import com.grappim.domain.base.withoutParams
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
-import com.grappim.domain.interactor.products.GetProductsUseCase
 import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.local.WaybillLocalRepository
 import com.grappim.navigation.Navigator
+import com.grappim.waybill.R
+import com.grappim.waybill.product.WaybillProductFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -23,16 +22,11 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchProductViewModel @Inject constructor(
     private val searchProductsUseCase: SearchProductsUseCase,
-    private val getProductsUseCase: GetProductsUseCase,
     private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase,
     private val getWaybillProductByBarcodeUseCase: GetWaybillProductByBarcodeUseCase,
     private val navigator: Navigator,
     private val waybillLocalRepository: WaybillLocalRepository
 ) : ViewModel() {
-
-//    init {
-//        getProducts()
-//    }
 
     private val _searchText = MutableStateFlow("")
     val searchText: StateFlow<String>
@@ -50,49 +44,50 @@ class SearchProductViewModel @Inject constructor(
         _searchText.value = text
     }
 
-    private val _waybillProduct = MutableStateFlow<Result<WaybillProduct>>(
-        Result.Initial
+    private val _waybillProduct = MutableStateFlow<Try<WaybillProduct>>(
+        Try.Initial
     )
-    val waybillProduct: StateFlow<Result<WaybillProduct>>
+    val waybillProduct: StateFlow<Try<WaybillProduct>>
         get() = _waybillProduct.asStateFlow()
 
-//    private val _products: SingleLiveEvent<List<Product>> =
-//        SingleLiveEvent()
-//    val products: LiveData<List<Product>>
-//        get() = _products
-
-    private val _product = MutableStateFlow<Result<Product>>(
-        Result.Initial
+    private val _product = MutableStateFlow<Try<Product>>(
+        Try.Initial
     )
-    val product: StateFlow<Result<Product>>
+    val product: StateFlow<Try<Product>>
         get() = _product.asStateFlow()
-
-//    fun getProducts() {
-//        viewModelScope.launch {
-//            getProductsUseCase.invoke(withoutParams())
-//                .collect {
-//                    _products.value = it
-//                }
-//        }
-//    }
 
     private fun findProductByBarcode(
         barcode: String
     ) {
         viewModelScope.launch {
-            _product.value = Result.Loading
+            _product.value = Try.Loading
             getProductByBarcodeUseCase.invoke(GetProductByBarcodeUseCase.Params(barcode))
                 .collect {
                     _product.value = it
+                    when (it) {
+                        is Try.Success -> {
+                            showProductDetails(it.data)
+                        }
+                    }
                 }
         }
+    }
+
+    private fun showProductDetails(product: Product) {
+        navigator.navigate(
+            R.id.action_search_to_waybillProduct,
+            bundleOf(
+                WaybillProductFragment.ARG_WAYBILL_ID to waybillLocalRepository.waybill.id,
+                WaybillProductFragment.ARG_PRODUCT to product
+            )
+        )
     }
 
     fun checkProductInWaybill(
         product: Product
     ) {
         viewModelScope.launch {
-            _waybillProduct.value = Result.Loading
+            _waybillProduct.value = Try.Loading
             getWaybillProductByBarcodeUseCase.invoke(
                 GetWaybillProductByBarcodeUseCase.Params(
                     barcode = product.barcode,
@@ -100,10 +95,10 @@ class SearchProductViewModel @Inject constructor(
                 )
             ).collect {
                 when (it) {
-                    is Result.Success -> {
-                        _waybillProduct.value = it
+                    is Try.Success -> {
+                        showProductDetails(it.data)
                     }
-                    is Result.Error -> {
+                    is Try.Error -> {
                         findProductByBarcode(product.barcode)
                     }
                 }
@@ -111,11 +106,14 @@ class SearchProductViewModel @Inject constructor(
         }
     }
 
-//    fun searchProducts(query: String) {
-//        viewModelScope.launch {
-//            searchProductsUseCase.invoke(SearchProductsUseCase.Params(query)).collect {
-//                _products.value = it
-//            }
-//        }
-//    }
+    private fun showProductDetails(waybillProduct: WaybillProduct) {
+        navigator.navigate(
+            R.id.action_search_to_waybillProduct,
+            bundleOf(
+                WaybillProductFragment.ARG_WAYBILL_ID to waybillLocalRepository.waybill.id,
+                WaybillProductFragment.ARG_WAYBILL_PRODUCT to waybillProduct
+            )
+        )
+    }
+
 }

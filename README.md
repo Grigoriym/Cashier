@@ -22,6 +22,7 @@
 
 ### Roadmap
 - [ ] Move all UI to compose
+- [ ] Navigation is done badly
 - [ ] Add tests and all that stuff
 - [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
 - [ ] Learn proguard and somehow do something with it here

@@ -16,7 +16,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.date_time.DateTimeStandard
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.padWithZeros
@@ -64,10 +64,10 @@ class WaybillDetailsFragment : Fragment() {
     }
 
     private fun handleWaybillUpdate(
-        state: Result<Waybill>
+        state: Try<Waybill>
     ) {
         when (state) {
-            is Result.Error -> {
+            is Try.Error -> {
                 showToast(getErrorMessage(state.exception))
             }
         }

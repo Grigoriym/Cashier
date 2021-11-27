@@ -12,8 +12,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.fragment.navArgs
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
@@ -25,8 +24,6 @@ class SearchProductFragment : Fragment() {
 
     private val viewModel by viewModels<SearchProductViewModel>()
     private val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
-
-    private val args by navArgs<SearchProductFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,8 +45,8 @@ class SearchProductFragment : Fragment() {
         val waybillProductState by viewModel.waybillProduct.collectAsState()
 
         LoaderDialogCompose(
-            show = productState is Result.Loading ||
-              waybillProductState is Result.Loading
+            show = productState is Try.Loading ||
+              waybillProductState is Try.Loading
         )
 
         LaunchedEffect(key1 = productState, block = {})
@@ -63,46 +60,4 @@ class SearchProductFragment : Fragment() {
             onProductClick = viewModel::checkProductInWaybill
         )
     }
-
-//    private fun observeViewModel() {
-//        viewModel.product.observe(viewLifecycleOwner) {
-//            loader.showOrHide(it is Result.Loading)
-//            when (it) {
-//                is Result.Success -> {
-//                    findNavController().navigate(
-//                        R.id.action_search_to_waybillProduct,
-//                        bundleOf(
-//                            WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
-//                            WaybillProductFragment.ARG_PRODUCT to it.data
-//                        )
-//                    )
-//                }
-//                is Result.Error -> {
-//                    showToast(getString(R.string.waybill_error_no_product))
-//                }
-//            }
-//        }
-//        viewModel.waybillProduct.observe(viewLifecycleOwner) {
-//            loader.showOrHide(it is Result.Loading)
-//            when (it) {
-//                is Result.Success -> {
-//                    findNavController()
-//                        .navigate(
-//                            R.id.action_search_to_waybillProduct,
-//                            bundleOf(
-//                                WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
-//                                WaybillProductFragment.ARG_WAYBILL_PRODUCT to it.data
-//                            )
-//                        )
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun onProductClick(product: Product) {
-//        viewModel.checkProductInWaybill(
-//            product.barcode,
-//            args.waybillId
-//        )
-//    }
 }

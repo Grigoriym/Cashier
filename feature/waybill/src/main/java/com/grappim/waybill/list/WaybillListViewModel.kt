@@ -11,7 +11,7 @@ import androidx.paging.map
 import com.grappim.core.SingleLiveEvent
 import com.grappim.date_time.DateStandard
 import com.grappim.date_time.getOffsetDateTimeFromString
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.waybill.CreateWaybillUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillListPagingUseCase
@@ -34,8 +34,8 @@ class WaybillListViewModel @Inject constructor(
     @DateStandard private val df: DateTimeFormatter
 ) : ViewModel() {
 
-    private val _waybill = SingleLiveEvent<Result<Waybill>>()
-    val waybill: LiveData<Result<Waybill>>
+    private val _waybill = SingleLiveEvent<Try<Waybill>>()
+    val waybill: LiveData<Try<Waybill>>
         get() = _waybill
 
     private val _isRefreshing = MutableStateFlow(false)
@@ -98,7 +98,7 @@ class WaybillListViewModel @Inject constructor(
                 .collect {
                     _waybill.value = it
                     when (it) {
-                        is Result.Success -> {
+                        is Try.Success -> {
                             showDetails(it.data)
                         }
                     }

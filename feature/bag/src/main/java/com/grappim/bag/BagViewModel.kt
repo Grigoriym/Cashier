@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.domain.base.NoParams
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.basket.DeleteBagProductsUseCase
 import com.grappim.domain.interactor.products.GetBagProductsUseCase
@@ -95,7 +95,7 @@ class BagViewModel @Inject constructor(
             getBagProductsUseCase.invoke(NoParams())
                 .collect {
                     when (it) {
-                        is Result.Success -> {
+                        is Try.Success -> {
                             _products.value = it.data!!
                         }
                     }

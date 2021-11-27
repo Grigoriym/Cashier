@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.outlet.GetOutletsUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
@@ -62,14 +62,14 @@ class SelectStockViewModel @Inject constructor(
         viewModelScope.launch {
             getOutletsUseCase(withoutParams())
                 .collect {
-                    loading = it is Result.Loading
+                    loading = it is Try.Loading
 
                     when (it) {
-                        is Result.Success -> {
+                        is Try.Success -> {
                             stocks.clear()
                             stocks.addAll(it.data)
                         }
-                        is Result.Error -> {
+                        is Try.Error -> {
                             error = it.exception
                         }
                     }

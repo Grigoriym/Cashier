@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
 import com.grappim.uikit.databinding.FragmentScannerBinding
@@ -82,7 +82,7 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
     private fun observeViewModel() {
         viewModel.product.observe(viewLifecycleOwner) {
             when (it) {
-                is Result.Success -> {
+                is Try.Success -> {
                     findNavController().navigate(
                         R.id.action_scanner_to_waybillProduct,
                         bundleOf(
@@ -91,14 +91,14 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
                         )
                     )
                 }
-                is Result.Error -> {
+                is Try.Error -> {
                     showToast(getString(R.string.waybill_error_no_product))
                 }
             }
         }
         viewModel.waybillProduct.observe(viewLifecycleOwner) {
             when (it) {
-                is Result.Success -> {
+                is Try.Success -> {
                     findNavController().navigate(
                         R.id.action_scanner_to_waybillProduct,
                         bundleOf(

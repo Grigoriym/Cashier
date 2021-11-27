@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.grappim.cashier.core.functional.WhileViewSubscribed
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.waybill.ConductWaybillUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductsUseCase
 import com.grappim.domain.interactor.waybill.RollbackWaybillUseCase
@@ -58,10 +58,10 @@ class WaybillDetailsViewModel @Inject constructor(
         waybillLocalRepository.setActualDate(date)
     }
 
-    private val _waybillUpdate = mutableStateOf<Result<Waybill>>(
-        Result.Initial
+    private val _waybillUpdate = mutableStateOf<Try<Waybill>>(
+        Try.Initial
     )
-    val waybillUpdate: State<Result<Waybill>>
+    val waybillUpdate: State<Try<Waybill>>
         get() = _waybillUpdate
 
     val products: Flow<PagingData<WaybillProduct>> =
@@ -71,7 +71,7 @@ class WaybillDetailsViewModel @Inject constructor(
             }
 
     fun updateWaybill(waybill: Waybill) {
-        _waybillUpdate.value = Result.Loading
+        _waybillUpdate.value = Try.Loading
         when (waybill.status) {
             WaybillStatus.DRAFT -> {
                 viewModelScope.launch {
@@ -79,7 +79,7 @@ class WaybillDetailsViewModel @Inject constructor(
                         .collect {
                             _waybillUpdate.value = it
                             when (it) {
-                                is Result.Success -> {
+                                is Try.Success -> {
                                     waybillCreatedUpdated()
                                 }
                             }
@@ -92,7 +92,7 @@ class WaybillDetailsViewModel @Inject constructor(
                         .collect {
                             _waybillUpdate.value = it
                             when (it) {
-                                is Result.Success -> {
+                                is Try.Success -> {
                                     waybillCreatedUpdated()
                                 }
                             }

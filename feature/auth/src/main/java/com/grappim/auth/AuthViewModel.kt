@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.SingleLiveEvent
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.myapplication.WorkerHelper
@@ -28,8 +28,8 @@ internal class AuthViewModel @Inject constructor(
         clearData()
     }
 
-    private val _loginStatus = SingleLiveEvent<Result<Unit>>()
-    val loginStatus: LiveData<Result<Unit>>
+    private val _loginStatus = SingleLiveEvent<Try<Unit>>()
+    val loginStatus: LiveData<Try<Unit>>
         get() = _loginStatus
 
     fun login(authTextFieldsData: AuthTextFieldsData) {
@@ -57,7 +57,7 @@ internal class AuthViewModel @Inject constructor(
                 )
             ).collect {
                 _loginStatus.value = it
-                if (it is Result.Success) {
+                if (it is Try.Success) {
                     workerHelper.startTokenRefresherWorker()
                     navigator.navigateToFlow(NavigationFlow.SelectInfoStockFlow)
                 }

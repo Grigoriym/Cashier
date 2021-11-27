@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.products
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.repository.ProductsRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,7 +14,7 @@ class CreateProductUseCase @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : FlowUseCase<CreateProductUseCase.Params, Unit>(ioDispatcher) {
 
-    override fun execute(params: Params): Flow<Result<Unit>> =
+    override fun execute(params: Params): Flow<Try<Unit>> =
         productsRepository.createProduct(params)
 
     data class Params(

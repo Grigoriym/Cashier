@@ -11,7 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.compose.LoaderDialogCompose
@@ -33,9 +33,9 @@ class PaymentMethodFragment : Fragment() {
         }
     }
 
-    private fun showPaymentStatusResult(data: Result<Unit>) {
+    private fun showPaymentStatusResult(data: Try<Unit>) {
         when (data) {
-            is Result.Error -> {
+            is Try.Error -> {
                 showToast(getErrorMessage(data.exception))
             }
         }
@@ -50,7 +50,7 @@ class PaymentMethodFragment : Fragment() {
 
         val paymentStatus by viewModel.paymentStatus.collectAsState()
 
-        LoaderDialogCompose(show = paymentStatus is Result.Loading)
+        LoaderDialogCompose(show = paymentStatus is Try.Loading)
 
         LaunchedEffect(key1 = paymentStatus) {
             showPaymentStatusResult(paymentStatus)

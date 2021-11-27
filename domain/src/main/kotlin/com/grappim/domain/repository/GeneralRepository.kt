@@ -1,6 +1,6 @@
 package com.grappim.domain.repository
 
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.products.GetCategoryListUseCase
 import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
 import com.grappim.domain.interactor.products.SearchProductsByCategoryUseCase
@@ -12,7 +12,7 @@ interface GeneralRepository {
 
     fun getCategories(
         params: GetCategoryListUseCase.Params
-    ): Flow<Result<List<Category>>>
+    ): Flow<Try<List<Category>>>
 
     fun getCategories2(
         params: GetCategoryListUseCase.Params
@@ -20,7 +20,7 @@ interface GeneralRepository {
 
     fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params
-    ): Flow<Result<List<Product>>>
+    ): Flow<Try<List<Product>>>
 
     suspend fun clearData()
 

@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.products
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.WaybillRepository
@@ -18,6 +18,6 @@ class GetProductByBarcodeUseCase @Inject constructor(
         val barcode: String
     )
 
-    override fun execute(params: Params): Flow<Result<Product>> =
+    override fun execute(params: Params): Flow<Try<Product>> =
         waybillRepository.getProductByBarcode(params)
 }

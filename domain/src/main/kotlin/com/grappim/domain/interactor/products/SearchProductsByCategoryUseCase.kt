@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.products
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
@@ -19,7 +19,7 @@ class SearchProductsByCategoryUseCase @Inject constructor(
         val category: Category
     )
 
-    override fun execute(params: Params): Flow<Result<List<Product>>> =
+    override fun execute(params: Params): Flow<Try<List<Product>>> =
         generalRepository.getProductsByCategory(params)
 
 }

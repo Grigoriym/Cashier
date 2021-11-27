@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.login
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.repository.AuthRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,6 +18,6 @@ class LoginUseCase @Inject constructor(
         val password: String
     )
 
-    override fun execute(params: Params): Flow<Result<Unit>> =
+    override fun execute(params: Params): Flow<Try<Unit>> =
         authRepository.login(params)
 }

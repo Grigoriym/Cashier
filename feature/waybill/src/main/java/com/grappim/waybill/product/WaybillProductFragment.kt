@@ -12,7 +12,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.core.delegate.lazyArg
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.extensions.getErrorMessage
@@ -70,7 +70,7 @@ class WaybillProductFragment : Fragment() {
 
         val productCreatedState by viewModel.productCreated
         when (val state = productCreatedState) {
-            is Result.Error -> {
+            is Try.Error -> {
                 showToast(getErrorMessage(state.exception))
             }
         }

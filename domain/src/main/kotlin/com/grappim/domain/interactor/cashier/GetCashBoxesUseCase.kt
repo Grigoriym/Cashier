@@ -4,7 +4,7 @@ import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.base.FlowUseCase
 import com.grappim.domain.base.NoParams
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.repository.SelectInfoRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ class GetCashBoxesUseCase @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : FlowUseCase<NoParams, List<CashBox>>(ioDispatcher) {
 
-    override fun execute(params: NoParams): Flow<Result<List<CashBox>>> =
+    override fun execute(params: NoParams): Flow<Try<List<CashBox>>> =
         selectInfoRepository.getCashBoxes()
 
 }

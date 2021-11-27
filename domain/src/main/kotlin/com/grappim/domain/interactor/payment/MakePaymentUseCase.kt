@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.payment
 
 import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Result
+import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.payment.PaymentMethodType
 import com.grappim.domain.repository.PaymentRepository
@@ -18,6 +18,6 @@ class MakePaymentUseCase @Inject constructor(
         val paymentMethodType: PaymentMethodType
     )
 
-    override fun execute(params: Params): Flow<Result<Unit>> =
+    override fun execute(params: Params): Flow<Try<Unit>> =
         paymentRepository.makePayment(params)
 }
