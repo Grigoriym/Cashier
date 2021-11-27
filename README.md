@@ -2,34 +2,7 @@
 
 ## This project is under active development and refactoring. And this is a sandbox for me as well. This is why some parts of code may look as overengineered, bad, strange, etc.
 
-### There are different modules in this app:
-- app
-- core
-- domain
-- navigation
-- uikit
-- data
-  - db
-  - network
-  - repository
-  - workers
-- utils
-  - date-time
-  - logger
-  - calculations
-  - extensions
-- features
-  - auth
-  - waybill
-  - bag
-  - menu
-  - payment-method
-  - products
-  - sales
-  - scanner
-  - select-cashbox
-  - select-stock
-  - sign-up
+### There are different modules in this app
 
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
@@ -60,6 +33,12 @@
 - [ ] Is SingleLiveData a good choice? But I have no other options with compose, at least for now.
 - [ ] Compose has problems with the soft keyboard.
 - [ ] I have not a general ui kit
+- [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
+- [ ] In perspective, Dagger 2 is better for multi module app.
+
+### Thanks to
+1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
+2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component
 
 Login | Select stock
 --- | --- |  
@@ -68,7 +47,3 @@ Login | Select stock
 Edit Product | Sales
 --- | --- |  
 ![](https://github.com/Grigoriym/Cashier/blob/master/art/edit_product.jpg) | ![](https://github.com/Grigoriym/Cashier/blob/master/art/sales.jpg)
-
-### Thanks to
-1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
-2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component
