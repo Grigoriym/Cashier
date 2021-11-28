@@ -32,8 +32,7 @@ fun MenuScreen(
         modifier = Modifier,
         topBar = {
             com.grappim.uikit.compose.BaseTopAppBar(
-                toolbarTitle = stringResource(id = R.string.title_menu),
-                backButtonTitle = stringResource(id = R.string.action_back)
+                toolbarTitle = stringResource(id = R.string.title_menu)
             ) {
                 onBackButtonPressed()
             }

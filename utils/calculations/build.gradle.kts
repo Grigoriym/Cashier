@@ -7,6 +7,8 @@ plugins {
 dependencies {
     implementation(Deps.Google.hiltPureKotlinCore)
     kapt(Deps.Google.hiltPureKotlinCompiler)
+
+    testImplementation(Deps.Testing.junit)
 }
 
 java {

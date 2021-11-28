@@ -44,12 +44,12 @@ class PriceCalculationsUtils @Inject constructor(
             bigDecimalZero()
         }
 
-    private fun calculateMarkup(
+    fun calculateMarkup(
         sellingPrice: BigDecimal,
         purchasePrice: BigDecimal,
     ): BigDecimal =
         ((sellingPrice.subtract(purchasePrice))
             .divide(purchasePrice, mcEven())
-                ).multiply(bigDecimalHundred())
+          ).multiply(bigDecimalHundred())
 
 }

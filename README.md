@@ -2,7 +2,7 @@
 
 ## This project is under active development and refactoring. And this is a sandbox for me as well. This is why some parts of code may look as overengineered, bad, strange, etc.
 
-### There are different modules in this app
+### This project is multi module.
 
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
@@ -23,6 +23,7 @@
 ### Roadmap
 - [ ] Move all UI to compose
 - [ ] Navigation is done badly
+- [ ] Google Sign In, Firebase Authentication
 - [ ] Add tests and all that stuff
 - [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
 - [ ] Learn proguard and somehow do something with it here
@@ -33,13 +34,16 @@
 - [ ] Make usable caching of data
 - [ ] Is SingleLiveData a good choice? But I have no other options with compose, at least for now.
 - [ ] Compose has problems with the soft keyboard.
-- [ ] I have not a general ui kit
+- [ ] I have not a general ui kit, And I need a designer
 - [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
 - [ ] In perspective, Dagger 2 is better for multi module app.
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
 2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component
+
+### Some duct tapes
+1. rememberLazyListState() in some compose functions where we have LazyList() and Scaffold's bottomBar. It is done so that list's bottom has been constrained to the top of Scaffold's bottomBar.
 
 Login | Select stock
 --- | --- |  

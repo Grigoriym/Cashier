@@ -33,9 +33,9 @@ class CreateEditProductFragment : Fragment() {
 
     private val viewModel by assistedViewModel {
         viewModelFactory.create(
-            args.flowType,
-            args.product,
-            args.barcode
+            createEditFlow = args.flowType,
+            productToEdit = args.product,
+            scannedBarcode = args.barcode
         )
     }
 

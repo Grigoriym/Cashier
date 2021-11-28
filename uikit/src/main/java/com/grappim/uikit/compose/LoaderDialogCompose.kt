@@ -30,10 +30,9 @@ fun LoaderDialogCompose(
             )
         ) {
             Surface(
-                modifier = Modifier
-                    .wrapContentSize(),
+                modifier = Modifier,
                 shape = RoundedCornerShape(16.dp),
-                color = Color.LightGray
+                color = Color.Transparent
             ) {
                 Box(
                     contentAlignment = Alignment.Center,
@@ -41,6 +40,8 @@ fun LoaderDialogCompose(
                 ) {
                     CircularProgressIndicator(
                         modifier = Modifier
+                            .fillMaxSize(0.4f),
+                        strokeWidth = 8.dp
                     )
                 }
             }

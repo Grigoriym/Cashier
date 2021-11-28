@@ -39,8 +39,7 @@ fun BagScreen(
         topBar = {
             BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_bag),
-                backButtonAction = onBackClick,
-                backButtonTitle = stringResource(id = R.string.title_sales)
+                backButtonAction = onBackClick
             )
         },
         bottomBar = {

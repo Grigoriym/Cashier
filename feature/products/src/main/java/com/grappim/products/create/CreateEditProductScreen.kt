@@ -6,20 +6,27 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -78,14 +85,21 @@ fun CreateEditProductScreen(
         modifier = Modifier,
         topBar = {
             BaseTopAppBar(
-                toolbarTitle = title,
-                backButtonTitle = stringResource(id = R.string.title_products)
+                toolbarTitle = title
             ) {
                 onBackPressed()
             }
+        },
+        bottomBar = {
+            BigActionButtonCompose(
+                buttonText = title,
+                modifier = Modifier,
+                onButtonClick = onCreateProductClick
+            )
         }
     ) {
         CreateEditProductScreenMainSegment(
+            modifier = Modifier.padding(it),
             productName = productName,
             setProductName = setProductName,
             units = units,
@@ -107,8 +121,6 @@ fun CreateEditProductScreen(
             onDropDownClick = onDropDownClick,
             categoryItems = categoryItems,
             onCategoryClick = onCategoryClick,
-            onCreateProductClick = onCreateProductClick,
-            buttonTitle = title,
             selectedCategory = selectedCategory,
             onScanClick = onScanClick
         )
@@ -117,6 +129,7 @@ fun CreateEditProductScreen(
 
 @Composable
 private fun CreateEditProductScreenMainSegment(
+    modifier: Modifier = Modifier,
     productName: String,
     setProductName: (String) -> Unit,
     units: List<ProductUnit>,
@@ -138,20 +151,22 @@ private fun CreateEditProductScreenMainSegment(
     onDropDownClick: () -> Unit,
     categoryItems: List<Category>,
     onCategoryClick: (Category) -> Unit,
-    onCreateProductClick: () -> Unit,
-    buttonTitle: String,
     selectedCategory: Category?,
     onScanClick: () -> Unit
 ) {
+    val listState = rememberLazyListState()
+
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .padding(
                 start = 16.dp,
                 end = 16.dp,
                 top = 16.dp
-            )
+            ),
+        state = listState
     ) {
         item {
+            val focusManager = LocalFocusManager.current
             TextField(
                 value = productName,
                 onValueChange = setProductName,
@@ -165,12 +180,18 @@ private fun CreateEditProductScreenMainSegment(
                     )
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White,
                     focusedIndicatorColor = CashierBlue,
                     unfocusedIndicatorColor = CashierLightGray
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
                 )
             )
         }
@@ -202,6 +223,8 @@ private fun CreateEditProductScreenMainSegment(
         }
 
         item {
+            val focusManager = LocalFocusManager.current
+
             TextField(
                 value = barcode,
                 onValueChange = setBarcode,
@@ -217,13 +240,26 @@ private fun CreateEditProductScreenMainSegment(
                         )
                     )
                 },
+                label = {
+                    Text(
+                        text = stringResource(
+                            id = R.string.title_barcode
+                        )
+                    )
+                },
                 keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Number
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White,
                     focusedIndicatorColor = CashierBlue,
                     unfocusedIndicatorColor = CashierLightGray
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
                 )
             )
         }
@@ -252,14 +288,6 @@ private fun CreateEditProductScreenMainSegment(
                 setExtraPrice = setExtraPrice,
                 sellingPrice = sellingPrice,
                 setSellingPrice = setSellingPrice
-            )
-        }
-
-        item {
-            BigActionButtonCompose(
-                buttonText = buttonTitle,
-                modifier = Modifier,
-                onButtonClick = onCreateProductClick
             )
         }
     }
@@ -355,22 +383,28 @@ private fun CategoryDropDownSegment(
                     }
             )
 
-            DropdownMenu(
-                expanded = dropDownExpanded,
-                onDismissRequest = onDismissDropDown,
+            Box(
                 modifier = Modifier
-                    .background(
-                        Color.White
-                    )
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.TopEnd)
             ) {
-                categoryItems.forEachIndexed { index, category ->
-                    DropdownMenuItem(
-                        onClick = {
-                            onCategoryClick(category)
-                        }
+                DropdownMenu(
+                    expanded = dropDownExpanded,
+                    onDismissRequest = onDismissDropDown,
+                    modifier = Modifier
+                        .background(
+                            Color.White
+                        )
+                ) {
+                    categoryItems.forEachIndexed { index, category ->
+                        DropdownMenuItem(
+                            onClick = {
+                                onCategoryClick(category)
+                            }
 
-                    ) {
-                        Text(text = category.name)
+                        ) {
+                            Text(text = category.name)
+                        }
                     }
                 }
             }
@@ -387,6 +421,8 @@ private fun PricesSegment(
     sellingPrice: String,
     setSellingPrice: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     Column {
         Text(
             modifier = Modifier
@@ -410,13 +446,26 @@ private fun PricesSegment(
                     )
                 )
             },
+            label = {
+                Text(
+                    text = stringResource(
+                        id = R.string.title_purchase_price
+                    )
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
             ),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.White,
                 focusedIndicatorColor = CashierBlue,
                 unfocusedIndicatorColor = CashierLightGray
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                }
             )
         )
 
@@ -432,13 +481,26 @@ private fun PricesSegment(
                     )
                 )
             },
+            label = {
+                Text(
+                    text = stringResource(
+                        id = R.string.title_extra_price
+                    )
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
             ),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.White,
                 focusedIndicatorColor = CashierBlue,
                 unfocusedIndicatorColor = CashierLightGray
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                }
             )
         )
 
@@ -454,13 +516,26 @@ private fun PricesSegment(
                     )
                 )
             },
+            label = {
+                Text(
+                    text = stringResource(
+                        id = R.string.title_selling_price
+                    )
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
             ),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.White,
                 focusedIndicatorColor = CashierBlue,
                 unfocusedIndicatorColor = CashierLightGray
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    focusManager.clearFocus()
+                }
             )
         )
     }
@@ -617,6 +692,23 @@ private fun ProductUnitChipPreview() {
 
 @Composable
 @Preview(
+    showBackground = true
+)
+private fun ShowPricesSegmentPreview() {
+    CashierTheme {
+        PricesSegment(
+            purchasePrice = "100",
+            setPurchasePrice = {},
+            extraPrice = "200",
+            setExtraPrice = {},
+            sellingPrice = "34",
+            setSellingPrice = {}
+        )
+    }
+}
+
+@Composable
+@Preview(
     showBackground = true,
 )
 private fun CreateEditProductScreenMainSegmentPreview() {
@@ -646,8 +738,6 @@ private fun CreateEditProductScreenMainSegmentPreview() {
             onDismissDropDown = {},
             categoryItems = listOf(Category.empty()),
             onCategoryClick = {},
-            onCreateProductClick = {},
-            buttonTitle = "Edit",
             selectedCategory = Category.empty(),
             onDropDownClick = {},
             onScanClick = {}

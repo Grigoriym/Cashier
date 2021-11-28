@@ -12,6 +12,9 @@ import com.grappim.myapplication.WorkerHelper
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,14 +31,31 @@ internal class AuthViewModel @Inject constructor(
         clearData()
     }
 
+    private val _authFieldsData = MutableStateFlow(AuthTextFieldsData.empty())
+    val authFieldsData: StateFlow<AuthTextFieldsData>
+        get() = _authFieldsData.asStateFlow()
+
     private val _loginStatus = SingleLiveEvent<Try<Unit>>()
     val loginStatus: LiveData<Try<Unit>>
         get() = _loginStatus
 
-    fun login(authTextFieldsData: AuthTextFieldsData) {
+    fun setPassword(text: String) {
+        val oldValue = _authFieldsData.value
+        _authFieldsData.value = oldValue.copy(password = text)
+    }
+
+    fun setPhone(text: String) {
+        val oldValue = _authFieldsData.value
+        _authFieldsData.value = oldValue.copy(
+            phone = text,
+            isPhoneFullyEntered = text.length == 10
+        )
+    }
+
+    fun login() {
         login(
-            mobile = authTextFieldsData.phone,
-            password = authTextFieldsData.password
+            mobile = authFieldsData.value.phone,
+            password = authFieldsData.value.password
         )
     }
 

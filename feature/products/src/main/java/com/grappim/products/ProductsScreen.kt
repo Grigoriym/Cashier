@@ -41,8 +41,7 @@ internal fun ProductsScreen(
         modifier = Modifier,
         topBar = {
             BaseTopAppBar(
-                toolbarTitle = stringResource(id = R.string.title_products),
-                backButtonTitle = stringResource(id = R.string.title_menu)
+                toolbarTitle = stringResource(id = R.string.title_products)
             ) {
                 onBackPressed()
             }

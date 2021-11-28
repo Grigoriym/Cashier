@@ -36,8 +36,7 @@ fun PaymentMethodScreen(
         topBar = {
             BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_payment_method),
-                backButtonAction = onBackClick,
-                backButtonTitle = stringResource(id = R.string.title_bag)
+                backButtonAction = onBackClick
             )
         },
         bottomBar = {

@@ -13,13 +13,13 @@ object Versions {
     }
 
     object AndroidX {
-        const val core = "1.6.0"
-        const val appCompat = "1.3.1"
+        const val core = "1.7.0"
+        const val appCompat = "1.4.0"
         const val fragment = "1.3.6"
-        const val constraint = "2.1.1"
-        const val paging = "3.0.1"
-        const val navigation = "2.4.0-alpha10"
-        const val lifecycle = "2.4.0-rc01"
+        const val constraint = "2.1.2"
+        const val paging = "3.1.0"
+        const val navigation = "2.4.0-beta02"
+        const val lifecycle = "2.4.0"
         const val room = "2.3.0"
         const val workManager = "2.5.0"
         const val startup = "1.1.0"
@@ -29,10 +29,10 @@ object Versions {
         const val hiltAndroidX = "1.0.0"
 
         object Compose {
-            const val core = "1.1.0-alpha06"
+            const val core = "1.1.0-beta03"
             const val lifecycle = "2.4.0-rc01"
             const val paging = "1.0.0-alpha14"
-            const val constraint = "1.0.0-rc01"
+            const val constraint = "1.0.0-rc02"
             const val hiltNavigation = "1.0.0-alpha03"
             const val navigation = "2.4.0-alpha10"
         }
@@ -40,7 +40,7 @@ object Versions {
 
     object Google {
         const val material = "1.4.0"
-        const val gson = "2.8.8"
+        const val gson = "2.8.9"
         const val hilt = "2.39.1"
         const val zxing = "3.3.0"
     }
@@ -53,7 +53,7 @@ object Versions {
 
     const val firebaseBom = "28.4.2"
 
-    const val accompanist = "0.20.0"
+    const val accompanist = "0.20.2"
 
     const val retrofit = "2.9.0"
     const val okHttp = "5.0.0-alpha.2"
@@ -64,9 +64,9 @@ object Versions {
     const val recyclerAnimators = "4.0.2"
     const val chucker = "3.5.2"
     const val debugDb = "1.0.6"
-    const val combineTupleLiveData = "1.2.1"
+    const val combineTupleLiveData = "1.3.0"
     const val combineTupleFlow = "1.1.1"
-    const val viewBinding = "1.4.7"
+    const val viewBinding = "1.5.3"
     const val zxing = "3.6.0"
 
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
@@ -38,6 +39,7 @@ internal class AuthFragment : Fragment() {
     private fun AuthFragmentScreen() {
         val viewModel: AuthViewModel = viewModel()
         val loginStatus by viewModel.loginStatus.observeAsState(Try.Initial)
+        val authData by viewModel.authFieldsData.collectAsState()
 
         val showLoader = loginStatus is Try.Loading
         LoaderDialogCompose(
@@ -50,16 +52,17 @@ internal class AuthFragment : Fragment() {
         }
 
         AuthScreen(
-            onSignInClick = {
-                viewModel.login(it)
-            },
-            onRegisterClick = {
-                viewModel.goToRegisterFlow()
-            }
+            onSignInClick = viewModel::login,
+            onRegisterClick = viewModel::goToRegisterFlow,
+            phone = authData.phone,
+            setPhone = viewModel::setPhone,
+            password = authData.password,
+            setPassword = viewModel::setPassword,
+            isPhoneFullyEntered = authData.isPhoneFullyEntered
         )
     }
 
-    private fun showLoginStatus(data: Try<Unit>?) {
+    private fun showLoginStatus(data: Try<Unit>) {
         when (data) {
             is Try.Error -> {
                 showToast(getErrorMessage(data.exception))

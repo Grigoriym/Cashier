@@ -41,8 +41,7 @@ fun SelectStockScreen(
         modifier = Modifier,
         topBar = {
             BaseTopAppBar(
-                toolbarTitle = "",
-                backButtonTitle = stringResource(id = R.string.action_back)
+                toolbarTitle = ""
             ) {
                 onBackButtonPressed()
             }

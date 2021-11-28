@@ -28,7 +28,6 @@ fun BaseTopAppBar(
     elevation: Dp = 4.dp,
 
     toolbarTitle: String,
-    backButtonTitle: String = stringResource(id = R.string.action_back),
     backButtonAction: () -> Unit
 ) {
     TopAppBar(
@@ -52,10 +51,6 @@ fun BaseTopAppBar(
                 tint = CashierBlue,
                 contentDescription = "Back button"
             )
-            Text(
-                text = backButtonTitle,
-                color = CashierBlue
-            )
         }
         Text(
             text = toolbarTitle,
@@ -75,7 +70,6 @@ private fun PreviewBaseTopAppBar() {
     BaseTopAppBar(
         modifier = Modifier,
         toolbarTitle = stringResource(id = R.string.title_menu),
-        backButtonTitle = stringResource(id = R.string.action_back),
         backButtonAction = {
 
         }

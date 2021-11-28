@@ -16,21 +16,19 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierGreen
@@ -38,44 +36,26 @@ import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 internal fun AuthScreen(
-    onSignInClick: (AuthTextFieldsData) -> Unit,
-    onRegisterClick: () -> Unit
+    onSignInClick: () -> Unit,
+    onRegisterClick: () -> Unit,
+    phone: String,
+    setPhone: (String) -> Unit,
+    password: String,
+    setPassword: (String) -> Unit,
+    isPhoneFullyEntered: Boolean
 ) {
-    val (phoneText, phoneSetText) = remember {
-        mutableStateOf("")
-    }
-
-    val (password, setPassword) = remember {
-        mutableStateOf("")
-    }
-    val isPhoneFullyEntered = phoneText.length == 10
-
     Scaffold(
         modifier = Modifier,
-        bottomBar = {
-            BigActionButtonCompose(
-                buttonText = stringResource(id = R.string.action_sign_in),
-                modifier = Modifier,
-                onButtonClick = {
-                    onSignInClick(
-                        AuthTextFieldsData(
-                            phone = phoneText,
-                            password = password
-                        )
-                    )
-                },
-                isEnabled = isPhoneFullyEntered
-            )
-        }
     ) {
         AuthScreenContent(
             modifier = Modifier.padding(it),
-            phoneText = phoneText,
-            phoneSetText = phoneSetText,
+            phoneText = phone,
+            phoneSetText = setPhone,
             password = password,
             passwordSetText = setPassword,
             isPhoneFullyEntered = isPhoneFullyEntered,
-            onRegisterClick = onRegisterClick
+            onRegisterClick = onRegisterClick,
+            onSignInClick = onSignInClick
         )
     }
 }
@@ -88,7 +68,8 @@ private fun AuthScreenContent(
     password: String,
     passwordSetText: (String) -> Unit,
     isPhoneFullyEntered: Boolean,
-    onRegisterClick: () -> Unit
+    onRegisterClick: () -> Unit,
+    onSignInClick: () -> Unit,
 ) {
     val listState = rememberLazyListState()
 
@@ -110,69 +91,40 @@ private fun AuthScreenContent(
             )
         }
         item {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        item {
-            Text(
-                modifier = Modifier,
-                text = stringResource(id = R.string.action_sign_in),
-                fontSize = 24.sp,
-                style = TextStyle.Default.copy(
-                    fontWeight = FontWeight.Bold
-                ),
-                color = Color.Black
-            )
-        }
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        item {
-            Text(
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp
-                    ),
-                text = stringResource(id = R.string.auth_number_hint),
-                fontSize = 14.sp,
-                color = CashierGray,
-                textAlign = TextAlign.Center
-            )
-        }
-        item {
             Spacer(modifier = Modifier.height(25.dp))
         }
         item {
-            PhoneNumberTextFieldComposable(
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp
-                    ),
-                text = phoneText,
-                onTextChange = phoneSetText,
-                onImeAction = {},
-                isPhoneFullyEntered = isPhoneFullyEntered
-            )
-        }
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        item {
-            PasswordTextField(
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp
-                    ),
+            TextFieldsComponent(
+                phoneText = phoneText,
+                phoneSetText = phoneSetText,
                 password = password,
-                onPasswordChange = passwordSetText,
-                onImeAction = {}
+                passwordSetText = passwordSetText,
+                isPhoneFullyEntered = isPhoneFullyEntered,
+                onPasswordDone = onSignInClick
             )
         }
 
         item {
-            RegisterButton(
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        item {
+            SignInButton(
+                onSignInClick = onSignInClick,
+                isPhoneFullyEntered = isPhoneFullyEntered
+            )
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        item {
+            SignUpSegment(
+                modifier = Modifier
+                    .padding(
+                        bottom = 16.dp,
+                    ),
                 onRegisterClick = onRegisterClick
             )
         }
@@ -180,11 +132,48 @@ private fun AuthScreenContent(
 }
 
 @Composable
-private fun RegisterButton(
-    onRegisterClick: () -> Unit
+private fun TextFieldsComponent(
+    phoneText: String,
+    phoneSetText: (String) -> Unit,
+    password: String,
+    passwordSetText: (String) -> Unit,
+    isPhoneFullyEntered: Boolean,
+    onPasswordDone: () -> Unit
+) {
+    Column {
+        PhoneNumberTextFieldComposable(
+            modifier = Modifier
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp
+                ),
+            text = phoneText,
+            onTextChange = phoneSetText,
+            isPhoneFullyEntered = isPhoneFullyEntered
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        PasswordTextField(
+            modifier = Modifier
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp
+                ),
+            password = password,
+            onPasswordChange = passwordSetText,
+            onImeAction = onPasswordDone
+        )
+    }
+}
+
+@Composable
+private fun SignInButton(
+    onSignInClick: () -> Unit,
+    isPhoneFullyEntered: Boolean
 ) {
     Button(
-        onClick = onRegisterClick,
+        onClick = onSignInClick,
         modifier = Modifier
             .fillMaxWidth(
                 fraction = 0.8f
@@ -197,11 +186,46 @@ private fun RegisterButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = CashierBlue
         ),
+        shape = RoundedCornerShape(25.dp),
+        enabled = isPhoneFullyEntered
+    ) {
+        Text(
+            text = stringResource(id = R.string.action_sign_in),
+            color = Color.White,
+            fontSize = 17.sp,
+            modifier = Modifier
+                .padding(
+                    top = 4.dp,
+                    bottom = 4.dp
+                )
+        )
+    }
+}
+
+@Composable
+private fun SignUpSegment(
+    modifier: Modifier = Modifier,
+    onRegisterClick: () -> Unit
+) {
+    Button(
+        onClick = onRegisterClick,
+        modifier = modifier
+            .fillMaxWidth(
+                fraction = 0.8f
+            )
+            .padding(
+                start = 32.dp,
+                end = 32.dp,
+                top = 16.dp
+            ),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.White
+        ),
         shape = RoundedCornerShape(25.dp)
     ) {
         Text(
             text = stringResource(id = R.string.title_sign_up),
-            color = Color.White,
+            color = CashierBlue,
             fontSize = 17.sp,
             modifier = Modifier
                 .padding(
@@ -217,10 +241,9 @@ private fun PhoneNumberTextFieldComposable(
     modifier: Modifier = Modifier,
     text: String,
     onTextChange: (String) -> Unit,
-    onImeAction: () -> Unit,
     isPhoneFullyEntered: Boolean
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     TextField(
         value = text,
         onValueChange = onTextChange,
@@ -257,13 +280,12 @@ private fun PhoneNumberTextFieldComposable(
             )
         },
         keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Done,
+            imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Number
         ),
         keyboardActions = KeyboardActions(
-            onDone = {
-                onImeAction()
-                keyboardController?.hide()
+            onNext = {
+                focusManager.moveFocus(FocusDirection.Down)
             }
         )
     )
@@ -339,6 +361,23 @@ private fun PasswordTextField(
 }
 
 @Composable
+@Preview(
+    showBackground = true
+)
+private fun TextFieldsComponentPreview() {
+    CashierTheme {
+        TextFieldsComponent(
+            phoneText = "",
+            phoneSetText = {},
+            password = "",
+            passwordSetText = {},
+            isPhoneFullyEntered = true,
+            onPasswordDone = {}
+        )
+    }
+}
+
+@Composable
 @Preview
 private fun PasswordTextFieldPreview() {
     CashierTheme {
@@ -357,7 +396,6 @@ private fun PhoneNumberTextFieldComposablePreview() {
         PhoneNumberTextFieldComposable(
             text = "",
             onTextChange = {},
-            onImeAction = {},
             isPhoneFullyEntered = true
         )
     }
@@ -369,7 +407,12 @@ private fun AuthScreenPreview() {
     CashierTheme {
         AuthScreen(
             onSignInClick = {},
-            onRegisterClick = {}
+            onRegisterClick = {},
+            phone = "",
+            setPhone = {},
+            password = "",
+            setPassword = {},
+            isPhoneFullyEntered = false
         )
     }
 }
@@ -385,7 +428,8 @@ private fun AuthScreenContentPreview() {
             password = "",
             passwordSetText = {},
             isPhoneFullyEntered = false,
-            onRegisterClick = {}
+            onRegisterClick = {},
+            onSignInClick = {}
         )
     }
 }

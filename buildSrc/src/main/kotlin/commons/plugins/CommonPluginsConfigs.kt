@@ -74,9 +74,11 @@ internal fun Project.getCommonAndroidBlock() =
 
         val compilerArgs = listOf(
             "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-Xuse-experimental=androidx.compose.foundation.ExperimentalFoundationApi",
             "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
+            "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi",
             "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi"
+            "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
         )
         tasks.withType(KotlinCompile::class).configureEach {
             kotlinOptions {

@@ -49,7 +49,6 @@ fun WaybillListScreen(
         topBar = {
             BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_acceptance),
-                backButtonTitle = stringResource(id = R.string.title_menu),
                 backButtonAction = onBackButtonPressed
             )
         },
