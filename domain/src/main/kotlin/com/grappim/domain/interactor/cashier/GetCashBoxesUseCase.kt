@@ -5,17 +5,17 @@ import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.base.FlowUseCase
 import com.grappim.domain.base.NoParams
 import com.grappim.domain.base.Try
-import com.grappim.domain.repository.SelectInfoRepository
+import com.grappim.domain.repository.SelectInfoRemoteRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetCashBoxesUseCase @Inject constructor(
-    private val selectInfoRepository: SelectInfoRepository,
+    private val selectInfoRemoteRepository: SelectInfoRemoteRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : FlowUseCase<NoParams, List<CashBox>>(ioDispatcher) {
 
     override fun execute(params: NoParams): Flow<Try<List<CashBox>>> =
-        selectInfoRepository.getCashBoxes()
+        selectInfoRemoteRepository.getCashBoxes()
 
 }

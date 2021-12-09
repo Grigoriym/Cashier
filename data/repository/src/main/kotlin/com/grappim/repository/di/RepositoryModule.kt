@@ -1,7 +1,11 @@
 package com.grappim.repository.di
 
 import com.grappim.domain.repository.*
+import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
+import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.repository.local.SelectCashBoxLocalRepositoryImpl
+import com.grappim.repository.local.SelectStockLocalRepositoryImpl
 import com.grappim.repository.local.WaybillLocalRepositoryImpl
 import com.grappim.repository.remote.*
 import dagger.Binds
@@ -25,8 +29,8 @@ interface RepositoryModule {
 
     @Binds
     fun bindSelectInfoRepository(
-        selectInfoRepositoryImpl: SelectInfoRepositoryImpl
-    ): SelectInfoRepository
+        selectInfoRepositoryImpl: SelectInfoRemoteRepositoryImpl
+    ): SelectInfoRemoteRepository
 
     @Binds
     fun bindAuthRepository(
@@ -52,4 +56,14 @@ interface RepositoryModule {
     fun bindWaybillLocalRepository(
         waybillLocalRepositoryImpl: WaybillLocalRepositoryImpl
     ): WaybillLocalRepository
+
+    @Binds
+    fun bindSelectStockRepository(
+        selectStockLocalRepositoryImpl: SelectStockLocalRepositoryImpl
+    ): SelectStockLocalRepository
+
+    @Binds
+    fun bindSelectCashBoxRepository(
+        selectCashBoxLocalRepositoryImpl: SelectCashBoxLocalRepositoryImpl
+    ): SelectCashBoxLocalRepository
 }

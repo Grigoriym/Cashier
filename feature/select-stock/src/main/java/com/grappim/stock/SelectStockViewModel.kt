@@ -7,50 +7,57 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grappim.core.BaseViewModel
 import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
-import com.grappim.domain.interactor.outlet.GetOutletsUseCase
+import com.grappim.domain.interactor.outlet.GetStocksUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.outlet.Stock
+import com.grappim.domain.repository.local.SelectStockLocalRepository
+import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SelectStockViewModel @Inject constructor(
-    private val getOutletsUseCase: GetOutletsUseCase,
-    private val saveStockInfoUseCase: SaveStockInfoUseCase
-) : ViewModel() {
-
-    val stocks = mutableStateListOf<Stock>()
+    private val getStocksUseCase: GetStocksUseCase,
+    private val saveStockInfoUseCase: SaveStockInfoUseCase,
+    private val navigator: Navigator,
+    private val selectStockLocalRepository: SelectStockLocalRepository
+) : BaseViewModel() {
 
     val stockProgresses: List<StockProgressItem> = getStockProgressItems()
 
-    private var selectedStockPosition by mutableStateOf(-1)
-    val selectedStock: Stock?
-        get() = stocks.getOrNull(selectedStockPosition)
+    private val _selectedStock =
+        MutableStateFlow<Stock?>(selectStockLocalRepository.getSelectedStock())
+    val selectedStock: StateFlow<Stock?>
+        get() = _selectedStock
 
-    var loading by mutableStateOf(false)
-    var error by mutableStateOf<Throwable?>(null)
+    private val _stocksResult = MutableStateFlow<List<Stock>>(emptyList())
+    val stocksResult: StateFlow<List<Stock>>
+        get() = _stocksResult.asStateFlow()
 
     init {
         getStocks()
     }
 
+    fun onBackPressed() {
+        navigator.popBackStack()
+    }
+
     fun selectStock(stock: Stock) {
-        selectedStockPosition = if (selectedStockPosition == -1 ||
-            selectedStockPosition != stocks.indexOf(stock)
-        ) {
-            stocks.indexOf(stock)
-        } else {
-            -1
-        }
+        selectStockLocalRepository.setSelectedStock(stock)
+        _selectedStock.value = selectStockLocalRepository.getSelectedStock()
     }
 
     fun saveStock() {
         viewModelScope.launch {
-            val stockToSave = requireNotNull(selectedStock) {
+            val stockToSave = requireNotNull(selectStockLocalRepository.getSelectedStock()) {
                 "Stock must not be null"
             }
             saveStockInfoUseCase.invoke(SaveStockInfoUseCase.Params(stockToSave))
@@ -60,27 +67,18 @@ class SelectStockViewModel @Inject constructor(
     @MainThread
     fun getStocks() {
         viewModelScope.launch {
-            getOutletsUseCase(withoutParams())
+            getStocksUseCase(withoutParams())
                 .collect {
-                    loading = it is Try.Loading
-
+                    _loading.value = it is Try.Loading
                     when (it) {
-                        is Try.Success -> {
-                            stocks.clear()
-                            stocks.addAll(it.data)
-                        }
                         is Try.Error -> {
-                            error = it.exception
+                            _error.value = it.exception
+                        }
+                        is Try.Success -> {
+                            _stocksResult.value = it.data
                         }
                     }
                 }
-        }
-    }
-
-    @MainThread
-    fun saveStock(stock: Stock) {
-        viewModelScope.launch {
-            saveStockInfoUseCase.invoke(SaveStockInfoUseCase.Params(stock))
         }
     }
 
@@ -89,4 +87,9 @@ class SelectStockViewModel @Inject constructor(
             StockProgressItem(R.string.outlet_selecting, true),
             StockProgressItem(R.string.outlet_checkout, false)
         )
+
+    override fun onCleared() {
+        selectStockLocalRepository.clear()
+        super.onCleared()
+    }
 }

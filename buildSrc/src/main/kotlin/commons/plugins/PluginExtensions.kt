@@ -40,3 +40,6 @@ internal fun DependencyHandler.implementation(
 
 internal fun Project.kapt(configure: Action<KaptExtension>): Unit =
     (this as ExtensionAware).extensions.configure("kapt", configure)
+
+fun Project.java(configure: Action<org.gradle.api.plugins.JavaPluginExtension>): Unit =
+    (this as ExtensionAware).extensions.configure("java", configure)

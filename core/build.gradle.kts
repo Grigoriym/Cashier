@@ -10,6 +10,8 @@ dependencies {
     implementation(project(Modules.navigation))
     implementation(project(Modules.dataWorkers))
 
+    implementation(Deps.AndroidX.lifecycleLiveData)
+
     implementation(Deps.Google.hilt)
     kapt(Deps.Google.hiltAndroidCompiler)
 

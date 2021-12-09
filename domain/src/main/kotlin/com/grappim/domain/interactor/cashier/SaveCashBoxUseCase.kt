@@ -4,19 +4,19 @@ import com.grappim.domain.base.NoParams
 import com.grappim.domain.base.CoroutineUseCase
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.model.cashbox.CashBox
-import com.grappim.domain.repository.SelectInfoRepository
+import com.grappim.domain.repository.SelectInfoRemoteRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class SaveCashierUseCase @Inject constructor(
-    private val selectInfoRepository: SelectInfoRepository,
+class SaveCashBoxUseCase @Inject constructor(
+    private val selectInfoRemoteRepository: SelectInfoRemoteRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : CoroutineUseCase<SaveCashierUseCase.Params, NoParams>(ioDispatcher) {
+) : CoroutineUseCase<SaveCashBoxUseCase.Params, NoParams>(ioDispatcher) {
 
     data class Params(
         val cashBox: CashBox
     )
 
     override suspend fun execute(parameters: Params): NoParams =
-        selectInfoRepository.saveCashBox(parameters)
+        selectInfoRemoteRepository.saveCashBox(parameters)
 }

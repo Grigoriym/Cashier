@@ -27,7 +27,7 @@
 - [ ] Add tests and all that stuff
 - [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
 - [ ] Learn proguard and somehow do something with it here
-- [ ] Enhance navigation
+- [ ] Enhance navigation, abstract navigation
 - [ ] Some modules are kinda useless or a bit messy: core, extensions, app
 - [ ] Add CI and all that cool automated features
 - [ ] I don't know the right way to integrate communication between composeScreen and viewModel, especially when there are many data to send
@@ -37,6 +37,9 @@
 - [ ] I have not a general ui kit, And I need a designer
 - [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
 - [ ] In perspective, Dagger 2 is better for multi module app.
+- [ ] Local Repos need to be custom scoped
+- [ ] Feature flags
+- [ ] Guest Mode
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules

@@ -5,28 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
+import com.grappim.core.BaseFragment
 import com.grappim.core.MainViewModel
-import com.grappim.extensions.getErrorMessage
-import com.grappim.extensions.showToast
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SelectStockFragment : Fragment() {
+class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
 
     @Inject
     lateinit var navigator: Navigator
 
     private val mainViewModel: MainViewModel by activityViewModels()
+    override val viewModel: SelectStockViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,32 +42,24 @@ class SelectStockFragment : Fragment() {
 
     @Composable
     private fun SelectStockFragmentScreen() {
-        val viewModel: SelectStockViewModel = viewModel()
-
-        LoaderDialogCompose(show = viewModel.loading) {
-
-        }
-
-        if (viewModel.error != null) {
-            showToast(getErrorMessage(viewModel.error!!))
-        }
+        val stocksResult by viewModel.stocksResult.collectAsState()
+        val loading by viewModel.loading.observeAsState(false)
+        val selectedStock by viewModel.selectedStock.collectAsState()
 
         SelectStockScreen(
-            onBackButtonPressed = {
-                findNavController().popBackStack()
-            },
+            onBackButtonPressed = viewModel::onBackPressed,
             stockProgressItems = viewModel.stockProgresses,
-            stockItems = viewModel.stocks,
+            stockItems = stocksResult,
             onRefresh = viewModel::getStocks,
             selectStock = viewModel::selectStock,
-            selectedStock = viewModel.selectedStock,
+            selectedStock = selectedStock,
             onNextClick = {
                 viewModel.saveStock()
                 mainViewModel.stopSync()
                 mainViewModel.startSync()
                 navigator.navigateToFlow(NavigationFlow.SelectInfoCashierFlow)
             },
-            isLoading = viewModel.loading
+            isLoading = loading
         )
     }
 }

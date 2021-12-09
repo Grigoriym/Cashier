@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.domain.model.cashbox.CashBox
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.BigActionButtonCompose
 import com.grappim.uikit.theme.*
 
 @Composable
@@ -38,14 +40,14 @@ fun SelectCashBoxScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            com.grappim.uikit.compose.BaseTopAppBar(
+            BaseTopAppBar(
                 toolbarTitle = ""
             ) {
                 onBackButtonPressed()
             }
         },
         bottomBar = {
-            com.grappim.uikit.compose.BigActionButtonCompose(
+            BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_next),
                 onButtonClick = onNextClick,
                 isEnabled = selectedCashBox != null
@@ -76,7 +78,7 @@ fun SelectCashBoxScreen(
                     )
             ) {
                 items(cashBoxProgressItems) { item ->
-                    CashboxProgressItem(
+                    CashBoxProgressItem(
                         item = item,
                         modifier = Modifier
                     )
@@ -138,7 +140,7 @@ private fun CashBoxListItem(
     onCashBoxClick: (CashBox) -> Unit
 ) {
     val isItemSelected = cashBox.cashBoxId == selectedCashBox?.cashBoxId &&
-            cashBox.name == selectedCashBox.name
+      cashBox.name == selectedCashBox.name
 
     Row(
         modifier = Modifier
@@ -177,7 +179,7 @@ private fun CashBoxListItem(
 }
 
 @Composable
-fun CashboxProgressItem(
+private fun CashBoxProgressItem(
     item: CashierProgressItem,
     modifier: Modifier = Modifier
 ) {
@@ -216,17 +218,21 @@ fun CashboxProgressItem(
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true
+)
 @Composable
 private fun StockProgressItemPreview() {
     CashierTheme {
-        CashboxProgressItem(
+        CashBoxProgressItem(
             item = CashierProgressItem(R.string.outlet_selecting, true)
         )
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true
+)
 @Composable
 private fun CashBoxItemPreview() {
     CashierTheme {
@@ -248,7 +254,9 @@ private fun CashBoxItemPreview() {
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true
+)
 @Composable
 private fun SelectCashBoxScreenPreview() {
     CashierTheme {

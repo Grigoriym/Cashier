@@ -7,21 +7,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grappim.core.BaseViewModel
 import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
-import com.grappim.domain.interactor.cashier.SaveCashierUseCase
+import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.model.cashbox.CashBox
+import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
+import com.grappim.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectCashierViewModel @Inject constructor(
+class SelectCashBoxViewModel @Inject constructor(
     private val getCashBoxesUseCase: GetCashBoxesUseCase,
-    private val saveCashierUseCase: SaveCashierUseCase
-) : ViewModel() {
+    private val saveCashBoxUseCase: SaveCashBoxUseCase,
+    private val navigator: Navigator,
+    private val selectCashBoxLocalRepository: SelectCashBoxLocalRepository
+) : BaseViewModel() {
 
     val cashBoxes = mutableStateListOf<CashBox>()
 
@@ -30,8 +35,6 @@ class SelectCashierViewModel @Inject constructor(
     private var selectedCashBoxPosition by mutableStateOf(-1)
     val selectedCashBox: CashBox?
         get() = cashBoxes.getOrNull(selectedCashBoxPosition)
-
-    var loading by mutableStateOf(false)
 
     init {
         getCashBoxes()
@@ -52,7 +55,7 @@ class SelectCashierViewModel @Inject constructor(
             val cashBoxToSave = requireNotNull(selectedCashBox) {
                 "CashBox must not be null"
             }
-            saveCashierUseCase(SaveCashierUseCase.Params(cashBoxToSave))
+            saveCashBoxUseCase(SaveCashBoxUseCase.Params(cashBoxToSave))
         }
     }
 
@@ -61,7 +64,7 @@ class SelectCashierViewModel @Inject constructor(
         viewModelScope.launch {
             getCashBoxesUseCase(withoutParams())
                 .collect {
-                    loading = it is Try.Loading
+                    _loading.value = it is Try.Loading
 
                     when (it) {
                         is Try.Success -> {
@@ -69,7 +72,7 @@ class SelectCashierViewModel @Inject constructor(
                             cashBoxes.addAll(it.data)
                         }
                         is Try.Error -> {
-
+                            _error.value = it.exception
                         }
                     }
                 }

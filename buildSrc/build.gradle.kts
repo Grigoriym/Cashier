@@ -32,5 +32,9 @@ gradlePlugin {
             id = "com.grappim.plugin.android.app"
             implementationClass = "commons.plugins.AndroidAppModulePlugin"
         }
+        register("com.grappim.plugin.domain"){
+            id = "com.grappim.plugin.domain"
+            implementationClass = "commons.plugins.DomainModulePlugin"
+        }
     }
 }
