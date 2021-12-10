@@ -25,7 +25,7 @@ class GetWaybillPagingSource(
                     limit = params.loadSize,
                     merchantId = generalStorage.getMerchantId(),
                     offset = nextOffset,
-                    stockId = generalStorage.getStockId(),
+                    stockId = generalStorage.stockId,
                     waybillType = "inwaybill"
                 )
                 val waybills = waybillApi.filterWaybills(

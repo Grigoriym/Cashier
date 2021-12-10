@@ -42,7 +42,8 @@ internal fun AuthScreen(
     setPhone: (String) -> Unit,
     password: String,
     setPassword: (String) -> Unit,
-    isPhoneFullyEntered: Boolean
+    isPhoneFullyEntered: Boolean,
+    onImePasswordActionDone: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier,
@@ -55,7 +56,8 @@ internal fun AuthScreen(
             passwordSetText = setPassword,
             isPhoneFullyEntered = isPhoneFullyEntered,
             onRegisterClick = onRegisterClick,
-            onSignInClick = onSignInClick
+            onSignInClick = onSignInClick,
+            onImePasswordActionDone = onImePasswordActionDone
         )
     }
 }
@@ -70,6 +72,7 @@ private fun AuthScreenContent(
     isPhoneFullyEntered: Boolean,
     onRegisterClick: () -> Unit,
     onSignInClick: () -> Unit,
+    onImePasswordActionDone: () -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -100,7 +103,7 @@ private fun AuthScreenContent(
                 password = password,
                 passwordSetText = passwordSetText,
                 isPhoneFullyEntered = isPhoneFullyEntered,
-                onPasswordDone = onSignInClick
+                onImePasswordActionDone = onImePasswordActionDone
             )
         }
 
@@ -138,7 +141,7 @@ private fun TextFieldsComponent(
     password: String,
     passwordSetText: (String) -> Unit,
     isPhoneFullyEntered: Boolean,
-    onPasswordDone: () -> Unit
+    onImePasswordActionDone: () -> Unit
 ) {
     Column {
         PhoneNumberTextFieldComposable(
@@ -162,7 +165,7 @@ private fun TextFieldsComponent(
                 ),
             password = password,
             onPasswordChange = passwordSetText,
-            onImeAction = onPasswordDone
+            onImeAction = onImePasswordActionDone
         )
     }
 }
@@ -372,7 +375,7 @@ private fun TextFieldsComponentPreview() {
             password = "",
             passwordSetText = {},
             isPhoneFullyEntered = true,
-            onPasswordDone = {}
+            onImePasswordActionDone = {}
         )
     }
 }
@@ -412,7 +415,8 @@ private fun AuthScreenPreview() {
             setPhone = {},
             password = "",
             setPassword = {},
-            isPhoneFullyEntered = false
+            isPhoneFullyEntered = false,
+            onImePasswordActionDone = {}
         )
     }
 }
@@ -429,7 +433,8 @@ private fun AuthScreenContentPreview() {
             passwordSetText = {},
             isPhoneFullyEntered = false,
             onRegisterClick = {},
-            onSignInClick = {}
+            onSignInClick = {},
+            onImePasswordActionDone = {}
         )
     }
 }

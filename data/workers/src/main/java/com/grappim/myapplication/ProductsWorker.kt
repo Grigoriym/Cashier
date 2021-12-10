@@ -43,7 +43,7 @@ class ProductsWorker @AssistedInject constructor(
                     offset = newOffset,
                     limit = PRODUCTS_LIMIT,
                     merchantId = generalStorage.getMerchantId(),
-                    stockId = generalStorage.getStockId()
+                    stockId = generalStorage.stockId
                 )
 
                 val response = cashierApi.getProducts(request)

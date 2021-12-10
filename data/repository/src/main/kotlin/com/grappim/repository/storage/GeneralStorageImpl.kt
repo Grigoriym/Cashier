@@ -17,8 +17,8 @@ class GeneralStorageImpl @Inject constructor(
     companion object {
         private const val STORAGE_NAME = "cashier_data_store"
 
-        private const val CASHIER_NAME = "cashier_name"
-        private const val CASHIER_ID = "cashier_id"
+        private const val CASH_BOX_NAME = "cash_box_name"
+        private const val CASH_BOX_ID = "cash_box_id"
 
         private const val STOCK_NAME = "stock_name"
         private const val STOCK_ID = "stock_id"
@@ -37,22 +37,22 @@ class GeneralStorageImpl @Inject constructor(
 
     private val editor = sharedPreferences.edit()
 
-    override var cashierName: String by sharedPreferences.string(CASHIER_NAME)
+    override var cashBoxName: String by sharedPreferences.string(CASH_BOX_NAME)
 
     override var stockName: String by sharedPreferences.string(STOCK_NAME)
 
-    override fun setCashierInfo(cashBox: CashBox) {
-        cashierName = cashBox.name
-        editor
-          .putString(CASHIER_ID, cashBox.cashBoxId)
-          .apply()
+    override var cashBoxId:String by sharedPreferences.string(CASH_BOX_ID)
+
+    override var stockId: String by sharedPreferences.string(STOCK_ID)
+
+    override fun setCashBoxInfo(cashBox: CashBox) {
+        cashBoxName = cashBox.name
+        cashBoxId = cashBox.cashBoxId
     }
 
     override fun setStockInfo(stock: Stock) {
         stockName = stock.name
-        editor
-          .putString(STOCK_ID, stock.stockId)
-          .apply()
+        stockId = stock.stockId
     }
 
     override fun setAuthToken(token: String) {
@@ -68,13 +68,9 @@ class GeneralStorageImpl @Inject constructor(
           .apply()
     }
 
-    override fun getCashierId(): String = getStringValue(CASHIER_ID)
-
     override fun getMerchantId(): String = getStringValue(MERCHANT_ID)
 
     override fun getMerchantName(): String = getStringValue(MERCHANT_NAME)
-
-    override fun getStockId(): String = getStringValue(STOCK_ID)
 
     override fun getToken(): String = getStringValue(AUTH_TOKEN)
 

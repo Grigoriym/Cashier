@@ -59,6 +59,12 @@ internal class AuthViewModel @Inject constructor(
         )
     }
 
+    fun loginFromIme() {
+        if (authFieldsData.value.isPhoneFullyEntered) {
+            login()
+        }
+    }
+
     @MainThread
     fun goToRegisterFlow() {
         navigator.navigateToFlow(NavigationFlow.RegisterFlow)

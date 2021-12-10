@@ -5,21 +5,19 @@ import com.grappim.domain.model.outlet.Stock
 
 interface GeneralStorage {
 
-    val cashierName: String
+    val cashBoxName: String
     val stockName: String
+    val cashBoxId: String
+    val stockId: String
 
-    fun setCashierInfo(cashBox: CashBox)
+    fun setCashBoxInfo(cashBox: CashBox)
     fun setStockInfo(stock: Stock)
     fun setAuthToken(token: String)
     fun setMerchantInfo(merchantId: String, merchantName: String)
 
-    fun getCashierId(): String
-
     fun getMerchantId(): String
 
     fun getMerchantName(): String
-
-    fun getStockId(): String
 
     fun getToken(): String
 

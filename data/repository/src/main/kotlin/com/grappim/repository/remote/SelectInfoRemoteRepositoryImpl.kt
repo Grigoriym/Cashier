@@ -32,7 +32,7 @@ class SelectInfoRemoteRepositoryImpl @Inject constructor(
     override suspend fun saveCashBox(
         params: SaveCashBoxUseCase.Params
     ) = applicationScope.launch {
-        generalStorage.setCashierInfo(params.cashBox)
+        generalStorage.setCashBoxInfo(params.cashBox)
     }.join()
 
     override suspend fun saveStock(
@@ -59,7 +59,7 @@ class SelectInfoRemoteRepositoryImpl @Inject constructor(
             val response = cashierApi.getCashBoxList(
                 getCashBoxListRequestDTO = GetCashBoxListRequestDTO(
                     merchantId = generalStorage.getMerchantId(),
-                    stockId = generalStorage.getStockId()
+                    stockId = generalStorage.stockId
                 )
             )
             val domain = cashBoxMapper.dtoToDomainList(response.cashBoxes)

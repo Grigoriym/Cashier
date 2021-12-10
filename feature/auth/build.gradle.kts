@@ -15,6 +15,9 @@ android {
 dependencies {
     implementation(project(Modules.dataWorkers))
 
+//    implementation(Deps.AndroidX.biometric)
+    implementation(Deps.AndroidX.biometricKotlin)
+
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)
     implementation(Deps.Compose.toolingPreview)

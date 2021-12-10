@@ -227,7 +227,7 @@ class CreateEditProductViewModel @AssistedInject constructor(
                             barcode = barcode.value,
                             sellingPrice = sellingPrice.value.asBigDecimal(),
                             purchasePrice = purchasePrice.value.asBigDecimal(),
-                            stockId = generalStorage.getStockId(),
+                            stockId = generalStorage.stockId,
                             merchantId = generalStorage.getMerchantId(),
                             unit = selectedUnit.value.value,
                             amount = amount.value,

@@ -58,7 +58,8 @@ internal class AuthFragment : Fragment() {
             setPhone = viewModel::setPhone,
             password = authData.password,
             setPassword = viewModel::setPassword,
-            isPhoneFullyEntered = authData.isPhoneFullyEntered
+            isPhoneFullyEntered = authData.isPhoneFullyEntered,
+            onImePasswordActionDone = viewModel::loginFromIme
         )
     }
 

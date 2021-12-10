@@ -47,8 +47,8 @@ class PaymentRepositoryImpl @Inject constructor(
                 CreateOrderRequestDTO(
                     order = CreateOrderDTO(
                         merchantId = generalStorage.getMerchantId(),
-                        stockId = generalStorage.getStockId(),
-                        cashBoxId = generalStorage.getCashierId(),
+                        stockId = generalStorage.stockId,
+                        cashBoxId = generalStorage.cashBoxId,
                         totalSum = totalSum,
                         payType = paymentType.name,
                         orderItems = orderItems

@@ -198,7 +198,7 @@ class WaybillRepositoryImpl @Inject constructor(
                     waybill = PartialWaybill(
                         merchantId = generalStorage.getMerchantId(),
                         status = WaybillStatus.DRAFT.value,
-                        stockId = generalStorage.getStockId(),
+                        stockId = generalStorage.stockId,
                         type = WaybillType.INWAYBILL.value
                     )
                 )

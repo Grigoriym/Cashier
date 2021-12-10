@@ -43,7 +43,7 @@ class CategoriesWorker @AssistedInject constructor(
                     offset = newOffset,
                     limit = CATEGORIES_LIMIT,
                     merchantId = generalStorage.getMerchantId(),
-                    stockId = generalStorage.getStockId()
+                    stockId = generalStorage.stockId
                 )
 
                 val response = cashierApi.filterCategories(request)
