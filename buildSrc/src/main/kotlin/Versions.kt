@@ -25,7 +25,6 @@ object Versions {
         const val startup = "1.1.0"
         const val viewPager2 = "1.0.0"
         const val swipeRefresh = "1.1.0"
-        const val biometric = "1.1.0"
         const val biometricKotlin = "1.2.0-alpha04"
 
         const val hiltAndroidX = "1.0.0"

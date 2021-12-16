@@ -45,7 +45,6 @@ object Deps {
         const val hiltNavigation =
             "androidx.hilt:hilt-navigation-fragment:${Versions.AndroidX.hiltAndroidX}"
 
-        const val biometric = "androidx.biometric:biometric:${Versions.AndroidX.biometric}"
         const val biometricKotlin =
             "androidx.biometric:biometric-ktx:${Versions.AndroidX.biometricKotlin}"
     }

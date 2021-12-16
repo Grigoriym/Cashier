@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.grappimAndroidLibraryPlugin)
+    id(Plugins.kotlinParcelize)
 }
 
 android {
@@ -15,7 +16,6 @@ android {
 dependencies {
     implementation(project(Modules.dataWorkers))
 
-//    implementation(Deps.AndroidX.biometric)
     implementation(Deps.AndroidX.biometricKotlin)
 
     implementation(Deps.Compose.ui)
