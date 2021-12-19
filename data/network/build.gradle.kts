@@ -6,6 +6,7 @@ plugins {
     id(Plugins.androidLibrary)
     id(Plugins.grappimDataPlugin)
     id(Plugins.hiltAndroid)
+    id(Plugins.kotlinSerialization)
 }
 
 android {
@@ -15,7 +16,7 @@ android {
                 buildConfigField(
                     "String",
                     "CASHIER_API",
-                    "\"http://192.168.0.102:8081/api/v1/\""
+                    "\"http://192.168.0.104:8081/api/v1/\""
                 )
             }
             getByName(ProductFlavorQa.name) {
@@ -44,11 +45,13 @@ dependencies {
     implementation(project(Modules.utilsDateTime))
 
     implementation(Deps.Google.gson)
+    implementation(Deps.Kotlin.serialization)
 
     implementation(Deps.okhttp)
     implementation(Deps.loggingInterceptor)
     implementation(Deps.retrofit)
     implementation(Deps.retrofitGsonConverter)
+    implementation(Deps.retrofitKotlinSerializationConverter)
 
     debugImplementation(Deps.chucker)
     releaseImplementation(Deps.chuckerNoOp)

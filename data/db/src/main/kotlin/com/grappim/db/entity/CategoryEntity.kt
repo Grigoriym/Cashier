@@ -13,7 +13,7 @@ const val categoryEntityTableName = "category_table"
 @Parcelize
 data class CategoryEntity(
     @PrimaryKey
-    val id: Int,
+    val id: Long,
     val name: String,
     val merchantId: String,
     val stockId: String,

@@ -1,4 +1,4 @@
-package com.grappim.sign_up
+package com.grappim.domain.model.sign_up
 
 data class SignUpData(
     val phone: String = "",

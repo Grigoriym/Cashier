@@ -1,4 +1,4 @@
-package com.grappim.uikit.compose
+package com.grappim.uikit.compose.button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

@@ -18,8 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    @Provides
-    @Singleton
+    @[Singleton Provides]
     fun provideRoomDatabase(
         @ApplicationContext context: Context
     ): CashierDatabase =
@@ -33,19 +32,16 @@ object DatabaseModule {
             .build()
 
     @Provides
-    @Singleton
     fun provideProductsDao(
         cashierDatabase: CashierDatabase
     ): ProductsDao = cashierDatabase.productsDao()
 
     @Provides
-    @Singleton
     fun providerBasketDao(
         cashierDatabase: CashierDatabase
     ): BasketDao = cashierDatabase.basketDao()
 
     @Provides
-    @Singleton
     fun provideCategoryDao(
         cashierDatabase: CashierDatabase
     ): CategoryDao = cashierDatabase.categoryDao()

@@ -1,12 +1,14 @@
 package com.grappim.network.model.sign_up
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class SignUpDTO(
-    @SerializedName("phone")
+    @SerialName("phone")
     val phone: String,
-    @SerializedName("email")
+    @SerialName("email")
     val email: String,
-    @SerializedName("password")
+    @SerialName("password")
     val password: String
 )

@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.grappim.domain.model.product.Product
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemProductCompose
-import com.grappim.uikit.compose.OutlinedTextFieldCompose
+import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
 

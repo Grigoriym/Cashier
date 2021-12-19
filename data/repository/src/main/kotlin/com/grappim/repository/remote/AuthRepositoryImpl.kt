@@ -1,11 +1,11 @@
 package com.grappim.repository.remote
 
-import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
 import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.AuthRepository
 import com.grappim.domain.storage.GeneralStorage
+import com.grappim.network.api.AuthApi
+import com.grappim.network.di.QualifierAuthApi
 import com.grappim.network.model.login.LoginRequestDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AuthRepositoryImpl @Inject constructor(
-    @QualifierCashierApi private val cashierApi: CashierApi,
+    @QualifierAuthApi private val authApi: AuthApi,
     private val generalStorage: GeneralStorage,
 ) : AuthRepository {
 
@@ -23,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor(
     ): Flow<Try<Unit>> =
         flow {
             emit(Try.Loading)
-            val response = cashierApi.login(
+            val response = authApi.login(
                 LoginRequestDTO(
                     mobile = loginRequestData.phone,
                     password = loginRequestData.password

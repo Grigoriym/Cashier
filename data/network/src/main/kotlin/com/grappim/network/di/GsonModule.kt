@@ -13,8 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object GsonModule {
 
-    @Singleton
-    @Provides
+    @[Singleton Provides]
     fun provideGson(
         ignoreFieldsStrategy: IgnoreFieldsExclusionStrategy
     ): Gson = GsonBuilder()
@@ -23,8 +22,7 @@ object GsonModule {
         .addDeserializationExclusionStrategy(ignoreFieldsStrategy)
         .create()
 
-    @Singleton
-    @Provides
+    @[Singleton Provides]
     fun provideExclusionStrategy(): IgnoreFieldsExclusionStrategy =
         IgnoreFieldsExclusionStrategy()
 

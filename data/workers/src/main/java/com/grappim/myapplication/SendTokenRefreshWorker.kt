@@ -7,7 +7,9 @@ import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import com.grappim.logger.logE
+import com.grappim.network.api.AuthApi
 import com.grappim.network.api.CashierApi
+import com.grappim.network.di.QualifierAuthApi
 import com.grappim.network.di.QualifierCashierApi
 import com.grappim.network.model.login.SendTokenToRefreshRequestDTO
 import dagger.assisted.Assisted
@@ -23,13 +25,14 @@ class SendTokenRefreshWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
     @QualifierCashierApi private val cashierApi: CashierApi,
+    @QualifierAuthApi private val authApi: AuthApi,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val generalStorage: GeneralStorage
 ) : CoroutineWorker(context, workerParameters) {
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         try {
             logD("worker SendTokenRefreshWorker started")
-            val response = cashierApi.refreshToken(
+            val response = authApi.refreshToken(
                 SendTokenToRefreshRequestDTO(generalStorage.getToken())
             )
             generalStorage.setAuthToken(response.token)

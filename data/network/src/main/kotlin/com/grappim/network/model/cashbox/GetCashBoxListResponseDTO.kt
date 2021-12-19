@@ -1,8 +1,10 @@
 package com.grappim.network.model.cashbox
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GetCashBoxListResponseDTO(
-    @SerializedName("cash_boxes")
+    @SerializedName("cashBoxes")
     val cashBoxes: List<CashBoxDTO>
 )

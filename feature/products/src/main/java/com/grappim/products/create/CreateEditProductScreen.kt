@@ -26,7 +26,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -35,9 +34,9 @@ import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.product.Category
 import com.grappim.products.R
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.CounterComposable
-import com.grappim.uikit.compose.StandardFilledButton
+import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierLightGray

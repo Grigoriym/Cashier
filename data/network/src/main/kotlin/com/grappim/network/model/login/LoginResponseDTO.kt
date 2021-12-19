@@ -1,12 +1,14 @@
 package com.grappim.network.model.login
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class LoginResponseDTO(
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
-    @SerializedName("merchant_name")
+    @SerialName("merchantName")
     val merchantName: String,
-    @SerializedName("token")
+    @SerialName("token")
     val token: String
 )

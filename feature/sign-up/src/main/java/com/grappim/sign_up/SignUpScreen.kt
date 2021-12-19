@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.grappim.uikit.compose.button.PasswordTextFieldCompose
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierTheme
@@ -98,7 +99,7 @@ private fun SignUpScreenContent(
             )
         }
         item {
-            PasswordTextField(
+            PasswordTextFieldCompose(
                 password = password,
                 onPasswordChange = passwordSetText,
                 modifier = Modifier,
@@ -234,79 +235,6 @@ private fun PhoneNumberTextFieldComposable(
 }
 
 @Composable
-private fun PasswordTextField(
-    modifier: Modifier = Modifier,
-    password: String,
-    onPasswordChange: (String) -> Unit,
-    onImeAction: () -> Unit
-) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-    var passwordVisibility by remember {
-        mutableStateOf(false)
-    }
-
-    TextField(
-        value = password,
-        onValueChange = onPasswordChange,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                top = 16.dp
-            ),
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Lock,
-                contentDescription = "",
-                tint = CashierBlue
-            )
-        },
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            cursorColor = Color.Black,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
-        placeholder = {
-            Text(
-                text = stringResource(id = R.string.title_password),
-                fontSize = 16.sp,
-                color = CashierGray
-            )
-        },
-        keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Done,
-            keyboardType = KeyboardType.Password
-        ),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                onImeAction()
-                keyboardController?.hide()
-            }
-        ),
-        visualTransformation = if (passwordVisibility) {
-            VisualTransformation.None
-        } else {
-            PasswordVisualTransformation()
-        },
-        trailingIcon = {
-            val image = if (passwordVisibility) {
-                Icons.Filled.Visibility
-            } else {
-                Icons.Filled.VisibilityOff
-            }
-            IconButton(
-                onClick = { passwordVisibility = !passwordVisibility }
-            ) {
-                Icon(
-                    imageVector = image,
-                    contentDescription = ""
-                )
-            }
-        }
-    )
-}
-
-@Composable
 private fun SignUpButton(
     onSignUpClick: () -> Unit
 ) {
@@ -375,7 +303,7 @@ private fun SignUpButtonPreview() {
 )
 private fun PasswordTextFieldPreview() {
     CashierTheme {
-        PasswordTextField(
+        PasswordTextFieldCompose(
             password = "",
             onPasswordChange = {},
             onImeAction = {}

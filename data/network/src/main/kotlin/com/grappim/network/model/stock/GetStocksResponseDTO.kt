@@ -1,8 +1,10 @@
 package com.grappim.network.model.stock
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GetStocksResponseDTO(
-    @SerializedName("stocks")
+    @SerialName("stocks")
     val stocks: List<StockDTO>
 )

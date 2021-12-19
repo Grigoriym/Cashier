@@ -1,4 +1,4 @@
-package com.grappim.uikit.compose
+package com.grappim.uikit.compose.text_field
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape

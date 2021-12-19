@@ -29,7 +29,7 @@ data class ProductEntity(
     val updatedOn: String,
 
     @ColumnInfo(defaultValue = "0")
-    val categoryId: Int,
+    val categoryId: Long,
     @ColumnInfo(defaultValue = "")
     val categoryName: String,
 

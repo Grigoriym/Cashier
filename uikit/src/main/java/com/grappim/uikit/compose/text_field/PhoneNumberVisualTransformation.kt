@@ -1,20 +1,22 @@
-package com.grappim.uikit.compose
+package com.grappim.uikit.compose.text_field
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
+/**
+ * Mask: +7 777 777 8888
+ */
 class PhoneNumberVisualTransformation : VisualTransformation {
+
     override fun filter(text: AnnotatedString): TransformedText {
-        // Make the string XXX-XXX-XXXX
         val trimmed = if (text.text.length >= 10) text.text.substring(0..9) else text.text
         var output = ""
         for (i in trimmed.indices) {
             output += trimmed[i]
             if (i % 3 == 2 && i != 9) output += "-"
         }
-
 
         /**
          * The offset works such that the translator ignores hyphens. Conversions
@@ -25,7 +27,6 @@ class PhoneNumberVisualTransformation : VisualTransformation {
         - 10th Character in transformed becomes the 8th in original
         - 4th in transformed becomes 3rd in original
          */
-
         val cameroonNumberTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
                 // [offset [0 - 2] remain the same]
@@ -38,15 +39,13 @@ class PhoneNumberVisualTransformation : VisualTransformation {
             }
 
             override fun transformedToOriginal(offset: Int): Int {
-
                 if (offset <= 2) return offset
                 if (offset <= 6) return offset - 1
                 if (offset <= 11) return offset - 2
                 return 10
-
             }
-
         }
+
         return TransformedText(
             AnnotatedString(output),
             cameroonNumberTranslator

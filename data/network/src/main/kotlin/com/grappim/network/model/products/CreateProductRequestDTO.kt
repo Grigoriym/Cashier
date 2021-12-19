@@ -27,5 +27,5 @@ data class CreateProductRequestParamsDTO(
     @SerializedName("category")
     val categoryName: String,
     @SerializedName("category_id")
-    val categoryId: Int
+    val categoryId: Long
 )

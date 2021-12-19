@@ -77,6 +77,10 @@
 
     <string name="title_empty"></string>
 
+    <string name="sign_up_phone_empty">Please enter a phone number</string>
+    <string name="sign_up_email_empty">Please enter an email</string>
+    <string name="sign_up_password_empty">Please enter a password</string>
+
     <!--    Errors-->
     <string name="error_something_has_gone_wrong">Something went wrong</string>
     <string name="error_no_internet_connection">No Internet connection</string>

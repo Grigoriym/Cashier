@@ -1,12 +1,14 @@
 package com.grappim.network.model.stock
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class StockDTO(
-    @SerializedName("stock_id")
+    @SerialName("id")
     val id: String,
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
-    @SerializedName("stock_name")
+    @SerialName("name")
     val name: String
 )

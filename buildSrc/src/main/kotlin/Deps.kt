@@ -107,6 +107,7 @@ object Deps {
     const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
+    const val retrofitKotlinSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitKotlinSerialization}"
 
     const val desugar = "com.android.tools:desugar_jdk_libs:${Versions.desugaring}"
     const val debugDb =

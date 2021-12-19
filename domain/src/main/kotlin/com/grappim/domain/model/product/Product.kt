@@ -20,7 +20,7 @@ data class Product(
     val createdOn: String,
     val updatedOn: String,
 
-    val categoryId: Int? = null,
+    val categoryId: Long? = null,
 
     var basketCount: BigDecimal = bigDecimalZero()
 ) : Serializable {

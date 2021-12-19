@@ -10,11 +10,14 @@ import com.grappim.network.BuildConfig
 import com.grappim.network.authenticators.TokenAuthenticator
 import com.grappim.network.interceptors.AuthTokenInterceptor
 import com.grappim.network.interceptors.ErrorMappingInterceptor
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,16 +29,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Provides
-    @Singleton
+    @[Singleton Provides]
     fun provideRetrofitBuilder(
         gson: Gson
     ): Retrofit.Builder =
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
 
-    @Provides
-    @Singleton
+    @[Singleton Provides]
     fun provideCashierRetrofit(
         builder: Retrofit.Builder,
         okHttpClient: OkHttpClient
@@ -44,8 +46,7 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
 
-    @Provides
-    @Singleton
+    @[Singleton Provides]
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor { message ->
             logD("API", message)
@@ -53,8 +54,7 @@ object NetworkModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-    @Provides
-    @Singleton
+    @[Singleton Provides]
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         errorMappingInterceptor: ErrorMappingInterceptor,
@@ -76,8 +76,7 @@ object NetworkModule {
             }
             .build()
 
-    @Singleton
-    @Provides
+    @[Singleton Provides]
     fun provideChuckerInterceptor(
         @ApplicationContext appContext: Context
     ): ChuckerInterceptor {

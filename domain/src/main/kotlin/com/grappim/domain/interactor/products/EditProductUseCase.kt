@@ -26,7 +26,7 @@ class EditProductUseCase @Inject constructor(
         val productCreatedOn: String,
         val productId: Long,
         val productStockId: String,
-        val categoryId: Int,
+        val categoryId: Long,
         val category: String
     )
 

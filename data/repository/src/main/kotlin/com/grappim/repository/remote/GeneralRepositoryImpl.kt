@@ -105,12 +105,12 @@ class GeneralRepositoryImpl @Inject constructor(
             val category = params.category
             val query = params.query
             val roomQuery = StringBuilder("SELECT * FROM $productEntityTableName ")
-                .append("WHERE merchantId=${generalStorage.getMerchantId()} ")
+                .append("WHERE merchantId = '${generalStorage.getMerchantId()}' ")
                 .append(
                     if (category == null || category.isDefault) {
                         ""
                     } else {
-                        "AND categoryId = ${category.id} "
+                        "AND categoryId = '${category.id}' "
                     }
                 )
                 .append(

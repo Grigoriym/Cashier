@@ -27,7 +27,7 @@ data class ProductDTO(
     @SerializedName("updated_on")
     val updatedOn: String,
     @SerializedName("category_id")
-    val categoryId: Int,
+    val categoryId: Long,
     @SerializedName("category")
     val category: String
 )

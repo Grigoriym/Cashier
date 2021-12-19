@@ -1,14 +1,16 @@
 package com.grappim.network.model.cashbox
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CashBoxDTO(
-    @SerializedName("name")
+    @SerialName("name")
     val name: String,
-    @SerializedName("cash_box_id")
+    @SerialName("cashBoxId")
     val cashBoxId: String,
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
-    @SerializedName("stock_id")
+    @SerialName("stockId")
     val stockId: String
 )

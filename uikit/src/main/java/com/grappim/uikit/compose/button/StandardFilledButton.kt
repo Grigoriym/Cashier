@@ -1,4 +1,4 @@
-package com.grappim.uikit.compose
+package com.grappim.uikit.compose.button
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke

@@ -23,7 +23,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.theme.*
 
 @Composable

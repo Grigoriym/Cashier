@@ -21,7 +21,7 @@ interface ProductsDao : BaseDao<ProductEntity> {
     suspend fun searchProducts(query: String): List<ProductEntity>
 
     @Query("SELECT * FROM $productEntityTableName WHERE categoryId=:categoryId")
-    suspend fun searchProductsByCategoryId(categoryId: Int): List<ProductEntity>
+    suspend fun searchProductsByCategoryId(categoryId: Long): List<ProductEntity>
 
     @Query("SELECT * FROM $productEntityTableName WHERE barcode=:barcode")
     suspend fun getProductByBarcode(barcode: String): ProductEntity?

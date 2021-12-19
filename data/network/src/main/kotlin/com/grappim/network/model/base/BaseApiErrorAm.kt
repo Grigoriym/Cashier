@@ -1,11 +1,13 @@
 package com.grappim.network.model.base
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class BaseApiErrorAm(
     val system: String?,
     val status: String?,
-    @SerializedName("status_code")
+    @SerialName("statusCode")
     val statusCode: String,
     val message: String,
     val developerMessage: String?

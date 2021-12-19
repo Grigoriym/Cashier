@@ -13,6 +13,7 @@ object Plugins {
     const val kotlinKapt = "kapt"
     const val kotlinJvm = "jvm"
     const val kotlinJvmFull = "kotlin-jvm"
+    const val kotlinSerialization = "kotlinx-serialization"
 
     const val javaLibrary = "java-library"
 

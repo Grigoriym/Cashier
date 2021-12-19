@@ -29,9 +29,9 @@ import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.ItemProductCompose
-import com.grappim.uikit.compose.StandardFilledButton
+import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R

@@ -40,6 +40,7 @@
 - [ ] Local Repos need to be custom scoped
 - [ ] Feature flags
 - [ ] Guest Mode
+- [ ] Show sth if there are no products/categories etc.
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules

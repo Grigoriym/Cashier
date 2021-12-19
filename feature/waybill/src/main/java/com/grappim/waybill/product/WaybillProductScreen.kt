@@ -14,7 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.BigActionButtonCompose
+import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
 

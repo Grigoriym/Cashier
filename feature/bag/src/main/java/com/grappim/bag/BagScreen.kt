@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.grappim.domain.model.product.Product
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemAddProductCompose
-import com.grappim.uikit.compose.StandardFilledButton
+import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
 
