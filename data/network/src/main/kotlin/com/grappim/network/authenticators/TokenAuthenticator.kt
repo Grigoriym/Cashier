@@ -1,5 +1,6 @@
 package com.grappim.network.authenticators
 
+import com.grappim.di.AppScope
 import com.grappim.domain.di.MainDispatcher
 import com.grappim.domain.storage.GeneralStorage
 import kotlinx.coroutines.CoroutineDispatcher
@@ -8,9 +9,8 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class TokenAuthenticator @Inject constructor(
 //    private val focusedActivityHolder: FocusedActivityHolder,
     private val generalStorage: GeneralStorage,

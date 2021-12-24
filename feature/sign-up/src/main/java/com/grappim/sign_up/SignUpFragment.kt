@@ -1,5 +1,6 @@
 package com.grappim.sign_up
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +10,34 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.fragment.app.viewModels
+import com.grappim.core.BaseFragment
+import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.domain.base.Try
 import com.grappim.domain.model.sign_up.SignUpData
 import com.grappim.domain.model.sign_up.SignUpFieldsValidationData
-import com.grappim.extensions.getErrorMessage
-import com.grappim.extensions.showToast
+import com.grappim.sign_up.di.DaggerSignUpComponent
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class SignUpFragment : Fragment() {
+class SignUpFragment : BaseFragment<SignUpViewModel>() {
+
+    override val viewModel: SignUpViewModel by viewModels {
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        performInject()
+        super.onAttach(context)
+    }
+
+    private fun performInject() {
+        DaggerSignUpComponent
+            .builder()
+            .deps(findComponentDependencies())
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,16 +53,12 @@ class SignUpFragment : Fragment() {
 
     @Composable
     private fun SignUpFragmentScreen() {
-        val viewModel: SignUpViewModel = viewModel()
         val data by viewModel.signUpData.observeAsState(SignUpData.empty())
 
         val status by viewModel.signUpStatus.observeAsState(initial = Try.Initial)
         val validationData by viewModel.signUpValidation.observeAsState(initial = null)
 
         LoaderDialogCompose(show = status is Try.Loading)
-        LaunchedEffect(key1 = status) {
-            showStatus(status)
-        }
         LaunchedEffect(key1 = validationData) {
             showValidationErrors(validationData)
         }
@@ -65,14 +77,6 @@ class SignUpFragment : Fragment() {
     private fun showValidationErrors(validationData: SignUpFieldsValidationData?) {
         if (validationData != null) {
 
-        }
-    }
-
-    private fun showStatus(data: Try<Unit>) {
-        when (data) {
-            is Try.Error -> {
-                showToast(getErrorMessage(data.exception))
-            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.grappim.network.interceptors
 
 import com.google.gson.Gson
+import com.grappim.di.AppScope
 import com.grappim.domain.model.base.BaseApiError
 import com.grappim.domain.model.exception.NetworkException
 import com.grappim.network.model.base.BaseApiErrorAm
@@ -11,9 +12,8 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class ErrorMappingInterceptor @Inject constructor(
     private val networkHandler: NetworkHandler,
     private val gson: Gson

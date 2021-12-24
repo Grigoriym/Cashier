@@ -1,11 +1,6 @@
 package com.grappim.stock
 
 import androidx.annotation.MainThread
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.BaseViewModel
 import com.grappim.domain.base.Try
@@ -14,8 +9,8 @@ import com.grappim.domain.interactor.outlet.GetStocksUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
+import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,7 +18,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class SelectStockViewModel @Inject constructor(
     private val getStocksUseCase: GetStocksUseCase,
     private val saveStockInfoUseCase: SaveStockInfoUseCase,
@@ -53,6 +47,10 @@ class SelectStockViewModel @Inject constructor(
     fun selectStock(stock: Stock) {
         selectStockLocalRepository.setSelectedStock(stock)
         _selectedStock.value = selectStockLocalRepository.getSelectedStock()
+    }
+
+    fun showSelectInfo() {
+        navigator.navigateToFlow(NavigationFlow.SelectInfoCashierFlow)
     }
 
     fun saveStock() {

@@ -3,9 +3,3 @@ plugins {
     id(Plugins.grappimAndroidAppPlugin)
     id(Plugins.detekt)
 }
-
-android {
-    hilt {
-        enableAggregatingTask = true
-    }
-}

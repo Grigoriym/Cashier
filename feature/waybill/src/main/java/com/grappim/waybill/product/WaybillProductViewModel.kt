@@ -7,26 +7,24 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
-import com.grappim.domain.base.Try
-import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase
-import com.grappim.domain.interactor.waybill.UpdateWaybillProductUseCase
-import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.calculations.bigDecimalZero
+import com.grappim.di.ApplicationContext
+import com.grappim.domain.base.Try
+import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase
+import com.grappim.domain.interactor.waybill.UpdateWaybillProductUseCase
 import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.navigation.Navigator
 import com.grappim.waybill.R
 import com.grappim.waybill.details.WaybillDetailsFragment
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-@HiltViewModel
 class WaybillProductViewModel @Inject constructor(
     private val createWaybillProductUseCase: CreateWaybillProductUseCase,
     private val updateWaybillProductUseCase: UpdateWaybillProductUseCase,

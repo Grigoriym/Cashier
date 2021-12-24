@@ -1,5 +1,6 @@
 package com.grappim.repository.remote
 
+import com.grappim.di.AppScope
 import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.sign_up.SignUpUseCase
 import com.grappim.domain.repository.SignUpRepository
@@ -9,9 +10,8 @@ import com.grappim.network.model.sign_up.SignUpDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class SignUpRepositoryImpl @Inject constructor(
     @QualifierAuthApi private val authApi: AuthApi
 ) : SignUpRepository {

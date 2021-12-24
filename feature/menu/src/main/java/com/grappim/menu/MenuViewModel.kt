@@ -7,13 +7,11 @@ import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-@HiltViewModel
 class MenuViewModel @Inject constructor(
     menuItemsGenerator: MenuItemGenerator,
     generalStorage: GeneralStorage,

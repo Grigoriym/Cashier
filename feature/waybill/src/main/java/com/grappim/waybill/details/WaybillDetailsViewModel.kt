@@ -16,12 +16,10 @@ import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.domain.repository.local.WaybillLocalRepository
 import com.grappim.logger.logD
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class WaybillDetailsViewModel @Inject constructor(
     private val waybillProductsUseCase: GetWaybillProductsUseCase,
     private val conductWaybillUseCase: ConductWaybillUseCase,

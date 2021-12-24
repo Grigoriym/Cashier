@@ -1,5 +1,6 @@
 package com.grappim.repository.remote
 
+import com.grappim.di.AppScope
 import com.grappim.domain.base.Try
 import com.grappim.domain.di.ApplicationScope
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
@@ -18,9 +19,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class SelectInfoRemoteRepositoryImpl @Inject constructor(
     @QualifierCashierApi private val cashierApi: CashierApi,
     @ApplicationScope private val applicationScope: CoroutineScope,

@@ -8,12 +8,10 @@ import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class WaybillScannerViewModel @Inject constructor(
     private val getWaybillProductByBarcodeUseCase: GetWaybillProductByBarcodeUseCase,
     private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase

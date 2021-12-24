@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.grappim.di.ApplicationContext
 import javax.inject.Inject
 
 class BiometricUtils @Inject constructor(

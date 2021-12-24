@@ -3,10 +3,15 @@ package com.grappim.core
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
+import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: MultiViewModelFactory
 
     abstract val viewModel: VM
 

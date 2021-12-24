@@ -3,6 +3,7 @@ object Modules {
     const val app = ":app"
     const val domain = ":domain"
     const val core = ":core"
+    const val di = ":di"
     const val navigation = ":navigation"
     const val uikit = ":uikit"
 

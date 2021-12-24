@@ -14,12 +14,10 @@ import com.grappim.domain.repository.local.WaybillLocalRepository
 import com.grappim.navigation.Navigator
 import com.grappim.waybill.R
 import com.grappim.waybill.product.WaybillProductFragment
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class SearchProductViewModel @Inject constructor(
     private val searchProductsUseCase: SearchProductsUseCase,
     private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase,

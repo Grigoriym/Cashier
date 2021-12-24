@@ -1,18 +1,18 @@
 package com.grappim.network.interceptors
 
+import com.grappim.di.AppScope
 import com.grappim.domain.storage.GeneralStorage
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import retrofit2.Invocation
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RequestWithAuthToken
 
-@Singleton
+@AppScope
 class AuthTokenInterceptor @Inject constructor(
     private val generalStorage: GeneralStorage
 ) : Interceptor {

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
@@ -15,9 +14,7 @@ import com.grappim.logger.logD
 import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     private val viewBinding: FragmentScannerBinding by viewBinding(FragmentScannerBinding::bind)

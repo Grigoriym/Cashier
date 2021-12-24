@@ -16,9 +16,7 @@ import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class PaymentMethodFragment : Fragment() {
 
     override fun onCreateView(

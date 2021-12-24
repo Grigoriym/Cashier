@@ -28,3 +28,4 @@ include(":feature:sign-up")
 
 include(":uikit")
 include(":navigation")
+include(":di")

@@ -5,8 +5,10 @@ plugins {
 }
 
 dependencies {
-    implementation(Deps.Google.hiltPureKotlinCore)
-    kapt(Deps.Google.hiltPureKotlinCompiler)
+    implementation(project(Modules.di))
+
+    implementation(Deps.Google.dagger)
+    kapt(Deps.Google.daggerCompiler)
 
     testImplementation(Deps.Testing.junit)
 }

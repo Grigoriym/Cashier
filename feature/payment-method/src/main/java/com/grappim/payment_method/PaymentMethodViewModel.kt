@@ -10,13 +10,11 @@ import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-@HiltViewModel
 class PaymentMethodViewModel @Inject constructor(
     paymentMethodItemGenerator: PaymentMethodItemGenerator,
     private val makePaymentUseCase: MakePaymentUseCase,

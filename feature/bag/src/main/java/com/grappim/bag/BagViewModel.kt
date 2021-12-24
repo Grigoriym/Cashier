@@ -14,14 +14,12 @@ import com.grappim.domain.interactor.sales.RemoveProductUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-@HiltViewModel
 class BagViewModel @Inject constructor(
     private val addProductToBasketUseCase: AddProductToBasketUseCase,
     private val removeProductUseCase: RemoveProductUseCase,

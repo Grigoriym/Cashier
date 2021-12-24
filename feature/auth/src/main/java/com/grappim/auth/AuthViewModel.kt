@@ -4,14 +4,14 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grappim.core.BaseViewModel
 import com.grappim.core.SingleLiveEvent
 import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.GeneralRepository
-import com.grappim.myapplication.WorkerHelper
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,13 +19,12 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 internal class AuthViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val generalRepository: GeneralRepository,
     private val workerHelper: WorkerHelper,
     private val navigator: Navigator
-) : ViewModel() {
+) : BaseViewModel() {
 
     init {
         clearData()

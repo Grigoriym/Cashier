@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
 import com.grappim.cashier.databinding.ActivitySplashBinding
-import com.grappim.core.MainActivity
+import com.grappim.core.ui.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

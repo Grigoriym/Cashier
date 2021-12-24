@@ -13,13 +13,11 @@ import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-@HiltViewModel
 internal class SalesViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
     private val addProductToBasketUseCase: AddProductToBasketUseCase,

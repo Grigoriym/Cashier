@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.domain.base.Try
@@ -19,14 +19,11 @@ import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
-import com.grappim.waybill.R
 import com.grappim.waybill.WaybillSharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class WaybillListFragment : Fragment() {
 
-    private val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
+    private val sharedViewModel by viewModels<WaybillSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,7 +66,7 @@ class WaybillListFragment : Fragment() {
         WaybillListScreen(
             onBackButtonPressed = sharedViewModel::onBackPressed,
             onCreateAcceptanceClick = viewModel::createDraftWaybill,
-            onWaybillClick = viewModel::    showDetails,
+            onWaybillClick = viewModel::showDetails,
             onRefresh = viewModel::refresh,
             lazyPagingItems = lazyPagingItems,
             isRefreshing = isRefreshing,

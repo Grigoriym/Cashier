@@ -81,14 +81,8 @@ object Deps {
         const val gson = "com.google.code.gson:gson:${Versions.Google.gson}"
         const val zxingCore = "com.google.zxing:core:${Versions.Google.zxing}"
 
-        // Android library deps
-        const val hilt = "com.google.dagger:hilt-android:${Versions.Google.hilt}"
-        const val hiltAndroidCompiler =
-            "com.google.dagger:hilt-android-compiler:${Versions.Google.hilt}"
-
-        // Pure Java/Kotlin library deps
-        const val hiltPureKotlinCore = "com.google.dagger:hilt-core:${Versions.Google.hilt}"
-        const val hiltPureKotlinCompiler = "com.google.dagger:hilt-compiler:${Versions.Google.hilt}"
+        const val dagger = "com.google.dagger:dagger:${Versions.Google.dagger}"
+        const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.Google.dagger}"
     }
 
     object Testing {
@@ -107,7 +101,8 @@ object Deps {
     const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
-    const val retrofitKotlinSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitKotlinSerialization}"
+    const val retrofitKotlinSerializationConverter =
+        "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitKotlinSerialization}"
 
     const val desugar = "com.android.tools:desugar_jdk_libs:${Versions.desugaring}"
     const val debugDb =

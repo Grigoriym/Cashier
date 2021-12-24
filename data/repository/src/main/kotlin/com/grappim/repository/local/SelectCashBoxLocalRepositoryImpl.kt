@@ -1,17 +1,17 @@
 package com.grappim.repository.local
 
+import com.grappim.di.AppScope
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class SelectCashBoxLocalRepositoryImpl @Inject constructor(
 
 ) : SelectCashBoxLocalRepository {
 
     private val cashBoxes = mutableListOf<CashBox>()
-    private var selectedCashBoxPosition:Int = -1
+    private var selectedCashBoxPosition: Int = -1
 
     override fun clear() {
         cashBoxes.clear()

@@ -1,8 +1,8 @@
 package com.grappim.sign_up
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grappim.core.BaseViewModel
 import com.grappim.core.SingleLiveEvent
 import com.grappim.core.utils.ResourceManager
 import com.grappim.domain.base.Try
@@ -11,17 +11,15 @@ import com.grappim.domain.model.sign_up.SignUpData
 import com.grappim.domain.model.sign_up.SignUpFieldsValidationData
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
     private val navigator: Navigator,
     private val resourceManager: ResourceManager
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _signUpStatus = SingleLiveEvent<Try<Unit>>()
     val signUpStatus: LiveData<Try<Unit>>
@@ -75,6 +73,9 @@ class SignUpViewModel @Inject constructor(
                 when (it) {
                     is Try.Success -> {
                         navigator.navigateToFlow(NavigationFlow.RegisterToAuthFlow)
+                    }
+                    is Try.Error -> {
+                        _error.value = it.exception
                     }
                 }
             }

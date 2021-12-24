@@ -1,29 +1,28 @@
 package com.grappim.network.di
 
+import com.google.gson.ExclusionStrategy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.grappim.di.AppScope
+import com.grappim.network.api.GsonBindsModule
 import com.grappim.network.api.IgnoreFieldsExclusionStrategy
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object GsonModule {
+@Module(
+    includes = [
+        GsonBindsModule::class
+    ]
+)
+class GsonModule {
 
-    @[Singleton Provides]
+    @[AppScope Provides]
     fun provideGson(
-        ignoreFieldsStrategy: IgnoreFieldsExclusionStrategy
+        exclusionStrategy: ExclusionStrategy
     ): Gson = GsonBuilder()
         .setLenient()
-        .addSerializationExclusionStrategy(ignoreFieldsStrategy)
-        .addDeserializationExclusionStrategy(ignoreFieldsStrategy)
+        .addSerializationExclusionStrategy(exclusionStrategy)
+        .addDeserializationExclusionStrategy(exclusionStrategy)
         .create()
-
-    @[Singleton Provides]
-    fun provideExclusionStrategy(): IgnoreFieldsExclusionStrategy =
-        IgnoreFieldsExclusionStrategy()
 
 }

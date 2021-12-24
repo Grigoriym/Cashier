@@ -17,7 +17,6 @@ object Plugins {
 
     const val javaLibrary = "java-library"
 
-    const val hiltAndroid = "dagger.hilt.android.plugin"
     const val safeArgs = "androidx.navigation.safeargs.kotlin"
     const val detekt = "io.gitlab.arturbosch.detekt"
     const val gradleVersions = "com.github.ben-manes.versions"

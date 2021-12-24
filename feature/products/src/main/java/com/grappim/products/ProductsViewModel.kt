@@ -9,12 +9,10 @@ import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
 import com.grappim.navigation.Navigator
 import com.zhuinden.flowcombinetuplekt.combineTuple
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class ProductsViewModel @Inject constructor(
     getCategoryListUseCase: GetCategoryListUseCase,
     private val getProductsByQueryUseCase: GetProductsByQueryUseCase,

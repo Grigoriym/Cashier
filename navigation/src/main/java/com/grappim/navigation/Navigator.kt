@@ -5,10 +5,10 @@ import androidx.annotation.IdRes
 import androidx.annotation.MainThread
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import com.grappim.di.AppScope
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class Navigator @Inject constructor(
 
 ) {

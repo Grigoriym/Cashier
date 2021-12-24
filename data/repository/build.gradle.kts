@@ -14,6 +14,7 @@ dependencies {
     implementation(project(Modules.dataDb))
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
+    implementation(project(Modules.di))
 
     implementation(Deps.AndroidX.paging)
 

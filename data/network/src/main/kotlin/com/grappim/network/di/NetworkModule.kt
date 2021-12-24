@@ -5,6 +5,8 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
+import com.grappim.di.AppScope
+import com.grappim.di.ApplicationContext
 import com.grappim.logger.logD
 import com.grappim.network.BuildConfig
 import com.grappim.network.authenticators.TokenAuthenticator
@@ -13,9 +15,6 @@ import com.grappim.network.interceptors.ErrorMappingInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -23,13 +22,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object NetworkModule {
+class NetworkModule {
 
-    @[Singleton Provides]
+    @[AppScope Provides]
     fun provideRetrofitBuilder(
         gson: Gson
     ): Retrofit.Builder =
@@ -37,7 +34,7 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
 
-    @[Singleton Provides]
+    @[AppScope Provides]
     fun provideCashierRetrofit(
         builder: Retrofit.Builder,
         okHttpClient: OkHttpClient
@@ -46,7 +43,7 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
 
-    @[Singleton Provides]
+    @[AppScope Provides]
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor { message ->
             logD("API", message)
@@ -54,7 +51,7 @@ object NetworkModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-    @[Singleton Provides]
+    @[AppScope Provides]
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         errorMappingInterceptor: ErrorMappingInterceptor,
@@ -76,7 +73,7 @@ object NetworkModule {
             }
             .build()
 
-    @[Singleton Provides]
+    @[AppScope Provides]
     fun provideChuckerInterceptor(
         @ApplicationContext appContext: Context
     ): ChuckerInterceptor {

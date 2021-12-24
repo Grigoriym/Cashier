@@ -13,6 +13,8 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.di))
+
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)
     implementation(Deps.Compose.toolingPreview)

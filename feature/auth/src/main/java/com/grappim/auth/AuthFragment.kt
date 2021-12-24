@@ -1,5 +1,6 @@
 package com.grappim.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +11,34 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.fragment.app.viewModels
+import com.grappim.core.BaseFragment
+import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.domain.base.Try
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
-import dagger.hilt.android.AndroidEntryPoint
+import di.DaggerAuthComponent
 
-@AndroidEntryPoint
-internal class AuthFragment : Fragment() {
+internal class AuthFragment : BaseFragment<AuthViewModel>() {
+
+    override val viewModel: AuthViewModel by viewModels<AuthViewModel> {
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        performInject()
+        super.onAttach(context)
+    }
+
+    private fun performInject() {
+        DaggerAuthComponent
+            .builder()
+            .deps(findComponentDependencies())
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +55,6 @@ internal class AuthFragment : Fragment() {
 
     @Composable
     private fun AuthFragmentScreen() {
-        val viewModel: AuthViewModel = viewModel()
         val loginStatus by viewModel.loginStatus.observeAsState(Try.Initial)
         val authData by viewModel.authFieldsData.collectAsState()
 

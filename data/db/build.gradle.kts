@@ -19,6 +19,7 @@ android {
 
 dependencies {
     implementation(project(Modules.utilsCalculations))
+    implementation(project(Modules.di))
 
     implementation(Deps.Kotlin.serialization)
 

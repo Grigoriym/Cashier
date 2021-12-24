@@ -11,9 +11,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grappim.uikit.theme.CashierTheme
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MenuFragment : Fragment() {
 
     override fun onCreateView(

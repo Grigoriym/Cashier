@@ -6,6 +6,7 @@ import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.CategoryEntity
 import com.grappim.db.entity.productEntityTableName
 import com.grappim.db.helper.RoomQueryHelper
+import com.grappim.di.AppScope
 import com.grappim.domain.base.Try
 import com.grappim.domain.di.ApplicationScope
 import com.grappim.domain.di.IoDispatcher
@@ -28,9 +29,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class GeneralRepositoryImpl @Inject constructor(
     private val basketDao: BasketDao,
     private val productsDao: ProductsDao,

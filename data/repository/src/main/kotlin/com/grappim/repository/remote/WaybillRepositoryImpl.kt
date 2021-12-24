@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.grappim.db.dao.ProductsDao
+import com.grappim.di.AppScope
 import com.grappim.domain.base.Try
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
@@ -30,9 +31,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class WaybillRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @QualifierWaybillApi private val waybillApi: WaybillApi,

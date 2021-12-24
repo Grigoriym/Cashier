@@ -5,7 +5,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.BaseViewModel
 import com.grappim.domain.base.Try
@@ -14,13 +13,12 @@ import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
+import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class SelectCashBoxViewModel @Inject constructor(
     private val getCashBoxesUseCase: GetCashBoxesUseCase,
     private val saveCashBoxUseCase: SaveCashBoxUseCase,
@@ -40,6 +38,10 @@ class SelectCashBoxViewModel @Inject constructor(
         getCashBoxes()
     }
 
+    fun onBackPressed() {
+        navigator.popBackStack()
+    }
+
     fun selectCashBox(cashBox: CashBox) {
         selectedCashBoxPosition = if (selectedCashBoxPosition == -1 ||
             selectedCashBoxPosition != cashBoxes.indexOf(cashBox)
@@ -57,6 +59,10 @@ class SelectCashBoxViewModel @Inject constructor(
             }
             saveCashBoxUseCase(SaveCashBoxUseCase.Params(cashBoxToSave))
         }
+    }
+
+    fun showMenu() {
+        navigator.navigateToFlow(NavigationFlow.MenuFlow)
     }
 
     @MainThread

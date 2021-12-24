@@ -1,10 +1,11 @@
-package com.grappim.core
+package com.grappim.core.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.grappim.extensions.interval
-import com.grappim.myapplication.WorkerHelper
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.grappim.navigation.Navigator
+import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -12,10 +13,14 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@HiltViewModel
 class MainViewModel @Inject constructor(
-    private val workerHelper: WorkerHelper
+    private val workerHelper: WorkerHelper,
+    private val navigator: Navigator
 ) : ViewModel() {
+
+    fun setNavController(navController: NavController) {
+        navigator.setNavController(navController)
+    }
 
     private val sync = interval(15, TimeUnit.SECONDS)
         .onStart {

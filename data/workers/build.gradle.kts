@@ -7,9 +7,7 @@ dependencies {
     implementation(project(Modules.dataNetwork))
     implementation(project(Modules.dataDb))
     implementation(project(Modules.dataRepository))
+    implementation(project(Modules.di))
 
     implementation(Deps.AndroidX.workManager)
-
-    implementation(Deps.AndroidX.hiltWork)
-    kapt(Deps.AndroidX.hiltCompiler)
 }

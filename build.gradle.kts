@@ -12,7 +12,7 @@ buildscript {
         classpath(BuildPlugins.kotlin)
         classpath(BuildPlugins.kotlinSerialization)
 
-        classpath(BuildPlugins.hilt)
+//        classpath(BuildPlugins.hilt)
 
         classpath(BuildPlugins.safeArgs)
 
@@ -20,6 +20,7 @@ buildscript {
         classpath(BuildPlugins.gradleVersions)
 
         classpath(BuildPlugins.googleServices)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     }
 }
 

@@ -5,6 +5,7 @@ import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
+import com.grappim.di.AppScope
 import com.grappim.domain.base.Try
 import com.grappim.domain.di.ApplicationScope
 import com.grappim.domain.interactor.products.CreateProductUseCase
@@ -31,9 +32,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class ProductsRepositoryImpl @Inject constructor(
     private val productsDao: ProductsDao,
     private val productMapper: ProductMapper,

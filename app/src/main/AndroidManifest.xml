@@ -38,7 +38,7 @@
         </provider>
 
         <activity
-            android:name="com.grappim.core.MainActivity"
+            android:name="com.grappim.core.ui.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 

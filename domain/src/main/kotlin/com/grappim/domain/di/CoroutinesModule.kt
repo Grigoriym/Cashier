@@ -2,8 +2,6 @@ package com.grappim.domain.di
 
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
@@ -29,22 +27,17 @@ annotation class MainImmediateDispatcher
 annotation class ApplicationScope
 
 @Module
-@InstallIn(SingletonComponent::class)
-object CoroutinesModule {
+class CoroutinesModule {
 
-    @DefaultDispatcher
-    @Provides
+    @[Provides DefaultDispatcher]
     fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
 
-    @IoDispatcher
-    @Provides
+    @[Provides IoDispatcher]
     fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
-    @MainDispatcher
-    @Provides
+    @[Provides MainDispatcher]
     fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
-    @MainImmediateDispatcher
-    @Provides
+    @[Provides MainImmediateDispatcher]
     fun providesMainImmediateDispatcher(): CoroutineDispatcher = Dispatchers.Main.immediate
 }

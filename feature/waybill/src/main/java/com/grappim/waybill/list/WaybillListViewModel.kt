@@ -19,13 +19,11 @@ import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.repository.local.WaybillLocalRepository
 import com.grappim.navigation.Navigator
 import com.grappim.waybill.R
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-@HiltViewModel
 class WaybillListViewModel @Inject constructor(
     getWaybillListPagingUseCase: GetWaybillListPagingUseCase,
     private val createWaybillUseCase: CreateWaybillUseCase,

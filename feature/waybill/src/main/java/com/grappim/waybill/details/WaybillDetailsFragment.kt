@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.date_time.DateTimeStandard
@@ -24,14 +23,12 @@ import com.grappim.extensions.showToast
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
 import com.grappim.waybill.WaybillSharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class WaybillDetailsFragment : Fragment() {
 
     @DecimalFormatSimple
@@ -49,7 +46,7 @@ class WaybillDetailsFragment : Fragment() {
 //    private val totalCost: BigDecimal? by lazyArg(ARG_TOTAL_COST)
 
     private val viewModel by viewModels<WaybillDetailsViewModel>()
-    private val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
+    private val sharedViewModel by viewModels<WaybillSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

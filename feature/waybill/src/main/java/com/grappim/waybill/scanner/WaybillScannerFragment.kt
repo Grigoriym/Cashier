@@ -20,9 +20,7 @@ import com.grappim.waybill.R
 import com.grappim.waybill.product.WaybillProductFragment
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     private val viewBinding: FragmentScannerBinding by viewBinding(FragmentScannerBinding::bind)

@@ -7,18 +7,15 @@ import com.grappim.db.CashierDatabase
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.CategoryDao
 import com.grappim.db.dao.ProductsDao
+import com.grappim.di.AppScope
+import com.grappim.di.ApplicationContext
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
+class DatabaseModule {
 
-    @[Singleton Provides]
+    @[AppScope Provides]
     fun provideRoomDatabase(
         @ApplicationContext context: Context
     ): CashierDatabase =

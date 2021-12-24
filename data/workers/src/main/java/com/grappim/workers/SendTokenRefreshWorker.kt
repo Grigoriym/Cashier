@@ -1,7 +1,6 @@
-package com.grappim.myapplication
+package com.grappim.workers
 
 import android.content.Context
-import androidx.hilt.work.HiltWorker
 import androidx.work.*
 import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.storage.GeneralStorage
@@ -13,6 +12,7 @@ import com.grappim.network.di.QualifierAuthApi
 import com.grappim.network.di.QualifierCashierApi
 import com.grappim.network.model.login.SendTokenToRefreshRequestDTO
 import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit
 
 private const val UNIQUE_SEND_REFRESH_TOKEN_WORKER = "unique_send_refresh_token_worker"
 
-@HiltWorker
 class SendTokenRefreshWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
@@ -29,6 +28,15 @@ class SendTokenRefreshWorker @AssistedInject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val generalStorage: GeneralStorage
 ) : CoroutineWorker(context, workerParameters) {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            apContext: Context,
+            workerParameters: WorkerParameters
+        ): SendTokenRefreshWorker
+    }
+
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         try {
             logD("worker SendTokenRefreshWorker started")

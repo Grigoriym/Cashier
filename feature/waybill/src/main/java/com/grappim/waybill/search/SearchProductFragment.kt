@@ -11,19 +11,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.grappim.domain.base.Try
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
-import com.grappim.waybill.R
 import com.grappim.waybill.WaybillSharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class SearchProductFragment : Fragment() {
 
     private val viewModel by viewModels<SearchProductViewModel>()
-    private val sharedViewModel: WaybillSharedViewModel by hiltNavGraphViewModels(R.id.waybill_flow)
+    private val sharedViewModel by viewModels<WaybillSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

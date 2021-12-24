@@ -42,7 +42,7 @@ object Versions {
     object Google {
         const val material = "1.4.0"
         const val gson = "2.8.9"
-        const val hilt = "2.39.1"
+        const val dagger = "2.39.1"
         const val zxing = "3.3.0"
     }
 

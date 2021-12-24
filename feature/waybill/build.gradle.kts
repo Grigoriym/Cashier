@@ -20,6 +20,7 @@ android {
 dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
+    implementation(project(Modules.di))
 
     coreLibraryDesugaring(Deps.desugar)
 
@@ -33,8 +34,6 @@ dependencies {
     implementation(Deps.Google.zxingCore)
 
     implementation(Deps.viewBinding)
-
-    implementation(Deps.AndroidX.hiltNavigation)
 
     implementation(Deps.coil)
 

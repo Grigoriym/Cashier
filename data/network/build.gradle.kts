@@ -5,7 +5,6 @@ import commons.flavors.ProductFlavorQa
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.grappimDataPlugin)
-    id(Plugins.hiltAndroid)
     id(Plugins.kotlinSerialization)
 }
 
@@ -43,18 +42,19 @@ android {
 dependencies {
     implementation(project(Modules.dataDb))
     implementation(project(Modules.utilsDateTime))
+    implementation(project(Modules.di))
 
-    implementation(Deps.Google.gson)
+    api(Deps.Google.gson)
     implementation(Deps.Kotlin.serialization)
 
-    implementation(Deps.okhttp)
-    implementation(Deps.loggingInterceptor)
-    implementation(Deps.retrofit)
-    implementation(Deps.retrofitGsonConverter)
-    implementation(Deps.retrofitKotlinSerializationConverter)
+    api(Deps.okhttp)
+    api(Deps.loggingInterceptor)
+    api(Deps.retrofit)
+    api(Deps.retrofitGsonConverter)
+    api(Deps.retrofitKotlinSerializationConverter)
 
-    debugImplementation(Deps.chucker)
-    releaseImplementation(Deps.chuckerNoOp)
+    debugApi(Deps.chucker)
+    releaseApi(Deps.chuckerNoOp)
 
     coreLibraryDesugaring(Deps.desugar)
 }

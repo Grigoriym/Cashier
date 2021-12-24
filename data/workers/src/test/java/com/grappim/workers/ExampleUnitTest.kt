@@ -1,4 +1,4 @@
-package com.grappim.myapplication
+package com.grappim.workers
 
 import org.junit.Test
 
