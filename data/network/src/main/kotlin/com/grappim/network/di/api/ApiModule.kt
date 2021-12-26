@@ -1,37 +1,27 @@
-package com.grappim.network.di
+package com.grappim.network.di.api
 
-import com.grappim.di.AppScope
+import com.grappim.di.ApiScope
 import com.grappim.network.api.AuthApi
 import com.grappim.network.api.CashierApi
 import com.grappim.network.api.WaybillApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import javax.inject.Qualifier
-
-@Qualifier
-annotation class QualifierCashierApi
-
-@Qualifier
-annotation class QualifierWaybillApi
-
-@Qualifier
-annotation class QualifierAuthApi
 
 @Module
 class ApiModule {
 
-    @[Provides AppScope QualifierCashierApi]
+    @[Provides ApiScope QualifierCashierApi]
     fun providerCashierApi(
         retrofit: Retrofit
     ): CashierApi = retrofit.create(CashierApi::class.java)
 
-    @[Provides AppScope QualifierWaybillApi]
+    @[Provides ApiScope QualifierWaybillApi]
     fun provideWaybillApi(
         retrofit: Retrofit
     ): WaybillApi = retrofit.create(WaybillApi::class.java)
 
-    @[Provides AppScope QualifierAuthApi]
+    @[Provides ApiScope QualifierAuthApi]
     fun provideAuthApi(
         retrofit: Retrofit
     ): AuthApi = retrofit.create(AuthApi::class.java)

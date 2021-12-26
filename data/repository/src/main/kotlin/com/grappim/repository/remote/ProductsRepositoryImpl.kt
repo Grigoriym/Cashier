@@ -19,7 +19,7 @@ import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.logger.logD
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.model.products.CreateProductRequestDTO
 import com.grappim.network.model.products.CreateProductRequestParamsDTO

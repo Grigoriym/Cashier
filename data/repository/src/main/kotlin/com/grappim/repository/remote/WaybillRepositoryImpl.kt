@@ -18,7 +18,7 @@ import com.grappim.domain.model.waybill.WaybillType
 import com.grappim.domain.repository.WaybillRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.WaybillApi
-import com.grappim.network.di.QualifierWaybillApi
+import com.grappim.network.di.api.QualifierWaybillApi
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.mappers.waybill.WaybillMapper
 import com.grappim.network.mappers.waybill.WaybillProductMapper

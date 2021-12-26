@@ -8,12 +8,11 @@ import com.grappim.cashier.CashierApp
 import com.grappim.core.di.root_activity.RootActivityDeps
 import com.grappim.date_time.DateTimeModule
 import com.grappim.db.di.DatabaseModule
-import com.grappim.di.AppScope
-import com.grappim.di.ApplicationContext
+import com.grappim.di.*
 import com.grappim.domain.di.CoroutinesModule
 import com.grappim.domain.di.DomainModule
-import com.grappim.network.di.ApiModule
-import com.grappim.network.di.GsonModule
+import com.grappim.network.di.api.ApiModule
+import com.grappim.network.di.gson.GsonModule
 import com.grappim.network.di.NetworkModule
 import com.grappim.repository.di.RepositoryModule
 import com.grappim.repository.di.StorageModule
@@ -23,7 +22,8 @@ import com.grappim.workers.di.WorkersModule
 import dagger.BindsInstance
 import dagger.Component
 
-@[AppScope Component(
+@[AppScope GsonScope ApiScope NetworkScope
+Component(
     modules = [
         DateTimeModule::class,
         DatabaseModule::class,

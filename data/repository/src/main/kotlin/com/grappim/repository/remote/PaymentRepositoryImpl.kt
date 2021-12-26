@@ -7,7 +7,7 @@ import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.repository.PaymentRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.model.payment.CreateOrderDTO
 import com.grappim.network.model.payment.CreateOrderRequestDTO
 import com.grappim.network.model.payment.OrderItemDTO

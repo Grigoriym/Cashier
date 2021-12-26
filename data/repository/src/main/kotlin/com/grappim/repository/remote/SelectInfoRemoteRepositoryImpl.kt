@@ -10,7 +10,7 @@ import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.mappers.cashbox.CashBoxMapper
 import com.grappim.network.mappers.outlet.StockMapper
 import com.grappim.network.model.cashbox.GetCashBoxListRequestDTO

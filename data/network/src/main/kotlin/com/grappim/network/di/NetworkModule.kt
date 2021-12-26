@@ -7,6 +7,7 @@ import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
 import com.grappim.di.AppScope
 import com.grappim.di.ApplicationContext
+import com.grappim.di.NetworkScope
 import com.grappim.logger.logD
 import com.grappim.network.BuildConfig
 import com.grappim.network.authenticators.TokenAuthenticator
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit
 @Module
 class NetworkModule {
 
-    @[AppScope Provides]
+    @[NetworkScope Provides]
     fun provideRetrofitBuilder(
         gson: Gson
     ): Retrofit.Builder =
@@ -34,7 +35,7 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
 
-    @[AppScope Provides]
+    @[NetworkScope Provides]
     fun provideCashierRetrofit(
         builder: Retrofit.Builder,
         okHttpClient: OkHttpClient
@@ -43,7 +44,7 @@ class NetworkModule {
             .client(okHttpClient)
             .build()
 
-    @[AppScope Provides]
+    @[NetworkScope Provides]
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor { message ->
             logD("API", message)
@@ -51,7 +52,7 @@ class NetworkModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-    @[AppScope Provides]
+    @[NetworkScope Provides]
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         errorMappingInterceptor: ErrorMappingInterceptor,
@@ -73,7 +74,7 @@ class NetworkModule {
             }
             .build()
 
-    @[AppScope Provides]
+    @[NetworkScope Provides]
     fun provideChuckerInterceptor(
         @ApplicationContext appContext: Context
     ): ChuckerInterceptor {

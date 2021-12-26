@@ -9,7 +9,7 @@ import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import com.grappim.logger.logE
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.model.products.GetProductsRequestDTO
 import dagger.assisted.Assisted

@@ -19,6 +19,7 @@
 - [Chucker](https://github.com/ChuckerTeam/chucker) - A simple in-app HTTP inspector for Android OkHttp clients.
 - [Coil](https://github.com/coil-kt/coil) - An image loading library for Android backed by Kotlin Coroutines.
 - [Android Debug Database](https://github.com/amitshekhariitbhu/Android-Debug-Database) - A powerful library for debugging databases and shared preferences in Android applications
+- [Scabbard](https://arunkumar9t2.github.io/scabbard/) - A tool to visualize and understand your Dagger 2 dependency graph.
 
 ### Roadmap
 - [ ] Move all UI to compose
@@ -45,7 +46,8 @@
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
 2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component
-
+3. Vladimir Tagakov for his videos on Dagger2: [1](https://www.youtube.com/watch?v=pMEAD6jjbaI), a video No 8 from Podlodka Android Crew#1 (you can buy it [here](https://podlodka.io/crew-records))
+4. [Android Broadcast - Dagger2 course](https://www.youtube.com/watch?v=G5P_vDL1ZLg&list=PL0SwNXKJbuNkYFUda5rlA-odAVyWItRCP)
 ### Some duct tapes
 1. rememberLazyListState() in some compose functions where we have LazyList() and Scaffold's bottomBar. It is done so that list's bottom has been constrained to the top of Scaffold's bottomBar.
 

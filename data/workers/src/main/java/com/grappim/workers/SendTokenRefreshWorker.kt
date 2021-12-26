@@ -8,8 +8,8 @@ import com.grappim.logger.logD
 import com.grappim.logger.logE
 import com.grappim.network.api.AuthApi
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierAuthApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierAuthApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.model.login.SendTokenToRefreshRequestDTO
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

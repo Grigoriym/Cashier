@@ -1,11 +1,9 @@
-package com.grappim.network.di
+package com.grappim.network.di.gson
 
 import com.google.gson.ExclusionStrategy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.grappim.di.AppScope
-import com.grappim.network.api.GsonBindsModule
-import com.grappim.network.api.IgnoreFieldsExclusionStrategy
+import com.grappim.di.GsonScope
 import dagger.Module
 import dagger.Provides
 
@@ -16,7 +14,7 @@ import dagger.Provides
 )
 class GsonModule {
 
-    @[AppScope Provides]
+    @[GsonScope Provides]
     fun provideGson(
         exclusionStrategy: ExclusionStrategy
     ): Gson = GsonBuilder()

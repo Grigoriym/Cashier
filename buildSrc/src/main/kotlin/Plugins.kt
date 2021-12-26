@@ -23,4 +23,6 @@ object Plugins {
     const val gradleDoctor = "com.osacky.doctor"
 
     const val googleServices = "com.google.gms.google-services"
+
+    const val scabbard = "scabbard.gradle"
 }

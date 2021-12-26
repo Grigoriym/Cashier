@@ -13,3 +13,12 @@ annotation class FeatureScope
 
 @Scope
 annotation class FragmentScope
+
+@Scope
+annotation class GsonScope
+
+@Scope
+annotation class ApiScope
+
+@Scope
+annotation class NetworkScope
