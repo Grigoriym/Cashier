@@ -2,7 +2,7 @@ package com.grappim.navigation
 
 import androidx.annotation.IdRes
 
-internal sealed class DeepLinkDestination(
+sealed class DeepLinkDestination(
     val address: String,
     @IdRes val destinationId: Int,
     val popUpTo: Boolean = false

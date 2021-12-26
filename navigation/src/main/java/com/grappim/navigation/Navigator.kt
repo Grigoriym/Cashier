@@ -3,36 +3,42 @@ package com.grappim.navigation
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.MainThread
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import com.grappim.di.AppScope
+import com.grappim.di.ActivityScope
+import dagger.Lazy
 import javax.inject.Inject
 
-@AppScope
+@ActivityScope
+@Deprecated(
+    message = "use new NavigationManager"
+)
 class Navigator @Inject constructor(
-
+    private val fragmentManager: FragmentManager,
+    private val navController: Lazy<NavController>
 ) {
 
-    private var _navController: NavController? = null
-    private val navController: NavController
-        get() = requireNotNull(_navController) {
-            "navController must not be null"
-        }
+//    private var _navController: NavController? = null
+//    private val navController: NavController
+//        get() = requireNotNull(_navController) {
+//            "navController must not be null"
+//        }
 
     fun setNavController(controller: NavController) {
-        _navController = controller
+//        _navController = controller
     }
 
     fun popBackStack() {
-        navController.popBackStack()
+        navController.get().popBackStack()
     }
 
     fun navigate(@IdRes resId: Int, args: Bundle? = null) {
-        navController.navigate(resId, args)
+        navController.get().navigate(resId, args)
     }
 
     fun navigate(directions: NavDirections) {
-        navController.navigate(directions)
+        navController.get().navigate(directions)
     }
 
     @MainThread
@@ -40,41 +46,41 @@ class Navigator @Inject constructor(
         navigationFlow: NavigationFlow
     ) = when (navigationFlow) {
         NavigationFlow.SelectInfoStockFlow -> {
-            navController.navigate(MainNavGraphDirections.actionAuthFlowToStockFlow())
+            navController.get().navigate(MainNavGraphDirections.actionAuthFlowToStockFlow())
         }
         NavigationFlow.RegisterFlow -> {
-            navController.navigate(MainNavGraphDirections.actionAuthFlowToRegisterFlow())
+            navController.get().navigate(MainNavGraphDirections.actionAuthFlowToRegisterFlow())
         }
         NavigationFlow.RegisterToAuthFlow -> {
-            navController.deepLinkNavigateTo(
+            navController.get().deepLinkNavigateTo(
                 DeepLinkDestination.RegisterToAuthFlow
             )
         }
         NavigationFlow.SelectInfoCashierFlow -> {
-            navController.navigate(MainNavGraphDirections.actionSelectStockFlowToSelectCashboxFlow())
+            navController.get().navigate(MainNavGraphDirections.actionSelectStockFlowToSelectCashboxFlow())
         }
         NavigationFlow.MenuFlow -> {
-            navController.navigate(MainNavGraphDirections.actionSelectCashboxFlowToMenuFlow())
+            navController.get().navigate(MainNavGraphDirections.actionSelectCashboxFlowToMenuFlow())
         }
         NavigationFlow.WaybillFlow -> {
-            navController.navigate(MainNavGraphDirections.actionMainFlowToWaybillFlow())
+            navController.get().navigate(MainNavGraphDirections.actionMainFlowToWaybillFlow())
         }
         NavigationFlow.BagFlow -> {
-            navController.navigate(MainNavGraphDirections.actionSalesFlowToBagFlow())
+            navController.get().navigate(MainNavGraphDirections.actionSalesFlowToBagFlow())
         }
         NavigationFlow.PaymentMethod -> {
-            navController.navigate(MainNavGraphDirections.actionBagFlowToPaymentMethodFlow())
+            navController.get().navigate(MainNavGraphDirections.actionBagFlowToPaymentMethodFlow())
         }
         NavigationFlow.SalesFlow -> {
-            navController.navigate(MainNavGraphDirections.actionMenuFlowToSalesFlow())
+            navController.get().navigate(MainNavGraphDirections.actionMenuFlowToSalesFlow())
         }
         NavigationFlow.PaymentMethodToSales -> {
-            navController.deepLinkNavigateTo(
+            navController.get().deepLinkNavigateTo(
                 DeepLinkDestination.PaymentMethodFlowToSalesFlow
             )
         }
         NavigationFlow.ProductsFlow -> {
-            navController.navigate(MainNavGraphDirections.actionMenuFlowToProductsFlow())
+            navController.get().navigate(MainNavGraphDirections.actionMenuFlowToProductsFlow())
         }
         NavigationFlow.CreateEditProductFlow -> {
 

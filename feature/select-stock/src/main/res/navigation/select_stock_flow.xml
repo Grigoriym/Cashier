@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/selectStockFragment"
-        android:name="com.grappim.stock.SelectStockFragment" />
+        android:name="com.grappim.stock.ui.SelectStockFragment" />
 
 </navigation>

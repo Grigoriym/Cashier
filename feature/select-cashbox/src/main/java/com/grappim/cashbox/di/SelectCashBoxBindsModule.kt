@@ -1,7 +1,7 @@
 package com.grappim.cashbox.di
 
 import androidx.lifecycle.ViewModel
-import com.grappim.cashbox.SelectCashBoxViewModel
+import com.grappim.cashbox.ui.SelectCashBoxViewModel
 import com.grappim.core.di.vm.ViewModelKey
 import dagger.Binds
 import dagger.Module

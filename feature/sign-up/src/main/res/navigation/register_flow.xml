@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.grappim.sign_up.SignUpFragment" />
+        android:name="com.grappim.sign_up.ui.SignUpFragment" />
 
 </navigation>

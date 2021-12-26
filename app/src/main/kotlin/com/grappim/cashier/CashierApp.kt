@@ -1,12 +1,11 @@
 package com.grappim.cashier
 
 import android.app.Application
-import android.content.Context
 import androidx.work.Configuration
-import com.grappim.cashier.di.component.ApplicationComponent
-import com.grappim.cashier.di.component.DaggerApplicationComponent
-import com.grappim.core.di.components_deps.ComponentDependenciesProvider
-import com.grappim.core.di.components_deps.HasComponentDeps
+import com.grappim.cashier.di.ApplicationComponent
+import com.grappim.cashier.di.DaggerApplicationComponent
+import com.grappim.di.ComponentDependenciesProvider
+import com.grappim.di.deps.HasComponentDeps
 import javax.inject.Inject
 
 class CashierApp : Application(), Configuration.Provider,
@@ -34,9 +33,3 @@ class CashierApp : Application(), Configuration.Provider,
     override fun getWorkManagerConfiguration(): Configuration =
         workerConfiguration
 }
-
-val Context.appComponent: ApplicationComponent
-    get() = when (this) {
-        is CashierApp -> appComponent
-        else -> applicationContext.appComponent
-    }

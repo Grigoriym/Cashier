@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/selectCashboxFragment"
-        android:name="com.grappim.cashbox.SelectCashBoxFragment" />
+        android:name="com.grappim.cashbox.ui.SelectCashBoxFragment" />
 
 </navigation>

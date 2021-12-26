@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.grappim.menu.MenuFragment" />
+        android:name="com.grappim.menu.ui.MenuFragment" />
 
 </navigation>

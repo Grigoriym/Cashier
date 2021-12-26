@@ -18,10 +18,6 @@ class MainViewModel @Inject constructor(
     private val navigator: Navigator
 ) : ViewModel() {
 
-    fun setNavController(navController: NavController) {
-        navigator.setNavController(navController)
-    }
-
     private val sync = interval(15, TimeUnit.SECONDS)
         .onStart {
             workerHelper.startMainWorkers()

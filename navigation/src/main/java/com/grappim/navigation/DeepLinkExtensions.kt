@@ -11,7 +11,7 @@ private fun buildDeepLink(
     .fromUri(destination.address.toUri())
     .build()
 
-internal fun NavController.deepLinkNavigateTo(
+fun NavController.deepLinkNavigateTo(
     deepLinkDestination: DeepLinkDestination
 ) {
     val builder = NavOptions.Builder().apply {
