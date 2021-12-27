@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.dataWorkers))
+    implementation(project(Modules.di))
 
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)

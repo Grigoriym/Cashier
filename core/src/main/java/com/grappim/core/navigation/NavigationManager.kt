@@ -7,6 +7,7 @@ import com.grappim.navigation.DeepLinkDestination
 import com.grappim.navigation.MainNavGraphDirections
 import com.grappim.navigation.deepLinkNavigateTo
 import com.grappim.navigation.directions.auth.AuthScreenNavigator
+import com.grappim.navigation.directions.menu.MenuScreenNavigator
 import com.grappim.navigation.directions.select_cashier.SelectCashBoxNavigator
 import com.grappim.navigation.directions.select_stock.SelectStockScreenNavigator
 import com.grappim.navigation.directions.sign_up.SignUpScreenNavigator
@@ -19,7 +20,8 @@ class NavigationManager @Inject constructor(
     private val navController: Lazy<NavController>
 ) : AuthScreenNavigator, SignUpScreenNavigator,
     SelectStockScreenNavigator,
-    SelectCashBoxNavigator {
+    SelectCashBoxNavigator,
+    MenuScreenNavigator {
 
     override fun goToSignUp() {
         navController.get().navigate(MainNavGraphDirections.actionAuthFlowToRegisterFlow())
@@ -45,6 +47,18 @@ class NavigationManager @Inject constructor(
 
     override fun goToMenu() {
         navController.get().navigate(MainNavGraphDirections.actionSelectCashboxFlowToMenuFlow())
+    }
+
+    override fun goToWaybill() {
+        navController.get().navigate(MainNavGraphDirections.actionMainFlowToWaybillFlow())
+    }
+
+    override fun goToProducts() {
+        navController.get().navigate(MainNavGraphDirections.actionMenuFlowToProductsFlow())
+    }
+
+    override fun goToSales() {
+        navController.get().navigate(MainNavGraphDirections.actionMenuFlowToSalesFlow())
     }
 
     override fun goBack() {

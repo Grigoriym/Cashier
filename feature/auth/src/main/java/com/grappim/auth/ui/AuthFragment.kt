@@ -14,7 +14,6 @@ import androidx.fragment.app.viewModels
 import com.grappim.auth.di.AuthComponent
 import com.grappim.auth.di.DaggerAuthComponent
 import com.grappim.core.BaseFragment
-import com.grappim.core.di.components_deps.findActivityComponentDependencies
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.domain.base.Try
 import com.grappim.uikit.compose.LoaderDialogCompose
@@ -38,8 +37,7 @@ internal class AuthFragment : BaseFragment<AuthViewModel>() {
     private fun performInject() {
         _authComponent = DaggerAuthComponent
             .builder()
-            .deps(findComponentDependencies())
-            .navDeps(findActivityComponentDependencies())
+            .authDeps(findComponentDependencies())
             .build()
         authComponent.inject(this)
     }

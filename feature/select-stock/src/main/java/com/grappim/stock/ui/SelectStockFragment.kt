@@ -10,37 +10,43 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.grappim.core.BaseFragment
-import com.grappim.core.di.components_deps.findActivityComponentDependencies
 import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.ui.MainViewModel
-import com.grappim.logger.logD
 import com.grappim.stock.di.DaggerSelectStockComponent
+import com.grappim.stock.di.SelectStockComponent
+import com.grappim.stock.di.SelectStockDeps
 import com.grappim.uikit.theme.CashierTheme
 
 class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
 
-    private val mainViewModel: MainViewModel by activityViewModels {
-        viewModelFactory
-    }
+    //    private val mainViewModel: MainViewModel by activityViewModels {
+//        viewModelFactory
+//    }
     override val viewModel: SelectStockViewModel by viewModels {
         viewModelFactory
     }
+
+    private var _selectStockComponent: SelectStockComponent? = null
+    private val selectStockComponent
+        get() = requireNotNull(_selectStockComponent)
 
     override fun onAttach(context: Context) {
         performInject()
         super.onAttach(context)
     }
 
+    override fun onDestroy() {
+        _selectStockComponent = null
+        super.onDestroy()
+    }
+
     private fun performInject() {
-        DaggerSelectStockComponent
+        _selectStockComponent = DaggerSelectStockComponent
             .builder()
-            .deps(findComponentDependencies())
-            .navDeps(findActivityComponentDependencies())
+            .selectStockDeps(findComponentDependencies())
             .build()
-            .inject(this)
+        selectStockComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -57,7 +63,7 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logD("${this} viewModel | mainViewModel = $mainViewModel, viewModel = $viewModel")
+//        logD("${this} viewModel | mainViewModel = $mainViewModel, viewModel = $viewModel")
     }
 
     @Composable
@@ -75,8 +81,8 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
             selectedStock = selectedStock,
             onNextClick = {
                 viewModel.saveStock()
-                mainViewModel.stopSync()
-                mainViewModel.startSync()
+//                mainViewModel.stopSync()
+//                mainViewModel.startSync()
                 viewModel.showSelectInfo()
             },
             isLoading = loading

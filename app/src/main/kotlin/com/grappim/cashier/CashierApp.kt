@@ -2,8 +2,8 @@ package com.grappim.cashier
 
 import android.app.Application
 import androidx.work.Configuration
-import com.grappim.cashier.di.ApplicationComponent
-import com.grappim.cashier.di.DaggerApplicationComponent
+import com.grappim.cashier.di.app.ApplicationComponent
+import com.grappim.cashier.di.app.DaggerApplicationComponent
 import com.grappim.di.ComponentDependenciesProvider
 import com.grappim.di.deps.HasComponentDeps
 import javax.inject.Inject
@@ -20,9 +20,8 @@ class CashierApp : Application(), Configuration.Provider,
 
     val appComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent
-            .builder()
-            .application(this)
-            .build()
+            .factory()
+            .create(this)
     }
 
     override fun onCreate() {
@@ -32,4 +31,5 @@ class CashierApp : Application(), Configuration.Provider,
 
     override fun getWorkManagerConfiguration(): Configuration =
         workerConfiguration
+
 }

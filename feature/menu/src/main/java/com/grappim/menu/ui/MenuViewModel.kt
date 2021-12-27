@@ -9,6 +9,7 @@ import com.grappim.menu.helper.MenuItemGenerator
 import com.grappim.menu.model.MenuItemPm
 import com.grappim.navigation.NavigationFlow
 import com.grappim.navigation.Navigator
+import com.grappim.navigation.directions.menu.MenuScreenNavigator
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
@@ -17,7 +18,7 @@ import javax.inject.Inject
 class MenuViewModel @Inject constructor(
     menuItemsGenerator: MenuItemGenerator,
     generalStorage: GeneralStorage,
-    private val navigator: Navigator
+    private val menuScreenNavigator: MenuScreenNavigator
 ) : BaseViewModel() {
 
     val menuItems: StateFlow<List<MenuItemPm>> =
@@ -52,18 +53,18 @@ class MenuViewModel @Inject constructor(
     }
 
     fun onBackPressed() {
-        navigator.popBackStack()
+        menuScreenNavigator.goBack()
     }
 
     private fun showWaybill() {
-        navigator.navigateToFlow(NavigationFlow.WaybillFlow)
+        menuScreenNavigator.goToWaybill()
     }
 
     private fun showProducts() {
-        navigator.navigateToFlow(NavigationFlow.ProductsFlow)
+        menuScreenNavigator.goToProducts()
     }
 
     private fun showSales() {
-        navigator.navigateToFlow(NavigationFlow.SalesFlow)
+        menuScreenNavigator.goToSales()
     }
 }

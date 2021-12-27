@@ -7,10 +7,13 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.grappim.cashier.R
 import com.grappim.cashier.databinding.ActivitySplashBinding
-import com.grappim.core.ui.MainActivity
+import com.grappim.cashier.ui.root.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@Deprecated(
+    message = "make is as a fragment"
+)
 class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
 
     companion object {

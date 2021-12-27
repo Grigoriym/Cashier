@@ -1,4 +1,4 @@
-package com.grappim.core.ui
+package com.grappim.cashier.ui.root
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -12,7 +12,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.grappim.core.BaseFragment
-import com.grappim.core.di.components_deps.findActivityComponentDependencies
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.domain.base.Try
 import com.grappim.domain.model.sign_up.SignUpData
@@ -20,6 +19,7 @@ import com.grappim.domain.model.sign_up.SignUpFieldsValidationData
 import com.grappim.logger.logD
 import com.grappim.sign_up.di.DaggerSignUpComponent
 import com.grappim.sign_up.di.SignUpComponent
+import com.grappim.sign_up.di.SignUpDeps
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
@@ -41,8 +41,7 @@ class SignUpFragment : BaseFragment<SignUpViewModel>() {
     private fun performInject() {
         _signUpComponent = DaggerSignUpComponent
             .builder()
-            .deps(findComponentDependencies())
-            .navDeps(findActivityComponentDependencies())
+            .signUpDeps(findComponentDependencies())
             .build()
         signUpComponent.inject(this)
     }

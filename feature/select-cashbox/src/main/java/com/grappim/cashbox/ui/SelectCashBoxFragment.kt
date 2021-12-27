@@ -11,8 +11,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.grappim.cashbox.di.DaggerSelectCashBoxComponent
+import com.grappim.cashbox.di.SelectCashBoxComponent
+import com.grappim.cashbox.di.SelectCashBoxDeps
 import com.grappim.core.BaseFragment
-import com.grappim.core.di.components_deps.findActivityComponentDependencies
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.uikit.theme.CashierTheme
 
@@ -22,18 +23,26 @@ class SelectCashBoxFragment : BaseFragment<SelectCashBoxViewModel>() {
         viewModelFactory
     }
 
+    private var _selectCashBoxComponent: SelectCashBoxComponent? = null
+    private val selectCashBoxComponent
+        get() = requireNotNull(_selectCashBoxComponent)
+
     override fun onAttach(context: Context) {
         performInject()
         super.onAttach(context)
     }
 
-    private fun performInject(){
-        DaggerSelectCashBoxComponent
+    override fun onDestroy() {
+        _selectCashBoxComponent = null
+        super.onDestroy()
+    }
+
+    private fun performInject() {
+        _selectCashBoxComponent = DaggerSelectCashBoxComponent
             .builder()
-            .deps(findComponentDependencies())
-            .navDeps(findActivityComponentDependencies())
+            .selectCashBoxDeps(findComponentDependencies())
             .build()
-            .inject(this)
+        selectCashBoxComponent.inject(this)
     }
 
     override fun onCreateView(

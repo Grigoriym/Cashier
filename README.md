@@ -2,7 +2,11 @@
 
 ## This project is under active development and refactoring. And this is a sandbox for me as well. This is why some parts of code may look as overengineered, bad, strange, etc.
 
-### This project is multi module.
+### "Wtf is this app about?" - you'll ask.
+Imagine your local groceries where sellers at the cash register scan your products and eventually ask you to pay.
+Well, this app actually does this. You can choose products, you can sell them, you can scan a product by a barcode.
+There is also such a feature as Waybill, this is needed for sellers when some new products are shipped to this grocery and a seller has to add them to the database of products and to their grocery.
+I do this because I had an experience with an app of such functionality.
 
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
@@ -37,7 +41,7 @@
 - [ ] Compose has problems with the soft keyboard.
 - [ ] I have not a general ui kit, And I need a designer
 - [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
-- [ ] In perspective, Dagger 2 is better for multi module app.
+- [x] In perspective, Dagger 2 is better for multi module app.
 - [ ] Local Repos need to be custom scoped
 - [ ] Feature flags
 - [ ] Guest Mode
@@ -46,7 +50,7 @@
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
 2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component
-3. Vladimir Tagakov for his videos on Dagger2: [1](https://www.youtube.com/watch?v=pMEAD6jjbaI), a video No 8 from Podlodka Android Crew#1 (you can buy it [here](https://podlodka.io/crew-records))
+3. Vladimir Tagakov for his videos on Dagger2: [this one](https://www.youtube.com/watch?v=pMEAD6jjbaI), a video No 8 from Podlodka Android Crew#1 (you can buy it [here](https://podlodka.io/crew-records))
 4. [Android Broadcast - Dagger2 course](https://www.youtube.com/watch?v=G5P_vDL1ZLg&list=PL0SwNXKJbuNkYFUda5rlA-odAVyWItRCP)
 ### Some duct tapes
 1. rememberLazyListState() in some compose functions where we have LazyList() and Scaffold's bottomBar. It is done so that list's bottom has been constrained to the top of Scaffold's bottomBar.

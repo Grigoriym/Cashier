@@ -1,21 +1,21 @@
-package com.grappim.sign_up.di
+package com.grappim.menu.di
 
 import com.grappim.di.FeatureScope
 import com.grappim.domain.di.CoroutinesModule
-import com.grappim.sign_up.ui.SignUpFragment
+import com.grappim.menu.ui.MenuFragment
 import dagger.Component
 
 @[FeatureScope Component(
     modules = [
-        SignUpBindsModule::class,
+        MenuBindsModule::class,
         CoroutinesModule::class
     ],
     dependencies = [
-        SignUpDeps::class
+        MenuDeps::class
     ]
 )]
-internal interface SignUpComponent {
+internal interface MenuComponent {
 
-    fun inject(signUpFragment: SignUpFragment)
+    fun inject(menuFragment: MenuFragment)
 
 }

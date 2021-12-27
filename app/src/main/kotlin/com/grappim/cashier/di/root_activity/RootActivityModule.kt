@@ -1,4 +1,4 @@
-package com.grappim.core.di.root_activity
+package com.grappim.cashier.di.root_activity
 
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController

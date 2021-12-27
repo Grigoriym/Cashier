@@ -12,4 +12,5 @@ internal interface AuthBindsModule {
 
     @[Binds IntoMap ViewModelKey(AuthViewModel::class)]
     fun provideAuthViewModel(authViewModel: AuthViewModel): ViewModel
+
 }

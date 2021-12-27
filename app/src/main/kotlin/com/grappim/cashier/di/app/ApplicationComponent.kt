@@ -1,23 +1,19 @@
-package com.grappim.cashier.di
+package com.grappim.cashier.di.app
 
 import android.content.Context
-import com.grappim.auth.di.AuthDeps
 import com.grappim.calculations.DecimalFormatModule
-import com.grappim.cashbox.di.SelectCashBoxDeps
 import com.grappim.cashier.CashierApp
-import com.grappim.core.di.root_activity.RootActivityDeps
+import com.grappim.cashier.di.root_activity.RootActivityDeps
 import com.grappim.date_time.DateTimeModule
 import com.grappim.db.di.DatabaseModule
 import com.grappim.di.*
 import com.grappim.domain.di.CoroutinesModule
 import com.grappim.domain.di.DomainModule
+import com.grappim.network.di.NetworkModule
 import com.grappim.network.di.api.ApiModule
 import com.grappim.network.di.gson.GsonModule
-import com.grappim.network.di.NetworkModule
 import com.grappim.repository.di.RepositoryModule
 import com.grappim.repository.di.StorageModule
-import com.grappim.sign_up.di.SignUpDeps
-import com.grappim.stock.di.SelectStockDeps
 import com.grappim.workers.di.WorkersModule
 import dagger.BindsInstance
 import dagger.Component
@@ -42,19 +38,13 @@ Component(
 
     ]
 )]
-interface ApplicationComponent : AuthDeps,
-    RootActivityDeps,
-    SelectStockDeps,
-    SignUpDeps,
-    SelectCashBoxDeps {
+interface ApplicationComponent : RootActivityDeps {
 
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun application(@ApplicationContext context: Context): Builder
-
-        fun build(): ApplicationComponent
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance @ApplicationContext context: Context
+        ): ApplicationComponent
     }
 
     fun inject(cashierApp: CashierApp)

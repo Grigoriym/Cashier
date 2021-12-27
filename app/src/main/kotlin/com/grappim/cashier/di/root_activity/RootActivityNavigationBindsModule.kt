@@ -1,7 +1,8 @@
-package com.grappim.core.di.root_activity
+package com.grappim.cashier.di.root_activity
 
 import com.grappim.core.navigation.NavigationManager
 import com.grappim.navigation.directions.auth.AuthScreenNavigator
+import com.grappim.navigation.directions.menu.MenuScreenNavigator
 import com.grappim.navigation.directions.select_cashier.SelectCashBoxNavigator
 import com.grappim.navigation.directions.select_stock.SelectStockScreenNavigator
 import com.grappim.navigation.directions.sign_up.SignUpScreenNavigator
@@ -12,12 +13,12 @@ import dagger.Module
 interface RootActivityNavigationBindsModule {
 
     @Binds
-    fun provideAuthScreenNavigator(
+    fun bindAuthScreenNavigator(
         navigationManager: NavigationManager
     ): AuthScreenNavigator
 
     @Binds
-    fun provideSignUpScreenNavigator(
+    fun bindSignUpScreenNavigator(
         navigationManager: NavigationManager
     ): SignUpScreenNavigator
 
@@ -30,4 +31,9 @@ interface RootActivityNavigationBindsModule {
     fun bindSelectCashierNavigator(
         navigationManager: NavigationManager
     ): SelectCashBoxNavigator
+
+    @Binds
+    fun bindMenuScreenNavigator(
+        navigationManager: NavigationManager
+    ): MenuScreenNavigator
 }
