@@ -15,6 +15,7 @@ android {
 dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
+    implementation(project(Modules.di))
 
     implementation(Deps.combineTupleFlow)
 

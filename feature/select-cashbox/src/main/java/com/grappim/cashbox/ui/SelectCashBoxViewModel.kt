@@ -13,7 +13,7 @@ import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.model.cashbox.CashBox
-import com.grappim.navigation.directions.select_cashier.SelectCashBoxNavigator
+import com.grappim.cashbox.di.SelectCashBoxNavigator
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject

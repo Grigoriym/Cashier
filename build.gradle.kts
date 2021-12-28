@@ -15,16 +15,14 @@ buildscript {
         classpath(BuildPlugins.safeArgs)
 
         classpath(BuildPlugins.detekt)
-        classpath(BuildPlugins.gradleVersions)
 
         classpath(BuildPlugins.googleServices)
     }
 }
 
-apply(plugin = Plugins.gradleVersions)
-
 plugins {
-    id("scabbard.gradle") version "0.5.0"
+    id(Plugins.scabbard) version Versions.scabbard
+    id(Plugins.gradleVersions) version Versions.gradleVersions
 }
 
 scabbard {

@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/paymentMethodFragment"
-        android:name="com.grappim.payment_method.PaymentMethodFragment" />
+        android:name="com.grappim.payment_method.ui.PaymentMethodFragment" />
 
 </navigation>

@@ -40,11 +40,6 @@ object Deps {
         const val roomCore = "androidx.room:room-ktx:${Versions.AndroidX.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Versions.AndroidX.room}"
 
-        const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.AndroidX.hiltAndroidX}"
-        const val hiltWork = "androidx.hilt:hilt-work:${Versions.AndroidX.hiltAndroidX}"
-        const val hiltNavigation =
-            "androidx.hilt:hilt-navigation-fragment:${Versions.AndroidX.hiltAndroidX}"
-
         const val biometricKotlin =
             "androidx.biometric:biometric-ktx:${Versions.AndroidX.biometricKotlin}"
     }
@@ -70,8 +65,6 @@ object Deps {
         const val paging = "androidx.paging:paging-compose:${Versions.AndroidX.Compose.paging}"
         const val constraint =
             "androidx.constraintlayout:constraintlayout-compose:${Versions.AndroidX.Compose.constraint}"
-        const val hiltNavigation =
-            "androidx.hilt:hilt-navigation-compose:${Versions.AndroidX.Compose.hiltNavigation}"
         const val navigation =
             "androidx.navigation:navigation-compose:${Versions.AndroidX.Compose.navigation}"
     }

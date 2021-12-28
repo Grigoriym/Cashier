@@ -8,7 +8,7 @@ import com.grappim.core.SingleLiveEvent
 import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.GeneralRepository
-import com.grappim.navigation.directions.auth.AuthScreenNavigator
+import com.grappim.auth.di.AuthScreenNavigator
 import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

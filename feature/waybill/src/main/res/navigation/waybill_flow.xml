@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/waybillListFragment"
-        android:name="com.grappim.waybill.list.WaybillListFragment">
+        android:name="com.grappim.waybill.ui.list.WaybillListFragment">
         <action
             android:id="@+id/action_waybill_to_waybillDetails"
             app:destination="@id/waybillDetailsFragment"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/waybillScannerFragment"
-        android:name="com.grappim.waybill.scanner.WaybillScannerFragment">
+        android:name="com.grappim.waybill.ui.scanner.WaybillScannerFragment">
         <argument
             android:name="waybillId"
             app:argType="integer" />
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchProductFragment"
-        android:name="com.grappim.waybill.search.SearchProductFragment">
+        android:name="com.grappim.waybill.ui.search.SearchProductFragment">
         <argument
             android:name="waybillId"
             app:argType="integer" />
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/waybillProductFragment"
-        android:name="com.grappim.waybill.product.WaybillProductFragment">
+        android:name="com.grappim.waybill.ui.product.WaybillProductFragment">
         <action
             android:id="@+id/action_waybillProduct_to_waybillDetails"
             app:destination="@id/waybillDetailsFragment"

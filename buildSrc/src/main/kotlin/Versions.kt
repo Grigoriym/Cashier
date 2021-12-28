@@ -1,9 +1,10 @@
 object Versions {
 
     const val gradlePlugin = "7.0.4"
-    const val detekt = "1.18.1"
+    const val detekt = "1.19.0"
     const val gradleVersions = "0.39.0"
     const val gradleDoctor = "0.7.3"
+    const val scabbard = "0.5.0"
 
     object Kotlin {
         const val core = "1.5.31"
@@ -15,26 +16,23 @@ object Versions {
     object AndroidX {
         const val core = "1.7.0"
         const val appCompat = "1.4.0"
-        const val fragment = "1.3.6"
+        const val fragment = "1.4.0"
         const val constraint = "2.1.2"
         const val paging = "3.1.0"
         const val navigation = "2.4.0-beta02"
         const val lifecycle = "2.4.0"
-        const val room = "2.3.0"
+        const val room = "2.4.0"
         const val workManager = "2.5.0"
         const val startup = "1.1.0"
         const val viewPager2 = "1.0.0"
         const val swipeRefresh = "1.1.0"
         const val biometricKotlin = "1.2.0-alpha04"
 
-        const val hiltAndroidX = "1.0.0"
-
         object Compose {
             const val core = "1.1.0-beta03"
             const val lifecycle = "2.4.0-rc01"
             const val paging = "1.0.0-alpha14"
             const val constraint = "1.0.0-rc02"
-            const val hiltNavigation = "1.0.0-alpha03"
             const val navigation = "2.4.0-alpha10"
         }
     }
@@ -57,7 +55,7 @@ object Versions {
     const val accompanist = "0.20.2"
 
     const val retrofit = "2.9.0"
-    const val okHttp = "5.0.0-alpha.2"
+    const val okHttp = "5.0.0-alpha.3"
     const val retrofitKotlinSerialization = "0.8.0"
 
     const val desugaring = "1.1.5"

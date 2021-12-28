@@ -7,9 +7,7 @@ import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.menu.helper.MenuItemGenerator
 import com.grappim.menu.model.MenuItemPm
-import com.grappim.navigation.NavigationFlow
-import com.grappim.navigation.Navigator
-import com.grappim.navigation.directions.menu.MenuScreenNavigator
+import com.grappim.menu.di.MenuScreenNavigator
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn

@@ -24,7 +24,7 @@
 
 <!--    <fragment-->
 <!--        android:id="@+id/salesFragment"-->
-<!--        android:name="com.grappim.sales.SalesFragment">-->
+<!--        android:name="com.grappim.sales.ui.SalesFragment">-->
 <!--        <action-->
 <!--            android:id="@+id/action_salesFragment_to_scannerFragment"-->
 <!--            app:destination="@id/scannerFragment"-->

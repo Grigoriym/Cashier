@@ -21,8 +21,7 @@ import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.padWithZeros
 import com.grappim.extensions.showToast
 import com.grappim.uikit.theme.CashierTheme
-import com.grappim.waybill.R
-import com.grappim.waybill.WaybillSharedViewModel
+import com.grappim.waybill.ui.root.WaybillSharedViewModel
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

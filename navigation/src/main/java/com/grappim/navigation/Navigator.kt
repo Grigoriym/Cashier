@@ -19,16 +19,6 @@ class Navigator @Inject constructor(
     private val navController: Lazy<NavController>
 ) {
 
-//    private var _navController: NavController? = null
-//    private val navController: NavController
-//        get() = requireNotNull(_navController) {
-//            "navController must not be null"
-//        }
-
-    fun setNavController(controller: NavController) {
-//        _navController = controller
-    }
-
     fun popBackStack() {
         navController.get().popBackStack()
     }
@@ -57,7 +47,8 @@ class Navigator @Inject constructor(
             )
         }
         NavigationFlow.SelectInfoCashierFlow -> {
-            navController.get().navigate(MainNavGraphDirections.actionSelectStockFlowToSelectCashboxFlow())
+            navController.get()
+                .navigate(MainNavGraphDirections.actionSelectStockFlowToSelectCashboxFlow())
         }
         NavigationFlow.MenuFlow -> {
             navController.get().navigate(MainNavGraphDirections.actionSelectCashboxFlowToMenuFlow())

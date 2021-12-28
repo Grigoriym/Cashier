@@ -9,9 +9,7 @@ import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.sign_up.SignUpUseCase
 import com.grappim.domain.model.sign_up.SignUpData
 import com.grappim.domain.model.sign_up.SignUpFieldsValidationData
-import com.grappim.navigation.NavigationFlow
-import com.grappim.navigation.Navigator
-import com.grappim.navigation.directions.sign_up.SignUpScreenNavigator
+import com.grappim.sign_up.di.SignUpScreenNavigator
 import com.grappim.sign_up.R
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

@@ -189,7 +189,6 @@ private fun Project.getAppDependencies() {
             implementation(Deps.Compose.lifecycleViewModel)
             implementation(Deps.Compose.paging)
             implementation(Deps.Compose.constraint)
-            implementation(Deps.Compose.hiltNavigation)
             implementation(Deps.Compose.navigation)
 
             implementation(Deps.accompanistSwipeRefresh)

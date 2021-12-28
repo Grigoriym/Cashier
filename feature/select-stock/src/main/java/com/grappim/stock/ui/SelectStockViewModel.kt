@@ -9,9 +9,7 @@ import com.grappim.domain.interactor.outlet.GetStocksUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
-import com.grappim.navigation.NavigationFlow
-import com.grappim.navigation.Navigator
-import com.grappim.navigation.directions.select_stock.SelectStockScreenNavigator
+import com.grappim.stock.di.SelectStockScreenNavigator
 import com.grappim.stock.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
