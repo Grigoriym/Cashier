@@ -3,6 +3,7 @@ package com.grappim.cashier.di.root_activity
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.grappim.cashier.ui.root.MainActivity
+import com.grappim.cashier.ui.splash.SplashFragment
 import com.grappim.di.ActivityContext
 import com.grappim.di.ActivityScope
 import dagger.BindsInstance
@@ -31,4 +32,5 @@ interface RootActivityComponent : FeatureDeps {
     }
 
     fun inject(mainActivity: MainActivity)
+    fun inject(splashFragment: SplashFragment)
 }

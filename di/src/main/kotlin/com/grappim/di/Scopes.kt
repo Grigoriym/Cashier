@@ -22,3 +22,6 @@ annotation class ApiScope
 
 @Scope
 annotation class NetworkScope
+
+@Scope
+annotation class DatabaseScope

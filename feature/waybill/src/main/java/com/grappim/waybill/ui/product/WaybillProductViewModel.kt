@@ -16,9 +16,8 @@ import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase
 import com.grappim.domain.interactor.waybill.UpdateWaybillProductUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
-import com.grappim.navigation.Navigator
 import com.grappim.waybill.R
-import com.grappim.waybill.details.WaybillDetailsFragment
+import com.grappim.waybill.ui.details.WaybillDetailsFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -29,8 +28,7 @@ class WaybillProductViewModel @Inject constructor(
     private val createWaybillProductUseCase: CreateWaybillProductUseCase,
     private val updateWaybillProductUseCase: UpdateWaybillProductUseCase,
     @ApplicationContext private val context: Context,
-    @DecimalFormatSimple private val dfSimple: DecimalFormat,
-    private val navigator: Navigator
+    @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : ViewModel() {
 
     private val _waybillProductState = mutableStateOf<WaybillProductStates>(
@@ -218,12 +216,12 @@ class WaybillProductViewModel @Inject constructor(
                 _productCreated.value = it
                 when (it) {
                     is Try.Success -> {
-                        navigator.navigate(
-                            R.id.action_waybillProduct_to_waybillDetails,
-                            bundleOf(
-                                WaybillDetailsFragment.ARG_TOTAL_COST to it.data
-                            )
-                        )
+//                        navigator.navigate(
+//                            R.id.action_waybillProduct_to_waybillDetails,
+//                            bundleOf(
+//                                WaybillDetailsFragment.ARG_TOTAL_COST to it.data
+//                            )
+//                        )
                     }
                 }
             }

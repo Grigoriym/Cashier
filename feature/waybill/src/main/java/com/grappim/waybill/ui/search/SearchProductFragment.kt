@@ -14,12 +14,12 @@ import androidx.fragment.app.viewModels
 import com.grappim.domain.base.Try
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
-import com.grappim.waybill.ui.root.WaybillSharedViewModel
+import com.grappim.waybill.ui.root.WaybillRootViewModel
 
 class SearchProductFragment : Fragment() {
 
     private val viewModel by viewModels<SearchProductViewModel>()
-    private val sharedViewModel by viewModels<WaybillSharedViewModel>()
+    private val sharedViewModel by viewModels<WaybillRootViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

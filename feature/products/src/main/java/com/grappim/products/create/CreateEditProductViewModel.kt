@@ -17,7 +17,6 @@ import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.navigation.Navigator
 import com.zhuinden.flowcombinetuplekt.combineTuple
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -36,8 +35,7 @@ class CreateEditProductViewModel @AssistedInject constructor(
     @DecimalFormatSimple private val dfSimple: DecimalFormat,
     @Assisted private val createEditFlow: CreateEditFlow,
     @Assisted private val productToEdit: Product?,
-    @Assisted private val scannedBarcode: String?,
-    private val navigator: Navigator
+    @Assisted private val scannedBarcode: String?
 ) : ViewModel() {
 
     @AssistedFactory
@@ -149,7 +147,7 @@ class CreateEditProductViewModel @AssistedInject constructor(
         get() = _createProduct.asStateFlow()
 
     fun onBackPressed() {
-        navigator.popBackStack()
+//        navigator.popBackStack()
     }
 
     fun dismissDropDown() {

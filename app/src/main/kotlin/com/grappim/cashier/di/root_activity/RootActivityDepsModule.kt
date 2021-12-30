@@ -10,6 +10,7 @@ import com.grappim.payment_method.di.PaymentMethodDeps
 import com.grappim.sales.di.SalesDeps
 import com.grappim.sign_up.di.SignUpDeps
 import com.grappim.stock.di.SelectStockDeps
+import com.grappim.waybill.di.WaybillRootDeps
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -54,6 +55,11 @@ interface RootActivityDepsModule {
 
     @[Binds IntoMap ComponentDepsKey(PaymentMethodDeps::class)]
     fun bindPaymentMethodDeps(
+        component: RootActivityComponent
+    ): ComponentDeps
+
+    @[Binds IntoMap ComponentDepsKey(WaybillRootDeps::class)]
+    fun bindWaybillDeps(
         component: RootActivityComponent
     ): ComponentDeps
 }

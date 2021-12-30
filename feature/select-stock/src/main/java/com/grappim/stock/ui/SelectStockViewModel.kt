@@ -50,7 +50,7 @@ class SelectStockViewModel @Inject constructor(
     }
 
     fun showSelectInfo() {
-        selectStockScreenNavigator.goToSelectCashier()
+        selectStockScreenNavigator.goToSelectCashBox()
     }
 
     fun saveStock() {

@@ -18,7 +18,7 @@ import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.uikit.theme.CashierTheme
-import com.grappim.waybill.ui.root.WaybillSharedViewModel
+import com.grappim.waybill.ui.root.WaybillRootViewModel
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -55,7 +55,7 @@ class WaybillProductFragment : Fragment() {
     @Composable
     private fun WaybillProductFragmentScreen() {
         val viewModel = viewModel<WaybillProductViewModel>()
-        val sharedViewModel by viewModels<WaybillSharedViewModel>()
+        val sharedViewModel by viewModels<WaybillRootViewModel>()
 
         viewModel.setWaybillProductState(
             product = product,

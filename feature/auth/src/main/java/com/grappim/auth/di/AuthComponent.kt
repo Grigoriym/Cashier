@@ -1,6 +1,6 @@
 package com.grappim.auth.di
 
-import com.grappim.auth.ui.AuthFragment
+import com.grappim.auth.ui.view.AuthFragment
 import com.grappim.di.FeatureScope
 import com.grappim.domain.di.CoroutinesModule
 import dagger.Component

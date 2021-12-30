@@ -33,7 +33,7 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
     private val beepManager: BeepManager by lazy {
         BeepManager(requireActivity())
     }
-    private val args by navArgs<WaybillScannerFragmentArgs>()
+//    private val args by navArgs<WaybillScannerFragmentArgs>()
 
     private val requestPermissions =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -81,13 +81,13 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
         viewModel.product.observe(viewLifecycleOwner) {
             when (it) {
                 is Try.Success -> {
-                    findNavController().navigate(
-                        R.id.action_scanner_to_waybillProduct,
-                        bundleOf(
-                            WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
-                            WaybillProductFragment.ARG_PRODUCT to it.data
-                        )
-                    )
+//                    findNavController().navigate(
+//                        R.id.action_scanner_to_waybillProduct,
+//                        bundleOf(
+//                            WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
+//                            WaybillProductFragment.ARG_PRODUCT to it.data
+//                        )
+//                    )
                 }
                 is Try.Error -> {
                     showToast(getString(R.string.waybill_error_no_product))
@@ -97,13 +97,13 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
         viewModel.waybillProduct.observe(viewLifecycleOwner) {
             when (it) {
                 is Try.Success -> {
-                    findNavController().navigate(
-                        R.id.action_scanner_to_waybillProduct,
-                        bundleOf(
-                            WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
-                            WaybillProductFragment.ARG_WAYBILL_PRODUCT to it.data
-                        )
-                    )
+//                    findNavController().navigate(
+//                        R.id.action_scanner_to_waybillProduct,
+//                        bundleOf(
+//                            WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
+//                            WaybillProductFragment.ARG_WAYBILL_PRODUCT to it.data
+//                        )
+//                    )
                 }
             }
         }
@@ -111,9 +111,9 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     private fun handleSingleScan(result: String) {
         logD("scanned barcode $result")
-        viewModel.checkProductInWaybill(
-            barcode = result,
-            waybillId = args.waybillId
-        )
+//        viewModel.checkProductInWaybill(
+//            barcode = result,
+//            waybillId = args.waybillId
+//        )
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bag_flow"
+    app:startDestination="@id/bagFragment">
+
+    <fragment
+        android:id="@+id/bagFragment"
+        android:name="com.grappim.bag.ui.BagFragment" >
+
+        <action
+            android:id="@+id/action_bagFlow_to_paymentMethodFlow"
+            app:destination="@id/payment_method_flow"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/pop_enter_from_left"
+            app:popExitAnim="@anim/pop_exit_to_right" />
+
+    </fragment>
+
+</navigation>

@@ -27,7 +27,6 @@ I do this because I had an experience with an app of such functionality.
 
 ### Roadmap
 - [ ] Move all UI to compose
-- [ ] Navigation is done badly
 - [ ] Google Sign In, Firebase Authentication
 - [ ] Add tests and all that stuff
 - [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
@@ -46,12 +45,14 @@ I do this because I had an experience with an app of such functionality.
 - [ ] Feature flags
 - [ ] Guest Mode
 - [ ] Show sth if there are no products/categories etc.
+- [ ] Settings screen
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
 2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component
 3. Vladimir Tagakov for his videos on Dagger2: [this one](https://www.youtube.com/watch?v=pMEAD6jjbaI), a video No 8 from Podlodka Android Crew#1 (you can buy it [here](https://podlodka.io/crew-records))
 4. [Android Broadcast - Dagger2 course](https://www.youtube.com/watch?v=G5P_vDL1ZLg&list=PL0SwNXKJbuNkYFUda5rlA-odAVyWItRCP)
+
 ### Some duct tapes
 1. rememberLazyListState() in some compose functions where we have LazyList() and Scaffold's bottomBar. It is done so that list's bottom has been constrained to the top of Scaffold's bottomBar.
 

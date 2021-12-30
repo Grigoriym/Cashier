@@ -5,6 +5,7 @@ import com.grappim.di.deps.ComponentDeps
 import com.grappim.domain.repository.*
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
+import com.grappim.domain.repository.local.WaybillLocalRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.workers.WorkerHelper
 
@@ -21,6 +22,9 @@ interface RootActivityDeps : ComponentDeps {
 
     fun productsRepository(): ProductsRepository
     fun paymentRepository():PaymentRepository
+
+    fun waybillLocalRepository(): WaybillLocalRepository
+    fun waybillRepository(): WaybillRepository
 
     fun selectStockLocalRepository(): SelectStockLocalRepository
     fun selectInfoRemoteRepository(): SelectInfoRemoteRepository

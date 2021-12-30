@@ -28,7 +28,7 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
     private val beepManager: BeepManager by lazy {
         BeepManager(requireActivity())
     }
-    private val args by navArgs<ScannerFragmentArgs>()
+//    private val args by navArgs<ScannerFragmentArgs>()
 
     private val requestPermissions =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -84,14 +84,14 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
     }
 
     private fun initScanner() {
-        when (args.scanType) {
-            ScanType.CONTINUOUS -> {
-                viewBinding.scannerView.decodeContinuous(barcodeCallbackContinuous)
-            }
-            ScanType.SINGLE -> {
-                viewBinding.scannerView.decodeSingle(barcodeCallbackSingle)
-            }
-        }
+//        when (args.scanType) {
+//            ScanType.CONTINUOUS -> {
+//                viewBinding.scannerView.decodeContinuous(barcodeCallbackContinuous)
+//            }
+//            ScanType.SINGLE -> {
+//                viewBinding.scannerView.decodeSingle(barcodeCallbackSingle)
+//            }
+//        }
     }
 
     private fun handleContinuousScan(result: String) {

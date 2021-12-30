@@ -8,6 +8,7 @@ import com.grappim.payment_method.di.PaymentMethodDeps
 import com.grappim.sales.di.SalesDeps
 import com.grappim.sign_up.di.SignUpDeps
 import com.grappim.stock.di.SelectStockDeps
+import com.grappim.waybill.di.WaybillRootDeps
 
 interface FeatureDeps : AuthDeps,
     SignUpDeps,
@@ -16,4 +17,5 @@ interface FeatureDeps : AuthDeps,
     MenuDeps,
     SalesDeps,
     BagDeps,
-    PaymentMethodDeps
+    PaymentMethodDeps,
+    WaybillRootDeps

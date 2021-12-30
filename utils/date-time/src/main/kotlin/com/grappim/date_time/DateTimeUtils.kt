@@ -5,6 +5,9 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
+@Deprecated(
+    message = "remove it"
+)
 object DateTimeUtils {
     private const val DATE_TIME_PATTERN_FULL = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
 

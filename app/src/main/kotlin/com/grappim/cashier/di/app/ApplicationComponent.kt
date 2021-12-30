@@ -18,7 +18,7 @@ import com.grappim.workers.di.WorkersModule
 import dagger.BindsInstance
 import dagger.Component
 
-@[AppScope GsonScope ApiScope NetworkScope
+@[AppScope GsonScope ApiScope NetworkScope DatabaseScope
 Component(
     modules = [
         DateTimeModule::class,

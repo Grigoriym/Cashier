@@ -11,7 +11,6 @@ import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.local.WaybillLocalRepository
-import com.grappim.navigation.Navigator
 import com.grappim.waybill.R
 import com.grappim.waybill.ui.product.WaybillProductFragment
 import kotlinx.coroutines.flow.*
@@ -22,7 +21,6 @@ class SearchProductViewModel @Inject constructor(
     private val searchProductsUseCase: SearchProductsUseCase,
     private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase,
     private val getWaybillProductByBarcodeUseCase: GetWaybillProductByBarcodeUseCase,
-    private val navigator: Navigator,
     private val waybillLocalRepository: WaybillLocalRepository
 ) : ViewModel() {
 
@@ -72,13 +70,13 @@ class SearchProductViewModel @Inject constructor(
     }
 
     private fun showProductDetails(product: Product) {
-        navigator.navigate(
-            R.id.action_search_to_waybillProduct,
-            bundleOf(
-                WaybillProductFragment.ARG_WAYBILL_ID to waybillLocalRepository.waybill.id,
-                WaybillProductFragment.ARG_PRODUCT to product
-            )
-        )
+//        navigator.navigate(
+//            R.id.action_search_to_waybillProduct,
+//            bundleOf(
+//                WaybillProductFragment.ARG_WAYBILL_ID to waybillLocalRepository.waybill.id,
+//                WaybillProductFragment.ARG_PRODUCT to product
+//            )
+//        )
     }
 
     fun checkProductInWaybill(
@@ -105,13 +103,13 @@ class SearchProductViewModel @Inject constructor(
     }
 
     private fun showProductDetails(waybillProduct: WaybillProduct) {
-        navigator.navigate(
-            R.id.action_search_to_waybillProduct,
-            bundleOf(
-                WaybillProductFragment.ARG_WAYBILL_ID to waybillLocalRepository.waybill.id,
-                WaybillProductFragment.ARG_WAYBILL_PRODUCT to waybillProduct
-            )
-        )
+//        navigator.navigate(
+//            R.id.action_search_to_waybillProduct,
+//            bundleOf(
+//                WaybillProductFragment.ARG_WAYBILL_ID to waybillLocalRepository.waybill.id,
+//                WaybillProductFragment.ARG_WAYBILL_PRODUCT to waybillProduct
+//            )
+//        )
     }
 
 }

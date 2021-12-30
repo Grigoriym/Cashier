@@ -5,12 +5,13 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
-import com.grappim.di.AppScope
 import com.grappim.di.ApplicationContext
 import com.grappim.di.NetworkScope
 import com.grappim.logger.logD
-import com.grappim.network.BuildConfig
 import com.grappim.network.authenticators.TokenAuthenticator
+import com.grappim.network.di.configs.NetworkConfigsModule
+import com.grappim.network.di.configs.CashierApiUrlProvider
+import com.grappim.network.di.configs.NetworkBuildConfigProvider
 import com.grappim.network.interceptors.AuthTokenInterceptor
 import com.grappim.network.interceptors.ErrorMappingInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -24,7 +25,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-@Module
+@Module(
+    includes = [
+        NetworkConfigsModule::class
+    ]
+)
 class NetworkModule {
 
     @[NetworkScope Provides]
@@ -38,9 +43,10 @@ class NetworkModule {
     @[NetworkScope Provides]
     fun provideCashierRetrofit(
         builder: Retrofit.Builder,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
+        cashierApiUrlProvider: CashierApiUrlProvider
     ): Retrofit =
-        builder.baseUrl(BuildConfig.CASHIER_API)
+        builder.baseUrl(cashierApiUrlProvider.cashierApi)
             .client(okHttpClient)
             .build()
 
@@ -58,7 +64,8 @@ class NetworkModule {
         errorMappingInterceptor: ErrorMappingInterceptor,
         chuckerInterceptor: ChuckerInterceptor,
         authTokenInterceptor: AuthTokenInterceptor,
-        tokenAuthenticator: TokenAuthenticator
+        tokenAuthenticator: TokenAuthenticator,
+        networkBuildConfigProvider: NetworkBuildConfigProvider
     ): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(30L, TimeUnit.SECONDS)
@@ -67,7 +74,7 @@ class NetworkModule {
             .addInterceptor(authTokenInterceptor)
             .authenticator(tokenAuthenticator)
             .apply {
-                if (BuildConfig.DEBUG) {
+                if (networkBuildConfigProvider.debug) {
                     addInterceptor(loggingInterceptor)
                     addInterceptor(chuckerInterceptor)
                 }

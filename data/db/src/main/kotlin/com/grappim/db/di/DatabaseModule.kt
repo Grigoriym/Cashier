@@ -2,27 +2,33 @@ package com.grappim.db.di
 
 import android.content.Context
 import androidx.room.Room
-import com.grappim.db.BuildConfig
 import com.grappim.db.CashierDatabase
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.CategoryDao
 import com.grappim.db.dao.ProductsDao
-import com.grappim.di.AppScope
+import com.grappim.db.di.configs.DatabaseBuildConfigProvider
+import com.grappim.db.di.configs.DatabaseConfigsModule
 import com.grappim.di.ApplicationContext
+import com.grappim.di.DatabaseScope
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(
+    includes = [
+        DatabaseConfigsModule::class
+    ]
+)
 class DatabaseModule {
 
-    @[AppScope Provides]
+    @[DatabaseScope Provides]
     fun provideRoomDatabase(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
+        databaseBuildConfigProvider: DatabaseBuildConfigProvider
     ): CashierDatabase =
         Room.databaseBuilder(
             context,
             CashierDatabase::class.java,
-            "cashier_${BuildConfig.BUILD_TYPE}.db"
+            "cashier_${databaseBuildConfigProvider.buildType}.db"
         )
             .fallbackToDestructiveMigration()
             .fallbackToDestructiveMigrationOnDowngrade()

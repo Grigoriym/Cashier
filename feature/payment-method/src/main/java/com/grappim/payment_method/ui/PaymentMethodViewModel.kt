@@ -8,7 +8,6 @@ import com.grappim.domain.base.Try
 import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
-import com.grappim.navigation.NavigationFlow
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.payment_method.helper.PaymentMethodItemGenerator
 import com.grappim.payment_method.model.PaymentMethod

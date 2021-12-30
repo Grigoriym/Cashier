@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/waybill_root_flow"
+		app:startDestination="@id/waybillRootFragment">
+
+	<fragment
+			android:id="@+id/waybillRootFragment"
+			android:name="com.grappim.waybill.ui.root.WaybillRootFragment">
+		<action
+				android:id="@+id/action_root_to_list"
+				app:destination="@id/waybill_flow" />
+	</fragment>
+
+</navigation>

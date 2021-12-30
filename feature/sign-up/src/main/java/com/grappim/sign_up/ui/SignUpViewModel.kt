@@ -72,7 +72,7 @@ class SignUpViewModel @Inject constructor(
                 _signUpStatus.value = it
                 when (it) {
                     is Try.Success -> {
-                        signUpScreenNavigator.goToAuth()
+                        signUpScreenNavigator.returnToAuthFromSignUp()
                     }
                     is Try.Error -> {
                         _error.value = it.exception

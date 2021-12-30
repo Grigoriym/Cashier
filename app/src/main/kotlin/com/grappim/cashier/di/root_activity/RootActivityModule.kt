@@ -3,7 +3,7 @@ package com.grappim.cashier.di.root_activity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.grappim.core.R
+import com.grappim.cashier.R
 import com.grappim.di.ActivityScope
 import dagger.Module
 import dagger.Provides

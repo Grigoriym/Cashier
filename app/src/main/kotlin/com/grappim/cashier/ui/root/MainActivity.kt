@@ -4,11 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.grappim.cashier.di.root_activity.DaggerRootActivityComponent
+import androidx.appcompat.app.AppCompatActivity
+import com.grappim.cashier.R
 import com.grappim.cashier.di.root_activity.RootActivityComponent
-import com.grappim.cashier.di.root_activity.RootActivityDeps
-import com.grappim.core.R
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.di.ComponentDependenciesProvider
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     lateinit var viewModelFactory: MultiViewModelFactory
 
     private var _activityComponent: RootActivityComponent? = null
-    private val activityComponent
+    val activityComponent
         get() = requireNotNull(_activityComponent)
 
     private val viewModel by viewModels<MainViewModel> {

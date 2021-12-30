@@ -6,12 +6,11 @@ plugins {
 
 android {
     defaultConfig {
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf(
-                    "room.schemaLocation" to "$projectDir/schemas",
-                    "room.incremental" to "true"
-                )
+        kapt {
+            arguments {
+                arg("room.incremental", "true")
+                arg("room.expandProjection", "true")
+                arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
     }

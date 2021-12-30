@@ -1,25 +1,27 @@
 package com.grappim.cashier.core.navigation
 
+import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
-import com.grappim.di.ActivityScope
-import com.grappim.navigation.DeepLinkDestination
-import com.grappim.navigation.MainNavGraphDirections
-import com.grappim.navigation.deepLinkNavigateTo
+import androidx.navigation.NavDirections
 import com.grappim.auth.di.AuthScreenNavigator
 import com.grappim.bag.di.BagScreenNavigator
-import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.cashbox.di.SelectCashBoxNavigator
+import com.grappim.cashier.R
+import com.grappim.cashier.di.splash.SplashScreenNavigator
+import com.grappim.di.ActivityScope
+import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
-import com.grappim.stock.di.SelectStockScreenNavigator
-import com.grappim.sign_up.di.SignUpScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
+import com.grappim.sign_up.di.SignUpScreenNavigator
+import com.grappim.stock.di.SelectStockScreenNavigator
+import com.grappim.waybill.di.WaybillScreenNavigator
 import dagger.Lazy
 import javax.inject.Inject
 
 @ActivityScope
 class NavigationManager @Inject constructor(
-    private val fragmentManager: FragmentManager,
+    private val supportFragmentManager: FragmentManager,
     private val navController: Lazy<NavController>
 ) : AuthScreenNavigator, SignUpScreenNavigator,
     SelectStockScreenNavigator,
@@ -27,55 +29,79 @@ class NavigationManager @Inject constructor(
     MenuScreenNavigator,
     SalesScreenNavigator,
     BagScreenNavigator,
-    PaymentMethodScreenNavigator {
+    PaymentMethodScreenNavigator,
+    WaybillScreenNavigator,
+    SplashScreenNavigator {
+
+    private fun navigateTo(directions: NavDirections) {
+        navController
+            .get()
+            .navigate(directions)
+    }
+
+    private fun navigateTo(@IdRes resId: Int) {
+        navController
+            .get()
+            .navigate(resId)
+    }
+
+    private fun navigateBack() {
+        navController.get().popBackStack()
+    }
+
+    override fun goToAuthFromSplash() {
+        navigateTo(R.id.action_splash_to_auth)
+    }
 
     override fun goToSignUp() {
-        navController.get().navigate(MainNavGraphDirections.actionAuthFlowToRegisterFlow())
+        navigateTo(R.id.action_authFlow_to_signUpFlow)
     }
 
     override fun goToSelectStock() {
-        navController.get().navigate(MainNavGraphDirections.actionAuthFlowToStockFlow())
+        navigateTo(R.id.action_authFlow_to_stockFlow)
     }
 
-    override fun goToAuth() {
-        navController.get().deepLinkNavigateTo(
-            DeepLinkDestination.RegisterToAuthFlow
-        )
+    override fun returnToAuthFromSignUp() {
+        navigateBack()
     }
 
-    override fun goToSelectCashier() {
-        navController
-            .get()
-            .navigate(
-                MainNavGraphDirections.actionSelectStockFlowToSelectCashboxFlow()
-            )
+    override fun goToSelectCashBox() {
+        navigateTo(R.id.action_selectStockFlow_to_selectCashboxFlow)
     }
 
     override fun goToMenu() {
-        navController.get().navigate(MainNavGraphDirections.actionSelectCashboxFlowToMenuFlow())
+        navigateTo(R.id.action_selectCashboxFlow_to_menuFlow)
     }
 
     override fun goToWaybill() {
-        navController.get().navigate(MainNavGraphDirections.actionMainFlowToWaybillFlow())
+//        supportFragmentManager.commit {
+//            setReorderingAllowed(true)
+//            replace(
+//                R.id.nav_host_fragment,
+//                WaybillRootFragment(),
+//                WaybillRootFragment::class.java.canonicalName
+//            )
+//        }
+        navigateTo(R.id.action_mainFlow_to_waybillFlow)
     }
 
     override fun goToProducts() {
-        navController.get().navigate(MainNavGraphDirections.actionMenuFlowToProductsFlow())
+        navigateTo(R.id.action_menuFlow_to_productsFlow)
     }
 
     override fun goToSales() {
-        navController.get().navigate(MainNavGraphDirections.actionMenuFlowToSalesFlow())
+        navigateTo(R.id.action_menuFlow_to_salesFlow)
     }
 
     override fun goToBag() {
-        navController.get().navigate(MainNavGraphDirections.actionSalesFlowToBagFlow())
+        navigateTo(R.id.action_salesFlow_to_bagFlow)
     }
 
     override fun goToScannerFromSales() {
     }
 
     override fun goToPaymentMethod() {
-        navController.get().navigate(MainNavGraphDirections.actionBagFlowToPaymentMethodFlow())
+        navigateTo(R.id.action_bagFlow_to_paymentMethodFlow)
     }
 
     override fun goToScannerFromBag() {
@@ -83,12 +109,13 @@ class NavigationManager @Inject constructor(
     }
 
     override fun fromPaymentMethodToSales() {
-        navController.get().deepLinkNavigateTo(
-            DeepLinkDestination.PaymentMethodFlowToSalesFlow
-        )
+        navigateTo(R.id.action_paymentMethodFlow_to_salesFlow)
+    }
+
+    override fun goToList() {
     }
 
     override fun goBack() {
-        navController.get().popBackStack()
+        navigateBack()
     }
 }

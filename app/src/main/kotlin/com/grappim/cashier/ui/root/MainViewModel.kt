@@ -2,9 +2,7 @@ package com.grappim.cashier.ui.root
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.grappim.extensions.interval
-import com.grappim.navigation.Navigator
 import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,8 +12,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val workerHelper: WorkerHelper,
-    private val navigator: Navigator
+    private val workerHelper: WorkerHelper
 ) : ViewModel() {
 
     private val sync = interval(15, TimeUnit.SECONDS)
