@@ -1,8 +1,7 @@
 package com.grappim.repository.storage
 
 import android.content.Context
-import com.grappim.di.AppScope
-import com.grappim.di.ApplicationContext
+import com.grappim.common.di.AppScope
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.storage.GeneralStorage
@@ -11,7 +10,7 @@ import javax.inject.Inject
 
 @AppScope
 class GeneralStorageImpl @Inject constructor(
-  @ApplicationContext private val context: Context
+  @com.grappim.common.di.ApplicationContext private val context: Context
 ) : GeneralStorage {
 
     companion object {

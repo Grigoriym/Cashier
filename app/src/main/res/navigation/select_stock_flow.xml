@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/selectStockFragment"
-        android:name="com.grappim.stock.ui.SelectStockFragment">
+        android:name="com.grappim.stock.ui.view.SelectStockFragment">
         <action
             android:id="@+id/action_selectStockFlow_to_selectCashboxFlow"
             app:destination="@id/select_cashbox_flow"

@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.grappim.cashier.R
-import com.grappim.di.ActivityScope
+import com.grappim.common.di.ActivityScope
 import dagger.Module
 import dagger.Provides
 

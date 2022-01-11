@@ -10,3 +10,6 @@ annotation class QualifierWaybillApi
 
 @Qualifier
 annotation class QualifierAuthApi
+
+@Qualifier
+annotation class QualifierProductCategoryApi

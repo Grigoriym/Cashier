@@ -1,8 +1,8 @@
 package com.grappim.domain.interactor.products
 
-import com.grappim.domain.base.FlowUseCase
-import com.grappim.domain.base.Try
-import com.grappim.domain.di.IoDispatcher
+import com.grappim.common.asynchronous.FlowUseCase
+import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.common.lce.Try
 import com.grappim.domain.repository.ProductsRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

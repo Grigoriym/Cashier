@@ -19,7 +19,10 @@ android {
 dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
-    implementation(project(Modules.di))
+
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonAsynchronous))
+    implementation(project(Modules.commonLce))
 
     coreLibraryDesugaring(Deps.desugar)
 

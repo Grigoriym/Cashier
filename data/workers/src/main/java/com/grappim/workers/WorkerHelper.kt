@@ -2,8 +2,8 @@ package com.grappim.workers
 
 import android.content.Context
 import androidx.work.*
-import com.grappim.di.AppScope
-import com.grappim.di.ApplicationContext
+import com.grappim.common.di.AppScope
+import com.grappim.common.di.ApplicationContext
 import javax.inject.Inject
 
 @AppScope

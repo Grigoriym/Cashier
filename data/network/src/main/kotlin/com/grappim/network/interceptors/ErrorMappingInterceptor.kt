@@ -1,7 +1,7 @@
 package com.grappim.network.interceptors
 
 import com.google.gson.Gson
-import com.grappim.di.AppScope
+import com.grappim.common.di.AppScope
 import com.grappim.domain.model.base.BaseApiError
 import com.grappim.domain.model.exception.NetworkException
 import com.grappim.network.model.base.BaseApiErrorAm

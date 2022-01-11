@@ -1,0 +1,20 @@
+package com.grappim.product_category.network.model
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class CreateProductCategoryRequestDTO(
+    @SerialName("product")
+    val product: CreateProductCategoryDTO
+)
+
+@Serializable
+data class CreateProductCategoryDTO(
+    @SerialName("name")
+    val name: String,
+    @SerialName("merchantId")
+    val merchantId: String,
+    @SerialName("stockId")
+    val stockId: String
+)

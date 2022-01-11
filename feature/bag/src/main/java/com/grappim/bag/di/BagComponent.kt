@@ -2,13 +2,13 @@ package com.grappim.bag.di
 
 import com.grappim.bag.ui.BagFragment
 import com.grappim.calculations.DecimalFormatModule
-import com.grappim.di.FeatureScope
-import com.grappim.domain.di.CoroutinesModule
+import com.grappim.common.asynchronous.di.CoroutinesModule
+import com.grappim.common.di.FeatureScope
 import dagger.Component
 
 @[FeatureScope Component(
     modules = [
-        BagBindsModules::class,
+        BagBindsModule::class,
         CoroutinesModule::class,
         DecimalFormatModule::class
     ],

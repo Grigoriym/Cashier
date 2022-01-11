@@ -48,6 +48,9 @@ object Versions {
         const val junit = "4.13.2"
         const val androidJunit = "1.1.3"
         const val androidEspressoCore = "3.4.0"
+
+        const val assertJCore = "3.18.1"
+        const val androidCoreTesting = "1.1.1"
     }
 
     const val firebaseBom = "28.4.2"

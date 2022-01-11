@@ -14,9 +14,14 @@ import com.grappim.bag.di.BagComponent
 import com.grappim.bag.di.DaggerBagComponent
 import com.grappim.core.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
+import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.uikit.theme.CashierTheme
+import javax.inject.Inject
 
 class BagFragment : BaseFragment<BagViewModel>() {
+
+    @Inject
+    lateinit var viewModelFactory: MultiViewModelFactory
 
     override val viewModel: BagViewModel by viewModels {
         viewModelFactory

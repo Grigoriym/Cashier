@@ -83,6 +83,13 @@ object Deps {
         const val androidJunit = "androidx.test.ext:junit:${Versions.Testing.androidJunit}"
         const val androidEspressoCore =
             "androidx.test.espresso:espresso-core:${Versions.Testing.androidEspressoCore}"
+
+        const val assertJCore = "org.assertj:assertj-core:${Versions.Testing.assertJCore}"
+        const val kotlinTest = "org.jetbrains.kotlin:kotlin-test:${Versions.Kotlin.core}"
+        const val kotlinCoroutinesTest =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Kotlin.coroutines}"
+        const val androidCoreTesting =
+            "android.arch.core:core-testing:${Versions.Testing.androidCoreTesting}"
     }
 
     object Firebase {

@@ -2,20 +2,29 @@ package com.grappim.cashier.core.navigation
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.navigation.NavGraph
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.fragment.fragment
 import com.grappim.auth.di.AuthScreenNavigator
 import com.grappim.bag.di.BagScreenNavigator
 import com.grappim.cashbox.di.SelectCashBoxNavigator
 import com.grappim.cashier.R
 import com.grappim.cashier.di.splash.SplashScreenNavigator
-import com.grappim.di.ActivityScope
+import com.grappim.common.di.ActivityScope
 import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
+import com.grappim.product_category.presentation.list.ui.ProductCategoryListFragment
+import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
+import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
+import com.grappim.products.root.di.ProductsScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.sign_up.di.SignUpScreenNavigator
 import com.grappim.stock.di.SelectStockScreenNavigator
-import com.grappim.waybill.di.WaybillScreenNavigator
+import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Lazy
 import javax.inject.Inject
 
@@ -31,7 +40,9 @@ class NavigationManager @Inject constructor(
     BagScreenNavigator,
     PaymentMethodScreenNavigator,
     WaybillScreenNavigator,
-    SplashScreenNavigator {
+    SplashScreenNavigator,
+    ProductsScreenNavigator,
+    ProductCategoryScreenNavigator {
 
     private fun navigateTo(directions: NavDirections) {
         navController
@@ -74,15 +85,7 @@ class NavigationManager @Inject constructor(
     }
 
     override fun goToWaybill() {
-//        supportFragmentManager.commit {
-//            setReorderingAllowed(true)
-//            replace(
-//                R.id.nav_host_fragment,
-//                WaybillRootFragment(),
-//                WaybillRootFragment::class.java.canonicalName
-//            )
-//        }
-        navigateTo(R.id.action_mainFlow_to_waybillFlow)
+        navigateTo(R.id.action_menuFlow_to_waybillFlow)
     }
 
     override fun goToProducts() {
@@ -112,7 +115,28 @@ class NavigationManager @Inject constructor(
         navigateTo(R.id.action_paymentMethodFlow_to_salesFlow)
     }
 
-    override fun goToList() {
+    override fun goToWaybillList() {
+    }
+
+    override fun goToProductCategories() {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<ProductCategoryRootFragment>(
+                R.id.nav_host_fragment,
+                ProductCategoryRootFragment::class.java.canonicalName
+            )
+        }
+        navController.get().setGraph(
+            R.navigation.product_categories_flow
+        )
+//        navigateTo(R.id.action_menuFlow_to_ProductCategoriesFlow)
+    }
+
+    override fun goToProductCategoryDetails() {
+    }
+
+    override fun goToCreateProductCategory() {
+        navigateTo(R.id.action_productCategoryList_to_createEditProductCategory)
     }
 
     override fun goBack() {

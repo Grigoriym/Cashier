@@ -2,7 +2,7 @@ package com.grappim.network.di.gson
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.grappim.di.GsonScope
+import com.grappim.common.di.GsonScope
 import com.grappim.network.api.IgnoreFieldsExclusionStrategy
 import dagger.Module
 import dagger.Provides

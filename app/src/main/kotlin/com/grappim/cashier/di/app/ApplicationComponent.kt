@@ -4,11 +4,10 @@ import android.content.Context
 import com.grappim.calculations.DecimalFormatModule
 import com.grappim.cashier.CashierApp
 import com.grappim.cashier.di.root_activity.RootActivityDeps
+import com.grappim.common.asynchronous.di.CoroutinesModule
+import com.grappim.common.di.*
 import com.grappim.date_time.DateTimeModule
 import com.grappim.db.di.DatabaseModule
-import com.grappim.di.*
-import com.grappim.domain.di.CoroutinesModule
-import com.grappim.domain.di.DomainModule
 import com.grappim.network.di.NetworkModule
 import com.grappim.network.di.api.ApiModule
 import com.grappim.network.di.gson.GsonModule
@@ -29,7 +28,6 @@ Component(
         RepositoryModule::class,
         StorageModule::class,
         DecimalFormatModule::class,
-        DomainModule::class,
         CoroutinesModule::class,
         WorkersModule::class,
         AppComponentDepsModule::class

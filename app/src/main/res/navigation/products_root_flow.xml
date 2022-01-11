@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/products_root_flow"
+		app:startDestination="@id/productsRootFragment">
+
+	<fragment
+			android:id="@+id/productsRootFragment"
+			android:name="com.grappim.products.root.ui.ProductsRootFragment" />
+
+</navigation>

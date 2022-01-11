@@ -2,32 +2,30 @@ package com.grappim.core.di.components_deps
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.grappim.di.ComponentDependenciesProvider
-import com.grappim.di.deps.ComponentDeps
-import com.grappim.di.deps.HasComponentDeps
+import com.grappim.common.di.ComponentDependenciesProvider
 
-inline fun <reified T : ComponentDeps> Fragment.findComponentDependencies(): T {
+inline fun <reified T : com.grappim.common.di.deps.ComponentDeps> Fragment.findComponentDependencies(): T {
     return findComponentDependenciesProvider()[T::class.java] as T
 }
 
-inline fun <reified T : ComponentDeps> AppCompatActivity.findComponentDependencies(): T {
+inline fun <reified T : com.grappim.common.di.deps.ComponentDeps> AppCompatActivity.findComponentDependencies(): T {
     return findComponentDependenciesProvider()[T::class.java] as T
 }
 
 fun Fragment.findComponentDependenciesProvider(): ComponentDependenciesProvider {
     var current: Fragment? = parentFragment
-    while (current !is HasComponentDeps?) {
+    while (current !is com.grappim.common.di.deps.HasComponentDeps?) {
         current = current?.parentFragment
     }
 
     val hasDaggerProviders = current ?: when {
-        activity is HasComponentDeps -> activity as HasComponentDeps
-        activity?.application is HasComponentDeps -> activity?.application as HasComponentDeps
+        activity is com.grappim.common.di.deps.HasComponentDeps -> activity as com.grappim.common.di.deps.HasComponentDeps
+        activity?.application is com.grappim.common.di.deps.HasComponentDeps -> activity?.application as com.grappim.common.di.deps.HasComponentDeps
         else -> throw IllegalStateException("Can not find suitable dagger provider for $this")
     }
     return hasDaggerProviders.deps
 }
 
 fun AppCompatActivity.findComponentDependenciesProvider(): ComponentDependenciesProvider {
-    return (application as HasComponentDeps).deps
+    return (application as com.grappim.common.di.deps.HasComponentDeps).deps
 }

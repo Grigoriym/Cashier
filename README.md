@@ -41,17 +41,22 @@ I do this because I had an experience with an app of such functionality.
 - [ ] I have not a general ui kit, And I need a designer
 - [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
 - [x] In perspective, Dagger 2 is better for multi module app.
-- [ ] Local Repos need to be custom scoped
+- [ ] Refactor repositories, they are all app-scoped
 - [ ] Feature flags
 - [ ] Guest Mode
 - [ ] Show sth if there are no products/categories etc.
 - [ ] Settings screen
+- [ ] android.nonTransitiveRClass=true
+- [ ] some gradle build enhancement, like in aag 2, also there dagger2 tips on scope lifecycle and their holders
+- [ ] what is api and impl modules and how do they work
+- [ ] abstract image loader (coil)
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules
 2. [Dimitar Dihanov](https://itnext.io/android-multimodule-navigation-with-the-navigation-component-99f265de24) Android Multimodule Navigation with the Navigation Component
 3. Vladimir Tagakov for his videos on Dagger2: [this one](https://www.youtube.com/watch?v=pMEAD6jjbaI), a video No 8 from Podlodka Android Crew#1 (you can buy it [here](https://podlodka.io/crew-records))
 4. [Android Broadcast - Dagger2 course](https://www.youtube.com/watch?v=G5P_vDL1ZLg&list=PL0SwNXKJbuNkYFUda5rlA-odAVyWItRCP)
+5. Android Academy Global
 
 ### Some duct tapes
 1. rememberLazyListState() in some compose functions where we have LazyList() and Scaffold's bottomBar. It is done so that list's bottom has been constrained to the top of Scaffold's bottomBar.

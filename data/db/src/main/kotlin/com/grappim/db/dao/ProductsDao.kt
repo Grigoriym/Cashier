@@ -9,7 +9,7 @@ import com.grappim.db.entity.productEntityTableName
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ProductsDao : BaseDao<ProductEntity> {
+interface ProductsDao : com.grappim.comon.db.BaseDao<ProductEntity> {
 
     @Query("DELETE FROM $productEntityTableName")
     suspend fun clearProducts()

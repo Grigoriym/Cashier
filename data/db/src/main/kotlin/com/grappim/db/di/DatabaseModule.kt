@@ -8,8 +8,9 @@ import com.grappim.db.dao.CategoryDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.di.configs.DatabaseBuildConfigProvider
 import com.grappim.db.di.configs.DatabaseConfigsModule
-import com.grappim.di.ApplicationContext
-import com.grappim.di.DatabaseScope
+import com.grappim.common.di.ApplicationContext
+import com.grappim.common.di.DatabaseScope
+import com.grappim.product_category.db.ProductCategoryDao
 import dagger.Module
 import dagger.Provides
 
@@ -48,5 +49,10 @@ class DatabaseModule {
     fun provideCategoryDao(
         cashierDatabase: CashierDatabase
     ): CategoryDao = cashierDatabase.categoryDao()
+
+    @Provides
+    fun provideProductCategoryDao(
+        cashierDatabase: CashierDatabase
+    ): ProductCategoryDao = cashierDatabase.productCategoryDao()
 
 }

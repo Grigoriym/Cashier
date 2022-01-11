@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.di))
+    implementation(project(Modules.commonDi))
 
     implementation(Deps.Google.dagger)
     kapt(Deps.Google.daggerCompiler)

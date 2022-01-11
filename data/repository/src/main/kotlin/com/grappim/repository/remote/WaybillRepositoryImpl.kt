@@ -4,10 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.db.dao.ProductsDao
-import com.grappim.di.AppScope
-import com.grappim.domain.base.Try
-import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.waybill.*
 import com.grappim.domain.model.product.Product

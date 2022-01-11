@@ -3,8 +3,8 @@ package com.grappim.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.db.dao.ProductsDao
-import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import com.grappim.logger.logE

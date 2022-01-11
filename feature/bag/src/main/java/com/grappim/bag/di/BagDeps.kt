@@ -1,6 +1,6 @@
 package com.grappim.bag.di
 
-import com.grappim.di.deps.ComponentDeps
+import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.domain.repository.ProductsRepository
 
 interface BagDeps : ComponentDeps {

@@ -1,6 +1,6 @@
 package com.grappim.domain.repository
 
-import com.grappim.domain.base.Try
+import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.cashbox.CashBox

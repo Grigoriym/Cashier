@@ -3,15 +3,10 @@ package com.grappim.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.grappim.db.dao.CategoryDao
-import com.grappim.domain.di.IoDispatcher
-import com.grappim.domain.storage.GeneralStorage
+import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.logger.logD
 import com.grappim.logger.logE
-import com.grappim.network.api.CashierApi
-import com.grappim.network.di.api.QualifierCashierApi
-import com.grappim.network.mappers.category.CategoryMapper
-import com.grappim.network.model.category.FilterCategoriesRequestDTO
+import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -21,11 +16,8 @@ import kotlinx.coroutines.withContext
 class CategoriesWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
-    @QualifierCashierApi private val cashierApi: CashierApi,
-    private val generalStorage: GeneralStorage,
-    private val categoryDao: CategoryDao,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val categoryMapper: CategoryMapper
+    private val productCategoryRepository: ProductCategoryRepository,
 ) : CoroutineWorker(context, workerParameters) {
 
     companion object {
@@ -46,18 +38,12 @@ class CategoriesWorker @AssistedInject constructor(
             var productsLoaded = false
 
             while (!productsLoaded) {
-                val request = FilterCategoriesRequestDTO(
+                val categories = productCategoryRepository.filterCategories(
                     offset = newOffset,
-                    limit = CATEGORIES_LIMIT,
-                    merchantId = generalStorage.getMerchantId(),
-                    stockId = generalStorage.stockId
+                    limit = CATEGORIES_LIMIT
                 )
-
-                val response = cashierApi.filterCategories(request)
-                val categories = response.categories
-                if (categories?.isNotEmpty() == true) {
-                    val entities = categoryMapper.dtoToEntityList(categories)
-                    categoryDao.insert(entities)
+                if (categories.isNotEmpty()) {
+                    productCategoryRepository.insertCategories(categories)
                     newOffset += CATEGORIES_LIMIT
                 } else {
                     productsLoaded = true
@@ -66,7 +52,7 @@ class CategoriesWorker @AssistedInject constructor(
 
             logD("worker CategoriesWorker success")
             Result.success()
-        } catch (e: Throwable) {
+        } catch (e: Exception) {
             logE(e)
             Result.failure()
         }

@@ -1,7 +1,7 @@
 package com.grappim.repository.remote
 
-import com.grappim.di.AppScope
-import com.grappim.domain.base.Try
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.sign_up.SignUpUseCase
 import com.grappim.domain.repository.SignUpRepository
 import com.grappim.network.api.AuthApi

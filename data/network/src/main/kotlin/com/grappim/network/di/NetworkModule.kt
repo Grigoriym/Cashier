@@ -5,8 +5,8 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
-import com.grappim.di.ApplicationContext
-import com.grappim.di.NetworkScope
+import com.grappim.common.di.ApplicationContext
+import com.grappim.common.di.NetworkScope
 import com.grappim.logger.logD
 import com.grappim.network.authenticators.TokenAuthenticator
 import com.grappim.network.di.configs.NetworkConfigsModule

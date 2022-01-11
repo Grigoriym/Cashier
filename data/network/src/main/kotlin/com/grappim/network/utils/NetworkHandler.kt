@@ -4,8 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.grappim.di.AppScope
-import com.grappim.di.ApplicationContext
+import com.grappim.common.di.AppScope
+import com.grappim.common.di.ApplicationContext
 import javax.inject.Inject
 
 @AppScope

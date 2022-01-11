@@ -1,9 +1,9 @@
 package com.grappim.repository.local
 
+import com.grappim.common.di.AppScope
 import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.date_time.DateTimeStandard
 import com.grappim.date_time.getZonedDateTimeWithFormatter
-import com.grappim.di.AppScope
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.repository.local.WaybillLocalRepository
 import com.grappim.logger.logD

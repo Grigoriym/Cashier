@@ -1,8 +1,8 @@
 package com.grappim.repository.remote
 
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.db.dao.BasketDao
-import com.grappim.di.AppScope
-import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.repository.PaymentRepository
 import com.grappim.domain.storage.GeneralStorage

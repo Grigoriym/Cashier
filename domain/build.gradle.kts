@@ -7,7 +7,11 @@ plugins {
 dependencies {
     implementation(project(Modules.utilsLogger))
     implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.di))
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonLce))
+    implementation(project(Modules.commonAsynchronous))
+
+    implementation(project(Modules.featureProductCategoryDomain))
 
     implementation(Deps.Kotlin.coroutinesCore)
 

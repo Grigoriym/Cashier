@@ -1,6 +1,6 @@
 package com.grappim.domain.repository
 
-import com.grappim.domain.base.Try
+import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
 import com.grappim.domain.interactor.sales.AddProductToBasketUseCase

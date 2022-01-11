@@ -7,7 +7,7 @@ dependencies {
     implementation(project(Modules.uikit))
     implementation(project(Modules.utilsExtensions))
     implementation(project(Modules.navigation))
-    implementation(project(Modules.di))
+    implementation(project(Modules.commonDi))
     implementation(project(Modules.dataWorkers))
 
     implementation(Deps.AndroidX.lifecycleLiveData)

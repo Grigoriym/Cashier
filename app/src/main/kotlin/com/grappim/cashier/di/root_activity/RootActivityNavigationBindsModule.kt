@@ -8,9 +8,11 @@ import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.cashbox.di.SelectCashBoxNavigator
 import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
+import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
+import com.grappim.products.root.di.ProductsScreenNavigator
 import com.grappim.stock.di.SelectStockScreenNavigator
 import com.grappim.sign_up.di.SignUpScreenNavigator
-import com.grappim.waybill.di.WaybillScreenNavigator
+import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Binds
 import dagger.Module
 
@@ -66,4 +68,14 @@ interface RootActivityNavigationBindsModule {
     fun bindWaybillScreenNavigator(
         navigationManager: NavigationManager
     ): WaybillScreenNavigator
+
+    @Binds
+    fun bindProductsScreenNavigator(
+        navigationManager: NavigationManager
+    ): ProductsScreenNavigator
+
+    @Binds
+    fun bindProductCategoryScreenNavigator(
+        navigationManager: NavigationManager
+    ): ProductCategoryScreenNavigator
 }

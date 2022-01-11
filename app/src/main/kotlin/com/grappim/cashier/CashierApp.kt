@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.work.Configuration
 import com.grappim.cashier.di.app.ApplicationComponent
 import com.grappim.cashier.di.app.DaggerApplicationComponent
-import com.grappim.di.ComponentDependenciesProvider
-import com.grappim.di.deps.HasComponentDeps
+import com.grappim.common.di.ComponentDependenciesProvider
+import com.grappim.common.di.deps.HasComponentDeps
 import javax.inject.Inject
 
 class CashierApp : Application(), Configuration.Provider,

@@ -2,7 +2,7 @@ package com.grappim.workers.di
 
 import android.util.Log
 import androidx.work.Configuration
-import com.grappim.di.AppScope
+import com.grappim.common.di.AppScope
 import dagger.Module
 import dagger.Provides
 

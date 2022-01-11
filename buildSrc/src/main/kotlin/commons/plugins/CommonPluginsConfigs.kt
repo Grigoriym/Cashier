@@ -92,6 +92,10 @@ internal fun Project.getCommonTestDependencies() {
     extensions.getByType<BaseExtension>().run {
         dependencies {
             testImplementation(Deps.Testing.junit)
+            testImplementation(Deps.Testing.assertJCore)
+            testImplementation(Deps.Testing.kotlinTest)
+            testImplementation(Deps.Testing.kotlinCoroutinesTest)
+            testImplementation(Deps.Testing.androidCoreTesting)
 
             androidTestImplementation(Deps.Testing.androidJunit)
             androidTestImplementation(Deps.Testing.androidEspressoCore)

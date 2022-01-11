@@ -2,7 +2,7 @@ package com.grappim.workers
 
 import android.content.Context
 import androidx.work.*
-import com.grappim.domain.di.IoDispatcher
+import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import com.grappim.logger.logE

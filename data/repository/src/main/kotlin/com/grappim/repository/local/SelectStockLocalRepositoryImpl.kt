@@ -1,6 +1,6 @@
 package com.grappim.repository.local
 
-import com.grappim.di.AppScope
+import com.grappim.common.di.AppScope
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import kotlinx.coroutines.flow.Flow

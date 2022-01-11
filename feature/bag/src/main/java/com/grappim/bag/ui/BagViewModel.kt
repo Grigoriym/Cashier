@@ -6,11 +6,10 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.grappim.bag.di.BagScreenNavigator
 import com.grappim.calculations.DecimalFormatSimple
-import com.grappim.cashier.core.functional.WhileViewSubscribed
+import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.common.lce.Try
+import com.grappim.common.lce.withoutParams
 import com.grappim.core.BaseViewModel
-import com.grappim.domain.base.NoParams
-import com.grappim.domain.base.Try
-import com.grappim.domain.base.withoutParams
 import com.grappim.domain.interactor.basket.DeleteBagProductsUseCase
 import com.grappim.domain.interactor.products.GetBagProductsUseCase
 import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
@@ -94,7 +93,7 @@ class BagViewModel @Inject constructor(
 
     fun getBagProducts() {
         viewModelScope.launch {
-            getBagProductsUseCase.invoke(NoParams())
+            getBagProductsUseCase.invoke(withoutParams())
                 .collect {
                     when (it) {
                         is Try.Success -> {

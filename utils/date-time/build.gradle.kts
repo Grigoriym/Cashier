@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.di))
+    implementation(project(Modules.commonDi))
 
     implementation(Deps.Kotlin.time)
 

@@ -147,7 +147,7 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.dataDb))
             implementation(project(Modules.dataRepository))
             implementation(project(Modules.dataWorkers))
-            implementation(project(Modules.di))
+            implementation(project(Modules.commonDi))
 
             implementation(project(Modules.featureAuth))
             implementation(project(Modules.featureWaybill))
@@ -160,6 +160,17 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.featureProducts))
             implementation(project(Modules.featureScanner))
             implementation(project(Modules.featureSignUp))
+
+            implementation(project(Modules.commonDb))
+            implementation(project(Modules.commonLce))
+            implementation(project(Modules.commonAsynchronous))
+
+            implementation(project(Modules.featureProductCategoryPresentation))
+            implementation(project(Modules.featureProductCategoryDomain))
+            implementation(project(Modules.featureProductCategoryNetwork))
+            implementation(project(Modules.featureProductCategoryDb))
+            implementation(project(Modules.featureProductCategoryRepository))
+
             implementation(project(Modules.utilsCalculations))
             implementation(project(Modules.utilsDateTime))
 

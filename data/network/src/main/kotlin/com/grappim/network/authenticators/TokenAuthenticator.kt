@@ -1,7 +1,7 @@
 package com.grappim.network.authenticators
 
-import com.grappim.di.AppScope
-import com.grappim.domain.di.MainDispatcher
+import com.grappim.common.asynchronous.di.MainDispatcher
+import com.grappim.common.di.AppScope
 import com.grappim.domain.storage.GeneralStorage
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.Authenticator

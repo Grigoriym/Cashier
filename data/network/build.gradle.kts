@@ -42,7 +42,12 @@ android {
 dependencies {
     implementation(project(Modules.dataDb))
     implementation(project(Modules.utilsDateTime))
-    implementation(project(Modules.di))
+
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonAsynchronous))
+    implementation(project(Modules.commonLce))
+    
+    implementation(project(Modules.featureProductCategoryNetwork))
 
     api(Deps.Google.gson)
     implementation(Deps.Kotlin.serialization)

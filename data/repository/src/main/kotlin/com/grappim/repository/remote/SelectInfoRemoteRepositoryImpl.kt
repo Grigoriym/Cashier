@@ -1,8 +1,8 @@
 package com.grappim.repository.remote
 
-import com.grappim.di.AppScope
-import com.grappim.domain.base.Try
-import com.grappim.domain.di.ApplicationScope
+import com.grappim.common.asynchronous.di.ApplicationScope
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.cashbox.CashBox

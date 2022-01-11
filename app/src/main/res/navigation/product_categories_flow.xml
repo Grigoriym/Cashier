@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@id/product_categories_flow"
+		app:startDestination="@id/productCategoryList">
+
+	<fragment
+			android:id="@+id/productCategoryList"
+			android:name="com.grappim.product_category.presentation.list.ui.ProductCategoryListFragment">
+
+		<action
+				android:id="@+id/action_productCategoryList_to_createEditProductCategory"
+				app:destination="@id/createEditProductCategory"
+				app:enterAnim="@anim/enter_from_right"
+				app:exitAnim="@anim/exit_to_left"
+				app:popEnterAnim="@anim/pop_enter_from_left"
+				app:popExitAnim="@anim/pop_exit_to_right" />
+
+	</fragment>
+
+	<fragment
+			android:id="@+id/createEditProductCategory"
+			android:name="com.grappim.product_category.presentation.create_edit.ui.CreateEditProductCategoryFragment" />
+</navigation>

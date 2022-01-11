@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.grappim.cashier.ui.root.MainActivity
 import com.grappim.cashier.ui.splash.SplashFragment
-import com.grappim.di.ActivityContext
-import com.grappim.di.ActivityScope
+import com.grappim.common.di.ActivityContext
+import com.grappim.common.di.ActivityScope
 import dagger.BindsInstance
 import dagger.Component
 

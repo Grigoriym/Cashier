@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(Modules.uikit))
-    implementation(project(Modules.di))
+    implementation(project(Modules.commonDi))
 
     implementation(Deps.AndroidX.navigationFragment)
     implementation(Deps.AndroidX.navigationUi)

@@ -15,7 +15,10 @@ android {
 
 dependencies {
     implementation(project(Modules.dataWorkers))
-    implementation(project(Modules.di))
+
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonAsynchronous))
+    implementation(project(Modules.commonLce))
 
     implementation(Deps.AndroidX.biometricKotlin)
 
