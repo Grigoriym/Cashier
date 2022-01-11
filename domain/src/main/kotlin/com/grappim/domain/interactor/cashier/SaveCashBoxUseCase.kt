@@ -1,8 +1,8 @@
 package com.grappim.domain.interactor.cashier
 
-import com.grappim.domain.base.NoParams
-import com.grappim.domain.base.CoroutineUseCase
-import com.grappim.domain.di.IoDispatcher
+import com.grappim.common.asynchronous.CoroutineUseCase
+import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.common.lce.NoParams
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.repository.SelectInfoRemoteRepository
 import kotlinx.coroutines.CoroutineDispatcher

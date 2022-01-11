@@ -7,7 +7,7 @@ import java.util.logging.Logger
 private val Any.logger: Logger
     get() = Logger.getLogger(this::class.java.simpleName)
 
-private const val TAG = "Cashier"
+private const val TAG = "Cashier-app"
 
 private fun defaultLogRecord(msg: String) = LogRecord(Level.FINE, msg).apply {
     loggerName = TAG

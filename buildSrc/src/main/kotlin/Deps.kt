@@ -40,11 +40,6 @@ object Deps {
         const val roomCore = "androidx.room:room-ktx:${Versions.AndroidX.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Versions.AndroidX.room}"
 
-        const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.AndroidX.hiltAndroidX}"
-        const val hiltWork = "androidx.hilt:hilt-work:${Versions.AndroidX.hiltAndroidX}"
-        const val hiltNavigation =
-            "androidx.hilt:hilt-navigation-fragment:${Versions.AndroidX.hiltAndroidX}"
-
         const val biometricKotlin =
             "androidx.biometric:biometric-ktx:${Versions.AndroidX.biometricKotlin}"
     }
@@ -70,8 +65,6 @@ object Deps {
         const val paging = "androidx.paging:paging-compose:${Versions.AndroidX.Compose.paging}"
         const val constraint =
             "androidx.constraintlayout:constraintlayout-compose:${Versions.AndroidX.Compose.constraint}"
-        const val hiltNavigation =
-            "androidx.hilt:hilt-navigation-compose:${Versions.AndroidX.Compose.hiltNavigation}"
         const val navigation =
             "androidx.navigation:navigation-compose:${Versions.AndroidX.Compose.navigation}"
     }
@@ -81,14 +74,8 @@ object Deps {
         const val gson = "com.google.code.gson:gson:${Versions.Google.gson}"
         const val zxingCore = "com.google.zxing:core:${Versions.Google.zxing}"
 
-        // Android library deps
-        const val hilt = "com.google.dagger:hilt-android:${Versions.Google.hilt}"
-        const val hiltAndroidCompiler =
-            "com.google.dagger:hilt-android-compiler:${Versions.Google.hilt}"
-
-        // Pure Java/Kotlin library deps
-        const val hiltPureKotlinCore = "com.google.dagger:hilt-core:${Versions.Google.hilt}"
-        const val hiltPureKotlinCompiler = "com.google.dagger:hilt-compiler:${Versions.Google.hilt}"
+        const val dagger = "com.google.dagger:dagger:${Versions.Google.dagger}"
+        const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.Google.dagger}"
     }
 
     object Testing {
@@ -96,6 +83,13 @@ object Deps {
         const val androidJunit = "androidx.test.ext:junit:${Versions.Testing.androidJunit}"
         const val androidEspressoCore =
             "androidx.test.espresso:espresso-core:${Versions.Testing.androidEspressoCore}"
+
+        const val assertJCore = "org.assertj:assertj-core:${Versions.Testing.assertJCore}"
+        const val kotlinTest = "org.jetbrains.kotlin:kotlin-test:${Versions.Kotlin.core}"
+        const val kotlinCoroutinesTest =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Kotlin.coroutines}"
+        const val androidCoreTesting =
+            "android.arch.core:core-testing:${Versions.Testing.androidCoreTesting}"
     }
 
     object Firebase {
@@ -107,7 +101,8 @@ object Deps {
     const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
-    const val retrofitKotlinSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitKotlinSerialization}"
+    const val retrofitKotlinSerializationConverter =
+        "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitKotlinSerialization}"
 
     const val desugar = "com.android.tools:desugar_jdk_libs:${Versions.desugaring}"
     const val debugDb =

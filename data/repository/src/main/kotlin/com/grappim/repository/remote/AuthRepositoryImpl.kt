@@ -1,18 +1,18 @@
 package com.grappim.repository.remote
 
-import com.grappim.domain.base.Try
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.AuthRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.AuthApi
-import com.grappim.network.di.QualifierAuthApi
+import com.grappim.network.di.api.QualifierAuthApi
 import com.grappim.network.model.login.LoginRequestDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class AuthRepositoryImpl @Inject constructor(
     @QualifierAuthApi private val authApi: AuthApi,
     private val generalStorage: GeneralStorage,

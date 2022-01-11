@@ -16,6 +16,10 @@ dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
 
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonAsynchronous))
+    implementation(project(Modules.commonLce))
+
     implementation(Deps.AndroidX.lifecycleLiveData)
     implementation(Deps.AndroidX.lifecycleViewModel)
     implementation(Deps.AndroidX.lifecycleRuntime)

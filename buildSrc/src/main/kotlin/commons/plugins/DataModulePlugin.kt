@@ -49,8 +49,8 @@ private fun Project.configureDependencies() {
 
             implementation(project(Modules.domain))
 
-            implementation(Deps.Google.hilt)
-            kapt(Deps.Google.hiltAndroidCompiler)
+            implementation(Deps.Google.dagger)
+            kapt(Deps.Google.daggerCompiler)
         }
     }
 }

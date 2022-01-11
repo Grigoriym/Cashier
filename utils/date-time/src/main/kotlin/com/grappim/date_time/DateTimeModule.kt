@@ -2,11 +2,8 @@ package com.grappim.date_time
 
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import java.time.format.DateTimeFormatter
 import javax.inject.Qualifier
-import javax.inject.Singleton
 
 @Qualifier
 annotation class DateTimeStandard
@@ -18,28 +15,23 @@ annotation class DateStandard
 annotation class DateTimeIsoInstant
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DateTimeModule {
+class DateTimeModule {
 
-    private const val DATE_TIME_PATTERN_STANDARD = "dd.MM.yyyy HH:mm"
+    companion object {
+        private const val DATE_TIME_PATTERN_STANDARD = "dd.MM.yyyy HH:mm"
 
-    private const val DATE_PATTERN_STANDARD = "dd.MM.yyyy"
+        private const val DATE_PATTERN_STANDARD = "dd.MM.yyyy"
+    }
 
-    @DateTimeStandard
-    @Provides
-    @Singleton
+    @[Provides DateTimeStandard]
     fun provideDateTimeStandard(): DateTimeFormatter =
         DateTimeFormatter.ofPattern(DATE_TIME_PATTERN_STANDARD)
 
-    @DateStandard
-    @Provides
-    @Singleton
+    @[Provides DateStandard]
     fun provideDateStandard(): DateTimeFormatter =
         DateTimeFormatter.ofPattern(DATE_PATTERN_STANDARD)
 
-    @DateTimeIsoInstant
-    @Provides
-    @Singleton
+    @[Provides DateTimeIsoInstant]
     fun provideIsoInstant(): DateTimeFormatter =
         DateTimeFormatter.ISO_INSTANT
 

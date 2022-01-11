@@ -1,7 +1,8 @@
 package com.grappim.repository.remote
 
-import com.grappim.domain.base.Try
-import com.grappim.domain.di.ApplicationScope
+import com.grappim.common.asynchronous.di.ApplicationScope
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.cashbox.CashBox
@@ -9,7 +10,7 @@ import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.mappers.cashbox.CashBoxMapper
 import com.grappim.network.mappers.outlet.StockMapper
 import com.grappim.network.model.cashbox.GetCashBoxListRequestDTO
@@ -18,9 +19,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class SelectInfoRemoteRepositoryImpl @Inject constructor(
     @QualifierCashierApi private val cashierApi: CashierApi,
     @ApplicationScope private val applicationScope: CoroutineScope,

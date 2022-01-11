@@ -12,18 +12,24 @@ buildscript {
         classpath(BuildPlugins.kotlin)
         classpath(BuildPlugins.kotlinSerialization)
 
-        classpath(BuildPlugins.hilt)
-
         classpath(BuildPlugins.safeArgs)
 
         classpath(BuildPlugins.detekt)
-        classpath(BuildPlugins.gradleVersions)
 
         classpath(BuildPlugins.googleServices)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     }
 }
 
-apply(plugin = Plugins.gradleVersions)
+plugins {
+    id(Plugins.scabbard) version Versions.scabbard
+    id(Plugins.gradleVersions) version Versions.gradleVersions
+}
+
+scabbard {
+    enabled = true
+    outputFormat = "png"
+}
 
 allprojects {
     repositories {

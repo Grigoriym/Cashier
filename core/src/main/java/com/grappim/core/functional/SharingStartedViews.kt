@@ -1,4 +1,4 @@
-package com.grappim.cashier.core.functional
+package com.grappim.core.functional
 
 import kotlinx.coroutines.flow.SharingStarted
 

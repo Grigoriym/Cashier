@@ -1,17 +1,16 @@
 package com.grappim.repository.storage
 
 import android.content.Context
+import com.grappim.common.di.AppScope
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.repository.utils.string
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class GeneralStorageImpl @Inject constructor(
-  @ApplicationContext private val context: Context
+  @com.grappim.common.di.ApplicationContext private val context: Context
 ) : GeneralStorage {
 
     companion object {

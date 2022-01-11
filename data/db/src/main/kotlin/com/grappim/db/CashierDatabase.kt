@@ -13,12 +13,15 @@ import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.BasketProductEntity
 import com.grappim.db.entity.CategoryEntity
 import com.grappim.db.entity.ProductEntity
+import com.grappim.product_category.db.ProductCategoryDao
+import com.grappim.product_category.db.ProductCategoryEntity
 
 @Database(
     entities = [
         ProductEntity::class,
         CategoryEntity::class,
-        BasketProductEntity::class
+        BasketProductEntity::class,
+        ProductCategoryEntity::class
     ],
     version = 1,
     exportSchema = true
@@ -33,4 +36,5 @@ abstract class CashierDatabase : RoomDatabase() {
     abstract fun productsDao(): ProductsDao
     abstract fun basketDao(): BasketDao
     abstract fun categoryDao(): CategoryDao
+    abstract fun productCategoryDao(): ProductCategoryDao
 }

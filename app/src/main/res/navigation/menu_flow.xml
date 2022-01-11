@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_flow"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.grappim.menu.ui.view.MenuFragment" >
+
+        <action
+            android:id="@+id/action_menuFlow_to_productsFlow"
+            app:destination="@id/products_root_flow"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/pop_enter_from_left"
+            app:popExitAnim="@anim/pop_exit_to_right" />
+
+        <action
+            android:id="@+id/action_menuFlow_to_salesFlow"
+            app:destination="@id/sales_flow"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/pop_enter_from_left"
+            app:popExitAnim="@anim/pop_exit_to_right" />
+
+        <action
+            android:id="@+id/action_menuFlow_to_waybillFlow"
+            app:destination="@id/waybill_root_flow"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/pop_enter_from_left"
+            app:popExitAnim="@anim/pop_exit_to_right" />
+
+        <action
+            android:id="@+id/action_menuFlow_to_ProductCategoriesFlow"
+            app:destination="@id/product_categories_root_flow"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/pop_enter_from_left"
+            app:popExitAnim="@anim/pop_exit_to_right" />
+    </fragment>
+
+    <include app:graph="@navigation/waybill_root_flow" />
+    <include app:graph="@navigation/products_root_flow" />
+    <include app:graph="@navigation/sales_flow" />
+    <include app:graph="@navigation/product_categories_root_flow" />
+
+</navigation>

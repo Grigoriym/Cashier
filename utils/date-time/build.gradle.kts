@@ -9,10 +9,12 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.commonDi))
+
     implementation(Deps.Kotlin.time)
 
-    implementation(Deps.Google.hilt)
-    kapt(Deps.Google.hiltAndroidCompiler)
+    implementation(Deps.Google.dagger)
+    kapt(Deps.Google.daggerCompiler)
 
     coreLibraryDesugaring(Deps.desugar)
 }

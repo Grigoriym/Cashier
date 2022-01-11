@@ -3,5 +3,7 @@ package com.grappim.domain.model.menu
 enum class MenuItemType {
     SALES,
     PRODUCTS,
-    ACCEPTANCE
+    ACCEPTANCE,
+    PRODUCT_CATEGORY,
+    SETTINGS
 }

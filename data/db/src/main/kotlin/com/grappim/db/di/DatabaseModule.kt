@@ -2,30 +2,34 @@ package com.grappim.db.di
 
 import android.content.Context
 import androidx.room.Room
-import com.grappim.db.BuildConfig
 import com.grappim.db.CashierDatabase
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.CategoryDao
 import com.grappim.db.dao.ProductsDao
+import com.grappim.db.di.configs.DatabaseBuildConfigProvider
+import com.grappim.db.di.configs.DatabaseConfigsModule
+import com.grappim.common.di.ApplicationContext
+import com.grappim.common.di.DatabaseScope
+import com.grappim.product_category.db.ProductCategoryDao
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
+@Module(
+    includes = [
+        DatabaseConfigsModule::class
+    ]
+)
+class DatabaseModule {
 
-    @[Singleton Provides]
+    @[DatabaseScope Provides]
     fun provideRoomDatabase(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
+        databaseBuildConfigProvider: DatabaseBuildConfigProvider
     ): CashierDatabase =
         Room.databaseBuilder(
             context,
             CashierDatabase::class.java,
-            "cashier_${BuildConfig.BUILD_TYPE}.db"
+            "cashier_${databaseBuildConfigProvider.buildType}.db"
         )
             .fallbackToDestructiveMigration()
             .fallbackToDestructiveMigrationOnDowngrade()
@@ -45,5 +49,10 @@ object DatabaseModule {
     fun provideCategoryDao(
         cashierDatabase: CashierDatabase
     ): CategoryDao = cashierDatabase.categoryDao()
+
+    @Provides
+    fun provideProductCategoryDao(
+        cashierDatabase: CashierDatabase
+    ): ProductCategoryDao = cashierDatabase.productCategoryDao()
 
 }

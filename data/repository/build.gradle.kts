@@ -15,6 +15,14 @@ dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
 
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonDb))
+    implementation(project(Modules.commonLce))
+    implementation(project(Modules.commonAsynchronous))
+
+    implementation(project(Modules.featureProductCategoryRepository))
+    implementation(project(Modules.featureProductCategoryDomain))
+
     implementation(Deps.AndroidX.paging)
 
     coreLibraryDesugaring(Deps.desugar)

@@ -1,21 +1,21 @@
 package com.grappim.repository.remote
 
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.db.dao.BasketDao
-import com.grappim.domain.base.Try
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.repository.PaymentRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.model.payment.CreateOrderDTO
 import com.grappim.network.model.payment.CreateOrderRequestDTO
 import com.grappim.network.model.payment.OrderItemDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class PaymentRepositoryImpl @Inject constructor(
     @QualifierCashierApi private val cashierApi: CashierApi,
     private val basketDao: BasketDao,

@@ -1,13 +1,13 @@
 package com.grappim.repository.local
 
+import com.grappim.common.di.AppScope
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class SelectStockLocalRepositoryImpl @Inject constructor(
 
 ) : SelectStockLocalRepository {

@@ -2,12 +2,9 @@ package com.grappim.calculations
 
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import javax.inject.Qualifier
-import javax.inject.Singleton
 
 @Qualifier
 annotation class DecimalFormatSimple
@@ -16,20 +13,19 @@ annotation class DecimalFormatSimple
 annotation class DecimalFormatFullOptionalDecimal
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DecimalFormatModule {
+class DecimalFormatModule {
 
-    private const val PATTERN_SIMPLE_DECIMAL = "###.##"
-    private const val PATTERN_FULL_OPTIONAL_DECIMAL = "###,###.##"
+    companion object {
+        private const val PATTERN_SIMPLE_DECIMAL = "###.##"
+        private const val PATTERN_FULL_OPTIONAL_DECIMAL = "###,###.##"
 
-    @Provides
-    @Singleton
+    }
+
+    @[Provides]
     fun provideDecimalFormatSymbols(): DecimalFormatSymbols =
         DecimalFormatSymbols()
 
-    @Provides
-    @Singleton
-    @DecimalFormatSimple
+    @[Provides DecimalFormatSimple]
     fun provideSimpleDecimal(
         decimalFormatSymbols: DecimalFormatSymbols
     ): DecimalFormat {
@@ -39,9 +35,7 @@ object DecimalFormatModule {
         return DecimalFormat(PATTERN_SIMPLE_DECIMAL, dfs)
     }
 
-    @Provides
-    @Singleton
-    @DecimalFormatFullOptionalDecimal
+    @[Provides DecimalFormatFullOptionalDecimal]
     fun getFullOptionalDecimal(
         decimalFormatSymbols: DecimalFormatSymbols
     ): DecimalFormat {

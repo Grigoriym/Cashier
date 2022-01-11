@@ -1,7 +1,7 @@
 package com.grappim.domain.repository
 
 import androidx.paging.PagingData
-import com.grappim.domain.base.Try
+import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.waybill.*
 import com.grappim.domain.model.product.Product

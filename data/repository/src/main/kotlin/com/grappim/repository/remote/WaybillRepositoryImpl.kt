@@ -4,9 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.db.dao.ProductsDao
-import com.grappim.domain.base.Try
-import com.grappim.domain.di.IoDispatcher
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.waybill.*
 import com.grappim.domain.model.product.Product
@@ -17,7 +18,7 @@ import com.grappim.domain.model.waybill.WaybillType
 import com.grappim.domain.repository.WaybillRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.WaybillApi
-import com.grappim.network.di.QualifierWaybillApi
+import com.grappim.network.di.api.QualifierWaybillApi
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.mappers.waybill.WaybillMapper
 import com.grappim.network.mappers.waybill.WaybillProductMapper
@@ -30,9 +31,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class WaybillRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @QualifierWaybillApi private val waybillApi: WaybillApi,

@@ -51,8 +51,8 @@ internal fun Project.getCommonAndroidDependencies() =
             implementation(Deps.AndroidX.navigationFragment)
             implementation(Deps.AndroidX.navigationUi)
 
-            implementation(Deps.Google.hilt)
-            kapt(Deps.Google.hiltAndroidCompiler)
+            implementation(Deps.Google.dagger)
+            kapt(Deps.Google.daggerCompiler)
         }
     }
 
@@ -92,6 +92,10 @@ internal fun Project.getCommonTestDependencies() {
     extensions.getByType<BaseExtension>().run {
         dependencies {
             testImplementation(Deps.Testing.junit)
+            testImplementation(Deps.Testing.assertJCore)
+            testImplementation(Deps.Testing.kotlinTest)
+            testImplementation(Deps.Testing.kotlinCoroutinesTest)
+            testImplementation(Deps.Testing.androidCoreTesting)
 
             androidTestImplementation(Deps.Testing.androidJunit)
             androidTestImplementation(Deps.Testing.androidEspressoCore)

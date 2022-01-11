@@ -1,30 +1,35 @@
 package com.grappim.cashier
 
 import android.app.Application
-import android.util.Log
-import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
-import com.grappim.cashier.core.platform.FocusedActivityHolder
-import dagger.hilt.android.HiltAndroidApp
+import com.grappim.cashier.di.app.ApplicationComponent
+import com.grappim.cashier.di.app.DaggerApplicationComponent
+import com.grappim.common.di.ComponentDependenciesProvider
+import com.grappim.common.di.deps.HasComponentDeps
 import javax.inject.Inject
 
-@HiltAndroidApp
-class CashierApp : Application(), Configuration.Provider {
+class CashierApp : Application(), Configuration.Provider,
+    HasComponentDeps {
 
     @Inject
-    lateinit var focusedActivityHolder: FocusedActivityHolder
+    override lateinit var deps: ComponentDependenciesProvider
+        internal set
 
     @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+    lateinit var workerConfiguration: Configuration
+
+    val appComponent: ApplicationComponent by lazy {
+        DaggerApplicationComponent
+            .factory()
+            .create(this)
+    }
 
     override fun onCreate() {
         super.onCreate()
-        focusedActivityHolder.startListen(this)
+        appComponent.inject(this)
     }
 
     override fun getWorkManagerConfiguration(): Configuration =
-        Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .setMinimumLoggingLevel(Log.DEBUG)
-            .build()
+        workerConfiguration
+
 }

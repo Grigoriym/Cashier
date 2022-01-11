@@ -54,35 +54,35 @@ interface CashierApi {
         @Body getCashBoxListRequestDTO: GetCashBoxListRequestDTO
     ): GetCashBoxListResponseDTO
 
-    @GET("category/{categoryId}")
-    @RequestWithAuthToken
-    suspend fun getCategoryById(
-        @Path("categoryId") categoryId: String
-    ): CategoryDTO
+//    @GET("category/{categoryId}")
+//    @RequestWithAuthToken
+//    suspend fun getCategoryById(
+//        @Path("categoryId") categoryId: String
+//    ): CategoryDTO
 
-    @POST("category")
-    @RequestWithAuthToken
-    suspend fun createCategory(
-        @Body createCategoryRequestDTO: CreateCategoryRequestDTO
-    ): CreateCategoryResponseDTO
+//    @POST("category")
+//    @RequestWithAuthToken
+//    suspend fun createCategory(
+//        @Body createCategoryRequestDTO: CreateCategoryRequestDTO
+//    ): CreateCategoryResponseDTO
 
-    @PUT("category")
-    @RequestWithAuthToken
-    suspend fun updateCategory(
-        @Body updateCategoryRequestDTO: UpdateCategoryRequestDTO
-    ): CreateCategoryResponseDTO
+//    @PUT("category")
+//    @RequestWithAuthToken
+//    suspend fun updateCategory(
+//        @Body updateCategoryRequestDTO: UpdateCategoryRequestDTO
+//    ): CreateCategoryResponseDTO
 
-    @POST("category/filter")
-    @RequestWithAuthToken
-    suspend fun filterCategories(
-        @Body filterCategoriesRequestDTO: FilterCategoriesRequestDTO
-    ): FilterCategoriesResponseDTO
+//    @POST("category/filter")
+//    @RequestWithAuthToken
+//    suspend fun filterCategories(
+//        @Body filterCategoriesRequestDTO: FilterCategoriesRequestDTO
+//    ): FilterCategoriesResponseDTO
 
-    @DELETE("category/{categoryId}")
-    @RequestWithAuthToken
-    suspend fun deleteCategoryById(
-        @Path("categoryId") categoryId: String
-    ): CreateCategoryResponseDTO
+//    @DELETE("category/{categoryId}")
+//    @RequestWithAuthToken
+//    suspend fun deleteCategoryById(
+//        @Path("categoryId") categoryId: String
+//    ): CreateCategoryResponseDTO
 
     @POST("product/sync")
     @RequestWithAuthToken

@@ -17,11 +17,12 @@ object Plugins {
 
     const val javaLibrary = "java-library"
 
-    const val hiltAndroid = "dagger.hilt.android.plugin"
     const val safeArgs = "androidx.navigation.safeargs.kotlin"
     const val detekt = "io.gitlab.arturbosch.detekt"
     const val gradleVersions = "com.github.ben-manes.versions"
     const val gradleDoctor = "com.osacky.doctor"
 
     const val googleServices = "com.google.gms.google-services"
+
+    const val scabbard = "scabbard.gradle"
 }

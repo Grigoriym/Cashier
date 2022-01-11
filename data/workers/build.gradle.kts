@@ -8,8 +8,12 @@ dependencies {
     implementation(project(Modules.dataDb))
     implementation(project(Modules.dataRepository))
 
-    implementation(Deps.AndroidX.workManager)
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonDb))
+    implementation(project(Modules.commonAsynchronous))
 
-    implementation(Deps.AndroidX.hiltWork)
-    kapt(Deps.AndroidX.hiltCompiler)
+    implementation(project(Modules.featureProductCategoryDb))
+    implementation(project(Modules.featureProductCategoryDomain))
+
+    implementation(Deps.AndroidX.workManager)
 }

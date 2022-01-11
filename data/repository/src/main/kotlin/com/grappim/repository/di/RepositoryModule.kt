@@ -4,17 +4,16 @@ import com.grappim.domain.repository.*
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.product_category.domain.repository.ProductCategoryRepository
+import com.grappim.product_category.repository.ProductCategoryRepositoryImpl
 import com.grappim.repository.local.SelectCashBoxLocalRepositoryImpl
 import com.grappim.repository.local.SelectStockLocalRepositoryImpl
 import com.grappim.repository.local.WaybillLocalRepositoryImpl
 import com.grappim.repository.remote.*
 import dagger.Binds
 import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
 interface RepositoryModule {
 
     @Binds
@@ -66,4 +65,9 @@ interface RepositoryModule {
     fun bindSelectCashBoxRepository(
         selectCashBoxLocalRepositoryImpl: SelectCashBoxLocalRepositoryImpl
     ): SelectCashBoxLocalRepository
+
+    @Binds
+    fun bindProductCategoryRepository(
+        productCategoryRepositoryImpl: ProductCategoryRepositoryImpl
+    ): ProductCategoryRepository
 }

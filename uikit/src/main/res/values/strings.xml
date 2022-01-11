@@ -51,6 +51,8 @@
     <string name="title_acceptance_number">Acceptance number %1$s</string>
     <string name="acceptance_product">Acceptance product</string>
 
+    <string name="title_product_categories">Categories</string>
+
     <string name="waybill_error_no_product">You need to create a new product before adding it to acceptance</string>
 
     <string name="product_search_product">Search products</string>
@@ -74,6 +76,7 @@
 
     <string name="action_conduct">Conduct</string>
     <string name="action_rollback">Rollback</string>
+    <string name="action_create">Create</string>
 
     <string name="title_empty"></string>
 

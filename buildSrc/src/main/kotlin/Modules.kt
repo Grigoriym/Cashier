@@ -28,4 +28,14 @@ object Modules {
     const val featureScanner = ":feature:scanner"
     const val featureSignUp = ":feature:sign-up"
 
+    const val commonDb = ":common:db"
+    const val commonLce = ":common:lce"
+    const val commonAsynchronous = ":common:asynchronous"
+    const val commonDi = ":common:di"
+
+    const val featureProductCategoryPresentation = ":feature:product-category:presentation"
+    const val featureProductCategoryDomain = ":feature:product-category:domain"
+    const val featureProductCategoryNetwork = ":feature:product-category:network"
+    const val featureProductCategoryDb = ":feature:product-category:db"
+    const val featureProductCategoryRepository = ":feature:product-category:repository"
 }

@@ -1,12 +1,13 @@
 package com.grappim.repository.remote
 
 import com.grappim.calculations.bigDecimalZero
+import com.grappim.common.asynchronous.di.ApplicationScope
+import com.grappim.common.di.AppScope
+import com.grappim.common.lce.Try
 import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
-import com.grappim.domain.base.Try
-import com.grappim.domain.di.ApplicationScope
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
 import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
@@ -18,7 +19,7 @@ import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.logger.logD
 import com.grappim.network.api.CashierApi
-import com.grappim.network.di.QualifierCashierApi
+import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.model.products.CreateProductRequestDTO
 import com.grappim.network.model.products.CreateProductRequestParamsDTO
@@ -31,9 +32,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class ProductsRepositoryImpl @Inject constructor(
     private val productsDao: ProductsDao,
     private val productMapper: ProductMapper,

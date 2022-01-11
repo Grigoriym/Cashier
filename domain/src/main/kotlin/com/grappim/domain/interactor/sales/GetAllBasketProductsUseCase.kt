@@ -1,9 +1,8 @@
 package com.grappim.domain.interactor.sales
 
-import com.grappim.domain.base.NoParams
-import com.grappim.domain.base.SimpleFlowUseCase
-import com.grappim.domain.di.IoDispatcher
-import com.grappim.domain.model.basket.Basket
+import com.grappim.common.asynchronous.SimpleFlowUseCase
+import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.common.lce.NoParams
 import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.repository.ProductsRepository
 import kotlinx.coroutines.CoroutineDispatcher

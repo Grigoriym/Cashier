@@ -1,5 +1,6 @@
 package com.grappim.repository.local
 
+import com.grappim.common.di.AppScope
 import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.date_time.DateTimeStandard
 import com.grappim.date_time.getZonedDateTimeWithFormatter
@@ -10,15 +11,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
-import java.time.Instant
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class WaybillLocalRepositoryImpl @Inject constructor(
-  @DateTimeIsoInstant private val dtfIso: DateTimeFormatter,
-  @DateTimeStandard private val dtfStandard: DateTimeFormatter
+    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter,
+    @DateTimeStandard private val dtfStandard: DateTimeFormatter
 ) : WaybillLocalRepository {
 
     private var _waybill: Waybill? = null
@@ -27,7 +26,7 @@ class WaybillLocalRepositoryImpl @Inject constructor(
 
     override val waybillFlow: Flow<Waybill>
         get() = _waybillFlow.asStateFlow()
-          .filterNotNull()
+            .filterNotNull()
 
     override val waybill: Waybill
         get() = requireNotNull(_waybill)

@@ -16,6 +16,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.project
+import org.jetbrains.kotlin.gradle.plugin.KaptAnnotationProcessorOptions
 
 internal class AndroidAppModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -37,7 +38,6 @@ internal class AndroidAppModulePlugin : Plugin<Project> {
 private fun Project.configurePlugins() =
     extensions.getByType<BaseAppModuleExtension>().run {
         getCommonPlugins()
-        plugins.apply(Plugins.hiltAndroid)
         plugins.apply(Plugins.safeArgs)
 
         plugins.apply(Plugins.googleServices)
@@ -92,6 +92,11 @@ private fun Project.configureCommonDependencies() {
     }
 }
 
+private fun KaptAnnotationProcessorOptions.daggerSettings(){
+    arg("dagger.formatGeneratedSource", "enabled")
+    arg("dagger.fullBindingGraphValidation", "ERROR")
+}
+
 private fun Project.configureAppAndroidBlock() =
     extensions.getByType<BaseAppModuleExtension>().run {
         defaultConfig {
@@ -105,6 +110,9 @@ private fun Project.configureAppAndroidBlock() =
 
             javacOptions {
                 option("-Xmaxerrs", 500)
+            }
+            arguments {
+                daggerSettings()
             }
         }
 
@@ -139,6 +147,7 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.dataDb))
             implementation(project(Modules.dataRepository))
             implementation(project(Modules.dataWorkers))
+            implementation(project(Modules.commonDi))
 
             implementation(project(Modules.featureAuth))
             implementation(project(Modules.featureWaybill))
@@ -151,6 +160,17 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.featureProducts))
             implementation(project(Modules.featureScanner))
             implementation(project(Modules.featureSignUp))
+
+            implementation(project(Modules.commonDb))
+            implementation(project(Modules.commonLce))
+            implementation(project(Modules.commonAsynchronous))
+
+            implementation(project(Modules.featureProductCategoryPresentation))
+            implementation(project(Modules.featureProductCategoryDomain))
+            implementation(project(Modules.featureProductCategoryNetwork))
+            implementation(project(Modules.featureProductCategoryDb))
+            implementation(project(Modules.featureProductCategoryRepository))
+
             implementation(project(Modules.utilsCalculations))
             implementation(project(Modules.utilsDateTime))
 
@@ -180,14 +200,9 @@ private fun Project.getAppDependencies() {
             implementation(Deps.Compose.lifecycleViewModel)
             implementation(Deps.Compose.paging)
             implementation(Deps.Compose.constraint)
-            implementation(Deps.Compose.hiltNavigation)
             implementation(Deps.Compose.navigation)
 
             implementation(Deps.accompanistSwipeRefresh)
-
-            implementation(Deps.AndroidX.hiltNavigation)
-            implementation(Deps.AndroidX.hiltWork)
-            kapt(Deps.AndroidX.hiltCompiler)
 
             implementation(Deps.Google.zxingCore)
             implementation(Deps.combineTupleLiveData)

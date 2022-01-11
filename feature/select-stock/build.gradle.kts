@@ -20,6 +20,10 @@ dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
 
+    implementation(project(Modules.commonDi))
+    implementation(project(Modules.commonAsynchronous))
+    implementation(project(Modules.commonLce))
+
     coreLibraryDesugaring(Deps.desugar)
 
     implementation(Deps.AndroidX.lifecycleLiveData)

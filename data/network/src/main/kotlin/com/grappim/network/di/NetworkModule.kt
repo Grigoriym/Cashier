@@ -5,17 +5,18 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
+import com.grappim.common.di.ApplicationContext
+import com.grappim.common.di.NetworkScope
 import com.grappim.logger.logD
-import com.grappim.network.BuildConfig
 import com.grappim.network.authenticators.TokenAuthenticator
+import com.grappim.network.di.configs.NetworkConfigsModule
+import com.grappim.network.di.configs.CashierApiUrlProvider
+import com.grappim.network.di.configs.NetworkBuildConfigProvider
 import com.grappim.network.interceptors.AuthTokenInterceptor
 import com.grappim.network.interceptors.ErrorMappingInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -23,13 +24,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object NetworkModule {
+@Module(
+    includes = [
+        NetworkConfigsModule::class
+    ]
+)
+class NetworkModule {
 
-    @[Singleton Provides]
+    @[NetworkScope Provides]
     fun provideRetrofitBuilder(
         gson: Gson
     ): Retrofit.Builder =
@@ -37,16 +40,17 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
 
-    @[Singleton Provides]
+    @[NetworkScope Provides]
     fun provideCashierRetrofit(
         builder: Retrofit.Builder,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
+        cashierApiUrlProvider: CashierApiUrlProvider
     ): Retrofit =
-        builder.baseUrl(BuildConfig.CASHIER_API)
+        builder.baseUrl(cashierApiUrlProvider.cashierApi)
             .client(okHttpClient)
             .build()
 
-    @[Singleton Provides]
+    @[NetworkScope Provides]
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor { message ->
             logD("API", message)
@@ -54,13 +58,14 @@ object NetworkModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-    @[Singleton Provides]
+    @[NetworkScope Provides]
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         errorMappingInterceptor: ErrorMappingInterceptor,
         chuckerInterceptor: ChuckerInterceptor,
         authTokenInterceptor: AuthTokenInterceptor,
-        tokenAuthenticator: TokenAuthenticator
+        tokenAuthenticator: TokenAuthenticator,
+        networkBuildConfigProvider: NetworkBuildConfigProvider
     ): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(30L, TimeUnit.SECONDS)
@@ -69,14 +74,14 @@ object NetworkModule {
             .addInterceptor(authTokenInterceptor)
             .authenticator(tokenAuthenticator)
             .apply {
-                if (BuildConfig.DEBUG) {
+                if (networkBuildConfigProvider.debug) {
                     addInterceptor(loggingInterceptor)
                     addInterceptor(chuckerInterceptor)
                 }
             }
             .build()
 
-    @[Singleton Provides]
+    @[NetworkScope Provides]
     fun provideChuckerInterceptor(
         @ApplicationContext appContext: Context
     ): ChuckerInterceptor {
