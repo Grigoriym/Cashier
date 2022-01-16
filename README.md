@@ -10,7 +10,7 @@ I do this because I had an experience with an app of such functionality.
 
 ### Project structure
 [Here you can see the app flow](https://drive.google.com/file/d/1pnAnRmdSb6lBLid0wilV6QIFNJxLDUOW/view?usp=sharing)
-[](https://github.com/Grigoriym/Cashier/blob/master/art/app_flow.png)
+![](https://github.com/Grigoriym/Cashier/blob/master/art/app_flow.png)
 
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
