@@ -8,6 +8,10 @@ Well, this app actually does this. You can choose products, you can sell them, y
 There is also such a feature as Waybill, this is needed for sellers when some new products are shipped to this grocery and a seller has to add them to the database of products and to their grocery.
 I do this because I had an experience with an app of such functionality.
 
+### Project structure
+[Here you can see the app flow](https://drive.google.com/file/d/1pnAnRmdSb6lBLid0wilV6QIFNJxLDUOW/view?usp=sharing)
+[](https://github.com/Grigoriym/Cashier/blob/master/art/app_flow.png)
+
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - is Android’s modern toolkit for building native UI.
