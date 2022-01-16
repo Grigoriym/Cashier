@@ -8,7 +8,7 @@
         android:id="@+id/selectStockFragment"
         android:name="com.grappim.stock.ui.view.SelectStockFragment">
         <action
-            android:id="@+id/action_selectStockFlow_to_selectCashboxFlow"
+            android:id="@+id/action_selectStockFlow_to_selectCashboxFlow_d"
             app:destination="@id/select_cashbox_flow"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"

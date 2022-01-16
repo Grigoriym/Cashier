@@ -1,6 +1,7 @@
 package com.grappim.cashier.di.root_activity
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.grappim.cashier.ui.root.MainActivity
 import com.grappim.cashier.ui.splash.SplashFragment
@@ -27,6 +28,7 @@ interface RootActivityComponent : FeatureDeps {
         fun create(
             @BindsInstance @ActivityContext context: Context,
             @BindsInstance fragmentManager: FragmentManager,
+            @BindsInstance activity: AppCompatActivity,
             rootActivityDeps: RootActivityDeps
         ): RootActivityComponent
     }

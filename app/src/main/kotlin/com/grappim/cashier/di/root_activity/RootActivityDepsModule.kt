@@ -2,16 +2,15 @@ package com.grappim.cashier.di.root_activity
 
 import com.grappim.auth.di.AuthDeps
 import com.grappim.bag.di.BagDeps
-import com.grappim.cashbox.di.SelectCashBoxDeps
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.ComponentDepsKey
 import com.grappim.menu.di.MenuDeps
 import com.grappim.payment_method.di.PaymentMethodDeps
 import com.grappim.product_category.presentation.root.di.ProductCategoryRootDeps
 import com.grappim.products.root.di.ProductsRootDeps
+import com.grappim.root_presentation.di.SelectInfoRootDeps
 import com.grappim.sales.di.SalesDeps
 import com.grappim.sign_up.di.SignUpDeps
-import com.grappim.stock.di.SelectStockDeps
 import com.grappim.waybill.ui.root.di.WaybillRootDeps
 import dagger.Binds
 import dagger.Module
@@ -30,13 +29,8 @@ interface RootActivityDepsModule {
         component: RootActivityComponent
     ): ComponentDeps
 
-    @[Binds IntoMap ComponentDepsKey(SelectStockDeps::class)]
-    fun bindSelectStockDeps(
-        component: RootActivityComponent
-    ): ComponentDeps
-
-    @[Binds IntoMap ComponentDepsKey(SelectCashBoxDeps::class)]
-    fun bindSelectCashierDeps(
+    @[Binds IntoMap ComponentDepsKey(SelectInfoRootDeps::class)]
+    fun bindSelectInfoRootDeps(
         component: RootActivityComponent
     ): ComponentDeps
 

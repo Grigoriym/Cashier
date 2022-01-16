@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@id/select_info_flow"
+		app:startDestination="@id/fragmentSelectInfoRoot">
+
+	<fragment
+		android:id="@+id/fragmentSelectInfoRoot"
+		android:name="com.grappim.root_presentation.ui.SelectInfoRootFragment">
+		<action
+				android:id="@+id/action_selectInfo_to_menuFlow"
+				app:destination="@id/menu_flow"
+				app:enterAnim="@anim/enter_from_right"
+				app:exitAnim="@anim/exit_to_left"
+				app:popEnterAnim="@anim/pop_enter_from_left"
+				app:popExitAnim="@anim/pop_exit_to_right" />
+	</fragment>
+
+<!--	<fragment-->
+<!--			android:id="@+id/fragmentSelectStock"-->
+<!--			android:name="com.grappim.stock.ui.view.SelectStockFragment" >-->
+
+<!--		<action-->
+<!--				android:id="@+id/action_selectStockFlow_to_selectCashboxFlow"-->
+<!--				app:destination="@id/fragmentSelectCashBox"-->
+<!--				app:enterAnim="@anim/enter_from_right"-->
+<!--				app:exitAnim="@anim/exit_to_left"-->
+<!--				app:popEnterAnim="@anim/pop_enter_from_left"-->
+<!--				app:popExitAnim="@anim/pop_exit_to_right" />-->
+
+<!--	</fragment>-->
+
+<!--	<fragment-->
+<!--		android:id="@+id/fragmentSelectCashBox"-->
+<!--		android:name="com.grappim.cashbox.ui.view.SelectCashBoxFragment">-->
+<!--		<action-->
+<!--				android:id="@+id/action_selectCashboxFlow_to_menuFlow"-->
+<!--				app:destination="@id/menu_flow"-->
+<!--				app:enterAnim="@anim/enter_from_right"-->
+<!--				app:exitAnim="@anim/exit_to_left"-->
+<!--				app:popEnterAnim="@anim/pop_enter_from_left"-->
+<!--				app:popExitAnim="@anim/pop_exit_to_right" />-->
+<!--	</fragment>-->
+
+	<include app:graph="@navigation/menu_flow" />
+
+</navigation>

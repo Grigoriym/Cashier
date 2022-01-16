@@ -24,7 +24,7 @@ object Versions {
         const val room = "2.4.0"
         const val workManager = "2.5.0"
         const val startup = "1.1.0"
-        const val viewPager2 = "1.0.0"
+        const val viewPager2 = "1.1.0-beta01"
         const val swipeRefresh = "1.1.0"
         const val biometricKotlin = "1.2.0-alpha04"
 
@@ -52,6 +52,8 @@ object Versions {
         const val assertJCore = "3.18.1"
         const val androidCoreTesting = "1.1.1"
     }
+
+    const val lint = "30.0.4"
 
     const val firebaseBom = "28.4.2"
 

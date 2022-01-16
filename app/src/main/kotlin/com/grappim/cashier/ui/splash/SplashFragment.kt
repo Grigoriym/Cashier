@@ -45,7 +45,7 @@ class SplashFragment : BaseFragment<SplashViewModel>(R.layout.fragment_splash) {
             .setDuration(SCREEN_DELAY)
             .interpolator = AccelerateDecelerateInterpolator()
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             delay(SCREEN_DELAY)
             viewModel.goToAuth()
         }

@@ -61,4 +61,5 @@ private fun Project.configureCommonTestDependencies() {
 }
 
 private fun Project.isFeatureModule(): Boolean =
-    displayName.contains(":feature:")
+    displayName.contains(":feature:") ||
+      displayName.contains("presentation")

@@ -1,29 +1,26 @@
 package com.grappim.cashier.core.navigation
 
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.NavGraph
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.fragment.fragment
 import com.grappim.auth.di.AuthScreenNavigator
 import com.grappim.bag.di.BagScreenNavigator
-import com.grappim.cashbox.di.SelectCashBoxNavigator
 import com.grappim.cashier.R
 import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.common.di.ActivityScope
 import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
-import com.grappim.product_category.presentation.list.ui.ProductCategoryListFragment
 import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
 import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
 import com.grappim.products.root.di.ProductsScreenNavigator
+import com.grappim.root_presentation.ui.SelectInfoRootFragment
 import com.grappim.sales.di.SalesScreenNavigator
+import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
 import com.grappim.sign_up.di.SignUpScreenNavigator
-import com.grappim.stock.di.SelectStockScreenNavigator
 import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Lazy
 import javax.inject.Inject
@@ -31,10 +28,9 @@ import javax.inject.Inject
 @ActivityScope
 class NavigationManager @Inject constructor(
     private val supportFragmentManager: FragmentManager,
-    private val navController: Lazy<NavController>
+    private val navController: Lazy<NavController>,
+    private val activity: AppCompatActivity
 ) : AuthScreenNavigator, SignUpScreenNavigator,
-    SelectStockScreenNavigator,
-    SelectCashBoxNavigator,
     MenuScreenNavigator,
     SalesScreenNavigator,
     BagScreenNavigator,
@@ -42,7 +38,8 @@ class NavigationManager @Inject constructor(
     WaybillScreenNavigator,
     SplashScreenNavigator,
     ProductsScreenNavigator,
-    ProductCategoryScreenNavigator {
+    ProductCategoryScreenNavigator,
+    SelectInfoFlowScreenNavigator {
 
     private fun navigateTo(directions: NavDirections) {
         navController
@@ -68,20 +65,33 @@ class NavigationManager @Inject constructor(
         navigateTo(R.id.action_authFlow_to_signUpFlow)
     }
 
-    override fun goToSelectStock() {
-        navigateTo(R.id.action_authFlow_to_stockFlow)
-    }
-
     override fun returnToAuthFromSignUp() {
         navigateBack()
     }
 
+    override fun goToSelectStock() {
+//        supportFragmentManager.commit {
+//            setReorderingAllowed(true)
+//            setCustomAnimations(
+//                R.anim.enter_from_right,
+//                R.anim.exit_to_left,
+//                R.anim.pop_enter_from_left,
+//                R.anim.pop_exit_to_right
+//            )
+//            replace<SelectInfoRootFragment>(
+//                R.id.nav_host_fragment,
+//                SelectInfoRootFragment::class.java.canonicalName
+//            )
+//        }
+        navigateTo(R.id.select_info_flow)
+    }
+
     override fun goToSelectCashBox() {
-        navigateTo(R.id.action_selectStockFlow_to_selectCashboxFlow)
+//        navigateTo(R.id.action_selectStockFlow_to_selectCashboxFlow)
     }
 
     override fun goToMenu() {
-        navigateTo(R.id.action_selectCashboxFlow_to_menuFlow)
+        navigateTo(R.id.action_selectInfo_to_menuFlow)
     }
 
     override fun goToWaybill() {
@@ -141,5 +151,9 @@ class NavigationManager @Inject constructor(
 
     override fun goBack() {
         navigateBack()
+    }
+
+    override fun onBackPressed() {
+        activity.onBackPressed()
     }
 }

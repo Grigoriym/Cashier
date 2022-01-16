@@ -18,8 +18,6 @@ object Modules {
 
     const val featureAuth = ":feature:auth"
     const val featureWaybill = ":feature:waybill"
-    const val featureSelectStock = ":feature:select-stock"
-    const val featureSelectCashBox = ":feature:select-cashbox"
     const val featureBag = ":feature:bag"
     const val featurePaymentMethod = ":feature:payment-method"
     const val featureSales = ":feature:sales"
@@ -27,6 +25,11 @@ object Modules {
     const val featureProducts = ":feature:products"
     const val featureScanner = ":feature:scanner"
     const val featureSignUp = ":feature:sign-up"
+
+    const val featureSelectInfoRootPresentation = ":feature:select-info:root-presentation"
+    const val featureSelectInfoNavigation = ":feature:select-info:common-navigation"
+    const val selectInfoSelectStock = ":feature:select-info:select-stock"
+    const val selectInfoSelectCashbox = ":feature:select-info:select-cashbox"
 
     const val commonDb = ":common:db"
     const val commonLce = ":common:lce"

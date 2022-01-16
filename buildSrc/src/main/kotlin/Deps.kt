@@ -97,6 +97,8 @@ object Deps {
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
     }
 
+    const val lintApi = "com.android.tools.lint:lint-api:${Versions.lint}"
+
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"

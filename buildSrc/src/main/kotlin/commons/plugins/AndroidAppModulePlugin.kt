@@ -43,6 +43,11 @@ private fun Project.configurePlugins() =
         plugins.apply(Plugins.googleServices)
         plugins.apply(Plugins.detekt)
 
+        turnOffGoogleServicesOnDebugBuilds()
+    }
+
+private fun Project.turnOffGoogleServicesOnDebugBuilds() =
+    extensions.getByType<BaseAppModuleExtension>().run {
         applicationVariants.all {
             println("asd ${this.name}")
             if (this.name.contains("qa") ||
@@ -92,7 +97,7 @@ private fun Project.configureCommonDependencies() {
     }
 }
 
-private fun KaptAnnotationProcessorOptions.daggerSettings(){
+private fun KaptAnnotationProcessorOptions.daggerSettings() {
     arg("dagger.formatGeneratedSource", "enabled")
     arg("dagger.fullBindingGraphValidation", "ERROR")
 }
@@ -118,6 +123,10 @@ private fun Project.configureAppAndroidBlock() =
 
         lint {
             isAbortOnError = false
+            isCheckReleaseBuilds = false
+            isIgnoreTestSources = true
+            isWarningsAsErrors = true
+            xmlReport = false
         }
 
         buildFeatures {
@@ -147,12 +156,14 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.dataDb))
             implementation(project(Modules.dataRepository))
             implementation(project(Modules.dataWorkers))
+
             implementation(project(Modules.commonDi))
+            implementation(project(Modules.commonDb))
+            implementation(project(Modules.commonLce))
+            implementation(project(Modules.commonAsynchronous))
 
             implementation(project(Modules.featureAuth))
             implementation(project(Modules.featureWaybill))
-            implementation(project(Modules.featureSelectCashBox))
-            implementation(project(Modules.featureSelectStock))
             implementation(project(Modules.featureBag))
             implementation(project(Modules.featurePaymentMethod))
             implementation(project(Modules.featureSales))
@@ -161,9 +172,10 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.featureScanner))
             implementation(project(Modules.featureSignUp))
 
-            implementation(project(Modules.commonDb))
-            implementation(project(Modules.commonLce))
-            implementation(project(Modules.commonAsynchronous))
+            implementation(project(Modules.featureSelectInfoRootPresentation))
+            implementation(project(Modules.selectInfoSelectStock))
+            implementation(project(Modules.selectInfoSelectCashbox))
+            implementation(project(Modules.featureSelectInfoNavigation))
 
             implementation(project(Modules.featureProductCategoryPresentation))
             implementation(project(Modules.featureProductCategoryDomain))

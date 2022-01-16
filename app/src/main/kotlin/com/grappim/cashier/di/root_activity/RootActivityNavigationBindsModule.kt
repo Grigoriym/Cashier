@@ -1,16 +1,15 @@
 package com.grappim.cashier.di.root_activity
 
-import com.grappim.cashier.core.navigation.NavigationManager
 import com.grappim.auth.di.AuthScreenNavigator
 import com.grappim.bag.di.BagScreenNavigator
-import com.grappim.menu.di.MenuScreenNavigator
-import com.grappim.sales.di.SalesScreenNavigator
-import com.grappim.cashbox.di.SelectCashBoxNavigator
+import com.grappim.cashier.core.navigation.NavigationManager
 import com.grappim.cashier.di.splash.SplashScreenNavigator
+import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
 import com.grappim.products.root.di.ProductsScreenNavigator
-import com.grappim.stock.di.SelectStockScreenNavigator
+import com.grappim.sales.di.SalesScreenNavigator
+import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
 import com.grappim.sign_up.di.SignUpScreenNavigator
 import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Binds
@@ -33,16 +32,6 @@ interface RootActivityNavigationBindsModule {
     fun bindSignUpScreenNavigator(
         navigationManager: NavigationManager
     ): SignUpScreenNavigator
-
-    @Binds
-    fun bindSelectStockScreenNavigator(
-        navigationManager: NavigationManager
-    ): SelectStockScreenNavigator
-
-    @Binds
-    fun bindSelectCashierNavigator(
-        navigationManager: NavigationManager
-    ): SelectCashBoxNavigator
 
     @Binds
     fun bindMenuScreenNavigator(
@@ -78,4 +67,9 @@ interface RootActivityNavigationBindsModule {
     fun bindProductCategoryScreenNavigator(
         navigationManager: NavigationManager
     ): ProductCategoryScreenNavigator
+
+    @Binds
+    fun bindSelectInfoFlowScreenNavigator(
+        navigationManager: NavigationManager
+    ): SelectInfoFlowScreenNavigator
 }

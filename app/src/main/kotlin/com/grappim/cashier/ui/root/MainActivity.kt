@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             .create(
                 context = this,
                 fragmentManager = supportFragmentManager,
-                rootActivityDeps = findComponentDependencies()
+                rootActivityDeps = findComponentDependencies(),
+                activity = this
             )
 
         activityComponent.inject(this)
