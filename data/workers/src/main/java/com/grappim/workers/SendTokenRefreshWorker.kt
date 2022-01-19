@@ -7,9 +7,7 @@ import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import com.grappim.logger.logE
 import com.grappim.network.api.AuthApi
-import com.grappim.network.api.CashierApi
 import com.grappim.network.di.api.QualifierAuthApi
-import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.model.login.SendTokenToRefreshRequestDTO
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -23,7 +21,6 @@ private const val UNIQUE_SEND_REFRESH_TOKEN_WORKER = "unique_send_refresh_token_
 class SendTokenRefreshWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
-    @QualifierCashierApi private val cashierApi: CashierApi,
     @QualifierAuthApi private val authApi: AuthApi,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val generalStorage: GeneralStorage

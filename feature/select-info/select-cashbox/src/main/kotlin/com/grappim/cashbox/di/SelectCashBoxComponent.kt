@@ -1,9 +1,8 @@
 package com.grappim.cashbox.di
 
-import com.grappim.cashbox.ui.view.SelectCashBoxFragment
 import com.grappim.common.asynchronous.di.CoroutinesModule
-import com.grappim.common.di.FeatureScope
 import com.grappim.common.di.FragmentScope
+import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.Component
 
 @[FragmentScope Component(
@@ -17,5 +16,5 @@ import dagger.Component
 )]
 interface SelectCashBoxComponent {
 
-    fun inject(selectCashBoxFragment: SelectCashBoxFragment)
+    fun multiViewModelFactory(): MultiViewModelFactory
 }

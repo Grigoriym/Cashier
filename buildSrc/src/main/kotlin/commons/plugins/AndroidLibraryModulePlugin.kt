@@ -60,6 +60,9 @@ private fun Project.configureCommonTestDependencies() {
     }
 }
 
+@Deprecated(
+    message = "with a new way of making each feature module self-sufficient, this check becomes incorrect"
+)
 private fun Project.isFeatureModule(): Boolean =
     displayName.contains(":feature:") ||
       displayName.contains("presentation")

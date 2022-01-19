@@ -1,6 +1,5 @@
 package com.grappim.stock.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,15 +18,21 @@ import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.logger.logD
 import com.grappim.select_info.common_navigation.SelectInfoViewModel
 import com.grappim.stock.di.DaggerSelectStockComponent
-import com.grappim.stock.di.SelectStockComponent
 import com.grappim.stock.ui.viewmodel.SelectStockViewModel
 import com.grappim.uikit.theme.CashierTheme
-import javax.inject.Inject
 
 class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
+    private val selectStockComponent by lazy {
+        DaggerSelectStockComponent
+            .builder()
+            .selectStockDeps(findComponentDependencies())
+            .build()
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        selectStockComponent.multiViewModelFactory()
+    }
 
     private val mainViewModel: MainViewModel by activityViewModels {
         viewModelFactory
@@ -43,28 +48,6 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
             viewModelFactory
         }
     )
-
-    private var _selectStockComponent: SelectStockComponent? = null
-    private val selectStockComponent
-        get() = requireNotNull(_selectStockComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _selectStockComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _selectStockComponent = DaggerSelectStockComponent
-            .builder()
-            .selectStockDeps(findComponentDependencies())
-            .build()
-        selectStockComponent.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

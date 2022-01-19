@@ -23,6 +23,9 @@ dependencies {
     implementation(project(Modules.featureProductCategoryRepository))
     implementation(project(Modules.featureProductCategoryDomain))
 
+    implementation(project(Modules.featureSignUpDomain))
+    implementation(project(Modules.featureSignUpRepository))
+
     implementation(Deps.AndroidX.paging)
 
     coreLibraryDesugaring(Deps.desugar)

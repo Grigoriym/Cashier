@@ -7,6 +7,7 @@ import com.grappim.cashier.ui.root.MainActivity
 import com.grappim.cashier.ui.splash.SplashFragment
 import com.grappim.common.di.ActivityContext
 import com.grappim.common.di.ActivityScope
+import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 

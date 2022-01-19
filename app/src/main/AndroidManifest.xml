@@ -18,12 +18,8 @@
 			android:supportsRtl="true"
 			android:theme="@style/Theme.Cashier"
 			android:usesCleartextTraffic="false"
-			tools:ignore="LockedOrientationActivity">
-
-		<provider
-				android:name="androidx.work.impl.WorkManagerInitializer"
-				android:authorities="${applicationId}.workmanager-init"
-				tools:node="remove" />
+			tools:ignore="LockedOrientationActivity"
+			tools:targetApi="m">
 
 		<provider
 				android:name="androidx.startup.InitializationProvider"
@@ -34,6 +30,11 @@
 			<meta-data
 					android:name="com.grappim.cashier.core.startup.LoggerInitializer"
 					android:value="androidx.startup" />
+
+			<meta-data
+					android:name="androidx.work.WorkManagerInitializer"
+					android:value="androidx.startup"
+					tools:node="remove" />
 
 		</provider>
 

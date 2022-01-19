@@ -31,8 +31,11 @@ include(":feature:sales")
 include(":feature:menu")
 include(":feature:products")
 include(":feature:scanner")
-include(":feature:sign-up")
 include(":feature:product-category")
+
+include(":feature:sign-up:presentation")
+include(":feature:sign-up:domain")
+include(":feature:sign-up:repository")
 
 include(":feature:product-category:presentation")
 include(":feature:product-category:domain")

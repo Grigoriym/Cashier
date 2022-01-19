@@ -1,8 +1,8 @@
 package com.grappim.auth.di
 
-import com.grappim.auth.ui.view.AuthFragment
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FeatureScope
+import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.Component
 
 @[FeatureScope Component(
@@ -16,6 +16,6 @@ import dagger.Component
 )]
 internal interface AuthComponent {
 
-    fun inject(authFragment: AuthFragment)
+    fun viewModelFactory(): MultiViewModelFactory
 
 }

@@ -10,7 +10,7 @@ import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNa
 import com.grappim.products.root.di.ProductsScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
-import com.grappim.sign_up.di.SignUpScreenNavigator
+import com.grappim.sign_up_presentation.di.SignUpScreenNavigator
 import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Binds
 import dagger.Module
@@ -31,7 +31,7 @@ interface RootActivityNavigationBindsModule {
     @Binds
     fun bindSignUpScreenNavigator(
         navigationManager: NavigationManager
-    ): SignUpScreenNavigator
+    ): com.grappim.sign_up_presentation.di.SignUpScreenNavigator
 
     @Binds
     fun bindMenuScreenNavigator(

@@ -81,7 +81,9 @@
     <string name="title_empty"></string>
 
     <string name="sign_up_phone_empty">Please enter a phone number</string>
+    <string name="sign_up_phone_size">Please enter a valid phone number</string>
     <string name="sign_up_email_empty">Please enter an email</string>
+    <string name="sign_up_email_validity">Please enter a valid email</string>
     <string name="sign_up_password_empty">Please enter a password</string>
 
     <!--    Errors-->

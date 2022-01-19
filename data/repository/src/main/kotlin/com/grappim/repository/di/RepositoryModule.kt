@@ -47,11 +47,6 @@ interface RepositoryModule {
     ): PaymentRepository
 
     @Binds
-    fun bindSignUpRepository(
-        signUpRepositoryImpl: SignUpRepositoryImpl
-    ): SignUpRepository
-
-    @Binds
     fun bindWaybillLocalRepository(
         waybillLocalRepositoryImpl: WaybillLocalRepositoryImpl
     ): WaybillLocalRepository

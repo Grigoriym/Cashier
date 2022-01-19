@@ -31,7 +31,9 @@ fun PasswordTextFieldCompose(
     placeholderText: String = stringResource(id = R.string.title_password),
     password: String,
     onPasswordChange: (String) -> Unit,
-    onImeAction: () -> Unit
+    onImeAction: () -> Unit,
+    isError: Boolean = false,
+    errorMessage: @Composable (() -> Unit)? = null
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var passwordVisibility by remember {
@@ -66,6 +68,7 @@ fun PasswordTextFieldCompose(
                 color = CashierGray
             )
         },
+        isError = isError,
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = imeAction,
             keyboardType = KeyboardType.Password
@@ -97,4 +100,5 @@ fun PasswordTextFieldCompose(
             }
         }
     )
+    errorMessage?.invoke()
 }

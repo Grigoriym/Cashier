@@ -24,7 +24,10 @@ object Modules {
     const val featureMenu = ":feature:menu"
     const val featureProducts = ":feature:products"
     const val featureScanner = ":feature:scanner"
-    const val featureSignUp = ":feature:sign-up"
+
+    const val featureSignUpPresentation = ":feature:sign-up:presentation"
+    const val featureSignUpDomain = ":feature:sign-up:domain"
+    const val featureSignUpRepository = ":feature:sign-up:repository"
 
     const val featureSelectInfoRootPresentation = ":feature:select-info:root-presentation"
     const val featureSelectInfoNavigation = ":feature:select-info:common-navigation"

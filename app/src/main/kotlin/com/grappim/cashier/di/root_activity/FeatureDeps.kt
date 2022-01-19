@@ -8,7 +8,7 @@ import com.grappim.product_category.presentation.root.di.ProductCategoryRootDeps
 import com.grappim.products.root.di.ProductsRootDeps
 import com.grappim.root_presentation.di.SelectInfoRootDeps
 import com.grappim.sales.di.SalesDeps
-import com.grappim.sign_up.di.SignUpDeps
+import com.grappim.sign_up_presentation.di.SignUpDeps
 import com.grappim.waybill.ui.root.di.WaybillRootDeps
 
 interface FeatureDeps : AuthDeps,

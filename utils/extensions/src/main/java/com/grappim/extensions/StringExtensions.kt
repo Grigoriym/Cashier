@@ -11,9 +11,15 @@ fun String.isValidPasswordSize(): Boolean =
 
 fun String.isPasswordValid(): Boolean =
     this.isValidPasswordSize() &&
-        this.containsSmallLatinCharacters() &&
-        this.containsBigLatinCharacters() &&
-        this.containsNumbers()
+      this.containsSmallLatinCharacters() &&
+      this.containsBigLatinCharacters() &&
+      this.containsNumbers()
 
 fun String.containsNumbers() = Regex(".*\\d.*").containsMatchIn(this)
 
+fun String.isEmailValid(): Boolean {
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+}
+
+fun String.isEmailNotValid(): Boolean =
+    !this.isEmailValid()

@@ -170,7 +170,10 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.featureMenu))
             implementation(project(Modules.featureProducts))
             implementation(project(Modules.featureScanner))
-            implementation(project(Modules.featureSignUp))
+
+            implementation(project(Modules.featureSignUpPresentation))
+            implementation(project(Modules.featureSignUpDomain))
+            implementation(project(Modules.featureSignUpRepository))
 
             implementation(project(Modules.featureSelectInfoRootPresentation))
             implementation(project(Modules.selectInfoSelectStock))

@@ -12,13 +12,13 @@ sealed class NativeText {
     data class Multi(val text: List<NativeText>) : NativeText()
 }
 
-fun NativeText.toCharSequence(context: Context): CharSequence {
+fun NativeText.asString(context: Context): String {
     return when (this) {
         is NativeText.Arguments -> context.getString(id, *args.toTypedArray())
         is NativeText.Multi -> {
             val builder = StringBuilder()
             for (t in text) {
-                builder.append(t.toCharSequence(context))
+                builder.append(t.asString(context))
             }
             builder.toString()
         }

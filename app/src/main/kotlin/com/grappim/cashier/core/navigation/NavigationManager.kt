@@ -17,10 +17,9 @@ import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
 import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
 import com.grappim.products.root.di.ProductsScreenNavigator
-import com.grappim.root_presentation.ui.SelectInfoRootFragment
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
-import com.grappim.sign_up.di.SignUpScreenNavigator
+import com.grappim.sign_up_presentation.di.SignUpScreenNavigator
 import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Lazy
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class NavigationManager @Inject constructor(
     private val supportFragmentManager: FragmentManager,
     private val navController: Lazy<NavController>,
     private val activity: AppCompatActivity
-) : AuthScreenNavigator, SignUpScreenNavigator,
+) : AuthScreenNavigator, com.grappim.sign_up_presentation.di.SignUpScreenNavigator,
     MenuScreenNavigator,
     SalesScreenNavigator,
     BagScreenNavigator,

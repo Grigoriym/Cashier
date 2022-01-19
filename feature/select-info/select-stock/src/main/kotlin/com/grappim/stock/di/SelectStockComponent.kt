@@ -1,9 +1,8 @@
 package com.grappim.stock.di
 
 import com.grappim.common.asynchronous.di.CoroutinesModule
-import com.grappim.common.di.FeatureScope
 import com.grappim.common.di.FragmentScope
-import com.grappim.stock.ui.view.SelectStockFragment
+import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.Component
 
 @[FragmentScope Component(
@@ -17,6 +16,5 @@ import dagger.Component
 )]
 interface SelectStockComponent {
 
-    fun inject(selectStockFragment: SelectStockFragment)
-
+    fun multiViewModelFactory(): MultiViewModelFactory
 }
