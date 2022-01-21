@@ -5,6 +5,5 @@ import com.grappim.navigation.directions.common.CommonScreenNavigator
 interface SelectInfoFlowScreenNavigator : CommonScreenNavigator {
 
     fun goToMenu()
-    fun goToSelectCashBox()
 
 }

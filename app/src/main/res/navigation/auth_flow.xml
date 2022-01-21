@@ -27,7 +27,6 @@
 
 	</fragment>
 
-<!--	<include app:graph="@navigation/select_stock_flow" />-->
 	<include app:graph="@navigation/sign_up_flow" />
 	<include app:graph="@navigation/select_info_flow" />
 

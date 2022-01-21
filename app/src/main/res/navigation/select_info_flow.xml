@@ -16,32 +16,6 @@
 				app:popExitAnim="@anim/pop_exit_to_right" />
 	</fragment>
 
-<!--	<fragment-->
-<!--			android:id="@+id/fragmentSelectStock"-->
-<!--			android:name="com.grappim.stock.ui.view.SelectStockFragment" >-->
-
-<!--		<action-->
-<!--				android:id="@+id/action_selectStockFlow_to_selectCashboxFlow"-->
-<!--				app:destination="@id/fragmentSelectCashBox"-->
-<!--				app:enterAnim="@anim/enter_from_right"-->
-<!--				app:exitAnim="@anim/exit_to_left"-->
-<!--				app:popEnterAnim="@anim/pop_enter_from_left"-->
-<!--				app:popExitAnim="@anim/pop_exit_to_right" />-->
-
-<!--	</fragment>-->
-
-<!--	<fragment-->
-<!--		android:id="@+id/fragmentSelectCashBox"-->
-<!--		android:name="com.grappim.cashbox.ui.view.SelectCashBoxFragment">-->
-<!--		<action-->
-<!--				android:id="@+id/action_selectCashboxFlow_to_menuFlow"-->
-<!--				app:destination="@id/menu_flow"-->
-<!--				app:enterAnim="@anim/enter_from_right"-->
-<!--				app:exitAnim="@anim/exit_to_left"-->
-<!--				app:popEnterAnim="@anim/pop_enter_from_left"-->
-<!--				app:popExitAnim="@anim/pop_exit_to_right" />-->
-<!--	</fragment>-->
-
 	<include app:graph="@navigation/menu_flow" />
 
 </navigation>

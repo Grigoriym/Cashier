@@ -1,6 +1,5 @@
 package com.grappim.product_category.presentation.list.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,29 +13,22 @@ import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.product_category.presentation.list.di.DaggerProductCategoryListComponent
 import com.grappim.product_category.presentation.list.di.ProductCategoryListComponent
 import com.grappim.uikit.theme.CashierTheme
-import javax.inject.Inject
 
 class ProductCategoryListFragment : BaseFragment<ProductCategoryListViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
+    private val productCategoryListComponent: ProductCategoryListComponent by lazy {
+        DaggerProductCategoryListComponent
+            .builder()
+            .productCategoryListDeps(findComponentDependencies())
+            .build()
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        productCategoryListComponent.multiViewModelFactory()
+    }
 
     override val viewModel: ProductCategoryListViewModel by viewModels {
         viewModelFactory
-    }
-
-    private var _productCategoryListComponent: ProductCategoryListComponent? = null
-    private val productCategoryListComponent
-        get() = requireNotNull(_productCategoryListComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _productCategoryListComponent = null
-        super.onDestroy()
     }
 
     override fun onCreateView(
@@ -51,20 +43,12 @@ class ProductCategoryListFragment : BaseFragment<ProductCategoryListViewModel>()
         }
     }
 
-    private fun performInject() {
-        _productCategoryListComponent = DaggerProductCategoryListComponent
-            .builder()
-            .productCategoryListDeps(findComponentDependencies())
-            .build()
-        productCategoryListComponent.inject(this)
-    }
-
     @Composable
     private fun ProductCategoryListFragmentScreen() {
         ProductCategoryListScreen(
             onBackPressed = viewModel::onBackPressed,
             onCreateCategoryClick = viewModel::goToCategoryCreate,
-            categories = listOf(),
+            categories = emptyList(),
             onCategoryClick = viewModel::goToCategoryDetails
         )
     }

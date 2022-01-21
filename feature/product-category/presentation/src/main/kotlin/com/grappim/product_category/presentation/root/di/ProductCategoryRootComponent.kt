@@ -1,9 +1,10 @@
 package com.grappim.product_category.presentation.root.di
 
+import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.FeatureScope
+import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.product_category.presentation.create_edit.di.CreateEditProductCategoryDeps
 import com.grappim.product_category.presentation.list.di.ProductCategoryListDeps
-import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
 import dagger.Component
 
 @[FeatureScope Component(
@@ -26,6 +27,7 @@ interface ProductCategoryRootComponent :
         ): ProductCategoryRootComponent
     }
 
-    fun inject(productCategoryRootFragment: ProductCategoryRootFragment)
+    fun deps(): ComponentDependenciesProvider
+    fun multiViewModelFactory(): MultiViewModelFactory
 
 }

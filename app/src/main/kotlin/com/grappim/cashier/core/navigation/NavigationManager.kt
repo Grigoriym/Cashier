@@ -29,7 +29,7 @@ class NavigationManager @Inject constructor(
     private val supportFragmentManager: FragmentManager,
     private val navController: Lazy<NavController>,
     private val activity: AppCompatActivity
-) : AuthScreenNavigator, com.grappim.sign_up_presentation.di.SignUpScreenNavigator,
+) : AuthScreenNavigator, SignUpScreenNavigator,
     MenuScreenNavigator,
     SalesScreenNavigator,
     BagScreenNavigator,
@@ -69,24 +69,7 @@ class NavigationManager @Inject constructor(
     }
 
     override fun goToSelectStock() {
-//        supportFragmentManager.commit {
-//            setReorderingAllowed(true)
-//            setCustomAnimations(
-//                R.anim.enter_from_right,
-//                R.anim.exit_to_left,
-//                R.anim.pop_enter_from_left,
-//                R.anim.pop_exit_to_right
-//            )
-//            replace<SelectInfoRootFragment>(
-//                R.id.nav_host_fragment,
-//                SelectInfoRootFragment::class.java.canonicalName
-//            )
-//        }
         navigateTo(R.id.select_info_flow)
-    }
-
-    override fun goToSelectCashBox() {
-//        navigateTo(R.id.action_selectStockFlow_to_selectCashboxFlow)
     }
 
     override fun goToMenu() {
@@ -128,17 +111,18 @@ class NavigationManager @Inject constructor(
     }
 
     override fun goToProductCategories() {
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<ProductCategoryRootFragment>(
-                R.id.nav_host_fragment,
-                ProductCategoryRootFragment::class.java.canonicalName
-            )
-        }
-        navController.get().setGraph(
-            R.navigation.product_categories_flow
-        )
-//        navigateTo(R.id.action_menuFlow_to_ProductCategoriesFlow)
+        navigateTo(R.id.action_menuFlow_to_ProductCategoriesFlow)
+
+//        supportFragmentManager.commit {
+//            setReorderingAllowed(true)
+//            replace<ProductCategoryRootFragment>(
+//                R.id.nav_host_fragment,
+//                ProductCategoryRootFragment::class.java.canonicalName
+//            )
+//        }
+//        navController.get().setGraph(
+//            R.navigation.product_categories_flow
+//        )
     }
 
     override fun goToProductCategoryDetails() {

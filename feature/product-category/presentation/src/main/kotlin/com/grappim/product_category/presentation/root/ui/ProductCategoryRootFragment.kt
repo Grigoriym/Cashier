@@ -1,6 +1,5 @@
 package com.grappim.product_category.presentation.root.ui
 
-import android.content.Context
 import androidx.fragment.app.viewModels
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.deps.HasComponentDeps
@@ -16,36 +15,21 @@ class ProductCategoryRootFragment : BaseFragment<ProductCategoryRootViewModel>(
     R.layout.fragment_product_categories_root
 ), HasComponentDeps {
 
-    @Inject
-    override lateinit var deps: ComponentDependenciesProvider
-        internal set
+    private val productCategoryRootComponent: ProductCategoryRootComponent by lazy {
+        DaggerProductCategoryRootComponent
+            .factory()
+            .create(findComponentDependencies())
+    }
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
+    override val deps: ComponentDependenciesProvider by lazy {
+        productCategoryRootComponent.deps()
+    }
 
-    private var _productCategoryRootComponent: ProductCategoryRootComponent? = null
-    val productCategoryRootComponent
-        get() = requireNotNull(_productCategoryRootComponent)
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        productCategoryRootComponent.multiViewModelFactory()
+    }
 
     override val viewModel: ProductCategoryRootViewModel by viewModels {
         viewModelFactory
     }
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _productCategoryRootComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _productCategoryRootComponent = DaggerProductCategoryRootComponent
-            .factory()
-            .create(findComponentDependencies())
-        productCategoryRootComponent.inject(this)
-    }
-
 }

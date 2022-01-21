@@ -1,6 +1,5 @@
 package com.grappim.root_presentation.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -14,45 +13,36 @@ import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.logger.logD
 import com.grappim.root_presentation.R
 import com.grappim.root_presentation.di.DaggerSelectInfoRootComponent
-import com.grappim.root_presentation.di.SelectInfoRootComponent
 import com.grappim.select_info.common_navigation.SelectInfoRootFlow
 import com.grappim.select_info.common_navigation.SelectInfoViewModel
-import javax.inject.Inject
 
 class SelectInfoRootFragment : BaseFragment<SelectInfoViewModel>(
     R.layout.fragment_select_info_root
 ), HasComponentDeps {
 
-    @Inject
-    override lateinit var deps: ComponentDependenciesProvider
-        internal set
+    private val selectInfoRootComponent by lazy {
+        DaggerSelectInfoRootComponent
+            .factory()
+            .create(findComponentDependencies())
+    }
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
+    override val deps: ComponentDependenciesProvider by lazy {
+        selectInfoRootComponent.deps()
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        selectInfoRootComponent.multiViewModelFactory()
+    }
 
     override val viewModel: SelectInfoViewModel by viewModels {
         viewModelFactory
     }
-
-    private var _rootComponent: SelectInfoRootComponent? = null
-    private val rootComponent
-        get() = requireNotNull(_rootComponent)
 
     private var _pagerAdapter: SelectInfoRootPagerAdapter? = null
     private val pagerAdapter: SelectInfoRootPagerAdapter
         get() = requireNotNull(_pagerAdapter)
 
     private lateinit var viewPager: ViewPager2
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _rootComponent = null
-        super.onDestroy()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,10 +87,4 @@ class SelectInfoRootFragment : BaseFragment<SelectInfoViewModel>(
         }
     }
 
-    private fun performInject() {
-        _rootComponent = DaggerSelectInfoRootComponent
-            .factory()
-            .create(findComponentDependencies())
-        rootComponent.inject(this)
-    }
 }
