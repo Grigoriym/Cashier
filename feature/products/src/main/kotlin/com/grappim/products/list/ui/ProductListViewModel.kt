@@ -3,7 +3,7 @@ package com.grappim.products.list.ui
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.core.BaseViewModel
-import com.grappim.domain.interactor.products.GetCategoryListUseCase
+import com.grappim.domain.interactor.products.GetCategoryListInteractor
 import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
@@ -14,14 +14,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductListViewModel @Inject constructor(
-    getCategoryListUseCase: GetCategoryListUseCase,
+    getCategoryListInteractor: GetCategoryListInteractor,
     private val getProductsByQueryUseCase: GetProductsByQueryUseCase,
     private val productsScreenNavigator: ProductsScreenNavigator
 ) : BaseViewModel() {
 
     val categories: StateFlow<List<Category>> =
-        getCategoryListUseCase.execute2(
-            GetCategoryListUseCase.Params()
+        getCategoryListInteractor.getSimpleCategoryList(
+            GetCategoryListInteractor.Params()
         ).stateIn(
             scope = viewModelScope,
             started = WhileViewSubscribed,

@@ -4,6 +4,7 @@ import android.content.Context
 import com.grappim.common.di.ApplicationContext
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.core.utils.ResourceManager
+import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.domain.repository.*
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
@@ -13,6 +14,7 @@ import com.grappim.network.api.AuthApi
 import com.grappim.network.di.api.QualifierAuthApi
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import com.grappim.workers.WorkerHelper
+import java.time.format.DateTimeFormatter
 
 interface RootActivityDeps : ComponentDeps {
 
@@ -41,4 +43,7 @@ interface RootActivityDeps : ComponentDeps {
 
     @QualifierAuthApi
     fun authApi(): AuthApi
+
+    @DateTimeIsoInstant
+    fun dtfIso(): DateTimeFormatter
 }

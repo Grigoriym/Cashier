@@ -1,11 +1,7 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
     dependencies {
         classpath(BuildPlugins.androidGradle)
 
@@ -14,16 +10,14 @@ buildscript {
 
         classpath(BuildPlugins.safeArgs)
 
-        classpath(BuildPlugins.detekt)
-
         classpath(BuildPlugins.googleServices)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     }
 }
 
 plugins {
     id(Plugins.scabbard) version Versions.scabbard
     id(Plugins.gradleVersions) version Versions.gradleVersions
+    id(Plugins.detekt) version Versions.detekt
 }
 
 scabbard {
@@ -31,13 +25,39 @@ scabbard {
     outputFormat = "png"
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-
-        maven { setUrl("https://jitpack.io") }
+subprojects {
+    apply {
+        plugin(Plugins.detekt)
+        plugin(Plugins.scabbard)
     }
+
+    scabbard {
+        enabled = true
+        outputFormat = "png"
+    }
+
+    detekt {
+        toolVersion = Versions.detekt
+        config = rootProject.files("config/detekt/detekt.yml")
+        source = files("src/main/java", "src/main/kotlin")
+        parallel = true
+
+        ignoreFailures = false
+    }
+}
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        xml.required.set(true)
+        xml.outputLocation.set(file("build/reports/detekt.xml"))
+
+        html.required.set(true)
+        html.outputLocation.set(file("build/reports/detekt.html"))
+    }
+}
+
+tasks.withType<Detekt>().configureEach {
+    jvmTarget = "1.8"
 }
 
 tasks.register("clean", Delete::class) {

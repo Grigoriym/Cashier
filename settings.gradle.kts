@@ -1,3 +1,23 @@
+pluginManagement {
+    resolutionStrategy {
+
+    }
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+
+        maven { setUrl("https://jitpack.io") }
+    }
+}
+
 rootProject.name = "Cashier"
 
 include(":app")

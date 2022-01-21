@@ -4,6 +4,7 @@ import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.asynchronous.di.ApplicationScope
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
+import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
@@ -31,6 +32,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AppScope
@@ -39,7 +41,8 @@ class ProductsRepositoryImpl @Inject constructor(
     private val productMapper: ProductMapper,
     private val basketDao: BasketDao,
     @QualifierCashierApi private val cashierApi: CashierApi,
-    @ApplicationScope private val applicationScope: CoroutineScope
+    @ApplicationScope private val applicationScope: CoroutineScope,
+    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
 ) : ProductsRepository {
 
     override fun createProduct(
@@ -101,7 +104,7 @@ class ProductsRepositoryImpl @Inject constructor(
             sellingPrice = params.sellingPrice,
             merchantId = params.productMerchantId,
             createdOn = params.productCreatedOn,
-            updatedOn = DateTimeUtils.getNowFullDate(),
+            updatedOn = dtfIso.format(DateTimeUtils.getNowOffsetDateTime(true)),
             categoryId = params.categoryId,
             category = params.category
         )

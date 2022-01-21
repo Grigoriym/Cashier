@@ -8,10 +8,11 @@ import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.core.BaseViewModel
+import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.date_time.DateTimeUtils
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
-import com.grappim.domain.interactor.products.GetCategoryListUseCase
+import com.grappim.domain.interactor.products.GetCategoryListInteractor
 import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
@@ -25,17 +26,19 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
 
 class CreateEditProductViewModel @AssistedInject constructor(
     private val createProductUseCase: CreateProductUseCase,
     private val priceCalculationsUtils: PriceCalculationsUtils,
     private val editProductUseCase: EditProductUseCase,
-    private val getCategoryListUseCase: GetCategoryListUseCase,
+    private val getCategoryListInteractor: GetCategoryListInteractor,
     private val generalStorage: GeneralStorage,
     @DecimalFormatSimple private val dfSimple: DecimalFormat,
     @Assisted private val createEditFlow: CreateEditFlow,
     @Assisted private val productToEdit: Product?,
-    @Assisted private val scannedBarcode: String?
+    @Assisted private val scannedBarcode: String?,
+    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
 ) : BaseViewModel() {
 
     @AssistedFactory
@@ -56,8 +59,8 @@ class CreateEditProductViewModel @AssistedInject constructor(
     )
 
     val categoriesFlow =
-        getCategoryListUseCase
-            .execute2(GetCategoryListUseCase.Params(false))
+        getCategoryListInteractor
+            .getSimpleCategoryList(GetCategoryListInteractor.Params(false))
             .stateIn(
                 scope = viewModelScope,
                 started = WhileViewSubscribed,
@@ -229,8 +232,8 @@ class CreateEditProductViewModel @AssistedInject constructor(
                             merchantId = generalStorage.getMerchantId(),
                             unit = selectedUnit.value.value,
                             amount = amount.value,
-                            createdOn = DateTimeUtils.getNowFullDate(),
-                            updatedOn = DateTimeUtils.getNowFullDate(),
+                            createdOn = dtfIso.format(DateTimeUtils.getNowOffsetDateTime(true)),
+                            updatedOn = dtfIso.format(DateTimeUtils.getNowOffsetDateTime(true)),
                             categoryName = _selectedCategory.value?.name ?: "",
                             categoryId = _selectedCategory.value?.id ?: 0
                         )

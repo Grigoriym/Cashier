@@ -10,6 +10,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
 
 dependencies {
@@ -35,4 +38,6 @@ dependencies {
     implementation(Deps.Compose.icons)
     implementation(Deps.Compose.constraint)
     implementation(Deps.Compose.lifecycleViewModel)
+
+    coreLibraryDesugaring(Deps.desugar)
 }

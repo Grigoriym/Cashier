@@ -11,14 +11,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-@Deprecated(
-    message = "need to be refactored"
-)
-class GetCategoryListUseCase @Inject constructor(
+class GetCategoryListInteractor @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val generalRepository: GeneralRepository,
     private val productCategoryRepository: ProductCategoryRepository
-) : FlowUseCase<GetCategoryListUseCase.Params, List<Category>>(ioDispatcher) {
+) : FlowUseCase<GetCategoryListInteractor.Params, List<Category>>(ioDispatcher) {
 
     data class Params(
         val sendDefaultCategory: Boolean = true
@@ -27,9 +24,9 @@ class GetCategoryListUseCase @Inject constructor(
     override fun execute(params: Params): Flow<Try<List<Category>>> =
         generalRepository.getCategories(params)
 
-    fun execute2(params: Params): Flow<List<Category>> =
+    fun getSimpleCategoryList(params: Params): Flow<List<Category>> =
         generalRepository.getCategories2(params)
 
-    fun execute3(params: Params):Flow<List<ProductCategory>> =
+    fun getSimpleProductCategoryList(params: Params): Flow<List<ProductCategory>> =
         productCategoryRepository.getCategoriesFlow2()
 }
