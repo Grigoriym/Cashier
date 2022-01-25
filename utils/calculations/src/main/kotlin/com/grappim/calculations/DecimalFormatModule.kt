@@ -13,13 +13,10 @@ annotation class DecimalFormatSimple
 annotation class DecimalFormatFullOptionalDecimal
 
 @Module
-class DecimalFormatModule {
+object DecimalFormatModule {
 
-    companion object {
-        private const val PATTERN_SIMPLE_DECIMAL = "###.##"
-        private const val PATTERN_FULL_OPTIONAL_DECIMAL = "###,###.##"
-
-    }
+    private const val PATTERN_SIMPLE_DECIMAL = "###.##"
+    private const val PATTERN_FULL_OPTIONAL_DECIMAL = "###,###.##"
 
     @[Provides]
     fun provideDecimalFormatSymbols(): DecimalFormatSymbols =

@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class GsonModule {
+object GsonModule {
 
     @[GsonScope Provides]
     fun provideGson(

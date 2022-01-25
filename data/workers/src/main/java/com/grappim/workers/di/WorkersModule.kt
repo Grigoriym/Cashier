@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class WorkersModule {
+object WorkersModule {
 
     @[AppScope Provides]
     fun provideWorkManagerConfiguration(

@@ -15,13 +15,10 @@ annotation class DateStandard
 annotation class DateTimeIsoInstant
 
 @Module
-class DateTimeModule {
+object DateTimeModule {
 
-    companion object {
-        private const val DATE_TIME_PATTERN_STANDARD = "dd.MM.yyyy HH:mm"
-
-        private const val DATE_PATTERN_STANDARD = "dd.MM.yyyy"
-    }
+    private const val DATE_TIME_PATTERN_STANDARD = "dd.MM.yyyy HH:mm"
+    private const val DATE_PATTERN_STANDARD = "dd.MM.yyyy"
 
     @[Provides DateTimeStandard]
     fun provideDateTimeStandard(): DateTimeFormatter =

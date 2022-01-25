@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit
         NetworkConfigsModule::class
     ]
 )
-class NetworkModule {
+object NetworkModule {
 
     @[NetworkScope Provides]
     fun provideRetrofitBuilder(

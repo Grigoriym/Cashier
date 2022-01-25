@@ -19,7 +19,7 @@ import dagger.Provides
         DatabaseConfigsModule::class
     ]
 )
-class DatabaseModule {
+object DatabaseModule {
 
     @[DatabaseScope Provides]
     fun provideRoomDatabase(
