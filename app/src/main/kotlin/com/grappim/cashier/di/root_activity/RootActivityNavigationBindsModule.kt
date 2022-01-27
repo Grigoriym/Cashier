@@ -9,7 +9,6 @@ import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
 import com.grappim.sign_up_presentation.di.SignUpScreenNavigator
-import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Binds
 import dagger.Module
 
@@ -50,11 +49,6 @@ interface RootActivityNavigationBindsModule {
     fun bindPaymentMethodScreenNavigator(
         navigationManager: NavigationManager
     ): PaymentMethodScreenNavigator
-
-    @Binds
-    fun bindWaybillScreenNavigator(
-        navigationManager: NavigationManager
-    ): WaybillScreenNavigator
 
     @Binds
     fun bindSelectInfoFlowScreenNavigator(

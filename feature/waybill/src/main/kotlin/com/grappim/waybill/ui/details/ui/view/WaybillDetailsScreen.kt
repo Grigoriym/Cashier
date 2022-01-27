@@ -1,4 +1,4 @@
-package com.grappim.waybill.ui.details.ui
+package com.grappim.waybill.ui.details.ui.view
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState

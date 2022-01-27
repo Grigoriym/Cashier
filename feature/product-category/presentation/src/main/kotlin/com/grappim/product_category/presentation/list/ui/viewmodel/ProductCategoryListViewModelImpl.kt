@@ -43,4 +43,8 @@ class ProductCategoryListViewModelImpl @Inject constructor(
         productCategoryScreenNavigator.goToCreateProductCategory()
     }
 
+    override fun closeFlow() {
+        productCategoryScreenNavigator.activityOnBackPressed()
+    }
+
 }

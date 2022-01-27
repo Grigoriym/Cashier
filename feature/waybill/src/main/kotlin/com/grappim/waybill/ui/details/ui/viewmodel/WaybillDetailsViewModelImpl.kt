@@ -1,12 +1,10 @@
-package com.grappim.waybill.ui.details.ui
+package com.grappim.waybill.ui.details.ui.viewmodel
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.common.lce.Try
+import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.waybill.ConductWaybillUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductsUseCase
 import com.grappim.domain.interactor.waybill.RollbackWaybillUseCase
@@ -15,18 +13,20 @@ import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.domain.repository.local.WaybillLocalRepository
 import com.grappim.logger.logD
+import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class WaybillDetailsViewModel @Inject constructor(
+class WaybillDetailsViewModelImpl @Inject constructor(
     private val waybillProductsUseCase: GetWaybillProductsUseCase,
     private val conductWaybillUseCase: ConductWaybillUseCase,
     private val rollbackWaybillUseCase: RollbackWaybillUseCase,
-    private val waybillLocalRepository: WaybillLocalRepository
-) : ViewModel() {
+    private val waybillLocalRepository: WaybillLocalRepository,
+    private val waybillScreenNavigator: WaybillScreenNavigator
+) : WaybillDetailsViewModel() {
 
-    val comment: StateFlow<String>
+    override val comment: StateFlow<String>
         get() = waybillLocalRepository.waybillFlow
             .map {
                 it.comment
@@ -36,7 +36,7 @@ class WaybillDetailsViewModel @Inject constructor(
                 initialValue = ""
             )
 
-    val actualDate: StateFlow<String>
+    override val actualDate: StateFlow<String>
         get() = waybillLocalRepository.waybillFlow
             .map {
                 it.reservedTimeToDemonstrate ?: ""
@@ -46,34 +46,29 @@ class WaybillDetailsViewModel @Inject constructor(
                 initialValue = ""
             )
 
-    fun setComment(text: String) {
-        waybillLocalRepository.setComment(text)
-    }
-
-    fun setActualDate(date: String) {
-        waybillLocalRepository.setActualDate(date)
-    }
-
-    private val _waybillUpdate = mutableStateOf<Try<Waybill>>(
-        Try.Initial
-    )
-    val waybillUpdate: State<Try<Waybill>>
-        get() = _waybillUpdate
-
-    val products: Flow<PagingData<WaybillProduct>> =
+    override val waybillUpdate = mutableStateOf<Try<Waybill>>(Try.Initial)
+    override val products: Flow<PagingData<WaybillProduct>> =
         waybillLocalRepository.waybillFlow
             .flatMapLatest {
                 waybillProductsUseCase(GetWaybillProductsUseCase.Params(it.id))
             }
 
-    fun updateWaybill(waybill: Waybill) {
-        _waybillUpdate.value = Try.Loading
+    override fun setComment(text: String) {
+        waybillLocalRepository.setComment(text)
+    }
+
+    override fun setActualDate(date: String) {
+        waybillLocalRepository.setActualDate(date)
+    }
+
+    override fun updateWaybill(waybill: Waybill) {
+        waybillUpdate.value = Try.Loading
         when (waybill.status) {
             WaybillStatus.DRAFT -> {
                 viewModelScope.launch {
                     conductWaybillUseCase.invoke(ConductWaybillUseCase.Params(waybill))
                         .collect {
-                            _waybillUpdate.value = it
+                            waybillUpdate.value = it
                             when (it) {
                                 is Try.Success -> {
                                     waybillCreatedUpdated()
@@ -86,7 +81,7 @@ class WaybillDetailsViewModel @Inject constructor(
                 viewModelScope.launch {
                     rollbackWaybillUseCase.invoke(RollbackWaybillUseCase.Params(waybill))
                         .collect {
-                            _waybillUpdate.value = it
+                            waybillUpdate.value = it
                             when (it) {
                                 is Try.Success -> {
                                     waybillCreatedUpdated()
@@ -98,16 +93,12 @@ class WaybillDetailsViewModel @Inject constructor(
         }
     }
 
-    fun showScanner() {
-//        navigator.navigate(
-//            WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillScanner(
-//                waybillId = waybillLocalRepository.waybill.id
-//            )
-//        )
+    override fun showScanner() {
+        waybillScreenNavigator.goFromDetailsToScanner()
     }
 
     private fun waybillCreatedUpdated() {
-//        navigator.navigate(WaybillDetailsFragmentDirections.actionWaybillDetailsToWaybillList())
+        waybillScreenNavigator.goFromDetailsToList()
     }
 
     override fun onCleared() {

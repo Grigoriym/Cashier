@@ -35,7 +35,7 @@ class SelectStockViewModelImpl @Inject constructor(
     }
 
     override fun onBackPressed() {
-        selectInfoFlowScreenNavigator.onBackPressed()
+        selectInfoFlowScreenNavigator.activityOnBackPressed()
     }
 
     override fun selectStock(stock: Stock) {

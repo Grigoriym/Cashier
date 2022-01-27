@@ -1,6 +1,5 @@
-package com.grappim.waybill.ui.list.ui
+package com.grappim.waybill.ui.list.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,53 +14,27 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.core.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.common.lce.Try
-import com.grappim.domain.model.waybill.Waybill
-import com.grappim.extensions.getErrorMessage
-import com.grappim.extensions.showToast
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.list.di.DaggerWaybillListComponent
 import com.grappim.waybill.ui.list.di.WaybillListComponent
-import javax.inject.Inject
+import com.grappim.waybill.ui.list.ui.viewmodel.WaybillListViewModel
 
 class WaybillListFragment : BaseFragment<WaybillListViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
-
-    override val viewModel: WaybillListViewModel by viewModels {
-        viewModelFactory
-    }
-//    private val sharedViewModel by viewModels<WaybillSharedViewModel>(
-//        ownerProducer = {
-//            requireParentFragment()
-//        },
-//        factoryProducer = {
-//            viewModelFactory
-//        }
-//    )
-
-    private var _waybillListComponent: WaybillListComponent? = null
-    private val waybillListComponent
-        get() = requireNotNull(_waybillListComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _waybillListComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _waybillListComponent = DaggerWaybillListComponent
+    private val waybillListComponent: WaybillListComponent by lazy {
+        DaggerWaybillListComponent
             .builder()
             .waybillListDeps(findComponentDependencies())
             .build()
-        waybillListComponent.inject(this)
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        waybillListComponent.multiViewModelFactory()
+    }
+
+    override val viewModel: WaybillListViewModel by viewModels {
+        viewModelFactory
     }
 
     override fun onCreateView(
@@ -76,29 +49,15 @@ class WaybillListFragment : BaseFragment<WaybillListViewModel>() {
         }
     }
 
-    private fun handleCreateState(
-        createState: Try<Waybill>
-    ) {
-        when (createState) {
-            is Try.Error -> {
-                showToast(getErrorMessage(createState.exception))
-            }
-        }
-    }
-
     @Composable
     private fun WaybillListFragmentScreen() {
-        val createState by viewModel.waybill.observeAsState(Try.Initial)
+        val loading by viewModel.loading.observeAsState(false)
         val lazyPagingItems = viewModel.acceptances.collectAsLazyPagingItems()
         val isRefreshing by viewModel.isRefreshing.collectAsState()
 
         val searchText by viewModel.searchText.collectAsState()
 
-        handleCreateState(
-            createState = createState
-        )
-
-        LoaderDialogCompose(show = createState is Try.Loading)
+        LoaderDialogCompose(show = loading)
 
         WaybillListScreen(
             onBackButtonPressed = viewModel::onBackPressed,

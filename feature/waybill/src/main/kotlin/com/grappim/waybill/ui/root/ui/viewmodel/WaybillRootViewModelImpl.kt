@@ -1,23 +1,24 @@
-package com.grappim.waybill.ui.root.ui
+package com.grappim.waybill.ui.root.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.core.BaseViewModel
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class WaybillRootViewModel @Inject constructor(
-    private val waybillLocalRepository: WaybillLocalRepository
-) : BaseViewModel() {
+class WaybillRootViewModelImpl @Inject constructor(
+    private val waybillLocalRepository: WaybillLocalRepository,
+    private val waybillScreenNavigator: WaybillScreenNavigator
+) : WaybillRootViewModel() {
 
     fun getWaybillInWork(): Waybill = waybillLocalRepository.waybill
 
-    val waybillFlow: StateFlow<Waybill>
+    override val waybillFlow: StateFlow<Waybill>
         get() = waybillLocalRepository.waybillFlow
             .stateIn(
                 scope = viewModelScope,
@@ -26,8 +27,8 @@ class WaybillRootViewModel @Inject constructor(
             )
 
 
-    fun onBackPressed() {
-//        navigator.popBackStack()
+    override fun onBackPressed() {
+        waybillScreenNavigator.goBack()
     }
 
     fun showDetails(waybill: Waybill) {
@@ -35,7 +36,8 @@ class WaybillRootViewModel @Inject constructor(
 //        navigator.navigate(R.id.action_waybill_to_waybillDetails)
     }
 
-    fun showWaybillProduct(waybillProduct: WaybillProduct) {
+    override fun showWaybillProduct(waybillProduct: WaybillProduct) {
+        waybillScreenNavigator.goToWaybillProduct()
 //        navigator.navigate(
 //            R.id.action_waybill_to_product,
 //            bundleOf(
@@ -45,7 +47,8 @@ class WaybillRootViewModel @Inject constructor(
 //        )
     }
 
-    fun showSearchProducts() {
+    override fun showSearchProducts() {
+        waybillScreenNavigator.goToProductSearch()
 //        navigator.navigate(
 //            WaybillDetailsFragmentDirections.actionWaybillToSearch(
 //                waybillLocalRepository.waybill.id

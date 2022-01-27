@@ -1,4 +1,4 @@
-package com.grappim.waybill.ui.product.ui
+package com.grappim.waybill.ui.product.ui.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions

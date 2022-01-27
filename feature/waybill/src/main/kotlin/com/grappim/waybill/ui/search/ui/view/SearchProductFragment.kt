@@ -1,55 +1,39 @@
-package com.grappim.waybill.ui.search.ui
+package com.grappim.waybill.ui.search.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.grappim.core.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.common.lce.Try
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.search.di.DaggerSearchWaybillProductComponent
 import com.grappim.waybill.ui.search.di.SearchWaybillProductComponent
-import javax.inject.Inject
+import com.grappim.waybill.ui.search.ui.viewmodel.SearchProductViewModel
 
 class SearchProductFragment : BaseFragment<SearchProductViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
-
-    override val viewModel by viewModels<SearchProductViewModel> {
-        viewModelFactory
-    }
-
-    private var _searchWaybillProductComponent: SearchWaybillProductComponent? = null
-    private val searchWaybillProductComponent
-        get() = requireNotNull(_searchWaybillProductComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _searchWaybillProductComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _searchWaybillProductComponent = DaggerSearchWaybillProductComponent
+    private val searchWaybillProductComponent: SearchWaybillProductComponent by lazy {
+        DaggerSearchWaybillProductComponent
             .builder()
             .searchWaybillProductDeps(findComponentDependencies())
             .build()
-        searchWaybillProductComponent.inject(this)
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        searchWaybillProductComponent.multiViewModelFactory()
+    }
+
+    override val viewModel by viewModels<SearchProductViewModel> {
+        viewModelFactory
     }
 
     override fun onCreateView(
@@ -66,18 +50,11 @@ class SearchProductFragment : BaseFragment<SearchProductViewModel>() {
 
     @Composable
     private fun SearchProductFragmentScreen() {
+        val loading by viewModel.loading.observeAsState(false)
         val searchText by viewModel.searchText.collectAsState()
         val products by viewModel.productsFlow.collectAsState()
-        val productState by viewModel.product.collectAsState()
-        val waybillProductState by viewModel.waybillProduct.collectAsState()
 
-        LoaderDialogCompose(
-            show = productState is com.grappim.common.lce.Try.Loading ||
-              waybillProductState is com.grappim.common.lce.Try.Loading
-        )
-
-        LaunchedEffect(key1 = productState, block = {})
-        LaunchedEffect(key1 = waybillProductState, block = {})
+        LoaderDialogCompose(show = loading)
 
         SearchProductScreen(
             onBackClick = viewModel::onBackPressed,

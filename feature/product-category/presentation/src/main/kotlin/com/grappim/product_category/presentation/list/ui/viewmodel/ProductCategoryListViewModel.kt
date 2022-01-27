@@ -13,4 +13,5 @@ abstract class ProductCategoryListViewModel : BaseViewModel() {
     abstract fun refresh()
 
     abstract fun onBackPressed()
+    abstract fun closeFlow()
 }

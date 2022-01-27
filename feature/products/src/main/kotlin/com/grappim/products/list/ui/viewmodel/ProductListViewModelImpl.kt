@@ -2,7 +2,6 @@ package com.grappim.products.list.ui.viewmodel
 
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
-import com.grappim.core.BaseViewModel
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.products.GetCategoryListInteractor
 import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
@@ -20,9 +19,9 @@ class ProductListViewModelImpl @Inject constructor(
     getCategoryListInteractor: GetCategoryListInteractor,
     private val getProductsByQueryUseCase: GetProductsByQueryUseCase,
     private val productsScreenNavigator: ProductsScreenNavigator
-) : BaseViewModel() {
+) : ProductListViewModel() {
 
-    val categories: StateFlow<List<ProductCategory>> =
+    override val categories: StateFlow<List<ProductCategory>> =
         getCategoryListInteractor.getSimpleCategoryList(
             GetCategoryListInteractor.Params()
         ).stateIn(
@@ -31,19 +30,14 @@ class ProductListViewModelImpl @Inject constructor(
             initialValue = emptyList()
         )
 
-    private val _query = MutableStateFlow("")
-    val query: StateFlow<String>
-        get() = _query.asStateFlow()
 
-    private val _selectedIndex = MutableStateFlow(0)
-    val selectedIndex: StateFlow<Int>
-        get() = _selectedIndex.asStateFlow()
+    override val query = MutableStateFlow("")
 
-    private val _selectedCategory = MutableStateFlow<ProductCategory?>(
-        null
-    )
+    override val selectedIndex = MutableStateFlow(0)
 
-    val products: Flow<List<Product>> = combineTuple(
+    private val _selectedCategory = MutableStateFlow<ProductCategory?>(null)
+
+    override val products: Flow<List<Product>> = combineTuple(
         query,
         _selectedCategory
     ).flatMapLatest { (query, category) ->
@@ -55,15 +49,15 @@ class ProductListViewModelImpl @Inject constructor(
         )
     }
 
-    fun onBackPressed() {
+    override fun onBackPressed() {
         productsScreenNavigator.goBack()
     }
 
-    fun showCreateProduct() {
+    override fun showCreateProduct() {
         productsScreenNavigator.goToCreateProduct()
     }
 
-    fun showEditProduct(product: Product) {
+    override fun showEditProduct(product: Product) {
         val args = Bundle(2).apply {
             putSerializable(BundleArgsKeys.ARG_KEY_PRODUCT, product)
             putSerializable(BundleArgsKeys.ARG_KEY_FLOW, CreateEditFlow.EDIT)
@@ -71,17 +65,21 @@ class ProductListViewModelImpl @Inject constructor(
         productsScreenNavigator.goToEditProduct(args)
     }
 
-    fun searchProducts(query: String) {
+    override fun searchProducts(newQuery: String) {
         viewModelScope.launch {
-            _query.value = query
+            query.value = newQuery
         }
     }
 
-    fun setCategory(category: ProductCategory, index: Int) {
+    override fun setCategory(category: ProductCategory, index: Int) {
         viewModelScope.launch {
             _selectedCategory.value = category
-            _selectedIndex.value = index
+            selectedIndex.value = index
         }
+    }
+
+    override fun closeFlow() {
+        productsScreenNavigator.activityOnBackPressed()
     }
 
 }

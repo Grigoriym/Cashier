@@ -1,7 +1,7 @@
-package com.grappim.waybill.ui.list.ui
+package com.grappim.waybill.ui.list.ui.viewmodel
 
+import android.os.Bundle
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -9,56 +9,33 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.grappim.common.lce.Try
 import com.grappim.common.lce.withoutParams
-import com.grappim.core.BaseViewModel
-import com.grappim.core.SingleLiveEvent
 import com.grappim.date_time.DateStandard
 import com.grappim.date_time.getOffsetDateTimeFromString
 import com.grappim.domain.interactor.waybill.CreateWaybillUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillListPagingUseCase
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.waybill.BundleArgsKeys
 import com.grappim.waybill.model.PagingDataModel
+import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class WaybillListViewModel @Inject constructor(
+class WaybillListViewModelImpl @Inject constructor(
     getWaybillListPagingUseCase: GetWaybillListPagingUseCase,
     private val createWaybillUseCase: CreateWaybillUseCase,
     private val waybillLocalRepository: WaybillLocalRepository,
+    private val waybillScreenNavigator: WaybillScreenNavigator,
     @DateStandard private val df: DateTimeFormatter
-) : BaseViewModel() {
+) : WaybillListViewModel() {
 
-    private val _waybill = SingleLiveEvent<Try<Waybill>>()
-    val waybill: LiveData<Try<Waybill>>
-        get() = _waybill
+    override val isRefreshing = MutableStateFlow(false)
 
-    private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing: StateFlow<Boolean>
-        get() = _isRefreshing.asStateFlow()
+    override val searchText = MutableStateFlow<String>("")
 
-    private val _searchText = MutableStateFlow<String>(
-        ""
-    )
-    val searchText: StateFlow<String>
-        get() = _searchText.asStateFlow()
-
-    fun setSearchText(text: String) {
-        _searchText.value = text
-    }
-
-    fun refresh() {
-        viewModelScope.launch {
-
-        }
-    }
-
-    fun onBackPressed() {
-
-    }
-
-    val acceptances: Flow<PagingData<PagingDataModel<Waybill>>> =
+    override val acceptances: Flow<PagingData<PagingDataModel<Waybill>>> =
         getWaybillListPagingUseCase.invoke()
             .cachedIn(viewModelScope)
             .map { pagingData ->
@@ -91,24 +68,45 @@ class WaybillListViewModel @Inject constructor(
                 }
             }
 
+
+    override fun setSearchText(text: String) {
+        searchText.value = text
+    }
+
+    override fun refresh() {
+        viewModelScope.launch {
+
+        }
+    }
+
+    override fun onBackPressed() {
+        waybillScreenNavigator.goBack()
+    }
+
     @MainThread
-    fun createDraftWaybill() {
+    override fun createDraftWaybill() {
         viewModelScope.launch {
             createWaybillUseCase(withoutParams())
                 .collect {
-                    _waybill.value = it
+                    _loading.value = it is Try.Loading
                     when (it) {
                         is Try.Success -> {
                             showDetails(it.data)
+                        }
+                        is Try.Error -> {
+                            _error.value = it.exception
                         }
                     }
                 }
         }
     }
 
-    fun showDetails(waybill: Waybill) {
+    override fun showDetails(waybill: Waybill) {
         waybillLocalRepository.setWaybill(waybill)
-//        navigator.navigate(R.id.action_waybill_to_waybillDetails)
+        val args = Bundle(1).apply {
+            putSerializable(BundleArgsKeys.ARG_KEY_WAYBILL, waybill)
+        }
+        waybillScreenNavigator.goToWaybillDetails(args)
     }
 
 }

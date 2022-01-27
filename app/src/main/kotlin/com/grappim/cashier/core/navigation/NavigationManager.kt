@@ -15,13 +15,11 @@ import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
 import com.grappim.sign_up_presentation.di.SignUpScreenNavigator
-import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import dagger.Lazy
 import javax.inject.Inject
 
 @ActivityScope
 class NavigationManager @Inject constructor(
-    private val supportFragmentManager: FragmentManager,
     private val navController: Lazy<NavController>,
     private val activity: AppCompatActivity
 ) : AuthScreenNavigator, SignUpScreenNavigator,
@@ -29,7 +27,6 @@ class NavigationManager @Inject constructor(
     SalesScreenNavigator,
     BagScreenNavigator,
     PaymentMethodScreenNavigator,
-    WaybillScreenNavigator,
     SplashScreenNavigator,
     SelectInfoFlowScreenNavigator {
 
@@ -100,9 +97,6 @@ class NavigationManager @Inject constructor(
         navigateTo(R.id.action_paymentMethodFlow_to_salesFlow)
     }
 
-    override fun goToWaybillList() {
-    }
-
     override fun goToProductCategories() {
         navigateTo(R.id.action_menuFlow_to_ProductCategoriesFlow)
     }
@@ -111,7 +105,7 @@ class NavigationManager @Inject constructor(
         navigateBack()
     }
 
-    override fun onBackPressed() {
+    override fun activityOnBackPressed() {
         activity.onBackPressed()
     }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.grappim.common.di.FeatureNavController
 import com.grappim.common.di.FeatureScope
+import com.grappim.logger.logD
 import com.grappim.products.model.CreateEditFlow
 import com.grappim.products.root.di.ProductsScreenNavigator
 import dagger.Lazy
@@ -16,6 +17,10 @@ class ProductsScreenNavigatorImpl @Inject constructor(
     private val activity: AppCompatActivity,
     @FeatureNavController private val navController: Lazy<NavController>
 ) : ProductsScreenNavigator {
+
+    init {
+        logD("$this navigator init | ${navController.get()}")
+    }
 
     private fun navigateTo(
         @IdRes resId: Int,
@@ -46,10 +51,11 @@ class ProductsScreenNavigatorImpl @Inject constructor(
     }
 
     override fun goBack() {
+        logD(" $this navigator goBack | ${navController.get()}")
         navController.get().popBackStack()
     }
 
-    override fun onBackPressed() {
+    override fun activityOnBackPressed() {
         activity.onBackPressed()
     }
 }

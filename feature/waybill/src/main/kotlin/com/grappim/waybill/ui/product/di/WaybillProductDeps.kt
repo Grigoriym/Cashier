@@ -10,7 +10,7 @@ interface WaybillProductDeps : ComponentDeps {
 
     fun waybillRepository(): WaybillRepository
 
-    @com.grappim.common.di.ApplicationContext
+    @ApplicationContext
     fun appContext(): Context
     fun waybillScreenNavigator(): WaybillScreenNavigator
 

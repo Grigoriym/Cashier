@@ -12,6 +12,6 @@ interface CommonScreenNavigator {
      * This is useful if we want to handle backPresses in fragment, using
      * onBackPressedDispatcher
      */
-    fun onBackPressed()
+    fun activityOnBackPressed()
 
 }

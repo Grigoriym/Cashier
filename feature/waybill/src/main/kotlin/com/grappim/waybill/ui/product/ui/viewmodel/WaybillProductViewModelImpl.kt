@@ -1,14 +1,12 @@
-package com.grappim.waybill.ui.product.ui
+package com.grappim.waybill.ui.product.ui.viewmodel
 
 import android.content.Context
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.calculations.bigDecimalZero
-import com.grappim.core.BaseViewModel
 import com.grappim.common.di.ApplicationContext
 import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase
@@ -24,62 +22,58 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-class WaybillProductViewModel @Inject constructor(
+class WaybillProductViewModelImpl @Inject constructor(
     private val createWaybillProductUseCase: CreateWaybillProductUseCase,
     private val updateWaybillProductUseCase: UpdateWaybillProductUseCase,
     @ApplicationContext private val context: Context,
     @DecimalFormatSimple private val dfSimple: DecimalFormat
-) : BaseViewModel() {
+) : WaybillProductViewModel() {
 
-    private val _waybillProductState = mutableStateOf<WaybillProductStates>(
+    override val waybillProductState = mutableStateOf<WaybillProductStates>(
         WaybillProductStates.EmptyState
     )
-    val waybillProductState: State<WaybillProductStates>
-        get() = _waybillProductState
 
-    private val _productCreated = mutableStateOf<Try<BigDecimal>>(
+    override val productCreated = mutableStateOf<Try<BigDecimal>>(
         Try.Initial
     )
-    val productCreated: State<Try<BigDecimal>>
-        get() = _productCreated
 
-    fun setBarcode(barcode: String) {
+    override fun setBarcode(barcode: String) {
         checkIfStateValid {
-            _waybillProductState.value = it.copy(
+            waybillProductState.value = it.copy(
                 barcode = barcode
             )
         }
     }
 
-    fun setWaybillProductName(name: String) {
+    override fun setWaybillProductName(name: String) {
         checkIfStateValid {
-            _waybillProductState.value = it.copy(
+            waybillProductState.value = it.copy(
                 name = name
             )
         }
     }
 
-    fun setPurchasePrice(purchasePrice: String) {
+    override fun setPurchasePrice(purchasePrice: String) {
         checkIfStateValid {
-            _waybillProductState.value = it.copy(
+            waybillProductState.value = it.copy(
                 purchasePrice = dfSimple.format(purchasePrice.asBigDecimal()).asBigDecimal(),
                 purchasePriceToShow = dfSimple.format(purchasePrice.asBigDecimal())
             )
         }
     }
 
-    fun setSellingPrice(sellingPrice: String) {
+    override fun setSellingPrice(sellingPrice: String) {
         checkIfStateValid {
-            _waybillProductState.value = it.copy(
+            waybillProductState.value = it.copy(
                 sellingPrice = dfSimple.format(sellingPrice.asBigDecimal()).asBigDecimal(),
                 sellingPriceToShow = dfSimple.format(sellingPrice.asBigDecimal())
             )
         }
     }
 
-    fun setAmount(amount: String) {
+    override fun setAmount(amount: String) {
         checkIfStateValid {
-            _waybillProductState.value = it.copy(
+            waybillProductState.value = it.copy(
                 amount = dfSimple.format(amount.asBigDecimal()).asBigDecimal(),
                 amountToShow = dfSimple.format(amount.asBigDecimal())
             )
@@ -89,19 +83,19 @@ class WaybillProductViewModel @Inject constructor(
     private fun checkIfStateValid(
         onValid: (WaybillProductStates.WaybillProductState) -> Unit
     ) {
-        val state = _waybillProductState.value
+        val state = waybillProductState.value
         if (state is WaybillProductStates.WaybillProductState) {
             onValid(state)
         }
     }
 
-    fun setWaybillProductState(
+    override fun setWaybillProductState(
         product: Product?,
         waybillId: Int,
         waybillProduct: WaybillProduct?,
         barcode: String?
     ) {
-        if (_waybillProductState.value is WaybillProductStates.EmptyState) {
+        if (waybillProductState.value is WaybillProductStates.EmptyState) {
             val state: WaybillProductType
             val barcodeForState: String
             val name: String
@@ -142,7 +136,7 @@ class WaybillProductViewModel @Inject constructor(
                     waybillProductId = null
                 }
             }
-            _waybillProductState.value = WaybillProductStates.WaybillProductState(
+            waybillProductState.value = WaybillProductStates.WaybillProductState(
                 type = state,
                 barcode = barcodeForState,
                 name = name,
@@ -159,9 +153,9 @@ class WaybillProductViewModel @Inject constructor(
         }
     }
 
-    fun waybillProductAction() {
+    override fun waybillProductAction() {
         viewModelScope.launch {
-            val state = _waybillProductState.value
+            val state = waybillProductState.value
             if (state is WaybillProductStates.WaybillProductState) {
                 if (state.type == WaybillProductType.FROM_WAYBILL_PRODUCT) {
                     updateWaybillProduct(
@@ -189,7 +183,7 @@ class WaybillProductViewModel @Inject constructor(
         }
     }
 
-    fun updateWaybillProduct(
+    override fun updateWaybillProduct(
         waybillId: Int,
         barcode: String,
         name: String,
@@ -200,7 +194,7 @@ class WaybillProductViewModel @Inject constructor(
         id: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = Try.Loading
+            productCreated.value = Try.Loading
             updateWaybillProductUseCase.invoke(
                 UpdateWaybillProductUseCase.Params(
                     waybillId = waybillId,
@@ -213,7 +207,7 @@ class WaybillProductViewModel @Inject constructor(
                     id = id
                 )
             ).collect {
-                _productCreated.value = it
+                productCreated.value = it
                 when (it) {
                     is Try.Success -> {
 //                        navigator.navigate(
@@ -228,7 +222,7 @@ class WaybillProductViewModel @Inject constructor(
         }
     }
 
-    fun createWaybillProduct(
+    override fun createWaybillProduct(
         waybillId: Int,
         barcode: String,
         name: String,
@@ -238,7 +232,7 @@ class WaybillProductViewModel @Inject constructor(
         productId: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = Try.Loading
+            productCreated.value = Try.Loading
             createWaybillProductUseCase.invoke(
                 CreateWaybillProductUseCase.Params(
                     waybillId = waybillId,
@@ -250,7 +244,7 @@ class WaybillProductViewModel @Inject constructor(
                     productId = productId
                 )
             ).collect {
-                _productCreated.value = it
+                productCreated.value = it
             }
         }
     }

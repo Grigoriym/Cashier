@@ -1,8 +1,7 @@
-package com.grappim.waybill.ui.details.ui
+package com.grappim.waybill.ui.details.ui.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,69 +9,44 @@ import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.calculations.DecimalFormatSimple
+import com.grappim.core.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.date_time.DateTimeStandard
-import com.grappim.common.lce.Try
-import com.grappim.domain.model.waybill.Waybill
-import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.padWithZeros
-import com.grappim.extensions.showToast
+import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.details.di.DaggerWaybillDetailsComponent
 import com.grappim.waybill.ui.details.di.WaybillDetailsComponent
-import com.grappim.waybill.ui.root.ui.WaybillRootViewModel
-import java.text.DecimalFormat
+import com.grappim.waybill.ui.details.ui.viewmodel.WaybillDetailsViewModel
+import com.grappim.waybill.ui.root.ui.viewmodel.WaybillRootViewModel
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
-import javax.inject.Inject
 
-class WaybillDetailsFragment : Fragment() {
+class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
 
-    @DecimalFormatSimple
-    @Inject
-    lateinit var dfSimple: DecimalFormat
-
-    @Inject
-    @DateTimeStandard
-    lateinit var dtf: DateTimeFormatter
-
-    companion object {
-        const val ARG_TOTAL_COST = "arg_total_cost"
-    }
-
-//    private val totalCost: BigDecimal? by lazyArg(ARG_TOTAL_COST)
-
-    private val viewModel by viewModels<WaybillDetailsViewModel>()
-    private val sharedViewModel by viewModels<WaybillRootViewModel>()
-
-    private var _waybillDetailsComponent: WaybillDetailsComponent? = null
-    private val waybillDetailsComponent
-        get() = requireNotNull(_waybillDetailsComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _waybillDetailsComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _waybillDetailsComponent = DaggerWaybillDetailsComponent
+    private val waybillDetailsComponent: WaybillDetailsComponent by lazy {
+        DaggerWaybillDetailsComponent
             .builder()
             .waybillDetailsDeps(findComponentDependencies())
             .build()
-
-        waybillDetailsComponent.inject(this)
     }
+
+    private val viewModelFactory by lazy {
+        waybillDetailsComponent.multiViewModelFactory()
+    }
+
+    override val viewModel by viewModels<WaybillDetailsViewModel>() {
+        viewModelFactory
+    }
+    private val sharedViewModel by viewModels<WaybillRootViewModel>(
+        ownerProducer = { requireParentFragment() },
+        factoryProducer = {
+            viewModelFactory
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,28 +60,18 @@ class WaybillDetailsFragment : Fragment() {
         }
     }
 
-    private fun handleWaybillUpdate(
-        state: com.grappim.common.lce.Try<Waybill>
-    ) {
-        when (state) {
-            is com.grappim.common.lce.Try.Error -> {
-                showToast(getErrorMessage(state.exception))
-            }
-        }
-    }
-
     @Composable
     private fun WaybillDetailsFragmentScreen() {
         val productItems = viewModel.products.collectAsLazyPagingItems()
 
-        val waybillUpdateState by viewModel.waybillUpdate
+        val loading by viewModel.loading.observeAsState(false)
         val waybill by sharedViewModel.waybillFlow.collectAsState()
         val comment by viewModel.comment.collectAsState()
         val actualDate by viewModel.actualDate.collectAsState()
 
-//        sharedViewModel.setTotalCost(totalCost ?: bigDecimalZero())
+        LoaderDialogCompose(show = loading)
 
-        handleWaybillUpdate(waybillUpdateState)
+//        sharedViewModel.setTotalCost(totalCost ?: bigDecimalZero())
 
         WaybillDetailsScreen(
             waybill = waybill,

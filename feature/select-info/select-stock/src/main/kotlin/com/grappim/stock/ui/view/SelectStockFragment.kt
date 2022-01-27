@@ -18,12 +18,13 @@ import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.logger.logD
 import com.grappim.select_info.common_navigation.SelectInfoViewModel
 import com.grappim.stock.di.DaggerSelectStockComponent
+import com.grappim.stock.di.SelectStockComponent
 import com.grappim.stock.ui.viewmodel.SelectStockViewModel
 import com.grappim.uikit.theme.CashierTheme
 
 class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
 
-    private val selectStockComponent by lazy {
+    private val selectStockComponent: SelectStockComponent by lazy {
         DaggerSelectStockComponent
             .builder()
             .selectStockDeps(findComponentDependencies())

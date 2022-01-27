@@ -14,10 +14,10 @@ import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.products.list.di.DaggerProductsListComponent
 import com.grappim.products.list.di.ProductsListComponent
-import com.grappim.products.list.ui.viewmodel.ProductListViewModelImpl
+import com.grappim.products.list.ui.viewmodel.ProductListViewModel
 import com.grappim.uikit.theme.CashierTheme
 
-class ProductListFragment : BaseFragment<ProductListViewModelImpl>() {
+class ProductListFragment : BaseFragment<ProductListViewModel>() {
 
     private val productListComponent: ProductsListComponent by lazy {
         DaggerProductsListComponent
@@ -30,7 +30,7 @@ class ProductListFragment : BaseFragment<ProductListViewModelImpl>() {
         productListComponent.multiViewModelFactory()
     }
 
-    override val viewModel: ProductListViewModelImpl by viewModels {
+    override val viewModel: ProductListViewModel by viewModels {
         viewModelFactory
     }
 
@@ -54,7 +54,7 @@ class ProductListFragment : BaseFragment<ProductListViewModelImpl>() {
         val index by viewModel.selectedIndex.collectAsState()
 
         ProductsScreen(
-            onBackPressed = viewModel::onBackPressed,
+            onBackPressed = viewModel::closeFlow,
             onCreateProductClick = viewModel::showCreateProduct,
             searchText = searchQuery,
             setSearchText = viewModel::searchProducts,

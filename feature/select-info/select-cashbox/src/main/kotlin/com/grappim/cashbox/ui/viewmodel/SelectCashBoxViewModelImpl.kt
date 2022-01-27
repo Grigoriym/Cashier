@@ -36,7 +36,7 @@ class SelectCashBoxViewModelImpl @Inject constructor(
     }
 
     override fun onBackPressed() {
-        selectInfoFlowScreenNavigator.onBackPressed()
+        selectInfoFlowScreenNavigator.activityOnBackPressed()
     }
 
     override fun selectCashBox(cashBox: CashBox) {

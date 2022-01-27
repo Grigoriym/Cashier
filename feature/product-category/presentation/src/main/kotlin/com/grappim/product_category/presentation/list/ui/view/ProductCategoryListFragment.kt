@@ -56,7 +56,7 @@ class ProductCategoryListFragment : BaseFragment<ProductCategoryListViewModel>()
         LoaderDialogCompose(show = loading)
 
         ProductCategoryListScreen(
-            onBackPressed = viewModel::onBackPressed,
+            onBackPressed = viewModel::closeFlow,
             onCreateCategoryClick = viewModel::goToCategoryCreate,
             categories = categories,
             onCategoryClick = viewModel::goToCategoryDetails

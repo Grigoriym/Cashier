@@ -3,7 +3,7 @@ package com.grappim.waybill.ui.product.di
 import com.grappim.calculations.DecimalFormatModule
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FragmentScope
-import com.grappim.waybill.ui.product.ui.WaybillProductFragment
+import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.Component
 
 @[FragmentScope Component(
@@ -18,6 +18,6 @@ import dagger.Component
 )]
 interface WaybillProductComponent {
 
-    fun inject(waybillProductFragment: WaybillProductFragment)
+    fun multiViewModelFactory(): MultiViewModelFactory
 
 }

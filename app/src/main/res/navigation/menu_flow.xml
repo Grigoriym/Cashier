@@ -26,7 +26,7 @@
 
         <action
             android:id="@+id/action_menuFlow_to_waybillFlow"
-            app:destination="@id/waybill_root_flow"
+            app:destination="@id/waybillRootFragment"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/pop_enter_from_left"
@@ -49,7 +49,10 @@
         android:id="@+id/productsRootFragment"
         android:name="com.grappim.products.root.ui.ProductsRootFragment" />
 
-    <include app:graph="@navigation/waybill_root_flow" />
+    <fragment
+        android:id="@+id/waybillRootFragment"
+        android:name="com.grappim.waybill.ui.root.ui.view.WaybillRootFragment" />
+
     <include app:graph="@navigation/sales_flow" />
 
 </navigation>

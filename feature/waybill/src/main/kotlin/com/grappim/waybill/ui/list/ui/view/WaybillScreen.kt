@@ -1,4 +1,4 @@
-package com.grappim.waybill.ui.list.ui
+package com.grappim.waybill.ui.list.ui.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
