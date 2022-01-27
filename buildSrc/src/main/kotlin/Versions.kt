@@ -17,9 +17,10 @@ object Versions {
         const val core = "1.7.0"
         const val appCompat = "1.4.0"
         const val fragment = "1.4.0"
+        const val activity = "1.4.0"
         const val constraint = "2.1.3"
         const val paging = "3.1.0"
-        const val navigation = "2.4.0-beta02"
+        const val navigation = "2.4.0-rc01"
         const val lifecycle = "2.4.0"
         const val room = "2.4.1"
         const val workManager = "2.7.1"
@@ -51,6 +52,12 @@ object Versions {
 
         const val assertJCore = "3.18.1"
         const val androidCoreTesting = "1.1.1"
+    }
+
+    object Rx2 {
+        const val android = "2.1.1"
+        const val java = "2.2.9"
+        const val retrofitAdapter = "2.5.0"
     }
 
     const val lint = "30.0.4"

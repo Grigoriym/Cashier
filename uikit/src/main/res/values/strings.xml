@@ -40,6 +40,10 @@
     <string name="title_purchase_price">Purchase Price</string>
     <string name="title_new_product">New Product</string>
 
+    <string name="title_create_category">Create category</string>
+    <string name="title_edit_category">Edit category</string>
+    <string name="title_category_name">Category name</string>
+
     <string name="title_acceptance">Acceptance</string>
     <string name="title_create_acceptance">Create acceptance</string>
     <string name="title_actual_date">Actual date</string>

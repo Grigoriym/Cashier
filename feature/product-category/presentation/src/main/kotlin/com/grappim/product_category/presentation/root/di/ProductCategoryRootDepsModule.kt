@@ -18,7 +18,7 @@ interface ProductCategoryRootDepsModule {
 
     @[Binds IntoMap ComponentDepsKey(CreateEditProductCategoryDeps::class)]
     fun bindCreateEditProductCategoryDeps(
-        productCategoryRootDeps: ProductCategoryRootDeps
+        productCategoryRootComponent: ProductCategoryRootComponent
     ): ComponentDeps
 
 }

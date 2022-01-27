@@ -34,16 +34,19 @@
 
         <action
             android:id="@+id/action_menuFlow_to_ProductCategoriesFlow"
-            app:destination="@id/product_categories_root_flow"
+            app:destination="@id/productCategoriesRootFragment"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/pop_enter_from_left"
             app:popExitAnim="@anim/pop_exit_to_right" />
     </fragment>
 
+    <fragment
+        android:id="@+id/productCategoriesRootFragment"
+        android:name="com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment" />
+
     <include app:graph="@navigation/waybill_root_flow" />
     <include app:graph="@navigation/products_root_flow" />
     <include app:graph="@navigation/sales_flow" />
-    <include app:graph="@navigation/product_categories_root_flow" />
 
 </navigation>

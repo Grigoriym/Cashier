@@ -18,20 +18,6 @@ class LoginUseCase @Inject constructor(
         val password: String
     )
 
-    override fun execute(params: Params): Flow<Try<Unit>> {
-
-        return authRepository.login(params)
-    }
-
-    private fun validatePhone(text: String) {
-        if (text.isEmpty()) {
-
-        }
-    }
-
-    private fun validatePassword(text: String) {
-        if (text.isEmpty()) {
-
-        }
-    }
+    override fun execute(params: Params): Flow<Try<Unit>> =
+        authRepository.login(params)
 }

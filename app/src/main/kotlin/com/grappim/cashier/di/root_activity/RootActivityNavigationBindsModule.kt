@@ -6,7 +6,6 @@ import com.grappim.cashier.core.navigation.NavigationManager
 import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
-import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
 import com.grappim.products.root.di.ProductsScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
@@ -31,7 +30,7 @@ interface RootActivityNavigationBindsModule {
     @Binds
     fun bindSignUpScreenNavigator(
         navigationManager: NavigationManager
-    ): com.grappim.sign_up_presentation.di.SignUpScreenNavigator
+    ): SignUpScreenNavigator
 
     @Binds
     fun bindMenuScreenNavigator(
@@ -63,10 +62,10 @@ interface RootActivityNavigationBindsModule {
         navigationManager: NavigationManager
     ): ProductsScreenNavigator
 
-    @Binds
-    fun bindProductCategoryScreenNavigator(
-        navigationManager: NavigationManager
-    ): ProductCategoryScreenNavigator
+//    @Binds
+//    fun bindProductCategoryScreenNavigator(
+//        navigationManager: NavigationManager
+//    ): ProductCategoryScreenNavigator
 
     @Binds
     fun bindSelectInfoFlowScreenNavigator(

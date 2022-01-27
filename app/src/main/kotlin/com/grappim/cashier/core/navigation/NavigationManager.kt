@@ -3,8 +3,6 @@ package com.grappim.cashier.core.navigation
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.grappim.auth.di.AuthScreenNavigator
@@ -14,8 +12,6 @@ import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.common.di.ActivityScope
 import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
-import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
-import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
 import com.grappim.products.root.di.ProductsScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
@@ -37,7 +33,6 @@ class NavigationManager @Inject constructor(
     WaybillScreenNavigator,
     SplashScreenNavigator,
     ProductsScreenNavigator,
-    ProductCategoryScreenNavigator,
     SelectInfoFlowScreenNavigator {
 
     private fun navigateTo(directions: NavDirections) {
@@ -112,24 +107,6 @@ class NavigationManager @Inject constructor(
 
     override fun goToProductCategories() {
         navigateTo(R.id.action_menuFlow_to_ProductCategoriesFlow)
-
-//        supportFragmentManager.commit {
-//            setReorderingAllowed(true)
-//            replace<ProductCategoryRootFragment>(
-//                R.id.nav_host_fragment,
-//                ProductCategoryRootFragment::class.java.canonicalName
-//            )
-//        }
-//        navController.get().setGraph(
-//            R.navigation.product_categories_flow
-//        )
-    }
-
-    override fun goToProductCategoryDetails() {
-    }
-
-    override fun goToCreateProductCategory() {
-        navigateTo(R.id.action_productCategoryList_to_createEditProductCategory)
     }
 
     override fun goBack() {

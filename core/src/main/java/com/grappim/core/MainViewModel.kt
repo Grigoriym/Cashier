@@ -6,4 +6,5 @@ abstract class MainViewModel : ViewModel() {
 
     abstract fun startSync()
     abstract fun stopSync()
+    abstract fun restartSync()
 }

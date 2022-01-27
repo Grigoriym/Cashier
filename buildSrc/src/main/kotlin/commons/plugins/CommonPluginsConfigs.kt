@@ -45,6 +45,8 @@ internal fun Project.getCommonAndroidDependencies() =
 
             implementation(Deps.AndroidX.core)
             implementation(Deps.AndroidX.appCompat)
+            implementation(Deps.AndroidX.fragment)
+            implementation(Deps.AndroidX.activity)
 
             implementation(Deps.Google.material)
 

@@ -15,6 +15,8 @@ dependencies {
   implementation(project(Modules.utilsDateTime))
   implementation(project(Modules.commonDi))
 
+  implementation(project(Modules.commonAsynchronous))
+
   api(Deps.Google.gson)
   implementation(Deps.Kotlin.serialization)
 

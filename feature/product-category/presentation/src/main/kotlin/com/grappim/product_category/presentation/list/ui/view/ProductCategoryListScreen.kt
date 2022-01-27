@@ -1,4 +1,4 @@
-package com.grappim.product_category.presentation.list.ui
+package com.grappim.product_category.presentation.list.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

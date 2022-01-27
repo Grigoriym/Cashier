@@ -49,6 +49,8 @@ dependencies {
     
     implementation(project(Modules.featureProductCategoryNetwork))
 
+    implementation(Deps.Rx2.retrofitAdapter)
+
     api(Deps.Google.gson)
     implementation(Deps.Kotlin.serialization)
 

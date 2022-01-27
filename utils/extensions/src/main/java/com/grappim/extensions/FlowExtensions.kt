@@ -1,30 +1,53 @@
 package com.grappim.extensions
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
-fun interval(
-    time: Long,
-    timeUnit: TimeUnit
-): Flow<Long> = flow {
+/**
+ * The idea was taken from here: https://stackoverflow.com/a/70776160/9822532
+ */
+class Timer(
+    private val countDownInterval: Long = 1000L,
+    runAtStart: Boolean = false,
+    private val onFinish: (() -> Unit)? = null,
+    private val onTick: ((Long) -> Unit)? = null
+) {
+    private var job: Job = Job()
 
-    var counter: Long = 0
+    private val _playerMode = MutableStateFlow(PlayerMode.STOPPED)
+    private val playerMode = _playerMode.asStateFlow()
 
-    val delayTime = when (timeUnit) {
-        TimeUnit.MICROSECONDS -> time / 1000
-        TimeUnit.NANOSECONDS -> time / 1_000_000
-        TimeUnit.SECONDS -> time * 1000
-        TimeUnit.MINUTES -> 60 * time * 1000
-        TimeUnit.HOURS -> 60 * 60 * time * 1000
-        TimeUnit.DAYS -> 24 * 60 * 60 * time * 1000
-        else -> time
+    private val scope = CoroutineScope(Dispatchers.Default)
+
+    init {
+        if (runAtStart) start()
     }
 
-    while (true) {
-        delay(delayTime)
-        emit(counter++)
+    fun start() {
+        job.cancel()
+        job = scope.launch(Dispatchers.IO) {
+            _playerMode.value = PlayerMode.PLAYING
+            while (isActive) {
+                onTick?.invoke(countDownInterval)
+                delay(timeMillis = countDownInterval)
+            }
+        }
     }
 
+    fun pause() {
+        job.cancel()
+        _playerMode.value = PlayerMode.PAUSED
+    }
+
+    fun stop() {
+        job.cancel()
+        _playerMode.value = PlayerMode.STOPPED
+    }
+
+    private enum class PlayerMode {
+        PLAYING,
+        PAUSED,
+        STOPPED
+    }
 }

@@ -9,7 +9,6 @@ import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.product_category.presentation.R
 import com.grappim.product_category.presentation.root.di.DaggerProductCategoryRootComponent
 import com.grappim.product_category.presentation.root.di.ProductCategoryRootComponent
-import javax.inject.Inject
 
 class ProductCategoryRootFragment : BaseFragment<ProductCategoryRootViewModel>(
     R.layout.fragment_product_categories_root
@@ -18,7 +17,10 @@ class ProductCategoryRootFragment : BaseFragment<ProductCategoryRootViewModel>(
     private val productCategoryRootComponent: ProductCategoryRootComponent by lazy {
         DaggerProductCategoryRootComponent
             .factory()
-            .create(findComponentDependencies())
+            .create(
+                productCategoryRootDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     override val deps: ComponentDependenciesProvider by lazy {
@@ -32,4 +34,5 @@ class ProductCategoryRootFragment : BaseFragment<ProductCategoryRootViewModel>(
     override val viewModel: ProductCategoryRootViewModel by viewModels {
         viewModelFactory
     }
+
 }

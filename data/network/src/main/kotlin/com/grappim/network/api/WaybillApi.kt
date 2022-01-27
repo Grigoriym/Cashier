@@ -1,6 +1,6 @@
 package com.grappim.network.api
 
-import com.grappim.network.interceptors.RequestWithAuthToken
+import com.grappim.common.asynchronous.RequestWithAuthToken
 import com.grappim.network.model.waybill.*
 import retrofit2.http.*
 

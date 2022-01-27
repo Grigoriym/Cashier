@@ -13,6 +13,7 @@ object Deps {
         const val core = "androidx.core:core-ktx:${Versions.AndroidX.core}"
         const val appCompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appCompat}"
         const val fragment = "androidx.fragment:fragment-ktx:${Versions.AndroidX.fragment}"
+        const val activity = "androidx.activity:activity:${Versions.AndroidX.activity}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraint}"
         const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.AndroidX.viewPager2}"
@@ -95,6 +96,13 @@ object Deps {
     object Firebase {
         const val bom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
+    }
+
+    object Rx2 {
+        const val android = "io.reactivex.rxjava2:rxandroid:${Versions.Rx2.android}"
+        const val java = "io.reactivex.rxjava2:rxjava:${Versions.Rx2.java}"
+        const val retrofitAdapter =
+            "com.squareup.retrofit2:adapter-rxjava2:${Versions.Rx2.retrofitAdapter}"
     }
 
     const val lintApi = "com.android.tools.lint:lint-api:${Versions.lint}"

@@ -1,9 +1,8 @@
 package com.grappim.network.api
 
-import com.grappim.network.interceptors.RequestWithAuthToken
+import com.grappim.common.asynchronous.RequestWithAuthToken
 import com.grappim.network.model.cashbox.GetCashBoxListRequestDTO
 import com.grappim.network.model.cashbox.GetCashBoxListResponseDTO
-import com.grappim.network.model.category.*
 import com.grappim.network.model.payment.CreateOrderRequestDTO
 import com.grappim.network.model.payment.CreateOrderResponseDTO
 import com.grappim.network.model.products.*

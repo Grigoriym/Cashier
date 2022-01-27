@@ -1,5 +1,6 @@
 package com.grappim.network.interceptors
 
+import com.grappim.common.asynchronous.RequestWithAuthToken
 import com.grappim.common.di.AppScope
 import com.grappim.domain.storage.GeneralStorage
 import okhttp3.Interceptor
@@ -7,10 +8,6 @@ import okhttp3.Request
 import okhttp3.Response
 import retrofit2.Invocation
 import javax.inject.Inject
-
-@Target(AnnotationTarget.FUNCTION)
-@Retention(AnnotationRetention.RUNTIME)
-annotation class RequestWithAuthToken
 
 @AppScope
 class AuthTokenInterceptor @Inject constructor(

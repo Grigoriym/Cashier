@@ -21,6 +21,7 @@ dependencies {
     implementation(project(Modules.commonAsynchronous))
 
     implementation(project(Modules.featureProductCategoryRepository))
+    implementation(project(Modules.featureProductCategoryDb))
     implementation(project(Modules.featureProductCategoryDomain))
 
     implementation(project(Modules.featureSignUpDomain))

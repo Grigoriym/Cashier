@@ -16,6 +16,7 @@ interface GeneralStorage {
     fun setMerchantInfo(merchantId: String, merchantName: String)
 
     fun getMerchantId(): String
+    fun getMerchantIdNullable(): String?
 
     fun getMerchantName(): String
 

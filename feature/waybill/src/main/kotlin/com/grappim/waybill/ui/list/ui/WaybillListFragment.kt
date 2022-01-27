@@ -77,10 +77,10 @@ class WaybillListFragment : BaseFragment<WaybillListViewModel>() {
     }
 
     private fun handleCreateState(
-        createState: com.grappim.common.lce.Try<Waybill>
+        createState: Try<Waybill>
     ) {
         when (createState) {
-            is com.grappim.common.lce.Try.Error -> {
+            is Try.Error -> {
                 showToast(getErrorMessage(createState.exception))
             }
         }
@@ -88,7 +88,7 @@ class WaybillListFragment : BaseFragment<WaybillListViewModel>() {
 
     @Composable
     private fun WaybillListFragmentScreen() {
-        val createState by viewModel.waybill.observeAsState(com.grappim.common.lce.Try.Initial)
+        val createState by viewModel.waybill.observeAsState(Try.Initial)
         val lazyPagingItems = viewModel.acceptances.collectAsLazyPagingItems()
         val isRefreshing by viewModel.isRefreshing.collectAsState()
 
@@ -98,7 +98,7 @@ class WaybillListFragment : BaseFragment<WaybillListViewModel>() {
             createState = createState
         )
 
-        LoaderDialogCompose(show = createState is com.grappim.common.lce.Try.Loading)
+        LoaderDialogCompose(show = createState is Try.Loading)
 
         WaybillListScreen(
             onBackButtonPressed = viewModel::onBackPressed,

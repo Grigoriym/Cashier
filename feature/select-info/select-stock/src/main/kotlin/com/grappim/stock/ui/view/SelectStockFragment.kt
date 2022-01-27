@@ -81,8 +81,7 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
             selectedStock = selectedStock,
             onNextClick = {
                 viewModel.saveStock()
-                mainViewModel.stopSync()
-                mainViewModel.startSync()
+                mainViewModel.restartSync()
                 selectInfoViewModel.goToSelectCashBox()
             },
             isLoading = loading

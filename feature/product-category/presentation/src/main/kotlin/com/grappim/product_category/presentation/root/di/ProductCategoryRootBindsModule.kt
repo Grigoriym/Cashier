@@ -2,6 +2,7 @@ package com.grappim.product_category.presentation.root.di
 
 import androidx.lifecycle.ViewModel
 import com.grappim.core.di.vm.ViewModelKey
+import com.grappim.product_category.presentation.ProductCategoryScreenNavigatorImpl
 import com.grappim.product_category.presentation.root.ui.ProductCategoryRootViewModel
 import dagger.Binds
 import dagger.Module
@@ -14,5 +15,10 @@ interface ProductCategoryRootBindsModule {
     fun bindProductCategoryRootViewModel(
         productCategoryRootViewModel: ProductCategoryRootViewModel
     ): ViewModel
+
+    @Binds
+    fun bindProductCategoryScreenNavigator(
+        productCategoryScreenNavigatorImpl: ProductCategoryScreenNavigatorImpl
+    ): ProductCategoryScreenNavigator
 
 }

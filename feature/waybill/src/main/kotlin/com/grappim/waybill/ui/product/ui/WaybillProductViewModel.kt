@@ -27,7 +27,7 @@ import javax.inject.Inject
 class WaybillProductViewModel @Inject constructor(
     private val createWaybillProductUseCase: CreateWaybillProductUseCase,
     private val updateWaybillProductUseCase: UpdateWaybillProductUseCase,
-    @com.grappim.common.di.ApplicationContext private val context: Context,
+    @ApplicationContext private val context: Context,
     @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : BaseViewModel() {
 
@@ -37,10 +37,10 @@ class WaybillProductViewModel @Inject constructor(
     val waybillProductState: State<WaybillProductStates>
         get() = _waybillProductState
 
-    private val _productCreated = mutableStateOf<com.grappim.common.lce.Try<BigDecimal>>(
-        com.grappim.common.lce.Try.Initial
+    private val _productCreated = mutableStateOf<Try<BigDecimal>>(
+        Try.Initial
     )
-    val productCreated: State<com.grappim.common.lce.Try<BigDecimal>>
+    val productCreated: State<Try<BigDecimal>>
         get() = _productCreated
 
     fun setBarcode(barcode: String) {
@@ -200,7 +200,7 @@ class WaybillProductViewModel @Inject constructor(
         id: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = com.grappim.common.lce.Try.Loading
+            _productCreated.value = Try.Loading
             updateWaybillProductUseCase.invoke(
                 UpdateWaybillProductUseCase.Params(
                     waybillId = waybillId,
@@ -215,7 +215,7 @@ class WaybillProductViewModel @Inject constructor(
             ).collect {
                 _productCreated.value = it
                 when (it) {
-                    is com.grappim.common.lce.Try.Success -> {
+                    is Try.Success -> {
 //                        navigator.navigate(
 //                            R.id.action_waybillProduct_to_waybillDetails,
 //                            bundleOf(
@@ -238,7 +238,7 @@ class WaybillProductViewModel @Inject constructor(
         productId: Long
     ) {
         viewModelScope.launch {
-            _productCreated.value = com.grappim.common.lce.Try.Loading
+            _productCreated.value = Try.Loading
             createWaybillProductUseCase.invoke(
                 CreateWaybillProductUseCase.Params(
                     waybillId = waybillId,

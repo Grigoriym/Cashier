@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CreateProductCategoryRequestDTO(
-    @SerialName("product")
-    val product: CreateProductCategoryDTO
+    @SerialName("category")
+    val category: CreateProductCategoryDTO
 )
 
 @Serializable

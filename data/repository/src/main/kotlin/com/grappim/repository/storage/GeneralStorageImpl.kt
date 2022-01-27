@@ -2,6 +2,7 @@ package com.grappim.repository.storage
 
 import android.content.Context
 import com.grappim.common.di.AppScope
+import com.grappim.common.di.ApplicationContext
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.storage.GeneralStorage
@@ -10,7 +11,7 @@ import javax.inject.Inject
 
 @AppScope
 class GeneralStorageImpl @Inject constructor(
-  @com.grappim.common.di.ApplicationContext private val context: Context
+  @ApplicationContext private val context: Context
 ) : GeneralStorage {
 
     companion object {
@@ -68,6 +69,8 @@ class GeneralStorageImpl @Inject constructor(
     }
 
     override fun getMerchantId(): String = getStringValue(MERCHANT_ID)
+
+    override fun getMerchantIdNullable(): String? = sharedPreferences.getString(MERCHANT_ID, null)
 
     override fun getMerchantName(): String = getStringValue(MERCHANT_NAME)
 

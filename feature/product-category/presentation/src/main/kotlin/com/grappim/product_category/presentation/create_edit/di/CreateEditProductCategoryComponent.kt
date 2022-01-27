@@ -2,7 +2,7 @@ package com.grappim.product_category.presentation.create_edit.di
 
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FragmentScope
-import com.grappim.product_category.presentation.create_edit.ui.CreateEditProductCategoryFragment
+import com.grappim.product_category.presentation.create_edit.ui.viewmodel.CreateEditProductCategoryViewModelImpl
 import dagger.Component
 
 @[FragmentScope Component(
@@ -16,6 +16,5 @@ import dagger.Component
 )]
 interface CreateEditProductCategoryComponent {
 
-    fun inject(createEditProductCategoryFragment: CreateEditProductCategoryFragment)
-
+    fun createEditViewModelAssistedFactory(): CreateEditProductCategoryViewModelImpl.Factory
 }
