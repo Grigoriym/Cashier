@@ -1,11 +1,11 @@
 package com.grappim.products.create_edit.di
 
-import com.grappim.products.create_edit.ui.CreateEditProductViewModel
+import com.grappim.products.create_edit.ui.viewmodel.CreateEditProductViewModelImpl
 import dagger.Module
 
 @Module
 interface CreateEditProductBindsModule {
 
-    fun provideCreateProductAssistedViewModelFactory(): CreateEditProductViewModel.Factory
+    fun provideCreateProductAssistedViewModelFactory(): CreateEditProductViewModelImpl.Factory
 
 }

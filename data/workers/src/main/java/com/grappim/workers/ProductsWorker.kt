@@ -4,14 +4,9 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.grappim.common.asynchronous.di.IoDispatcher
-import com.grappim.db.dao.ProductsDao
-import com.grappim.domain.storage.GeneralStorage
+import com.grappim.domain.repository.ProductsRepository
 import com.grappim.logger.logD
 import com.grappim.logger.logE
-import com.grappim.network.api.CashierApi
-import com.grappim.network.di.api.QualifierCashierApi
-import com.grappim.network.mappers.products.ProductMapper
-import com.grappim.network.model.products.GetProductsRequestDTO
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -21,11 +16,8 @@ import kotlinx.coroutines.withContext
 class ProductsWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
-    @QualifierCashierApi private val cashierApi: CashierApi,
-    private val generalStorage: GeneralStorage,
-    private val productsDao: ProductsDao,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val productMapper: ProductMapper
+    private val productsRepository: ProductsRepository
 ) : CoroutineWorker(context, workerParameters) {
 
     companion object {
@@ -46,18 +38,13 @@ class ProductsWorker @AssistedInject constructor(
             var productsLoaded = false
 
             while (!productsLoaded) {
-                val request = GetProductsRequestDTO(
+                val products = productsRepository.filterProducts(
                     offset = newOffset,
-                    limit = PRODUCTS_LIMIT,
-                    merchantId = generalStorage.getMerchantId(),
-                    stockId = generalStorage.stockId
+                    limit = PRODUCTS_LIMIT
                 )
 
-                val response = cashierApi.getProducts(request)
-                val products = response.products
-                if (products?.isNotEmpty() == true) {
-                    val entities = productMapper.dtoToEntityList(products)
-                    productsDao.insert(entities)
+                if (products.isNotEmpty()) {
+                    productsRepository.insertProducts(products)
                     newOffset += PRODUCTS_LIMIT
                 } else {
                     productsLoaded = true

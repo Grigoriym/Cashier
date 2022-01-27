@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UpdateProductResponseDTO(
+data class CreateProductResponseDTO(
     @SerialName("product")
     val product: ProductDTO
 )

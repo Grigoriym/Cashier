@@ -12,7 +12,7 @@ class ProductMapper @Inject constructor(
 
 ) {
 
-    suspend fun domainToBasketEntity(
+    fun domainToBasketEntity(
         from: Product
     ): BasketProductEntity =
         BasketProductEntity(
@@ -25,7 +25,7 @@ class ProductMapper @Inject constructor(
             barcode = from.barcode
         )
 
-    suspend fun entityToBasketDomain(
+    fun entityToBasketDomain(
         from: BasketProductEntity
     ): BasketProduct =
         BasketProduct(
@@ -38,7 +38,7 @@ class ProductMapper @Inject constructor(
             barcode = from.barcode
         )
 
-    suspend fun entityToBasketDomainList(
+    fun entityToBasketDomainList(
         from: List<BasketProductEntity>
     ): List<BasketProduct> =
         ArrayList<BasketProduct>(from.size).apply {
@@ -47,7 +47,7 @@ class ProductMapper @Inject constructor(
             }
         }
 
-    suspend fun dtoToEntity(from: ProductDTO): ProductEntity =
+    fun dtoToEntity(from: ProductDTO): ProductEntity =
         ProductEntity(
             id = from.id,
             barcode = from.barcode,
@@ -60,18 +60,17 @@ class ProductMapper @Inject constructor(
             merchantId = from.merchantId,
             createdOn = from.createdOn,
             updatedOn = from.updatedOn,
-            categoryId = from.categoryId,
-            categoryName = from.category
+            categoryId = from.categoryId
         )
 
-    suspend fun dtoToEntityList(from: List<ProductDTO>): List<ProductEntity> =
+    fun dtoToEntityList(from: List<ProductDTO>): List<ProductEntity> =
         ArrayList<ProductEntity>(from.size).apply {
             from.forEach {
                 add(dtoToEntity(it))
             }
         }
 
-    suspend fun entityToDomain(from: ProductEntity): Product =
+    fun entityToDomain(from: ProductEntity): Product =
         Product(
             id = from.id,
             barcode = from.barcode,
@@ -88,7 +87,7 @@ class ProductMapper @Inject constructor(
             basketCount = from.basketCount
         )
 
-    suspend fun entityToDomainList(from: List<ProductEntity>): List<Product> =
+    fun entityToDomainList(from: List<ProductEntity>): List<Product> =
         ArrayList<Product>(from.size).apply {
             from.forEach {
                 add(entityToDomain(it))
@@ -96,3 +95,45 @@ class ProductMapper @Inject constructor(
         }
 
 }
+
+fun ProductDTO.toDomain(): Product =
+    Product(
+        id = this.id,
+        barcode = this.barcode,
+        name = this.name,
+        sellingPrice = this.sellingPrice,
+        purchasePrice = this.purchasePrice,
+        amount = this.amount,
+        stockId = this.stockId,
+        unit = ProductUnit.getProductUnitByValue(this.unit),
+        merchantId = this.merchantId,
+        createdOn = this.createdOn,
+        updatedOn = this.updatedOn,
+        categoryId = this.categoryId
+    )
+
+fun List<ProductDTO>.toDomain(): List<Product> =
+    this.map {
+        it.toDomain()
+    }
+
+fun Product.toEntity(): ProductEntity =
+    ProductEntity(
+        id = this.id,
+        barcode = this.barcode,
+        name = this.name,
+        sellingPrice = this.sellingPrice,
+        purchasePrice = this.purchasePrice,
+        amount = this.amount,
+        stockId = this.stockId,
+        unit = this.unit,
+        merchantId = this.merchantId,
+        createdOn = this.createdOn,
+        updatedOn = this.updatedOn,
+        categoryId = this.categoryId
+    )
+
+fun List<Product>.toEntity(): List<ProductEntity> =
+    this.map {
+        it.toEntity()
+    }

@@ -18,14 +18,14 @@ import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
+import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import com.grappim.network.api.CashierApi
 import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.mappers.products.ProductMapper
-import com.grappim.network.model.products.CreateProductRequestDTO
-import com.grappim.network.model.products.CreateProductRequestParamsDTO
-import com.grappim.network.model.products.ProductDTO
-import com.grappim.network.model.products.UpdateProductRequestDTO
+import com.grappim.network.mappers.products.toDomain
+import com.grappim.network.mappers.products.toEntity
+import com.grappim.network.model.products.*
 import com.grappim.repository.extensions.getStringForDbQuery
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -40,6 +40,7 @@ class ProductsRepositoryImpl @Inject constructor(
     private val productsDao: ProductsDao,
     private val productMapper: ProductMapper,
     private val basketDao: BasketDao,
+    private val generalStorage: GeneralStorage,
     @QualifierCashierApi private val cashierApi: CashierApi,
     @ApplicationScope private val applicationScope: CoroutineScope,
     @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
@@ -60,17 +61,16 @@ class ProductsRepositoryImpl @Inject constructor(
                     sellingPrice = params.sellingPrice,
                     amount = params.amount,
                     barcode = params.barcode,
-                    createdOn = params.createdOn,
-                    updatedOn = params.createdOn,
-                    categoryName = params.categoryName,
                     categoryId = params.categoryId
                 )
             )
         )
 
+        val domain = productMapper.dtoToEntity(response.product)
+
         productsDao.insert(
             ProductEntity(
-                id = response.id,
+                id = domain.id,
                 barcode = params.barcode,
                 name = params.name,
                 stockId = params.stockId,
@@ -79,10 +79,9 @@ class ProductsRepositoryImpl @Inject constructor(
                 purchasePrice = params.purchasePrice,
                 sellingPrice = params.sellingPrice,
                 merchantId = params.merchantId,
-                createdOn = params.createdOn,
-                updatedOn = params.updatedOn,
-                categoryId = 0,
-                categoryName = ""
+                createdOn = domain.createdOn,
+                updatedOn = domain.updatedOn,
+                categoryId = domain.categoryId
             )
         )
 
@@ -223,4 +222,22 @@ class ProductsRepositoryImpl @Inject constructor(
             val domain = productMapper.entityToDomainList(result)
             emit(domain)
         }
+
+    override suspend fun filterProducts(offset: Long, limit: Long): List<Product> {
+        val request = FilterProductsRequestDTO(
+            offset = offset,
+            limit = limit,
+            merchantId = generalStorage.getMerchantId(),
+            stockId = generalStorage.stockId
+        )
+
+        val response = cashierApi.filterProducts(request).products
+        val mappedProducts = response.toDomain()
+        return mappedProducts
+    }
+
+    override suspend fun insertProducts(newProducts: List<Product>) {
+        val entities = newProducts.toEntity()
+        productsDao.insert(entities)
+    }
 }

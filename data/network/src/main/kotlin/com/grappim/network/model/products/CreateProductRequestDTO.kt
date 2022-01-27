@@ -1,31 +1,37 @@
 package com.grappim.network.model.products
 
-import com.google.gson.annotations.SerializedName
+import com.grappim.common.asynchronous.serializers.BigDecimalSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
+@Serializable
 data class CreateProductRequestDTO(
+    @SerialName("product")
     val product: CreateProductRequestParamsDTO
 )
 
+@Serializable
 data class CreateProductRequestParamsDTO(
+    @SerialName("name")
     val name: String,
-    @SerializedName("stock_id")
+    @SerialName("stockId")
     val stockId: String,
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
+    @SerialName("unit")
     val unit: String,
-    @SerializedName("purchase_price")
+    @SerialName("purchasePrice")
+    @Serializable(BigDecimalSerializer::class)
     val purchasePrice: BigDecimal,
-    @SerializedName("selling_price")
+    @SerialName("sellingPrice")
+    @Serializable(BigDecimalSerializer::class)
     val sellingPrice: BigDecimal,
+    @SerialName("amount")
+    @Serializable(BigDecimalSerializer::class)
     val amount: BigDecimal,
+    @SerialName("barcode")
     val barcode: String,
-    @SerializedName("created_on")
-    val createdOn: String,
-    @SerializedName("updated_on")
-    val updatedOn: String,
-    @SerializedName("category")
-    val categoryName: String,
-    @SerializedName("category_id")
+    @SerialName("categoryId")
     val categoryId: Long
 )

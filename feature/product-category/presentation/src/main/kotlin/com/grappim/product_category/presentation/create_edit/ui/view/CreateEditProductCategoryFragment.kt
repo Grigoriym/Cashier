@@ -13,7 +13,7 @@ import com.grappim.core.BaseFragment
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.product_category.domain.model.ProductCategory
-import com.grappim.product_category.presentation.create_edit.BundleArgsKeys
+import com.grappim.product_category.presentation.BundleArgsKeys
 import com.grappim.product_category.presentation.create_edit.di.CreateEditProductCategoryComponent
 import com.grappim.product_category.presentation.create_edit.di.DaggerCreateEditProductCategoryComponent
 import com.grappim.product_category.presentation.create_edit.ui.viewmodel.CreateEditProductCategoryViewModel

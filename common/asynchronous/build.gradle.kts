@@ -2,6 +2,7 @@ plugins {
   id(Plugins.javaLibrary)
   kotlin(Plugins.kotlinJvm)
   kotlin(Plugins.kotlinKapt)
+  id(Plugins.kotlinSerialization)
 }
 
 dependencies {
@@ -13,6 +14,8 @@ dependencies {
 
   implementation(Deps.Google.dagger)
   kapt(Deps.Google.daggerCompiler)
+
+  implementation(Deps.Kotlin.serialization)
 }
 
 java {

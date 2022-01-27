@@ -2,7 +2,7 @@ package com.grappim.products.list.di
 
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FragmentScope
-import com.grappim.products.list.ui.ProductListFragment
+import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.Component
 
 @[FragmentScope Component(
@@ -16,6 +16,6 @@ import dagger.Component
 )]
 interface ProductsListComponent {
 
-    fun inject(productListFragment: ProductListFragment)
+    fun multiViewModelFactory(): MultiViewModelFactory
 
 }

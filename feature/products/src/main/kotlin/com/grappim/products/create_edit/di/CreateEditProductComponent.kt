@@ -3,7 +3,7 @@ package com.grappim.products.create_edit.di
 import com.grappim.calculations.DecimalFormatModule
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FragmentScope
-import com.grappim.products.create_edit.ui.CreateEditProductFragment
+import com.grappim.products.create_edit.ui.viewmodel.CreateEditProductViewModelImpl
 import dagger.Component
 
 @[FragmentScope Component(
@@ -18,6 +18,6 @@ import dagger.Component
 )]
 interface CreateEditProductComponent {
 
-    fun inject(createEditProductFragment: CreateEditProductFragment)
+    fun provideCreateProductAssistedViewModelFactory(): CreateEditProductViewModelImpl.Factory
 
 }

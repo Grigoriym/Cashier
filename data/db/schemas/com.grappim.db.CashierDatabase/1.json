@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "14f80fbdca3d0cbef098256991eeed2a",
+    "identityHash": "fa5e2ed68d1b95453143d87e7f067b4b",
     "entities": [
       {
         "tableName": "product_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `barcode` TEXT NOT NULL, `name` TEXT NOT NULL, `sellingPrice` TEXT NOT NULL, `purchasePrice` TEXT NOT NULL, `amount` TEXT NOT NULL, `stockId` TEXT NOT NULL, `unit` TEXT NOT NULL, `merchantId` TEXT NOT NULL, `createdOn` TEXT NOT NULL, `updatedOn` TEXT NOT NULL, `categoryId` INTEGER NOT NULL DEFAULT 0, `categoryName` TEXT NOT NULL DEFAULT '', `basketCount` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `barcode` TEXT NOT NULL, `name` TEXT NOT NULL, `sellingPrice` TEXT NOT NULL, `purchasePrice` TEXT NOT NULL, `amount` TEXT NOT NULL, `stockId` TEXT NOT NULL, `unit` TEXT NOT NULL, `merchantId` TEXT NOT NULL, `createdOn` TEXT NOT NULL, `updatedOn` TEXT NOT NULL, `categoryId` INTEGER NOT NULL DEFAULT 0, `basketCount` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -80,13 +80,6 @@
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "0"
-          },
-          {
-            "fieldPath": "categoryName",
-            "columnName": "categoryName",
-            "affinity": "TEXT",
-            "notNull": true,
-            "defaultValue": "''"
           },
           {
             "fieldPath": "basketCount",
@@ -246,7 +239,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '14f80fbdca3d0cbef098256991eeed2a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fa5e2ed68d1b95453143d87e7f067b4b')"
     ]
   }
 }

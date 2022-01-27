@@ -34,4 +34,11 @@ interface ProductsRepository {
     fun searchProducts(
         params: SearchProductsUseCase.Params
     ): Flow<List<Product>>
+
+    suspend fun filterProducts(
+        offset: Long,
+        limit: Long
+    ): List<Product>
+
+    suspend fun insertProducts(newProducts: List<Product>)
 }

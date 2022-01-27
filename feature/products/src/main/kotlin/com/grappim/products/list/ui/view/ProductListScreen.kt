@@ -1,4 +1,4 @@
-package com.grappim.products.list.ui
+package com.grappim.products.list.ui.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -14,12 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
+import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.R
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.ItemProductCompose
+import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
@@ -31,9 +31,9 @@ internal fun ProductsScreen(
     onCreateProductClick: () -> Unit,
     searchText: String,
     setSearchText: (String) -> Unit,
-    categories: List<Category>,
+    categories: List<ProductCategory>,
     selectedIndex: Int,
-    onTabClick: (Int, Category) -> Unit,
+    onTabClick: (Int, ProductCategory) -> Unit,
     products: List<Product>,
     onProductClick: (Product) -> Unit
 ) {
@@ -70,9 +70,9 @@ internal fun ProductsScreen(
 private fun ProductsScreenMainSegment(
     searchText: String,
     setSearchText: (String) -> Unit,
-    categories: List<Category>,
+    categories: List<ProductCategory>,
     selectedIndex: Int,
-    onTabClick: (Int, Category) -> Unit,
+    onTabClick: (Int, ProductCategory) -> Unit,
     products: List<Product>,
     onProductClick: (Product) -> Unit
 ) {
@@ -103,9 +103,9 @@ private fun ProductsScreenMainSegment(
 
 @Composable
 private fun CategoriesSegment(
-    categories: List<Category>,
+    categories: List<ProductCategory>,
     selectedIndex: Int,
-    onTabClick: (Int, Category) -> Unit
+    onTabClick: (Int, ProductCategory) -> Unit
 ) {
     if (categories.isNotEmpty()) {
         ScrollableTabRow(
@@ -155,7 +155,7 @@ private fun ProductsScreenPreview() {
             onCreateProductClick = {},
             searchText = "",
             setSearchText = {},
-            categories = listOf(Category.empty(), Category.empty()),
+            categories = listOf(ProductCategory.empty(), ProductCategory.empty()),
             selectedIndex = 0,
             onTabClick = { index, category ->
 

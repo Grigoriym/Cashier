@@ -5,6 +5,9 @@ import com.grappim.domain.model.product.Category
 import com.grappim.network.model.category.CategoryDTO
 import javax.inject.Inject
 
+@Deprecated(
+    message = "use product category"
+)
 class CategoryMapper @Inject constructor(
 
 ) {

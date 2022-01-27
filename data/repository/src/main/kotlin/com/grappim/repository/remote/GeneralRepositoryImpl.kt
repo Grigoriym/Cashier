@@ -19,6 +19,9 @@ import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.mappers.category.CategoryMapper
 import com.grappim.network.mappers.products.ProductMapper
+import com.grappim.product_category.db.ProductCategoryDao
+import com.grappim.product_category.db.ProductCategoryEntityMapper
+import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.repository.extensions.getStringForDbQuery
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -35,11 +38,13 @@ class GeneralRepositoryImpl @Inject constructor(
     private val basketDao: BasketDao,
     private val productsDao: ProductsDao,
     private val categoryDao: CategoryDao,
+    private val productCategoryDao: ProductCategoryDao,
     private val generalStorage: GeneralStorage,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @ApplicationScope private val applicationScope: CoroutineScope,
     private val categoryMapper: CategoryMapper,
-    private val productMapper: ProductMapper
+    private val productMapper: ProductMapper,
+    private val productCategoryEntityMapper: ProductCategoryEntityMapper
 ) : GeneralRepository {
 
     override fun getCategories(
@@ -63,24 +68,19 @@ class GeneralRepositoryImpl @Inject constructor(
         emit(Try.Success(domain))
     }
 
-    override fun getCategories2(params: GetCategoryListInteractor.Params): Flow<List<Category>> =
-        flow {
-            val categories = categoryDao.getAllCategories().toMutableList()
-            if (params.sendDefaultCategory) {
-                categories.add(
-                    0,
-                    CategoryEntity(
-                        id = -1,
-                        name = "All",
-                        merchantId = "",
-                        stockId = "",
-                        isDefault = true
+    override fun getCategories2(params: GetCategoryListInteractor.Params): Flow<List<ProductCategory>> =
+        productCategoryDao.getAllCategoriesFlow()
+            .map {
+                productCategoryEntityMapper.revertList(it).toMutableList()
+            }.map {
+                if (params.sendDefaultCategory) {
+                    it.add(
+                        index = 0,
+                        element = ProductCategory.allItem()
                     )
-                )
+                }
+                it.toList()
             }
-            val domain = categoryMapper.dbToDomainList(categories.toList())
-            emit(domain)
-        }
 
     override fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params
@@ -107,7 +107,7 @@ class GeneralRepositoryImpl @Inject constructor(
             val roomQuery = StringBuilder("SELECT * FROM $productEntityTableName ")
                 .append("WHERE merchantId = '${generalStorage.getMerchantId()}' ")
                 .append(
-                    if (category == null || category.isDefault) {
+                    if (category == null || category.id == ProductCategory.ALL_DEFAULT_ID) {
                         ""
                     } else {
                         "AND categoryId = '${category.id}' "

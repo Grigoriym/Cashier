@@ -13,7 +13,6 @@ class MainViewModelImpl @Inject constructor(
     private val timer: Timer by lazy {
         Timer(
             runAtStart = true,
-            countDownInterval = 15_000L,
             onTick = {
                 doWorkOnTick()
             }

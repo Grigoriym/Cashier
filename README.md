@@ -12,6 +12,10 @@ I do this because I had an experience with an app of such functionality.
 [Here you can see the app flow](https://drive.google.com/file/d/1pnAnRmdSb6lBLid0wilV6QIFNJxLDUOW/view?usp=sharing)
 ![](https://github.com/Grigoriym/Cashier/blob/master/art/app_flow.png)
 
+### Refactoring History
+1. Hilt -> Dagger
+2. Gson -> Kotlin Serializable
+
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - is Android’s modern toolkit for building native UI.
@@ -58,6 +62,7 @@ I do this because I had an experience with an app of such functionality.
 - [ ] refactor all stuff connected to workManager
 - [ ] add rx as an alternative
 - [ ] make it more convenient RequestWithAuthToken
+- [ ] make workers' logic on some timestamp or sth like that
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules

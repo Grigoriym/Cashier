@@ -1,6 +1,5 @@
-package com.grappim.products.list.ui
+package com.grappim.products.list.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,38 +14,24 @@ import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.products.list.di.DaggerProductsListComponent
 import com.grappim.products.list.di.ProductsListComponent
+import com.grappim.products.list.ui.viewmodel.ProductListViewModelImpl
 import com.grappim.uikit.theme.CashierTheme
-import javax.inject.Inject
 
-class ProductListFragment : BaseFragment<ProductListViewModel>() {
+class ProductListFragment : BaseFragment<ProductListViewModelImpl>() {
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
-
-    override val viewModel: ProductListViewModel by viewModels {
-        viewModelFactory
-    }
-
-    private var _productListComponent: ProductsListComponent? = null
-    private val productListComponent
-        get() = requireNotNull(_productListComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _productListComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _productListComponent = DaggerProductsListComponent
+    private val productListComponent: ProductsListComponent by lazy {
+        DaggerProductsListComponent
             .builder()
             .productListDeps(findComponentDependencies())
             .build()
-        productListComponent.inject(this)
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        productListComponent.multiViewModelFactory()
+    }
+
+    override val viewModel: ProductListViewModelImpl by viewModels {
+        viewModelFactory
     }
 
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package com.grappim.products.create_edit
+package com.grappim.products.model
 
 enum class CreateEditFlow {
     CREATE,

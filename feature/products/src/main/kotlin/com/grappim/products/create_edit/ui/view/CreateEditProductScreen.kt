@@ -1,4 +1,4 @@
-package com.grappim.products.create_edit.ui
+package com.grappim.products.create_edit.ui.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,12 +31,12 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.grappim.domain.model.base.ProductUnit
-import com.grappim.domain.model.product.Category
+import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.R
-import com.grappim.products.create_edit.CreateEditFlow
+import com.grappim.products.model.CreateEditFlow
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.CounterComposable
+import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
@@ -66,10 +66,10 @@ fun CreateEditProductScreen(
     dropDownExpanded: Boolean,
     onDismissDropDown: () -> Unit,
     onDropDownClick: () -> Unit,
-    categoryItems: List<Category>,
-    onCategoryClick: (Category) -> Unit,
+    categoryItems: List<ProductCategory>,
+    onCategoryClick: (ProductCategory) -> Unit,
     createEditFlow: CreateEditFlow,
-    selectedCategory: Category? = null,
+    selectedCategory: ProductCategory? = null,
     onScanClick: () -> Unit
 ) {
     val title = when (createEditFlow) {
@@ -149,9 +149,9 @@ private fun CreateEditProductScreenMainSegment(
     dropDownExpanded: Boolean,
     onDismissDropDown: () -> Unit,
     onDropDownClick: () -> Unit,
-    categoryItems: List<Category>,
-    onCategoryClick: (Category) -> Unit,
-    selectedCategory: Category?,
+    categoryItems: List<ProductCategory>,
+    onCategoryClick: (ProductCategory) -> Unit,
+    selectedCategory: ProductCategory?,
     onScanClick: () -> Unit
 ) {
     val listState = rememberLazyListState()
@@ -297,9 +297,9 @@ private fun CreateEditProductScreenMainSegment(
 private fun CategoryDropDownSegment(
     dropDownExpanded: Boolean,
     onDismissDropDown: () -> Unit,
-    categoryItems: List<Category>,
-    onCategoryClick: (Category) -> Unit,
-    selectedCategory: Category?,
+    categoryItems: List<ProductCategory>,
+    onCategoryClick: (ProductCategory) -> Unit,
+    selectedCategory: ProductCategory?,
     onDropDownClick: () -> Unit
 ) {
     Box(
@@ -641,9 +641,9 @@ private fun CategoryDropDownSectionPreview() {
         CategoryDropDownSegment(
             dropDownExpanded = true,
             onDismissDropDown = { },
-            categoryItems = listOf(Category.empty()),
+            categoryItems = listOf(ProductCategory.empty()),
             onCategoryClick = {},
-            selectedCategory = Category.empty(),
+            selectedCategory = ProductCategory.empty(),
             onDropDownClick = {}
         )
     }
@@ -736,9 +736,9 @@ private fun CreateEditProductScreenMainSegmentPreview() {
             setBarcode = {},
             dropDownExpanded = true,
             onDismissDropDown = {},
-            categoryItems = listOf(Category.empty()),
+            categoryItems = listOf(ProductCategory.empty()),
             onCategoryClick = {},
-            selectedCategory = Category.empty(),
+            selectedCategory = ProductCategory.empty(),
             onDropDownClick = {},
             onScanClick = {}
         )
@@ -777,7 +777,7 @@ private fun CreateEditProductScreenPreview() {
             setBarcode = {},
             dropDownExpanded = true,
             onDismissDropDown = {},
-            categoryItems = listOf(Category.empty()),
+            categoryItems = listOf(ProductCategory.empty()),
             onCategoryClick = {},
             createEditFlow = CreateEditFlow.EDIT,
             onDropDownClick = {},

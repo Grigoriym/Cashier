@@ -12,7 +12,6 @@ import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.common.di.ActivityScope
 import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
-import com.grappim.products.root.di.ProductsScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
 import com.grappim.sign_up_presentation.di.SignUpScreenNavigator
@@ -32,7 +31,6 @@ class NavigationManager @Inject constructor(
     PaymentMethodScreenNavigator,
     WaybillScreenNavigator,
     SplashScreenNavigator,
-    ProductsScreenNavigator,
     SelectInfoFlowScreenNavigator {
 
     private fun navigateTo(directions: NavDirections) {

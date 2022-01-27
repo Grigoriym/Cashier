@@ -32,7 +32,6 @@ object DatabaseModule {
             "cashier_${databaseBuildConfigProvider.buildType}.db"
         )
             .fallbackToDestructiveMigration()
-            .fallbackToDestructiveMigrationOnDowngrade()
             .build()
 
     @Provides

@@ -27,7 +27,7 @@ interface CashierApi {
     @RequestWithAuthToken
     suspend fun createProduct(
         @Body createProduct: CreateProductRequestDTO
-    ): ProductIdResponseDTO
+    ): CreateProductResponseDTO
 
     @PUT("product")
     @RequestWithAuthToken
@@ -39,13 +39,13 @@ interface CashierApi {
     @RequestWithAuthToken
     suspend fun deleteProduct(
         @Path("productId") id: String
-    ): ProductIdResponseDTO
+    ): CreateProductResponseDTO
 
     @POST("product/filter")
     @RequestWithAuthToken
-    suspend fun getProducts(
-        @Body getProductsRequestDTO: GetProductsRequestDTO
-    ): GetProductsResponseDTO
+    suspend fun filterProducts(
+        @Body filterProductsRequestDTO: FilterProductsRequestDTO
+    ): FilterProductsResponseDTO
 
     @POST("cashbox/list")
     @RequestWithAuthToken

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
  * The idea was taken from here: https://stackoverflow.com/a/70776160/9822532
  */
 class Timer(
-    private val countDownInterval: Long = 1000L,
+    private val countDownInterval: Long = 30_000L,
     runAtStart: Boolean = false,
     private val onFinish: (() -> Unit)? = null,
     private val onTick: ((Long) -> Unit)? = null

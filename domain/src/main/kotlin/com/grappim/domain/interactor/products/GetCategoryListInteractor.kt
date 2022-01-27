@@ -24,7 +24,7 @@ class GetCategoryListInteractor @Inject constructor(
     override fun execute(params: Params): Flow<Try<List<Category>>> =
         generalRepository.getCategories(params)
 
-    fun getSimpleCategoryList(params: Params): Flow<List<Category>> =
+    fun getSimpleCategoryList(params: Params): Flow<List<ProductCategory>> =
         generalRepository.getCategories2(params)
 
     fun getSimpleProductCategoryList(params: Params): Flow<List<ProductCategory>> =

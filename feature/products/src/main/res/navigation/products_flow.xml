@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.grappim.products.list.ui.ProductListFragment">
+        android:name="com.grappim.products.list.ui.view.ProductListFragment">
         <action
             android:id="@+id/action_products_to_createProduct"
             app:destination="@id/createEditProductFragment">
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/createEditProductFragment"
-        android:name="com.grappim.products.create_edit.ui.CreateEditProductFragment">
+        android:name="com.grappim.products.create_edit.ui.view.CreateEditProductFragment">
 <!--        <argument-->
 <!--            android:name="flow_type"-->
 <!--            android:defaultValue="CREATE"-->

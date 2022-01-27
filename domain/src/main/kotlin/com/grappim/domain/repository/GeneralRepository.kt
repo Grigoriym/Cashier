@@ -6,6 +6,7 @@ import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
 import com.grappim.domain.interactor.products.SearchProductsByCategoryUseCase
 import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
+import com.grappim.product_category.domain.model.ProductCategory
 import kotlinx.coroutines.flow.Flow
 
 interface GeneralRepository {
@@ -16,7 +17,7 @@ interface GeneralRepository {
 
     fun getCategories2(
         params: GetCategoryListInteractor.Params
-    ): Flow<List<Category>>
+    ): Flow<List<ProductCategory>>
 
     fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params

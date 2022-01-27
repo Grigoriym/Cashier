@@ -1,5 +1,6 @@
 package com.grappim.products.root.di
 
+import androidx.appcompat.app.AppCompatActivity
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.domain.repository.GeneralRepository
@@ -10,11 +11,12 @@ import java.time.format.DateTimeFormatter
 
 interface ProductsRootDeps : ComponentDeps {
 
-    fun productsScreenNavigator(): ProductsScreenNavigator
     fun productsRepository(): ProductsRepository
     fun generalRepository(): GeneralRepository
     fun generalStorage(): GeneralStorage
     fun productCategoryRepository(): ProductCategoryRepository
+
+    fun activity(): AppCompatActivity
 
     @DateTimeIsoInstant
     fun dtfIso(): DateTimeFormatter

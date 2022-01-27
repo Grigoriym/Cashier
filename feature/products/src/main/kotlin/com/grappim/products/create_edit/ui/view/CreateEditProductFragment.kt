@@ -1,77 +1,50 @@
-package com.grappim.products.create_edit.ui
+package com.grappim.products.create_edit.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import com.grappim.core.BaseFragment
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.common.lce.Try
-import com.grappim.extensions.getErrorMessage
-import com.grappim.extensions.showToast
-import com.grappim.products.create_edit.CreateEditFlow
+import com.grappim.domain.model.product.Product
+import com.grappim.products.BundleArgsKeys
 import com.grappim.products.create_edit.di.CreateEditProductComponent
 import com.grappim.products.create_edit.di.DaggerCreateEditProductComponent
+import com.grappim.products.create_edit.ui.viewmodel.CreateEditProductViewModel
+import com.grappim.products.create_edit.ui.viewmodel.CreateEditProductViewModelImpl
+import com.grappim.products.model.CreateEditFlow
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
-import javax.inject.Inject
 
 class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: CreateEditProductViewModel.Factory
+    private val createComponent: CreateEditProductComponent by lazy {
+        DaggerCreateEditProductComponent
+            .builder()
+            .createEditProductDeps(findComponentDependencies())
+            .build()
+    }
 
-    private var _createEditComponent: CreateEditProductComponent? = null
-    private val createComponent
-        get() = requireNotNull(_createEditComponent)
+    private val viewModelFactory: CreateEditProductViewModelImpl.Factory by lazy {
+        createComponent.provideCreateProductAssistedViewModelFactory()
+    }
 
-    private val createEditFlow by lazyArg<CreateEditFlow>("")
+    private val createEditFlow by lazyArg<CreateEditFlow>(BundleArgsKeys.ARG_KEY_FLOW)
+    private val product by lazyArg<Product?>(BundleArgsKeys.ARG_KEY_PRODUCT)
 
     override val viewModel: CreateEditProductViewModel by assistedViewModel {
         viewModelFactory.create(
             createEditFlow = createEditFlow,
-            productToEdit = null,
+            productToEdit = product,
             scannedBarcode = null
         )
     }
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _createEditComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _createEditComponent = DaggerCreateEditProductComponent
-            .builder()
-            .createEditProductDeps(findComponentDependencies())
-            .build()
-        createComponent.inject(this)
-    }
-
-//    private val args by navArgs<CreateEditProductFragmentArgs>()
-//    private val createEditFlow: CreateEditFlow by lazy {
-//        args.flowType
-//    }
-
-//    private val viewModel by assistedViewModel {
-//        viewModelFactory.create(
-//            createEditFlow = args.flowType,
-//            productToEdit = args.product,
-//            scannedBarcode = args.barcode
-//        )
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,14 +54,6 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
         setContent {
             CashierTheme {
                 CreateEditProductFragmentScreen()
-            }
-        }
-    }
-
-    private fun showCreateEditResult(data: Try<Unit>) {
-        when (data) {
-            is Try.Error -> {
-                showToast(getErrorMessage(data.exception))
             }
         }
     }
@@ -106,13 +71,9 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
         val markup by viewModel.markup.collectAsState()
         val amountAndUnit by viewModel.amountAndUnit.collectAsState()
         val dropDownExpanded by viewModel.dropDownExpanded.collectAsState()
-        val createEditProductResult by viewModel.createProduct.collectAsState()
+        val loading by viewModel.loading.observeAsState(false)
 
-        LoaderDialogCompose(show = createEditProductResult is Try.Loading)
-
-        LaunchedEffect(key1 = createEditProductResult) {
-            showCreateEditResult(createEditProductResult)
-        }
+        LoaderDialogCompose(show = loading)
 
         CreateEditProductScreen(
             onBackPressed = viewModel::onBackPressed,

@@ -30,8 +30,6 @@ data class ProductEntity(
 
     @ColumnInfo(defaultValue = "0")
     val categoryId: Long,
-    @ColumnInfo(defaultValue = "")
-    val categoryName: String,
 
     var basketCount: BigDecimal = bigDecimalZero()
 ) : Parcelable
