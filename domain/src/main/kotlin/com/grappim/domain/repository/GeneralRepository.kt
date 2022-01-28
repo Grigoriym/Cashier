@@ -13,7 +13,7 @@ interface GeneralRepository {
 
     fun getCategories(
         params: GetCategoryListInteractor.Params
-    ): Flow<Try<List<Category>>>
+    ): Flow<Try<List<ProductCategory>>>
 
     fun getCategories2(
         params: GetCategoryListInteractor.Params

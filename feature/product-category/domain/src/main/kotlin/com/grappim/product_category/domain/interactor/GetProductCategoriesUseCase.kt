@@ -3,7 +3,6 @@ package com.grappim.product_category.domain.interactor
 import com.grappim.common.asynchronous.SimpleFlowUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.lce.NoParams
-import com.grappim.common.lce.Try
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,9 +16,6 @@ class GetProductCategoriesUseCase @Inject constructor(
 
     override fun execute(params: NoParams): Flow<List<ProductCategory>> =
         productCategoryRepository.getCategoriesFlow2()
-
-    fun lceExecute(params: NoParams): Flow<Try<List<ProductCategory>>> =
-        productCategoryRepository.getCategoriesFlow()
 
     fun categoriesFlow(): Flow<List<ProductCategory>> =
         productCategoryRepository.categoriesFlow()

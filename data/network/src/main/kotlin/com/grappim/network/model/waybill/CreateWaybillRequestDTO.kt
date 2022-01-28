@@ -1,19 +1,22 @@
 package com.grappim.network.model.waybill
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CreateWaybillRequestDTO(
-    @SerializedName("waybill")
+    @SerialName("waybill")
     val waybill: PartialWaybill
 )
 
+@Serializable
 data class PartialWaybill(
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
-    @SerializedName("status")
+    @SerialName("status")
     val status: String,
-    @SerializedName("stock_id")
+    @SerialName("stockId")
     val stockId: String,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String
 )

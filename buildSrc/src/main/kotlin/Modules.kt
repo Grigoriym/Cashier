@@ -38,6 +38,8 @@ object Modules {
     const val commonLce = ":common:lce"
     const val commonAsynchronous = ":common:asynchronous"
     const val commonDi = ":common:di"
+    const val commonNetworkSerializers = ":common:network:serializers"
+    const val commonAnnotations = ":common:annotations"
 
     const val featureProductCategoryPresentation = ":feature:product-category:presentation"
     const val featureProductCategoryDomain = ":feature:product-category:domain"

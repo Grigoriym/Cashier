@@ -15,13 +15,13 @@ annotation class FeatureScope
 annotation class FragmentScope
 
 @Scope
-annotation class GsonScope
-
-@Scope
 annotation class ApiScope
 
 @Scope
 annotation class NetworkScope
+
+@Scope
+annotation class SerializationScope
 
 @Scope
 annotation class DatabaseScope

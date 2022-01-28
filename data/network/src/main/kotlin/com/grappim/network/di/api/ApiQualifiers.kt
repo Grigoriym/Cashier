@@ -13,3 +13,6 @@ annotation class QualifierAuthApi
 
 @Qualifier
 annotation class QualifierProductCategoryApi
+
+@Qualifier
+annotation class QualifierProductsApi

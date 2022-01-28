@@ -8,10 +8,8 @@ import com.grappim.db.converter.BaseListsConverter
 import com.grappim.db.converter.BigDecimalConverter
 import com.grappim.db.converter.ProductUnitConverter
 import com.grappim.db.dao.BasketDao
-import com.grappim.db.dao.CategoryDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.BasketProductEntity
-import com.grappim.db.entity.CategoryEntity
 import com.grappim.db.entity.ProductEntity
 import com.grappim.product_category.db.ProductCategoryDao
 import com.grappim.product_category.db.ProductCategoryEntity
@@ -19,7 +17,6 @@ import com.grappim.product_category.db.ProductCategoryEntity
 @Database(
     entities = [
         ProductEntity::class,
-        CategoryEntity::class,
         BasketProductEntity::class,
         ProductCategoryEntity::class
     ],
@@ -35,6 +32,5 @@ import com.grappim.product_category.db.ProductCategoryEntity
 abstract class CashierDatabase : RoomDatabase() {
     abstract fun productsDao(): ProductsDao
     abstract fun basketDao(): BasketDao
-    abstract fun categoryDao(): CategoryDao
     abstract fun productCategoryDao(): ProductCategoryDao
 }

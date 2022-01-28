@@ -5,14 +5,6 @@ plugins {
 }
 
 android {
-    defaultConfig {
-        kapt {
-            arguments {
-                arg("room.incremental", "true")
-                arg("room.expandProjection", "true")
-            }
-        }
-    }
     sourceSets {
         getByName("test") {
             kotlin.setSrcDirs(

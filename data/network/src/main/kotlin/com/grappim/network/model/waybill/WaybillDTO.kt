@@ -1,24 +1,33 @@
 package com.grappim.network.model.waybill
 
-import com.google.gson.annotations.SerializedName
+import com.grappim.common.network.serializers.BigDecimalSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
+@Serializable
 data class WaybillDTO(
-    @SerializedName("created_on")
-    val createdOn: String,
+    @SerialName("id")
     val id: Int,
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
+    @SerialName("number")
     val number: String,
+    @SerialName("status")
     val status: String,
-    @SerializedName("stock_id")
+    @SerialName("stockId")
     val stockId: String,
-    @SerializedName("total_cost")
+    @SerialName("totalCost")
+    @Serializable(BigDecimalSerializer::class)
     val totalCost: BigDecimal,
+    @SerialName("type")
     val type: String,
-    @SerializedName("updated_on")
+    @SerialName("updatedOn")
     val updatedOn: String,
-    @SerializedName("reserved_time")
+    @SerialName("createdOn")
+    val createdOn: String,
+    @SerialName("reservedTime")
     val reservedTime: String?,
+    @SerialName("comment")
     val comment: String
 )

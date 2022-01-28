@@ -161,6 +161,8 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.commonDb))
             implementation(project(Modules.commonLce))
             implementation(project(Modules.commonAsynchronous))
+            implementation(project(Modules.commonNetworkSerializers))
+            implementation(project(Modules.commonAnnotations))
 
             implementation(project(Modules.featureAuth))
             implementation(project(Modules.featureWaybill))

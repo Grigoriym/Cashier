@@ -2,14 +2,13 @@ package com.grappim.db.di
 
 import android.content.Context
 import androidx.room.Room
+import com.grappim.common.di.ApplicationContext
+import com.grappim.common.di.DatabaseScope
 import com.grappim.db.CashierDatabase
 import com.grappim.db.dao.BasketDao
-import com.grappim.db.dao.CategoryDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.di.configs.DatabaseBuildConfigProvider
 import com.grappim.db.di.configs.DatabaseConfigsModule
-import com.grappim.common.di.ApplicationContext
-import com.grappim.common.di.DatabaseScope
 import com.grappim.product_category.db.ProductCategoryDao
 import dagger.Module
 import dagger.Provides
@@ -43,11 +42,6 @@ object DatabaseModule {
     fun providerBasketDao(
         cashierDatabase: CashierDatabase
     ): BasketDao = cashierDatabase.basketDao()
-
-    @Provides
-    fun provideCategoryDao(
-        cashierDatabase: CashierDatabase
-    ): CategoryDao = cashierDatabase.categoryDao()
 
     @Provides
     fun provideProductCategoryDao(

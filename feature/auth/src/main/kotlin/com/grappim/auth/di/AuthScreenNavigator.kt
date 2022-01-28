@@ -1,6 +1,6 @@
 package com.grappim.auth.di
 
-import com.grappim.navigation.directions.common.CommonScreenNavigator
+import com.grappim.navigation.CommonScreenNavigator
 
 interface AuthScreenNavigator : CommonScreenNavigator {
 

@@ -3,7 +3,7 @@ package com.grappim.payment_method.di
 import com.grappim.calculations.DecimalFormatModule
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FeatureScope
-import com.grappim.payment_method.ui.PaymentMethodFragment
+import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.Component
 
 @[FeatureScope Component(
@@ -18,6 +18,6 @@ import dagger.Component
 )]
 interface PaymentMethodComponent {
 
-    fun inject(paymentMethodFragment: PaymentMethodFragment)
+    fun multiViewModelFactory(): MultiViewModelFactory
 
 }

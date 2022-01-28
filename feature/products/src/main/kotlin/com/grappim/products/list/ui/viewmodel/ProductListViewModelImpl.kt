@@ -30,7 +30,6 @@ class ProductListViewModelImpl @Inject constructor(
             initialValue = emptyList()
         )
 
-
     override val query = MutableStateFlow("")
 
     override val selectedIndex = MutableStateFlow(0)

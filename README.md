@@ -34,7 +34,7 @@ I do this because I had an experience with an app of such functionality.
 - [Scabbard](https://arunkumar9t2.github.io/scabbard/) - A tool to visualize and understand your Dagger 2 dependency graph.
 
 ### Roadmap
-- [ ] Move all UI to compose
+- [x] Move all UI to compose, (only scanner is left without any changes)
 - [ ] Google Sign In, Firebase Authentication
 - [ ] Add tests and all that stuff
 - [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
@@ -49,7 +49,7 @@ I do this because I had an experience with an app of such functionality.
 - [ ] I have not a general ui kit, And I need a designer
 - [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
 - [x] In perspective, Dagger 2 is better for multi module app.
-- [ ] Using Dagger2 try to remove all inject lateinit
+- [x] Using Dagger2 try to remove all inject lateinit
 - [ ] Refactor repositories, they are all app-scoped
 - [ ] Feature flags
 - [ ] Guest Mode

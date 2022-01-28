@@ -1,11 +1,13 @@
 package com.grappim.network.interceptors
 
-import com.google.gson.Gson
 import com.grappim.common.di.AppScope
 import com.grappim.domain.model.base.BaseApiError
 import com.grappim.domain.model.exception.NetworkException
-import com.grappim.network.model.base.BaseApiErrorAm
+import com.grappim.logger.logE
+import com.grappim.network.model.base.BaseApiErrorDTO
 import com.grappim.network.utils.NetworkHandler
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -16,7 +18,7 @@ import javax.inject.Inject
 @AppScope
 class ErrorMappingInterceptor @Inject constructor(
     private val networkHandler: NetworkHandler,
-    private val gson: Gson
+    private val json: Json
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response =
@@ -31,17 +33,19 @@ class ErrorMappingInterceptor @Inject constructor(
             }
 
         } catch (throwable: Throwable) {
+            logE(throwable)
             throw throwable.mapNetworkException()
         }
 
     private fun mapErrorBodyToException(response: Response): Throwable {
-        val baseApiErrorAm = gson.fromJson(response.body?.string(), BaseApiErrorAm::class.java)
+        val responseBody = requireNotNull(response.body?.string())
+        val dto = json.decodeFromString<BaseApiErrorDTO>(responseBody)
         val baseApiError = BaseApiError(
-            system = baseApiErrorAm.system,
-            status = baseApiErrorAm.status,
-            statusCode = baseApiErrorAm.statusCode,
-            message = baseApiErrorAm.message,
-            developerMessage = baseApiErrorAm.developerMessage
+            system = dto.system,
+            status = dto.status,
+            statusCode = dto.statusCode,
+            message = dto.message,
+            developerMessage = dto.developerMessage
         )
         return NetworkException(
             errorCode = NetworkException.ERROR_API,

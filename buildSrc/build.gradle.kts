@@ -10,9 +10,12 @@ repositories {
     mavenCentral()
 }
 
+val gradlePlugin = "7.0.4"
+val kotlinCore = "1.6.10"
+
 dependencies {
-    implementation("com.android.tools.build:gradle:7.0.4")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
+    implementation("com.android.tools.build:gradle:${gradlePlugin}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinCore}")
 
     implementation(gradleApi())
     implementation(localGroovy())
@@ -32,7 +35,7 @@ gradlePlugin {
             id = "com.grappim.plugin.android.app"
             implementationClass = "commons.plugins.AndroidAppModulePlugin"
         }
-        register("com.grappim.plugin.domain"){
+        register("com.grappim.plugin.domain") {
             id = "com.grappim.plugin.domain"
             implementationClass = "commons.plugins.DomainModulePlugin"
         }

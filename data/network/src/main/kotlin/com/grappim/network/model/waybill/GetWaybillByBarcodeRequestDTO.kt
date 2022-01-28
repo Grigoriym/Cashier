@@ -1,9 +1,12 @@
 package com.grappim.network.model.waybill
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GetWaybillByBarcodeRequestDTO(
+    @SerialName("barcode")
     val barcode: String,
-    @SerializedName("waybill_id")
+    @SerialName("waybillId")
     val waybillId: Int
 )

@@ -1,6 +1,6 @@
 package com.grappim.product_category.network.api
 
-import com.grappim.common.asynchronous.RequestWithAuthToken
+import com.grappim.common.annotations.RequestWithAuthToken
 import com.grappim.product_category.network.model.*
 import retrofit2.http.Body
 import retrofit2.http.POST

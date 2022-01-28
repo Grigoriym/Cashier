@@ -1,6 +1,6 @@
 package com.grappim.menu.di
 
-import com.grappim.navigation.directions.common.CommonScreenNavigator
+import com.grappim.navigation.CommonScreenNavigator
 
 interface MenuScreenNavigator : CommonScreenNavigator {
 

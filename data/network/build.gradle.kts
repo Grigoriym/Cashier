@@ -46,18 +46,19 @@ dependencies {
     implementation(project(Modules.commonDi))
     implementation(project(Modules.commonAsynchronous))
     implementation(project(Modules.commonLce))
-    
+    implementation(project(Modules.commonNetworkSerializers))
+    implementation(project(Modules.commonAnnotations))
+    implementation(project(Modules.navigation))
+
     implementation(project(Modules.featureProductCategoryNetwork))
 
     implementation(Deps.Rx2.retrofitAdapter)
 
-    api(Deps.Google.gson)
     implementation(Deps.Kotlin.serialization)
 
     api(Deps.okhttp)
     api(Deps.loggingInterceptor)
     api(Deps.retrofit)
-    api(Deps.retrofitGsonConverter)
     api(Deps.retrofitKotlinSerializationConverter)
 
     debugApi(Deps.chucker)

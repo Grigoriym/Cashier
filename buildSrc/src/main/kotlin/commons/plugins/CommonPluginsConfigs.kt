@@ -28,6 +28,7 @@ internal fun Project.getCommonDependencies() =
     extensions.getByType<BaseExtension>().run {
         dependencies {
             implementation(Deps.Kotlin.coroutinesCore)
+            implementation(Deps.Kotlin.coroutinesCore)
             implementation(Deps.Kotlin.coroutinesAndroid)
 
             implementation(project(Modules.utilsLogger))
@@ -67,6 +68,12 @@ internal fun Project.getCommonAndroidBlock() =
             targetSdk = ConfigData.targetSdk
 
             testInstrumentationRunner = ConfigData.testInstrumentationRunner
+        }
+
+        sourceSets {
+            getByName("main") {
+                java.srcDir("src/main/kotlin")
+            }
         }
 
         compileOptions {

@@ -20,8 +20,8 @@ import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
-import com.grappim.network.api.CashierApi
-import com.grappim.network.di.api.QualifierCashierApi
+import com.grappim.network.api.ProductsApi
+import com.grappim.network.di.api.QualifierProductsApi
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.mappers.products.toDomain
 import com.grappim.network.mappers.products.toEntity
@@ -41,7 +41,7 @@ class ProductsRepositoryImpl @Inject constructor(
     private val productMapper: ProductMapper,
     private val basketDao: BasketDao,
     private val generalStorage: GeneralStorage,
-    @QualifierCashierApi private val cashierApi: CashierApi,
+    @QualifierProductsApi private val productsApi: ProductsApi,
     @ApplicationScope private val applicationScope: CoroutineScope,
     @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
 ) : ProductsRepository {
@@ -50,7 +50,7 @@ class ProductsRepositoryImpl @Inject constructor(
         params: CreateProductUseCase.Params
     ): Flow<Try<Unit>> = flow {
         emit(Try.Loading)
-        val response = cashierApi.createProduct(
+        val response = productsApi.createProduct(
             createProduct = CreateProductRequestDTO(
                 CreateProductRequestParamsDTO(
                     name = params.name,
@@ -108,7 +108,7 @@ class ProductsRepositoryImpl @Inject constructor(
             category = params.category
         )
 
-        val response = cashierApi.updateProduct(
+        val response = productsApi.updateProduct(
             UpdateProductRequestDTO(productDTO)
         )
 
@@ -231,7 +231,7 @@ class ProductsRepositoryImpl @Inject constructor(
             stockId = generalStorage.stockId
         )
 
-        val response = cashierApi.filterProducts(request).products
+        val response = productsApi.filterProducts(request).products
         val mappedProducts = response.toDomain()
         return mappedProducts
     }

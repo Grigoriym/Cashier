@@ -1,38 +1,56 @@
 package com.grappim.network.model.waybill
 
-import com.google.gson.annotations.SerializedName
+import com.grappim.common.network.serializers.BigDecimalSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
+@Serializable
 data class WaybillProductDTO(
+    @SerialName("amount")
+    @Serializable(BigDecimalSerializer::class)
     val amount: BigDecimal,
+    @SerialName("barcode")
     val barcode: String,
-    @SerializedName("created_on")
+    @SerialName("createdOn")
     val createdOn: String,
+    @SerialName("id")
     val id: Long,
+    @SerialName("name")
     val name: String,
-    @SerializedName("product_id")
+    @SerialName("productId")
     val productId: Long,
-    @SerializedName("purchase_price")
+    @SerialName("purchasePrice")
+    @Serializable(BigDecimalSerializer::class)
     val purchasePrice: BigDecimal,
-    @SerializedName("selling_price")
+    @SerialName("sellingPrice")
+    @Serializable(BigDecimalSerializer::class)
     val sellingPrice: BigDecimal,
-    @SerializedName("updated_on")
+    @SerialName("updatedOn")
     val updatedOn: String,
-    @SerializedName("waybill_id")
+    @SerialName("waybillId")
     val waybillId: Int
 )
 
+@Serializable
 data class PartialWaybillProductDTO(
+    @SerialName("id")
     val id: Long? = null,
+    @SerialName("amount")
+    @Serializable(BigDecimalSerializer::class)
     val amount: BigDecimal,
+    @SerialName("barcode")
     val barcode: String,
+    @SerialName("name")
     val name: String,
-    @SerializedName("purchase_price")
+    @SerialName("purchasePrice")
+    @Serializable(BigDecimalSerializer::class)
     val purchasePrice: BigDecimal,
-    @SerializedName("selling_price")
+    @SerialName("sellingPrice")
+    @Serializable(BigDecimalSerializer::class)
     val sellingPrice: BigDecimal,
-    @SerializedName("waybill_id")
+    @SerialName("waybillId")
     val waybillId: Int,
-    @SerializedName("product_id")
+    @SerialName("productId")
     val productId: Long
 )

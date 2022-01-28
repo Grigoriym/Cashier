@@ -15,7 +15,7 @@ dependencies {
   implementation(Deps.Google.dagger)
   kapt(Deps.Google.daggerCompiler)
 
-  implementation(Deps.Kotlin.serialization)
+  api(Deps.Kotlin.serialization)
 }
 
 java {

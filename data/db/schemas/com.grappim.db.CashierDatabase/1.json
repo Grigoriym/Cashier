@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fa5e2ed68d1b95453143d87e7f067b4b",
+    "identityHash": "2126af5e5432a96d35f9ade84bed9d31",
     "entities": [
       {
         "tableName": "product_table",
@@ -85,50 +85,6 @@
             "fieldPath": "basketCount",
             "columnName": "basketCount",
             "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "category_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `merchantId` TEXT NOT NULL, `stockId` TEXT NOT NULL, `isDefault` INTEGER NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "merchantId",
-            "columnName": "merchantId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "stockId",
-            "columnName": "stockId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isDefault",
-            "columnName": "isDefault",
-            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -239,7 +195,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fa5e2ed68d1b95453143d87e7f067b4b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2126af5e5432a96d35f9ade84bed9d31')"
     ]
   }
 }

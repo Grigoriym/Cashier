@@ -3,6 +3,7 @@ package com.grappim.network.di.api
 import com.grappim.common.di.ApiScope
 import com.grappim.network.api.AuthApi
 import com.grappim.network.api.CashierApi
+import com.grappim.network.api.ProductsApi
 import com.grappim.network.api.WaybillApi
 import com.grappim.product_category.network.api.ProductCategoryApi
 import dagger.Module
@@ -31,5 +32,10 @@ object ApiModule {
     fun provideProductCategoryApi(
         retrofit: Retrofit
     ): ProductCategoryApi = retrofit.create(ProductCategoryApi::class.java)
+
+    @[Provides ApiScope QualifierProductsApi]
+    fun provideProductsApi(
+        retrofit: Retrofit
+    ): ProductsApi = retrofit.create(ProductsApi::class.java)
 
 }

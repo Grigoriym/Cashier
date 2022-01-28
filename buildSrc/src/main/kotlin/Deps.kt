@@ -6,7 +6,8 @@ object Deps {
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}"
         const val serialization =
             "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.Kotlin.serialization}"
-        const val time = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.Kotlin.time}"
+        const val time = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.Kotlin.dateTime}"
+        const val core = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Kotlin.core}"
     }
 
     object AndroidX {
@@ -72,7 +73,6 @@ object Deps {
 
     object Google {
         const val material = "com.google.android.material:material:${Versions.Google.material}"
-        const val gson = "com.google.code.gson:gson:${Versions.Google.gson}"
         const val zxingCore = "com.google.zxing:core:${Versions.Google.zxing}"
 
         const val dagger = "com.google.dagger:dagger:${Versions.Google.dagger}"
@@ -108,7 +108,6 @@ object Deps {
     const val lintApi = "com.android.tools.lint:lint-api:${Versions.lint}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
     const val retrofitKotlinSerializationConverter =

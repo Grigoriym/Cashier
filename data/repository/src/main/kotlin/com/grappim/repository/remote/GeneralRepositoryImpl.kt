@@ -5,21 +5,18 @@ import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
 import com.grappim.db.dao.BasketDao
-import com.grappim.db.dao.CategoryDao
 import com.grappim.db.dao.ProductsDao
-import com.grappim.db.entity.CategoryEntity
 import com.grappim.db.entity.productEntityTableName
 import com.grappim.db.helper.RoomQueryHelper
 import com.grappim.domain.interactor.products.GetCategoryListInteractor
 import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
 import com.grappim.domain.interactor.products.SearchProductsByCategoryUseCase
-import com.grappim.domain.model.product.Category
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.network.mappers.category.CategoryMapper
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.product_category.db.ProductCategoryDao
+import com.grappim.product_category.db.ProductCategoryEntity
 import com.grappim.product_category.db.ProductCategoryEntityMapper
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.repository.extensions.getStringForDbQuery
@@ -37,34 +34,31 @@ import javax.inject.Inject
 class GeneralRepositoryImpl @Inject constructor(
     private val basketDao: BasketDao,
     private val productsDao: ProductsDao,
-    private val categoryDao: CategoryDao,
     private val productCategoryDao: ProductCategoryDao,
     private val generalStorage: GeneralStorage,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @ApplicationScope private val applicationScope: CoroutineScope,
-    private val categoryMapper: CategoryMapper,
     private val productMapper: ProductMapper,
     private val productCategoryEntityMapper: ProductCategoryEntityMapper
 ) : GeneralRepository {
 
     override fun getCategories(
         params: GetCategoryListInteractor.Params
-    ): Flow<Try<List<Category>>> = flow {
+    ): Flow<Try<List<ProductCategory>>> = flow {
         emit(Try.Loading)
-        val categories = categoryDao.getAllCategories().toMutableList()
+        val categories = productCategoryDao.getAllCategories().toMutableList()
         if (params.sendDefaultCategory) {
             categories.add(
                 0,
-                CategoryEntity(
+                ProductCategoryEntity(
                     id = -1,
                     name = "All",
                     merchantId = "",
                     stockId = "",
-                    isDefault = true
                 )
             )
         }
-        val domain = categoryMapper.dbToDomainList(categories.toList())
+        val domain = productCategoryEntityMapper.revertList(categories.toList())
         emit(Try.Success(domain))
     }
 
@@ -135,7 +129,6 @@ class GeneralRepositoryImpl @Inject constructor(
             generalStorage.clearData()
             basketDao.clearBasket()
             productsDao.clearProducts()
-            categoryDao.clearCategories()
         }.join()
     }
 

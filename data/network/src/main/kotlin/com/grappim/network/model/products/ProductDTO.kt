@@ -1,6 +1,6 @@
 package com.grappim.network.model.products
 
-import com.grappim.common.asynchronous.serializers.BigDecimalSerializer
+import com.grappim.common.network.serializers.BigDecimalSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal

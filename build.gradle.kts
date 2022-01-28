@@ -47,6 +47,8 @@ subprojects {
 }
 
 tasks.withType<Detekt>().configureEach {
+    jvmTarget = ConfigData.kotlinJvmTarget
+
     reports {
         xml.required.set(true)
         xml.outputLocation.set(file("build/reports/detekt.xml"))
@@ -54,10 +56,6 @@ tasks.withType<Detekt>().configureEach {
         html.required.set(true)
         html.outputLocation.set(file("build/reports/detekt.html"))
     }
-}
-
-tasks.withType<Detekt>().configureEach {
-    jvmTarget = "1.8"
 }
 
 tasks.register("clean", Delete::class) {

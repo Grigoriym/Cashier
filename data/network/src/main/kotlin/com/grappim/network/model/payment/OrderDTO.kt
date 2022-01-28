@@ -1,47 +1,60 @@
 package com.grappim.network.model.payment
 
-import com.google.gson.annotations.SerializedName
+import com.grappim.common.network.serializers.BigDecimalSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
+@Serializable
 data class CreateOrderDTO(
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
-    @SerializedName("stock_id")
+    @SerialName("stockId")
     val stockId: String,
-    @SerializedName("cash_box_id")
+    @SerialName("cashBoxId")
     val cashBoxId: String,
-    @SerializedName("total_sum")
+    @SerialName("totalSum")
+    @Serializable(BigDecimalSerializer::class)
     val totalSum: BigDecimal,
-    @SerializedName("pay_type")
+    @SerialName("payType")
     val payType: String,
-    @SerializedName("order_items")
+    @SerialName("orderItems")
     val orderItems: List<OrderItemDTO>
 )
 
+@Serializable
 data class OrderDTO(
+    @SerialName("id")
     val id: Int,
+    @SerialName("timestamp")
     val timestamp: String,
-    @SerializedName("merchant_id")
+    @SerialName("merchantId")
     val merchantId: String,
-    @SerializedName("stock_id")
+    @SerialName("stockId")
     val stockId: String,
-    @SerializedName("cash_box_id")
+    @SerialName("cashBoxId")
     val cashBoxId: String,
-    @SerializedName("total_sum")
+    @SerialName("totalSum")
+    @Serializable(BigDecimalSerializer::class)
     val totalSum: BigDecimal,
-    @SerializedName("pay_type")
+    @SerialName("payType")
     val payType: String,
-    @SerializedName("order_items")
+    @SerialName("orderItems")
     val orderItems: List<OrderItemDTO>
 )
 
+@Serializable
 data class OrderItemDTO(
-    @SerializedName("product_id")
+    @SerialName("productId")
     val productId: Long,
+    @SerialName("amount")
+    @Serializable(BigDecimalSerializer::class)
     val amount: BigDecimal,
-    @SerializedName("selling_price")
+    @SerialName("sellingPrice")
+    @Serializable(BigDecimalSerializer::class)
     val sellingPrice: BigDecimal,
-    @SerializedName("purchase_price")
+    @SerialName("purchasePrice")
+    @Serializable(BigDecimalSerializer::class)
     val purchasePrice: BigDecimal
 //    val barcode: String
 )

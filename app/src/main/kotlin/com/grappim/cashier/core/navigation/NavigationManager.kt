@@ -2,7 +2,6 @@ package com.grappim.cashier.core.navigation
 
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.grappim.auth.di.AuthScreenNavigator
@@ -11,6 +10,7 @@ import com.grappim.cashier.R
 import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.common.di.ActivityScope
 import com.grappim.menu.di.MenuScreenNavigator
+import com.grappim.navigation.MainScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
@@ -28,7 +28,8 @@ class NavigationManager @Inject constructor(
     BagScreenNavigator,
     PaymentMethodScreenNavigator,
     SplashScreenNavigator,
-    SelectInfoFlowScreenNavigator {
+    SelectInfoFlowScreenNavigator,
+    MainScreenNavigator {
 
     private fun navigateTo(directions: NavDirections) {
         navController
@@ -107,5 +108,12 @@ class NavigationManager @Inject constructor(
 
     override fun activityOnBackPressed() {
         activity.onBackPressed()
+    }
+
+    override fun returnToAuth() {
+        navController.get().popBackStack(
+            R.id.auth_flow,
+            true
+        )
     }
 }

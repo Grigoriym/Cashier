@@ -1,8 +1,10 @@
 package com.grappim.network.model.waybill
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WaybillProductsResponseDTO(
-  @SerializedName("products")
-  val products: List<WaybillProductDTO>?
+    @SerialName("products")
+    val products: List<WaybillProductDTO>?
 )

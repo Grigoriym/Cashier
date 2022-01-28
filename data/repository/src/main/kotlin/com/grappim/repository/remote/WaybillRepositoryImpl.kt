@@ -204,8 +204,8 @@ class WaybillRepositoryImpl @Inject constructor(
                 )
             )
 
-            val result = waybillApi.getWaybillById(responseId.id)
-            val mappedResult = waybillMapper.dtoToDomain(result.waybill)
+//            val result = waybillApi.getWaybillById(responseId.waybill.id)
+            val mappedResult = waybillMapper.dtoToDomain(responseId.waybill)
             emit(Try.Success(mappedResult))
         }
 }

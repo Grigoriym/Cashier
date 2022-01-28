@@ -4,17 +4,6 @@ plugins {
   id(Plugins.kotlinParcelize)
 }
 
-android {
-  defaultConfig {
-    kapt {
-      arguments {
-        arg("room.incremental", "true")
-        arg("room.expandProjection", "true")
-      }
-    }
-  }
-}
-
 dependencies {
   implementation(project(Modules.utilsCalculations))
   implementation(project(Modules.commonDi))

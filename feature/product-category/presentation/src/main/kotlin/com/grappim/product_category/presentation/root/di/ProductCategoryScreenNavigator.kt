@@ -1,7 +1,7 @@
 package com.grappim.product_category.presentation.root.di
 
 import android.os.Bundle
-import com.grappim.navigation.directions.common.CommonScreenNavigator
+import com.grappim.navigation.CommonScreenNavigator
 
 interface ProductCategoryScreenNavigator : CommonScreenNavigator {
 

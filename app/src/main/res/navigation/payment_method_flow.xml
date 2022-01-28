@@ -6,7 +6,7 @@
 
 	<fragment
 			android:id="@+id/paymentMethodFragment"
-			android:name="com.grappim.payment_method.ui.PaymentMethodFragment">
+			android:name="com.grappim.payment_method.ui.view.PaymentMethodFragment">
 
 		<action
 				android:id="@+id/action_paymentMethodFlow_to_salesFlow"

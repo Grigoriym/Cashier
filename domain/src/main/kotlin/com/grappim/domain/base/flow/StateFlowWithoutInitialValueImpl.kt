@@ -1,6 +1,5 @@
 package com.grappim.domain.base.flow
 
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -9,7 +8,6 @@ class StateFlowWithoutInitialValueImpl<T : Any> : StateFlowWithoutInitialValue<T
 
     private val mutable = MutableStateFlow<T?>(null)
 
-    @InternalCoroutinesApi
     override suspend fun collect(collector: FlowCollector<T>) =
         mutable
             .filterNotNull()

@@ -5,6 +5,7 @@ import com.grappim.bag.di.BagScreenNavigator
 import com.grappim.cashier.core.navigation.NavigationManager
 import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.menu.di.MenuScreenNavigator
+import com.grappim.navigation.MainScreenNavigator
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.sales.di.SalesScreenNavigator
 import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
@@ -54,4 +55,9 @@ interface RootActivityNavigationBindsModule {
     fun bindSelectInfoFlowScreenNavigator(
         navigationManager: NavigationManager
     ): SelectInfoFlowScreenNavigator
+
+    @Binds
+    fun bindMainScreenNavigator(
+        navigationManager: NavigationManager
+    ): MainScreenNavigator
 }

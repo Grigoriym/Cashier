@@ -10,27 +10,27 @@ import com.grappim.date_time.DateTimeModule
 import com.grappim.db.di.DatabaseModule
 import com.grappim.network.di.NetworkModule
 import com.grappim.network.di.api.ApiModule
-import com.grappim.network.di.gson.GsonModule
+import com.grappim.network.di.serialization.SerializationModule
 import com.grappim.repository.di.RepositoryModule
 import com.grappim.repository.di.StorageModule
 import com.grappim.workers.di.WorkersModule
 import dagger.BindsInstance
 import dagger.Component
 
-@[AppScope GsonScope ApiScope NetworkScope DatabaseScope
+@[AppScope ApiScope NetworkScope DatabaseScope SerializationScope
 Component(
     modules = [
         DateTimeModule::class,
         DatabaseModule::class,
         ApiModule::class,
-        GsonModule::class,
         NetworkModule::class,
         RepositoryModule::class,
         StorageModule::class,
         DecimalFormatModule::class,
         CoroutinesModule::class,
         WorkersModule::class,
-        AppComponentDepsModule::class
+        AppComponentDepsModule::class,
+        SerializationModule::class
     ],
     dependencies = [
 

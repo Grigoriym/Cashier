@@ -1,6 +1,6 @@
 package com.grappim.payment_method.di
 
-import com.grappim.navigation.directions.common.CommonScreenNavigator
+import com.grappim.navigation.CommonScreenNavigator
 
 interface PaymentMethodScreenNavigator : CommonScreenNavigator {
 
