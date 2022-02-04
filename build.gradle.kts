@@ -1,5 +1,4 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import com.vanniktech.dependency.graph.generator.DependencyGraphGeneratorExtension.Generator
 import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
@@ -19,7 +18,7 @@ plugins {
     id(Plugins.scabbard) version Versions.scabbard
     id(Plugins.gradleVersions) version Versions.gradleVersions
     id(Plugins.detekt) version Versions.detekt
-    id("com.vanniktech.dependency.graph.generator") version "0.7.0"
+    id(Plugins.depGraphGenerator) version Versions.graphGenerator
 }
 
 dependencyGraphGenerator {
@@ -35,7 +34,7 @@ subprojects {
     apply {
         plugin(Plugins.detekt)
         plugin(Plugins.scabbard)
-        plugin("com.vanniktech.dependency.graph.generator")
+        plugin(Plugins.depGraphGenerator)
     }
 
     scabbard {

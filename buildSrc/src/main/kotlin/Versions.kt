@@ -4,6 +4,7 @@ object Versions {
     const val gradleVersions = "0.39.0"
     const val gradleDoctor = "0.7.3"
     const val scabbard = "0.5.0"
+    const val graphGenerator = "0.7.0"
 
     const val detekt = "1.19.0"
     const val detektFormatting = "1.17.1"

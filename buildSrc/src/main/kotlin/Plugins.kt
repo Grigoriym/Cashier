@@ -27,4 +27,6 @@ object Plugins {
     const val googleServices = "com.google.gms.google-services"
 
     const val scabbard = "scabbard.gradle"
+
+    const val depGraphGenerator = "com.vanniktech.dependency.graph.generator"
 }
