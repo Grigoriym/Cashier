@@ -43,3 +43,9 @@ internal fun Project.kapt(configure: Action<KaptExtension>): Unit =
 
 fun Project.java(configure: Action<org.gradle.api.plugins.JavaPluginExtension>): Unit =
     (this as ExtensionAware).extensions.configure("java", configure)
+
+fun DependencyHandler.`detektPlugins`(dependencyNotation: Any): Dependency? =
+    add("detektPlugins", dependencyNotation)
+
+fun DependencyHandler.`lintChecks`(dependencyNotation: Any): Dependency? =
+    add("lintChecks", dependencyNotation)

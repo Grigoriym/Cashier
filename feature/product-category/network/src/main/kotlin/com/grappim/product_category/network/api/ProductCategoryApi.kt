@@ -11,8 +11,8 @@ interface ProductCategoryApi {
     @POST("category/filter")
     @RequestWithAuthToken
     suspend fun filterCategoryProducts(
-        @Body request: FilterProductCategoriesRequest
-    ): List<ProductCategoryDTO>
+        @Body request: FilterProductCategoriesRequestDTO
+    ): FilterProductCategoryResponseDTO
 
     @POST("category")
     @RequestWithAuthToken

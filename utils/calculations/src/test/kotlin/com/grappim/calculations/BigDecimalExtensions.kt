@@ -1,8 +1,7 @@
 package com.grappim.calculations
 
+import org.junit.Assert.*
 import org.junit.Test
-import org.junit.Assert.assertTrue
-import org.junit.Assert.assertFalse
 import java.math.BigDecimal
 
 class BigDecimalExtensionsTest {
@@ -24,9 +23,10 @@ class BigDecimalExtensionsTest {
 
     @Test
     fun `Big decimal add`() {
-        assertTrue(
+        assertEquals(
             "100".asBigDecimal()
-                .plus("51".asBigDecimal()).compareTo(BigDecimal(151)) == 1
+                .plus("51".asBigDecimal()).compareTo(BigDecimal(151)),
+            0
         )
     }
 

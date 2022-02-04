@@ -4,12 +4,13 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.grappim.comon.db.BaseDao
 import com.grappim.db.entity.ProductEntity
 import com.grappim.db.entity.productEntityTableName
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ProductsDao : com.grappim.comon.db.BaseDao<ProductEntity> {
+interface ProductsDao : BaseDao<ProductEntity> {
 
     @Query("DELETE FROM $productEntityTableName")
     suspend fun clearProducts()

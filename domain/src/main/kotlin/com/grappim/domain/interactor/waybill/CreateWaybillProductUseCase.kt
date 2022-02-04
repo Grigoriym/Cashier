@@ -15,7 +15,7 @@ class CreateWaybillProductUseCase @Inject constructor(
 ) : FlowUseCase<CreateWaybillProductUseCase.Params, BigDecimal>(ioDispatcher) {
 
     data class Params(
-        val waybillId: Int,
+        val waybillId: Long,
         val barcode: String,
         val name: String,
         val purchasePrice: BigDecimal,

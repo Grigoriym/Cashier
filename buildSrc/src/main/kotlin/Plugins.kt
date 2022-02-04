@@ -7,6 +7,8 @@ object Plugins {
     const val grappimAndroidAppPlugin = "com.grappim.plugin.android.app"
     const val grappimDomainPlugin = "com.grappim.plugin.domain"
 
+    const val presentationPlugin = "com.grappim.plugin.presentation"
+
     const val kotlinParcelize = "kotlin-parcelize"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKaptFull = "kotlin-kapt"

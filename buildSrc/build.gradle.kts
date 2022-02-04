@@ -39,5 +39,9 @@ gradlePlugin {
             id = "com.grappim.plugin.domain"
             implementationClass = "commons.plugins.DomainModulePlugin"
         }
+        register("com.grappim.plugin.presentation") {
+            id = "com.grappim.plugin.presentation"
+            implementationClass = "commons.plugins.PresentationModulePlugin"
+        }
     }
 }

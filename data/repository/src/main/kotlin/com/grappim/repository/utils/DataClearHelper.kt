@@ -15,7 +15,6 @@ class DataClearHelper @Inject constructor(
         productsDao.clearProducts()
         basketDao.clearBasket()
         productCategoryDao.clearCategories()
-
     }
 
 }

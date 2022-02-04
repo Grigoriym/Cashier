@@ -105,7 +105,26 @@ object Deps {
             "com.squareup.retrofit2:adapter-rxjava2:${Versions.Rx2.retrofitAdapter}"
     }
 
-    const val lintApi = "com.android.tools.lint:lint-api:${Versions.lint}"
+    object Detekt {
+        const val formatting =
+            "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektFormatting}"
+
+        const val api = "io.gitlab.arturbosch.detekt:detekt-api:${Versions.detekt}"
+        const val test = "io.gitlab.arturbosch.detekt:detekt-test:${Versions.detekt}"
+    }
+
+    object Kotest {
+        const val runnerJunit = "io.kotest:kotest-runner-junit5:${Versions.kotest}"
+        const val assertionsCore = "io.kotest:kotest-assertions-core:${Versions.kotest}"
+    }
+
+    object Lint {
+        const val api = "com.android.tools.lint:lint-api:${Versions.lint}"
+        const val checks = "com.android.tools.lint:lint-checks:${Versions.lint}"
+        const val lint = "com.android.tools.lint:lint:${Versions.lint}"
+        const val lintTests = "com.android.tools.lint:lint-tests:${Versions.lint}"
+        const val testUtils = "com.android.tools:testutils:${Versions.lint}"
+    }
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"

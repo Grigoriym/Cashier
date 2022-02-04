@@ -5,7 +5,7 @@ import java.math.BigDecimal
 sealed class WaybillProductStates {
     data class WaybillProductState(
         val type: WaybillProductType,
-        val waybillId: Int,
+        val waybillId: Long,
         val productId: Long,
         val waybillProductId: Long?,
 

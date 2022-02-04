@@ -53,14 +53,14 @@ class ProductCategoryRepositoryImpl @Inject constructor(
         limit: Long
     ): List<ProductCategory> {
         val response = productCategoryApi.filterCategoryProducts(
-            request = FilterProductCategoriesRequest(
+            request = FilterProductCategoriesRequestDTO(
                 offset = offset,
                 limit = limit,
                 merchantId = generalStorage.getMerchantId(),
                 stockId = generalStorage.stockId
             )
         )
-        val mappedCategories = productCategoryDTOMapper.mapList(response)
+        val mappedCategories = productCategoryDTOMapper.mapList(response.categories)
         return mappedCategories
     }
 

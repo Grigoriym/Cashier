@@ -54,7 +54,7 @@ class WaybillProductFragment : BaseFragment<WaybillProductViewModel>() {
     )
 
     private val product: Product? by lazyArg(ARG_PRODUCT)
-    private val waybillId: Int by lazyArg(ARG_WAYBILL_ID)
+    private val waybillId: Long by lazyArg(ARG_WAYBILL_ID)
     private val waybillProduct: WaybillProduct? by lazyArg(ARG_WAYBILL_PRODUCT)
     private val barcode: String? by lazyArg(ARG_BARCODE)
 

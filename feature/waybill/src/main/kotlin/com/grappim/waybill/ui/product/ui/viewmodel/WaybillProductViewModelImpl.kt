@@ -91,7 +91,7 @@ class WaybillProductViewModelImpl @Inject constructor(
 
     override fun setWaybillProductState(
         product: Product?,
-        waybillId: Int,
+        waybillId: Long,
         waybillProduct: WaybillProduct?,
         barcode: String?
     ) {
@@ -184,7 +184,7 @@ class WaybillProductViewModelImpl @Inject constructor(
     }
 
     override fun updateWaybillProduct(
-        waybillId: Int,
+        waybillId: Long,
         barcode: String,
         name: String,
         purchasePrice: BigDecimal,
@@ -223,7 +223,7 @@ class WaybillProductViewModelImpl @Inject constructor(
     }
 
     override fun createWaybillProduct(
-        waybillId: Int,
+        waybillId: Long,
         barcode: String,
         name: String,
         purchasePrice: BigDecimal,

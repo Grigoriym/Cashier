@@ -6,5 +6,5 @@ object BuildPlugins {
     const val safeArgs =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}"
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
-    const val googleServices = "com.google.gms:google-services:4.3.10"
+    const val googleServices = "com.google.gms:google-services:${Versions.Google.gms}"
 }

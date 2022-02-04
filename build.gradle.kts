@@ -1,4 +1,5 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import com.vanniktech.dependency.graph.generator.DependencyGraphGeneratorExtension.Generator
 import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
@@ -18,6 +19,11 @@ plugins {
     id(Plugins.scabbard) version Versions.scabbard
     id(Plugins.gradleVersions) version Versions.gradleVersions
     id(Plugins.detekt) version Versions.detekt
+    id("com.vanniktech.dependency.graph.generator") version "0.7.0"
+}
+
+dependencyGraphGenerator {
+
 }
 
 scabbard {
@@ -29,6 +35,7 @@ subprojects {
     apply {
         plugin(Plugins.detekt)
         plugin(Plugins.scabbard)
+        plugin("com.vanniktech.dependency.graph.generator")
     }
 
     scabbard {
@@ -37,17 +44,25 @@ subprojects {
     }
 
     detekt {
+        buildUponDefaultConfig = true
         toolVersion = Versions.detekt
-        config = rootProject.files("config/detekt/detekt.yml")
+        config = rootProject.files("${rootDir}/config/detekt/detekt.yml")
         source = files("src/main/java", "src/main/kotlin")
         parallel = true
 
         ignoreFailures = false
+        autoCorrect = true
     }
+}
+dependencies {
+    detektPlugins(Deps.Detekt.formatting)
+    detektPlugins(project(Modules.detektRules))
 }
 
 tasks.withType<Detekt>().configureEach {
     jvmTarget = ConfigData.kotlinJvmTarget
+
+    dependsOn("${Modules.detektRules}:assemble")
 
     reports {
         xml.required.set(true)

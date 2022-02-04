@@ -1,10 +1,14 @@
 object Versions {
 
     const val gradlePlugin = "7.1.0"
-    const val detekt = "1.19.0"
     const val gradleVersions = "0.39.0"
     const val gradleDoctor = "0.7.3"
     const val scabbard = "0.5.0"
+
+    const val detekt = "1.19.0"
+    const val detektFormatting = "1.17.1"
+
+    const val kotest = "5.1.0"
 
     object Kotlin {
         const val core = "1.6.10"
@@ -42,6 +46,8 @@ object Versions {
         const val material = "1.5.0"
         const val dagger = "2.40.5"
         const val zxing = "3.3.0"
+
+        const val gms = "4.3.10"
     }
 
     object Testing {

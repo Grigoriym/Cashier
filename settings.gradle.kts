@@ -34,7 +34,7 @@ include(":common:di")
 include(":common:network:serializers")
 include(":common:annotations")
 
-include(":lint-ruleset")
+include(":detekt-rules")
 
 include(":data:network")
 include(":data:repository")
@@ -71,3 +71,4 @@ include(":feature:select-info:select-cashbox")
 include(":feature:select-info:root-presentation")
 include(":feature:select-info:common-navigation")
 include(":feature:products:network")
+include(":lint-rules")

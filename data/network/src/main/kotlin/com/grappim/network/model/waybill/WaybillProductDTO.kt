@@ -50,7 +50,7 @@ data class PartialWaybillProductDTO(
     @Serializable(BigDecimalSerializer::class)
     val sellingPrice: BigDecimal,
     @SerialName("waybillId")
-    val waybillId: Int,
+    val waybillId: Long,
     @SerialName("productId")
     val productId: Long
 )

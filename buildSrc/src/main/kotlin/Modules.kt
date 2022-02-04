@@ -6,6 +6,9 @@ object Modules {
     const val navigation = ":navigation"
     const val uikit = ":uikit"
 
+    const val detektRules = ":detekt-rules"
+    const val lintRules = ":lint-rules"
+
     const val dataNetwork = ":data:network"
     const val dataDb = ":data:db"
     const val dataRepository = ":data:repository"

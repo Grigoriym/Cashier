@@ -10,7 +10,6 @@ import commons.buildTypes.BuildTypeRelease
 import commons.flavors.ProductFlavorDev
 import commons.flavors.ProductFlavorProd
 import commons.flavors.ProductFlavorQa
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
@@ -32,6 +31,9 @@ internal fun Project.getCommonDependencies() =
             implementation(Deps.Kotlin.coroutinesAndroid)
 
             implementation(project(Modules.utilsLogger))
+
+            detektPlugins(project(Modules.detektRules))
+            lintChecks(project(Modules.lintRules))
         }
     }
 
@@ -70,11 +72,11 @@ internal fun Project.getCommonAndroidBlock() =
             testInstrumentationRunner = ConfigData.testInstrumentationRunner
         }
 
-        sourceSets {
-            getByName("main") {
-                java.srcDir("src/main/kotlin")
-            }
-        }
+//        sourceSets {
+//            getByName("main") {
+//                java.srcDir("src/main/kotlin")
+//            }
+//        }
 
         compileOptions {
             sourceCompatibility = ConfigData.sourceCompatibility

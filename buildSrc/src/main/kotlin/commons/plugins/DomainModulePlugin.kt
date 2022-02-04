@@ -8,6 +8,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.project
 
 internal class DomainModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -21,6 +22,7 @@ internal class DomainModulePlugin : Plugin<Project> {
 
                 dependencies {
                     implementation(Deps.Kotlin.coroutinesCore)
+                    detektPlugins(project(Modules.detektRules))
                 }
             }
             java {

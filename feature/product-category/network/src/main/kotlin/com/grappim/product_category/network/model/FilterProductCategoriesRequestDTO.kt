@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FilterProductCategoriesRequest(
+data class FilterProductCategoriesRequestDTO(
     @SerialName("merchantId")
     val merchantId: String,
     @SerialName("stockId")

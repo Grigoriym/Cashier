@@ -15,7 +15,7 @@ android {
                 buildConfigField(
                     "String",
                     "CASHIER_API",
-                    "\"http://192.168.0.102:8081/api/v1/\""
+                    "\"http://192.168.0.104:8081/api/v1/\""
                 )
             }
             getByName(ProductFlavorQa.name) {

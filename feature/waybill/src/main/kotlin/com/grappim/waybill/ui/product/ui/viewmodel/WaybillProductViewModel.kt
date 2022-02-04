@@ -19,14 +19,14 @@ abstract class WaybillProductViewModel : BaseViewModel() {
     abstract fun setAmount(amount: String)
     abstract fun setWaybillProductState(
         product: Product?,
-        waybillId: Int,
+        waybillId: Long,
         waybillProduct: WaybillProduct?,
         barcode: String?
     )
 
     abstract fun waybillProductAction()
     abstract fun updateWaybillProduct(
-        waybillId: Int,
+        waybillId: Long,
         barcode: String,
         name: String,
         purchasePrice: BigDecimal,
@@ -37,7 +37,7 @@ abstract class WaybillProductViewModel : BaseViewModel() {
     )
 
     abstract fun createWaybillProduct(
-        waybillId: Int,
+        waybillId: Long,
         barcode: String,
         name: String,
         purchasePrice: BigDecimal,
