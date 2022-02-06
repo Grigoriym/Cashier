@@ -27,7 +27,6 @@ internal fun Project.getCommonDependencies() =
     extensions.getByType<BaseExtension>().run {
         dependencies {
             implementation(Deps.Kotlin.coroutinesCore)
-            implementation(Deps.Kotlin.coroutinesCore)
             implementation(Deps.Kotlin.coroutinesAndroid)
 
             implementation(project(Modules.utilsLogger))

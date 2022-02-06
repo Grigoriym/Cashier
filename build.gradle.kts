@@ -18,12 +18,12 @@ plugins {
     id(Plugins.scabbard) version Versions.scabbard
     id(Plugins.gradleVersions) version Versions.gradleVersions
     id(Plugins.detekt) version Versions.detekt
-//    id(Plugins.depGraphGenerator) version Versions.graphGenerator
+    id(Plugins.depGraphGenerator) version Versions.graphGenerator
 }
 
-//dependencyGraphGenerator {
-//
-//}
+dependencyGraphGenerator {
+
+}
 
 scabbard {
     enabled = true
@@ -34,7 +34,7 @@ subprojects {
     apply {
         plugin(Plugins.detekt)
         plugin(Plugins.scabbard)
-//        plugin(Plugins.depGraphGenerator)
+        plugin(Plugins.depGraphGenerator)
     }
 
     scabbard {
