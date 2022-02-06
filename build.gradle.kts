@@ -49,10 +49,13 @@ subprojects {
         source = files("src/main/java", "src/main/kotlin")
         parallel = true
 
-        ignoreFailures = false
-        autoCorrect = true
+        ignoreFailures = true
+        ignoredBuildTypes = listOf("release")
+        disableDefaultRuleSets = true
     }
+
 }
+
 dependencies {
     detektPlugins(Deps.Detekt.formatting)
     detektPlugins(project(Modules.detektRules))

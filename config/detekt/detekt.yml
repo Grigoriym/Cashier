@@ -1,3 +1,7 @@
+build:
+  maxIssues: 40
+
 detekt-cashier-rules:
+  active: false
   WhenInsteadOfIf:
-    active: true
+    active: false
