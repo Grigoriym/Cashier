@@ -34,9 +34,9 @@ plugins {
 
 subprojects {
     apply {
-        plugin(Plugins.detekt)
-        plugin(Plugins.scabbard)
-        plugin(Plugins.depGraphGenerator)
+//        plugin(Plugins.detekt)
+//        plugin(Plugins.scabbard)
+//        plugin(Plugins.depGraphGenerator)
     }
 
 //    scabbard {
@@ -58,10 +58,10 @@ subprojects {
 
 }
 
-dependencies {
+//dependencies {
 //    detektPlugins(Deps.Detekt.formatting)
 //    detektPlugins(project(Modules.detektRules))
-}
+//}
 
 //tasks.withType<Detekt>().configureEach {
 //    jvmTarget = ConfigData.kotlinJvmTarget

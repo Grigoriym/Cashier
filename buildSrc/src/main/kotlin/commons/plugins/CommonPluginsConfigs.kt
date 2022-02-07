@@ -31,8 +31,8 @@ internal fun Project.getCommonDependencies() =
 
             implementation(project(Modules.utilsLogger))
 
-            detektPlugins(project(Modules.detektRules))
-            lintChecks(project(Modules.lintRules))
+//            detektPlugins(project(Modules.detektRules))
+//            lintChecks(project(Modules.lintRules))
         }
     }
 
@@ -83,12 +83,12 @@ internal fun Project.getCommonAndroidBlock() =
         }
 
         val compilerArgs = listOf(
-            "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
-            "-Xuse-experimental=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
-            "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi",
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
+            "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+            "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.FlowPreview"
         )
         tasks.withType(KotlinCompile::class).configureEach {
             kotlinOptions {
