@@ -27,7 +27,7 @@ dependencyGraphGenerator {
 }
 
 scabbard {
-    enabled = true
+    enabled = false
     outputFormat = "png"
 }
 
@@ -39,7 +39,7 @@ subprojects {
     }
 
     scabbard {
-        enabled = true
+        enabled = false
         outputFormat = "png"
     }
 
