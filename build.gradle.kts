@@ -1,4 +1,5 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import commons.buildTypes.BuildTypeRelease
 import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
@@ -50,8 +51,8 @@ subprojects {
         parallel = true
 
         ignoreFailures = true
-        ignoredBuildTypes = listOf("release")
-        disableDefaultRuleSets = true
+        ignoredBuildTypes = listOf(BuildTypeRelease.name)
+        disableDefaultRuleSets = false
     }
 
 }
