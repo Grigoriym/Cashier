@@ -1,7 +1,7 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import commons.buildTypes.BuildTypeDebug
 import commons.buildTypes.BuildTypeRelease
-import io.gitlab.arturbosch.detekt.Detekt
+//import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
     dependencies {
@@ -17,20 +17,20 @@ buildscript {
 }
 
 plugins {
-    id(Plugins.scabbard) version Versions.scabbard
+//    id(Plugins.scabbard) version Versions.scabbard
     id(Plugins.gradleVersions) version Versions.gradleVersions
-    id(Plugins.detekt) version Versions.detekt
-    id(Plugins.depGraphGenerator) version Versions.graphGenerator
+//    id(Plugins.detekt) version Versions.detekt
+//    id(Plugins.depGraphGenerator) version Versions.graphGenerator
 }
 
-dependencyGraphGenerator {
+//dependencyGraphGenerator {
+//
+//}
 
-}
-
-scabbard {
-    enabled = false
-    outputFormat = "png"
-}
+//scabbard {
+//    enabled = false
+//    outputFormat = "png"
+//}
 
 subprojects {
     apply {
@@ -39,10 +39,10 @@ subprojects {
         plugin(Plugins.depGraphGenerator)
     }
 
-    scabbard {
-        enabled = false
-        outputFormat = "png"
-    }
+//    scabbard {
+//        enabled = false
+//        outputFormat = "png"
+//    }
 
 //    detekt {
 //        buildUponDefaultConfig = true
