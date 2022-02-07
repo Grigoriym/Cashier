@@ -1,4 +1,5 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import commons.buildTypes.BuildTypeDebug
 import commons.buildTypes.BuildTypeRelease
 import io.gitlab.arturbosch.detekt.Detekt
 
@@ -43,38 +44,38 @@ subprojects {
         outputFormat = "png"
     }
 
-    detekt {
-        buildUponDefaultConfig = true
-        toolVersion = Versions.detekt
-        config = rootProject.files("${rootDir}/config/detekt/detekt.yml")
-        source = files("src/main/java", "src/main/kotlin")
-        parallel = true
-
-        ignoreFailures = true
-        ignoredBuildTypes = listOf(BuildTypeRelease.name)
-        disableDefaultRuleSets = false
-    }
+//    detekt {
+//        buildUponDefaultConfig = true
+//        toolVersion = Versions.detekt
+//        config = rootProject.files("${rootDir}/config/detekt/detekt.yml")
+//        source = files("src/main/java", "src/main/kotlin")
+//        parallel = true
+//
+//        ignoreFailures = true
+//        ignoredBuildTypes = listOf(BuildTypeRelease.name, BuildTypeDebug.name)
+//        disableDefaultRuleSets = false
+//    }
 
 }
 
 dependencies {
-    detektPlugins(Deps.Detekt.formatting)
-    detektPlugins(project(Modules.detektRules))
+//    detektPlugins(Deps.Detekt.formatting)
+//    detektPlugins(project(Modules.detektRules))
 }
 
-tasks.withType<Detekt>().configureEach {
-    jvmTarget = ConfigData.kotlinJvmTarget
-
-    dependsOn("${Modules.detektRules}:assemble")
-
-    reports {
-        xml.required.set(true)
-        xml.outputLocation.set(file("build/reports/detekt.xml"))
-
-        html.required.set(true)
-        html.outputLocation.set(file("build/reports/detekt.html"))
-    }
-}
+//tasks.withType<Detekt>().configureEach {
+//    jvmTarget = ConfigData.kotlinJvmTarget
+//
+//    dependsOn("${Modules.detektRules}:assemble")
+//
+//    reports {
+//        xml.required.set(true)
+//        xml.outputLocation.set(file("build/reports/detekt.xml"))
+//
+//        html.required.set(true)
+//        html.outputLocation.set(file("build/reports/detekt.html"))
+//    }
+//}
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
