@@ -36,7 +36,7 @@ subprojects {
     apply {
         plugin(Plugins.detekt)
         plugin(Plugins.scabbard)
-        plugin(Plugins.depGraphGenerator)
+//        plugin(Plugins.depGraphGenerator)
     }
 
     scabbard {
