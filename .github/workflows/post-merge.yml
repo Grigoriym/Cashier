@@ -1,83 +1,83 @@
-name: Post merge
-
-on:
-  push:
-    branches: [ master ]
-
-jobs:
-  allChecks:
-    runs-on: macos-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/cache@v1
-        with:
-          - path: ~/.gradle/caches
-          - key: caches-${{ runner.os }}-${{ hashFiles('**/*.gradle') }}
-
-      - uses: actions/cache@v1
-        - with:
-            - path: ~/.gradle/wrapper
-            - key: wrapper-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-      
-      - name: Run all checks
-        run: ./gradlew check --stacktrace
-        
-      - uses: actions/upload-artifact@v2
-        with:
-          name: lint-report.html
-          path: app/nuild/reports/lint-results.html
-          
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v1
-        with:
-          name: test-report.html
-          path: app/build/reports/tests/testDebugUnitTest/index.html
-      
-  instrumentationTests:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/cache@v1
-        with:
-          - path: ~/.gradle/caches
-          - key: caches-${{ runner.os }}-${{ hashFiles('**/*.gradle') }}
-
-      - uses: actions/cache@v1
-        - with:
-          - path: ~/.gradle/wrapper
-          - key: wrapper-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-      
-      - name: Run Instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with: 
-          api-level: 29
-          script: ./gradlew connectedCheck --stacktrace
-          
-  deploy: 
-    runs-on: ubuntu-latest
-    needs: [allChecks, instrumentationTests]
-    
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/cache@v1
-        with:
-          - path: ~/.gradle/caches
-          - key: caches-${{ runner.os }}-${{ hashFiles('**/*.gradle') }}
-
-      - uses: actions/cache@v1
-          - with:
-              - path: ~/.gradle/wrapper
-              - key: wrapper-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-      
-      - name: Build Snapshot
-        run: ./gradlew assemble --stacktrace
-        
-      - uses: actions/upload-artifact@v2
-        with:
-          name: app-release-SNAPSHOT.apk
-          path: app/build/output/apk/release/app-release/unsigned.apk
+#name: Post merge
+#
+#on:
+#  push:
+#    branches: [ master ]
+#
+#jobs:
+#  allChecks:
+#    runs-on: macos-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/cache@v1
+#        with:
+#          - path: ~/.gradle/caches
+#          - key: caches-${{ runner.os }}-${{ hashFiles('**/*.gradle') }}
+#
+#      - uses: actions/cache@v1
+#        - with:
+#            - path: ~/.gradle/wrapper
+#            - key: wrapper-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+#
+#      - name: Run all checks
+#        run: ./gradlew check --stacktrace
+#
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: lint-report.html
+#          path: app/nuild/reports/lint-results.html
+#
+#      - name: Upload Test Results
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: test-report.html
+#          path: app/build/reports/tests/testDebugUnitTest/index.html
+#
+#  instrumentationTests:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/cache@v1
+#        with:
+#          - path: ~/.gradle/caches
+#          - key: caches-${{ runner.os }}-${{ hashFiles('**/*.gradle') }}
+#
+#      - uses: actions/cache@v1
+#        - with:
+#          - path: ~/.gradle/wrapper
+#          - key: wrapper-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+#
+#      - name: Run Instrumentation tests
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 29
+#          script: ./gradlew connectedCheck --stacktrace
+#
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: [allChecks, instrumentationTests]
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/cache@v1
+#        with:
+#          - path: ~/.gradle/caches
+#          - key: caches-${{ runner.os }}-${{ hashFiles('**/*.gradle') }}
+#
+#      - uses: actions/cache@v1
+#          - with:
+#              - path: ~/.gradle/wrapper
+#              - key: wrapper-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+#
+#      - name: Build Snapshot
+#        run: ./gradlew assemble --stacktrace
+#
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: app-release-SNAPSHOT.apk
+#          path: app/build/output/apk/release/app-release/unsigned.apk
