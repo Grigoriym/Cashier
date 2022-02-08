@@ -1,4 +1,6 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import commons.buildTypes.BuildTypeDebug
+import commons.buildTypes.BuildTypeRelease
 import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
@@ -18,15 +20,15 @@ plugins {
     id(Plugins.scabbard) version Versions.scabbard
     id(Plugins.gradleVersions) version Versions.gradleVersions
     id(Plugins.detekt) version Versions.detekt
-    id(Plugins.depGraphGenerator) version Versions.graphGenerator
+//    id(Plugins.depGraphGenerator) version Versions.graphGenerator
 }
 
-dependencyGraphGenerator {
-
-}
+//dependencyGraphGenerator {
+//
+//}
 
 scabbard {
-    enabled = true
+    enabled = false
     outputFormat = "png"
 }
 
@@ -34,11 +36,11 @@ subprojects {
     apply {
         plugin(Plugins.detekt)
         plugin(Plugins.scabbard)
-        plugin(Plugins.depGraphGenerator)
+//        plugin(Plugins.depGraphGenerator)
     }
 
     scabbard {
-        enabled = true
+        enabled = false
         outputFormat = "png"
     }
 
@@ -49,10 +51,13 @@ subprojects {
         source = files("src/main/java", "src/main/kotlin")
         parallel = true
 
-        ignoreFailures = false
-        autoCorrect = true
+        ignoreFailures = true
+        ignoredBuildTypes = listOf(BuildTypeRelease.name, BuildTypeDebug.name)
+        disableDefaultRuleSets = false
     }
+
 }
+
 dependencies {
     detektPlugins(Deps.Detekt.formatting)
     detektPlugins(project(Modules.detektRules))
