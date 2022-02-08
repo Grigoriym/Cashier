@@ -31,8 +31,8 @@ internal fun Project.getCommonDependencies() =
 
             implementation(project(Modules.utilsLogger))
 
-//            detektPlugins(project(Modules.detektRules))
-//            lintChecks(project(Modules.lintRules))
+            detektPlugins(project(Modules.detektRules))
+            lintChecks(project(Modules.lintRules))
         }
     }
 

@@ -41,7 +41,7 @@ private fun Project.configurePlugins() =
         plugins.apply(Plugins.safeArgs)
 
         plugins.apply(Plugins.googleServices)
-//        plugins.apply(Plugins.detekt)
+        plugins.apply(Plugins.detekt)
 
         turnOffGoogleServicesOnDebugBuilds()
     }
