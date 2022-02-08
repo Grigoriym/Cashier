@@ -20,7 +20,7 @@ jobs:
           path: app/nuild/reports/lint-results.html
           
       - name: Upload Test Results
-        uses: actions/upload-artifactory@v1
+        uses: actions/upload-artifact@v1
         with:
           name: test-report.html
           path: app/build/reports/tests/testDebugUnitTest/index.html
