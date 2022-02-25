@@ -18,10 +18,6 @@ class ProductsScreenNavigatorImpl @Inject constructor(
     @FeatureNavController private val navController: Lazy<NavController>
 ) : ProductsScreenNavigator {
 
-    init {
-        logD("$this navigator init | ${navController.get()}")
-    }
-
     private fun navigateTo(
         @IdRes resId: Int,
         args: Bundle? = null
@@ -48,6 +44,10 @@ class ProductsScreenNavigatorImpl @Inject constructor(
             resId = R.id.action_products_to_editProduct,
             args = args
         )
+    }
+
+    override fun goToCreateCategory() {
+
     }
 
     override fun goBack() {

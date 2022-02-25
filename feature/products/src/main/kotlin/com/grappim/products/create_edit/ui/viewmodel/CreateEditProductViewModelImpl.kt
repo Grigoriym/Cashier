@@ -62,6 +62,13 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
     override val categoriesFlow: StateFlow<List<ProductCategory>> =
         getCategoryListInteractor
             .getSimpleCategoryList(GetCategoryListInteractor.Params(false))
+            .map {
+                if (it.isEmpty()) {
+                    listOf(ProductCategory.createCategory())
+                } else {
+                    it
+                }
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = WhileViewSubscribed,
@@ -139,8 +146,12 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
     }
 
     override fun selectCategory(newCategory: ProductCategory) {
-        selectedCategory.value = newCategory
-        dropDownExpanded.value = false
+        if (newCategory.isCreateCategory()) {
+            productsScreenNavigator.goToCreateCategory()
+        } else {
+            selectedCategory.value = newCategory
+            dropDownExpanded.value = false
+        }
     }
 
     override fun setProductName(newName: String) {

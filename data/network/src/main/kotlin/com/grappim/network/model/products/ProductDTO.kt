@@ -1,39 +1,28 @@
 package com.grappim.network.model.products
 
 import com.grappim.common.network.serializers.BigDecimalSerializer
+import com.grappim.common.network.serializers.LocalDateTimeSerializer
+import com.grappim.domain.model.base.ProductUnit
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
 @Serializable
 data class ProductDTO(
-    @SerialName("id")
     val id: Long,
-    @SerialName("barcode")
     val barcode: String,
-    @SerialName("name")
     val name: String,
-    @SerialName("stock_id")
     val stockId: String,
-    @SerialName("amount")
-    @Serializable(BigDecimalSerializer::class)
+    @Serializable(with = BigDecimalSerializer::class)
     val amount: BigDecimal,
-    @SerialName("unit")
     val unit: String,
-    @SerialName("purchase_price")
-    @Serializable(BigDecimalSerializer::class)
-    val purchasePrice: BigDecimal,
-    @SerialName("selling_price")
-    @Serializable(BigDecimalSerializer::class)
-    val sellingPrice: BigDecimal,
-    @SerialName("merchant_id")
     val merchantId: String,
-    @SerialName("created_on")
+    @Serializable(with = BigDecimalSerializer::class)
+    val purchasePrice: BigDecimal,
+    @Serializable(with = BigDecimalSerializer::class)
+    val sellingPrice: BigDecimal,
     val createdOn: String,
-    @SerialName("updated_on")
     val updatedOn: String,
-    @SerialName("category_id")
-    val categoryId: Long,
-    @SerialName("category")
-    val category: String
+    val categoryId: Long
 )

@@ -104,8 +104,7 @@ class ProductsRepositoryImpl @Inject constructor(
             merchantId = params.productMerchantId,
             createdOn = params.productCreatedOn,
             updatedOn = dtfIso.format(DateTimeUtils.getNowOffsetDateTime(true)),
-            categoryId = params.categoryId,
-            category = params.category
+            categoryId = params.categoryId
         )
 
         val response = productsApi.updateProduct(
