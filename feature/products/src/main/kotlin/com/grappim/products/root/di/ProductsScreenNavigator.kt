@@ -7,5 +7,6 @@ interface ProductsScreenNavigator : CommonScreenNavigator {
 
     fun goToCreateProduct()
     fun goToEditProduct(args: Bundle)
+    fun goToCreateCategory()
 
 }

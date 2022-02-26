@@ -1,6 +1,6 @@
 object Versions {
 
-    const val gradlePlugin = "7.1.0"
+    const val gradlePlugin = "7.0.4"
     const val gradleVersions = "0.39.0"
     const val gradleDoctor = "0.7.3"
     const val scabbard = "0.5.0"

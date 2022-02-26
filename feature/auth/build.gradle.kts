@@ -1,6 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    id(Plugins.presentationPlugin)
     id(Plugins.kotlinParcelize)
 }
 
@@ -16,17 +16,5 @@ android {
 dependencies {
     implementation(project(Modules.dataWorkers))
 
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonAsynchronous))
-    implementation(project(Modules.commonLce))
-
     implementation(Deps.AndroidX.biometricKotlin)
-
-    implementation(Deps.Compose.ui)
-    implementation(Deps.Compose.material)
-    implementation(Deps.Compose.toolingPreview)
-    implementation(Deps.Compose.runtimeLivedata)
-    implementation(Deps.Compose.foundation)
-    implementation(Deps.Compose.icons)
-    implementation(Deps.Compose.lifecycleViewModel)
 }

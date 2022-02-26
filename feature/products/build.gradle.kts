@@ -1,6 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    id(Plugins.presentationPlugin)
 }
 
 android {
@@ -19,25 +19,9 @@ dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
 
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonAsynchronous))
-    implementation(project(Modules.commonLce))
-
     implementation(project(Modules.featureProductCategoryDomain))
 
     implementation(Deps.combineTupleFlow)
-
-    implementation(Deps.Compose.ui)
-    implementation(Deps.Compose.material)
-    implementation(Deps.Compose.toolingPreview)
-    implementation(Deps.Compose.uiTooling)
-    implementation(Deps.Compose.runtime)
-    implementation(Deps.Compose.runtimeLivedata)
-    implementation(Deps.Compose.foundation)
-    implementation(Deps.Compose.foundationLayout)
-    implementation(Deps.Compose.icons)
-    implementation(Deps.Compose.constraint)
-    implementation(Deps.Compose.lifecycleViewModel)
 
     coreLibraryDesugaring(Deps.desugar)
 }
