@@ -65,4 +65,9 @@ interface RepositoryModule {
     fun bindProductCategoryRepository(
         productCategoryRepositoryImpl: ProductCategoryRepositoryImpl
     ): ProductCategoryRepository
+
+    @Binds
+    fun bindBasketRepository(
+        basketRepositoryImpl: BasketRepositoryImpl
+    ): BasketRepository
 }

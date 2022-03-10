@@ -146,7 +146,7 @@ fun ItemAddProductCompose(
                 onPlusClick = {
                     onPlusClick(product)
                 },
-                text = "1 pc"
+                text = "${product.basketCount} ${product.unit.value}"
             )
 
             Divider(

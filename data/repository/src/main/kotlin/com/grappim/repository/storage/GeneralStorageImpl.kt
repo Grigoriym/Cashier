@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @AppScope
 class GeneralStorageImpl @Inject constructor(
-  @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context
 ) : GeneralStorage {
 
     companion object {
@@ -30,10 +30,10 @@ class GeneralStorageImpl @Inject constructor(
     }
 
     private val sharedPreferences = context
-      .getSharedPreferences(
-        STORAGE_NAME,
-        Context.MODE_PRIVATE
-      )
+        .getSharedPreferences(
+            STORAGE_NAME,
+            Context.MODE_PRIVATE
+        )
 
     private val editor = sharedPreferences.edit()
 
@@ -41,7 +41,7 @@ class GeneralStorageImpl @Inject constructor(
 
     override var stockName: String by sharedPreferences.string(STOCK_NAME)
 
-    override var cashBoxId:String by sharedPreferences.string(CASH_BOX_ID)
+    override var cashBoxId: String by sharedPreferences.string(CASH_BOX_ID)
 
     override var stockId: String by sharedPreferences.string(STOCK_ID)
 
@@ -57,15 +57,15 @@ class GeneralStorageImpl @Inject constructor(
 
     override fun setAuthToken(token: String) {
         editor
-          .putString(AUTH_TOKEN, token)
-          .apply()
+            .putString(AUTH_TOKEN, token)
+            .apply()
     }
 
     override fun setMerchantInfo(merchantId: String, merchantName: String) {
         editor
-          .putString(MERCHANT_ID, merchantId)
-          .putString(MERCHANT_NAME, merchantName)
-          .apply()
+            .putString(MERCHANT_ID, merchantId)
+            .putString(MERCHANT_NAME, merchantName)
+            .apply()
     }
 
     override fun getMerchantId(): String = getStringValue(MERCHANT_ID)
@@ -77,14 +77,14 @@ class GeneralStorageImpl @Inject constructor(
     override fun getToken(): String = getStringValue(AUTH_TOKEN)
 
     override fun getBearerAuthToken(): String =
-      "Bearer ${getStringValue(AUTH_TOKEN)}"
+        "Bearer ${getStringValue(AUTH_TOKEN)}"
 
     override fun clearData() {
         editor.clear().apply()
     }
 
     private fun getStringValue(key: String): String =
-      sharedPreferences.getString(key, null)
-        ?: throw IllegalArgumentException("no value for $key")
+        sharedPreferences.getString(key, null)
+            ?: throw IllegalArgumentException("no value for $key")
 
 }

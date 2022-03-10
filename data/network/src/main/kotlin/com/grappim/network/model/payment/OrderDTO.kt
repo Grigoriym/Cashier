@@ -55,6 +55,9 @@ data class OrderItemDTO(
     val sellingPrice: BigDecimal,
     @SerialName("purchasePrice")
     @Serializable(BigDecimalSerializer::class)
-    val purchasePrice: BigDecimal
-//    val barcode: String
+    val purchasePrice: BigDecimal,
+    @SerialName("barcode")
+    val barcode: String,
+    @SerialName("name")
+    val name: String
 )

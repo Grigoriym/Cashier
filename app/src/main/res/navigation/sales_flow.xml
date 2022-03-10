@@ -16,4 +16,6 @@
             app:popExitAnim="@anim/pop_exit_to_right" />
     </fragment>
 
+    <include app:graph="@navigation/bag_flow"/>
+
 </navigation>

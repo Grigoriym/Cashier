@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bag_flow"
+    android:id="@id/bag_flow"
     app:startDestination="@id/bagFragment">
 
     <fragment
@@ -17,5 +17,7 @@
             app:popExitAnim="@anim/pop_exit_to_right" />
 
     </fragment>
+
+    <include app:graph="@navigation/payment_method_flow"/>
 
 </navigation>

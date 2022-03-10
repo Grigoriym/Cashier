@@ -1,6 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    id(Plugins.presentationPlugin)
 }
 
 android {
@@ -12,10 +12,6 @@ android {
 dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.utilsDateTime))
-
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonAsynchronous))
-    implementation(project(Modules.commonLce))
 
     implementation(Deps.AndroidX.lifecycleLiveData)
     implementation(Deps.AndroidX.lifecycleViewModel)
