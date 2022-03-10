@@ -16,3 +16,6 @@ annotation class QualifierProductCategoryApi
 
 @Qualifier
 annotation class QualifierProductsApi
+
+@Qualifier
+annotation class QualifierBasketApi

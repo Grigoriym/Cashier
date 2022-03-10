@@ -1,6 +1,5 @@
 package commons.plugins
 
-import Plugins
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

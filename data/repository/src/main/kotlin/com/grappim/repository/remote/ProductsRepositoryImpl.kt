@@ -1,6 +1,7 @@
 package com.grappim.repository.remote
 
 import com.grappim.calculations.bigDecimalZero
+import com.grappim.calculations.isLessThanOrEquals
 import com.grappim.common.asynchronous.di.ApplicationScope
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
@@ -138,8 +139,7 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override suspend fun addBasketProduct(
         params: AddProductToBasketUseCase.Params
-    ) =
-        applicationScope.launch {
+    ) = applicationScope.launch {
             val basketEntity = productMapper.domainToBasketEntity(params.product)
             basketDao.insertOrUpdate(basketEntity)
         }.join()
@@ -147,7 +147,7 @@ class ProductsRepositoryImpl @Inject constructor(
     override suspend fun removeBasketProduct(params: RemoveProductUseCase.Params) =
         applicationScope.launch {
             val product = params.product
-            if (product.basketCount <= bigDecimalZero()) {
+            if (product.basketCount.isLessThanOrEquals(bigDecimalZero())) {
                 basketDao.removeProductByUid(product.id)
             } else {
                 val basketProduct = productMapper.domainToBasketEntity(product)

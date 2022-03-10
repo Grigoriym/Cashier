@@ -39,3 +39,10 @@ fun bigDecimalSignedOne(): BigDecimal = "-1".asBigDecimal()
 fun mcEven(precision: Int = 9) = MathContext(precision, RoundingMode.HALF_EVEN)
 
 fun BigDecimal.isNotEqualsZero(): Boolean = this.compareTo(bigDecimalZero()) != 0
+
+fun BigDecimal.isLessThan(value: BigDecimal): Boolean =
+    this.compareTo(value) == -1
+
+fun BigDecimal.isLessThanOrEquals(value: BigDecimal): Boolean =
+    this.compareTo(value) == -1 ||
+            this.compareTo(value) == 0

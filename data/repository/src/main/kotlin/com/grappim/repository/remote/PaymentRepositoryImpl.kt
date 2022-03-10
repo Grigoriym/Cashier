@@ -38,8 +38,9 @@ class PaymentRepositoryImpl @Inject constructor(
                     productId = it.id,
                     amount = it.basketCount,
                     sellingPrice = it.sellingPrice,
-                    purchasePrice = it.purchasePrice
-//                    barcode = it.barcode
+                    purchasePrice = it.purchasePrice,
+                    barcode = it.barcode,
+                    name = it.name
                 )
             }
 
