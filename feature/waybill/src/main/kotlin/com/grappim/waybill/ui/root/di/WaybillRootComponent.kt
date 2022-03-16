@@ -22,7 +22,6 @@ import dagger.Component
         WaybillRootDepsModule::class,
         CoroutinesModule::class,
         DateTimeModule::class,
-        WaybillRootModule::class,
         FeatureNavigationModule::class
     ],
     dependencies = [

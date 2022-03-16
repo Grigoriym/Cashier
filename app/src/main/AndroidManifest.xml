@@ -48,7 +48,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
-            <nav-graph android:value="@navigation/app_nav_graph" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -27,9 +27,6 @@ internal class PresentationModulePlugin : Plugin<Project> {
 private fun Project.configurePlugins() =
     extensions.getByType<BaseExtension>().run {
         getCommonPlugins()
-        plugins.apply {
-            apply(Plugins.safeArgs)
-        }
     }
 
 private fun Project.configureAndroidBlock() =

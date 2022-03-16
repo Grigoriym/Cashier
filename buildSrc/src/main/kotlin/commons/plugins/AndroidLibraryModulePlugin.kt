@@ -25,9 +25,6 @@ internal class AndroidLibraryModulePlugin : Plugin<Project> {
 private fun Project.configurePlugins() =
     extensions.getByType<BaseExtension>().run {
         getCommonPlugins()
-        if (isFeatureModule()) {
-            plugins.apply(Plugins.safeArgs)
-        }
     }
 
 private fun Project.configureAndroidBlock() =

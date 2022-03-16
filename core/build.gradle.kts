@@ -12,10 +12,9 @@ dependencies {
 
     implementation(Deps.AndroidX.lifecycleLiveData)
     implementation(Deps.cicerone)
+    implementation(Deps.AndroidX.fragment)
+    implementation(Deps.AndroidX.appCompat)
 
     implementation(Deps.Google.dagger)
     kapt(Deps.Google.daggerCompiler)
-
-    implementation(Deps.AndroidX.navigationFragment)
-    implementation(Deps.AndroidX.navigationUi)
 }

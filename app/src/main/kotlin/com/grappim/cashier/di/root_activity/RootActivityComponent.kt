@@ -13,9 +13,7 @@ import dagger.Component
 @[ActivityScope Component(
     modules = [
         RootActivityBindsModule::class,
-        RootActivityNavigationBindsModule::class,
-        RootActivityDepsModule::class,
-        RootActivityModule::class
+        RootActivityDepsModule::class
     ],
     dependencies = [
         RootActivityDeps::class

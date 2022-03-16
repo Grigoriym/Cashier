@@ -33,6 +33,7 @@ I do this because I had an experience with an app of such functionality.
 - [Coil](https://github.com/coil-kt/coil) - An image loading library for Android backed by Kotlin Coroutines.
 - [Android Debug Database](https://github.com/amitshekhariitbhu/Android-Debug-Database) - A powerful library for debugging databases and shared preferences in Android applications
 - [Scabbard](https://arunkumar9t2.github.io/scabbard/) - A tool to visualize and understand your Dagger 2 dependency graph.
+- [CIcerone](https://github.com/terrakok/Cicerone) - is a lightweight library that makes the navigation in an Android app easy.
 
 ### Roadmap
 - [x] Move all UI to compose, (only scanner is left without any changes)

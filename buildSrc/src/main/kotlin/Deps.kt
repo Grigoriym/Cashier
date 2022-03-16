@@ -25,13 +25,6 @@ object Deps {
         const val pagingCommon = "androidx.paging:paging-common:${Versions.AndroidX.paging}"
         const val workManager = "androidx.work:work-runtime-ktx:${Versions.AndroidX.workManager}"
 
-        const val navigationFragment =
-            "androidx.navigation:navigation-fragment-ktx:${Versions.AndroidX.navigation}"
-        const val navigationUi =
-            "androidx.navigation:navigation-ui-ktx:${Versions.AndroidX.navigation}"
-        const val navigationRuntime =
-            "androidx.navigation:navigation-runtime-ktx:${Versions.AndroidX.navigation}"
-
         const val lifecycleLiveData =
             "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.AndroidX.lifecycle}"
         const val lifecycleViewModel =

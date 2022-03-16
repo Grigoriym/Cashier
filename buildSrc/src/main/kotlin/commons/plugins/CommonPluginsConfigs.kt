@@ -52,9 +52,6 @@ internal fun Project.getCommonAndroidDependencies() =
 
             implementation(Deps.Google.material)
 
-            implementation(Deps.AndroidX.navigationFragment)
-            implementation(Deps.AndroidX.navigationUi)
-
             implementation(Deps.Google.dagger)
             kapt(Deps.Google.daggerCompiler)
         }

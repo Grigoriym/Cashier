@@ -25,7 +25,6 @@ object Versions {
         const val activity = "1.4.0"
         const val constraint = "2.1.3"
         const val paging = "3.1.0"
-        const val navigation = "2.4.0-rc01"
         const val lifecycle = "2.4.0"
         const val room = "2.4.1"
         const val workManager = "2.7.1"
