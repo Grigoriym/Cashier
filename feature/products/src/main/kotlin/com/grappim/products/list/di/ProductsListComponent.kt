@@ -3,6 +3,7 @@ package com.grappim.products.list.di
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FragmentScope
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import dagger.Component
 
 @[FragmentScope Component(
@@ -17,5 +18,6 @@ import dagger.Component
 interface ProductsListComponent {
 
     fun multiViewModelFactory(): MultiViewModelFactory
+    fun flowRouter(): FlowRouter
 
 }

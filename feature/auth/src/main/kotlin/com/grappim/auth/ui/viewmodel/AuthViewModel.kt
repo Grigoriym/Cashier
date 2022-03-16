@@ -1,11 +1,12 @@
 package com.grappim.auth.ui.viewmodel
 
 import androidx.lifecycle.LiveData
-import com.grappim.core.BaseViewModel
+import com.grappim.auth.model.AuthTextFieldsData
 import com.grappim.common.lce.Try
+import com.grappim.core.base.BaseViewModel2
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class AuthViewModel : BaseViewModel() {
+abstract class AuthViewModel : BaseViewModel2() {
 
     abstract val loginStatus: LiveData<Try<Unit>>
     abstract val authFieldsData: StateFlow<AuthTextFieldsData>

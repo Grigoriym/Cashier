@@ -11,24 +11,28 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import com.grappim.core.BaseFragment
 import com.grappim.core.MainViewModel
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.logger.logD
+import com.grappim.navigation.FlowRouter
 import com.grappim.select_info.common_navigation.SelectInfoViewModel
 import com.grappim.stock.di.DaggerSelectStockComponent
 import com.grappim.stock.di.SelectStockComponent
 import com.grappim.stock.ui.viewmodel.SelectStockViewModel
 import com.grappim.uikit.theme.CashierTheme
 
-class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
+class SelectStockFragment : BaseFragment2<SelectStockViewModel>() {
 
     private val selectStockComponent: SelectStockComponent by lazy {
         DaggerSelectStockComponent
             .builder()
             .selectStockDeps(findComponentDependencies())
             .build()
+    }
+
+    override val flowRouter: FlowRouter by lazy {
+        selectStockComponent.flowRouter()
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
@@ -62,11 +66,6 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        logD("${this} viewModel | mainViewModel = $mainViewModel, viewModel = $viewModel")
-    }
-
     @Composable
     private fun SelectStockFragmentScreen() {
         val stocksResult by viewModel.stocksResult.collectAsState()
@@ -74,7 +73,7 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
         val selectedStock by viewModel.selectedStock.collectAsState()
 
         SelectStockScreen(
-            onBackButtonPressed = viewModel::onBackPressed,
+            onBackButtonPressed = viewModel::onBackPressed3,
             stockProgressItems = viewModel.stockProgresses,
             stockItems = stocksResult,
             onRefresh = viewModel::getStocks,

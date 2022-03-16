@@ -8,19 +8,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
-import androidx.navigation.fragment.navArgs
-import com.grappim.core.BaseFragment
+import androidx.core.os.bundleOf
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
+import com.grappim.navigation.BackFragment
+import com.grappim.navigation.FlowRouter
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.presentation.BundleArgsKeys
 import com.grappim.product_category.presentation.create_edit.di.CreateEditProductCategoryComponent
 import com.grappim.product_category.presentation.create_edit.di.DaggerCreateEditProductCategoryComponent
+import com.grappim.product_category.presentation.create_edit.model.CreateEditFlow
 import com.grappim.product_category.presentation.create_edit.ui.viewmodel.CreateEditProductCategoryViewModel
 import com.grappim.product_category.presentation.create_edit.ui.viewmodel.CreateEditProductCategoryViewModelImpl
 import com.grappim.uikit.theme.CashierTheme
 
-class CreateEditProductCategoryFragment : BaseFragment<CreateEditProductCategoryViewModel>() {
+class CreateEditProductCategoryFragment : BaseFragment2<CreateEditProductCategoryViewModel>() {
 
     private val createEditProductCategoryComponent: CreateEditProductCategoryComponent by lazy {
         DaggerCreateEditProductCategoryComponent
@@ -33,12 +36,16 @@ class CreateEditProductCategoryFragment : BaseFragment<CreateEditProductCategory
         createEditProductCategoryComponent.createEditViewModelAssistedFactory()
     }
 
+    override val flowRouter: FlowRouter by lazy {
+        createEditProductCategoryComponent.flowRouter()
+    }
+
     private val categoryToEdit: ProductCategory? by lazyArg(BundleArgsKeys.ARG_KEY_EDIT_CATEGORY)
-    private val args by navArgs<CreateEditProductCategoryFragmentArgs>()
+    private val flow: CreateEditFlow by lazyArg(BundleArgsKeys.ARG_KEY_FLOW)
 
     override val viewModel: CreateEditProductCategoryViewModel by assistedViewModel {
         viewModelFactory.create(
-            createEditFlow = args.flow,
+            createEditFlow = flow,
             productCategory = categoryToEdit
         )
     }
@@ -60,11 +67,22 @@ class CreateEditProductCategoryFragment : BaseFragment<CreateEditProductCategory
         val categoryData by viewModel.categoryData.collectAsState()
 
         CreateEditProductCategoryScreen(
-            onBackPressed = viewModel::onBackPressed,
+            onBackPressed = viewModel::onBackPressed3,
             categoryName = categoryData.categoryName,
             setCategoryName = viewModel::setName,
-            createEditFlow = args.flow,
+            createEditFlow = flow,
             onCreateCategoryClick = viewModel::createEditCategory
         )
     }
+
+    companion object {
+        fun newInstance(args: Bundle?) =
+            CreateEditProductCategoryFragment().apply {
+                arguments = args
+                    ?: bundleOf(
+                        BundleArgsKeys.ARG_KEY_FLOW to CreateEditFlow.CREATE
+                    )
+            }
+    }
+
 }

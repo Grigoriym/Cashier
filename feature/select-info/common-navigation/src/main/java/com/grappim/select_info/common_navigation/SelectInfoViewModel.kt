@@ -1,9 +1,10 @@
 package com.grappim.select_info.common_navigation
 
 import androidx.lifecycle.LiveData
-import com.grappim.core.BaseViewModel
+import com.grappim.core.base.BaseViewModel
+import com.grappim.core.base.BaseViewModel2
 
-abstract class SelectInfoViewModel : BaseViewModel() {
+abstract class SelectInfoViewModel : BaseViewModel2() {
 
     abstract val nextScreen: LiveData<SelectInfoRootFlow>
 
@@ -12,5 +13,7 @@ abstract class SelectInfoViewModel : BaseViewModel() {
     abstract fun goBack()
 
     abstract fun goToSelectCashBox()
+
+    abstract fun backToSelectStock()
 
 }

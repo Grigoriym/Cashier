@@ -14,4 +14,6 @@
 	<item name="register_flow" type="id" />
 	<item name="product_categories_flow" type="id" />
 	<item name="select_info_flow" type="id" />
+
+	<item name="featureNavigationContainer" type="id"/>
 </resources>

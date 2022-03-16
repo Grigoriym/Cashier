@@ -7,31 +7,37 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.deps.HasComponentDeps
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.logger.logD
+import com.grappim.navigation.FlowRouter
 import com.grappim.root_presentation.R
 import com.grappim.root_presentation.di.DaggerSelectInfoRootComponent
+import com.grappim.root_presentation.di.SelectInfoRootComponent
 import com.grappim.select_info.common_navigation.SelectInfoRootFlow
 import com.grappim.select_info.common_navigation.SelectInfoViewModel
 
-class SelectInfoRootFragment : BaseFragment<SelectInfoViewModel>(
+class SelectInfoRootFragment : BaseFlowFragment<SelectInfoViewModel>(
     R.layout.fragment_select_info_root
 ), HasComponentDeps {
 
-    private val selectInfoRootComponent by lazy {
+    private val component: SelectInfoRootComponent by lazy {
         DaggerSelectInfoRootComponent
             .factory()
             .create(findComponentDependencies())
     }
 
     override val deps: ComponentDependenciesProvider by lazy {
-        selectInfoRootComponent.deps()
+        component.deps()
+    }
+
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
-        selectInfoRootComponent.multiViewModelFactory()
+        component.multiViewModelFactory()
     }
 
     override val viewModel: SelectInfoViewModel by viewModels {
@@ -52,18 +58,17 @@ class SelectInfoRootFragment : BaseFragment<SelectInfoViewModel>(
     }
 
     private fun initOnBackPressedDispatcher() {
-        requireActivity().onBackPressedDispatcher.addCallback(this,
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    logD("$this onBackPressed")
                     onBackPressed()
                 }
             })
     }
 
-    private fun onBackPressed() {
+    override fun onBackPressed() {
         if (viewPager.currentItem == 0) {
-            viewModel.goBack()
+            viewModel.onBackPressed3()
         } else {
             viewPager.currentItem = viewPager.currentItem - 1
         }
@@ -74,7 +79,6 @@ class SelectInfoRootFragment : BaseFragment<SelectInfoViewModel>(
     }
 
     private fun handleNextScreen(flow: SelectInfoRootFlow) {
-        logD("$this viewPager $flow ,${flow.ordinal}, ${viewPager.currentItem}")
         viewPager.currentItem = flow.ordinal
     }
 

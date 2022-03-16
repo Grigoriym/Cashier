@@ -1,19 +1,17 @@
 package com.grappim.stock.ui.viewmodel
 
-import com.grappim.core.BaseViewModel
+import com.grappim.core.base.BaseViewModel2
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.stock.model.StockProgressItem
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class SelectStockViewModel : BaseViewModel() {
+abstract class SelectStockViewModel : BaseViewModel2() {
 
     abstract val selectedStock: StateFlow<Stock?>
     abstract val stocksResult: StateFlow<List<Stock>>
     abstract val stockProgresses: List<StockProgressItem>
 
-    abstract fun onBackPressed()
     abstract fun selectStock(stock: Stock)
-    abstract fun showSelectInfo()
     abstract fun saveStock()
     abstract fun getStocks()
 

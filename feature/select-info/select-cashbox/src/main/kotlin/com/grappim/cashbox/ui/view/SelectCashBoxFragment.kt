@@ -11,12 +11,14 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.grappim.cashbox.di.DaggerSelectCashBoxComponent
 import com.grappim.cashbox.ui.viewmodel.SelectCashBoxViewModel
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
+import com.grappim.select_info.common_navigation.SelectInfoViewModel
 import com.grappim.uikit.theme.CashierTheme
 
-class SelectCashBoxFragment : BaseFragment<SelectCashBoxViewModel>() {
+class SelectCashBoxFragment : BaseFragment2<SelectCashBoxViewModel>() {
 
     private val selectCashBoxComponent by lazy {
         DaggerSelectCashBoxComponent
@@ -25,9 +27,21 @@ class SelectCashBoxFragment : BaseFragment<SelectCashBoxViewModel>() {
             .build()
     }
 
+    override val flowRouter: FlowRouter by lazy {
+        selectCashBoxComponent.flowRouter()
+    }
+
     private val viewModelFactory: MultiViewModelFactory by lazy {
         selectCashBoxComponent.multiViewModelFactory()
     }
+    private val rootViewModel: SelectInfoViewModel by viewModels(
+        ownerProducer = {
+            requireParentFragment()
+        },
+        factoryProducer = {
+            viewModelFactory
+        }
+    )
 
     override val viewModel: SelectCashBoxViewModel by viewModels {
         viewModelFactory
@@ -50,7 +64,7 @@ class SelectCashBoxFragment : BaseFragment<SelectCashBoxViewModel>() {
         val loading by viewModel.loading.observeAsState(false)
 
         SelectCashBoxScreen(
-            onBackButtonPressed = viewModel::onBackPressed,
+            onBackButtonPressed = rootViewModel::backToSelectStock,
             cashBoxProgressItems = viewModel.cashBoxProgressItems,
             cashBoxItems = viewModel.cashBoxes,
             onRefresh = viewModel::getCashBoxes,

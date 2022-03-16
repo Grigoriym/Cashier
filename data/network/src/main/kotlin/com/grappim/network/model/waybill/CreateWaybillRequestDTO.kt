@@ -1,5 +1,6 @@
 package com.grappim.network.model.waybill
 
+import com.grappim.domain.model.waybill.WaybillStatus
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,7 +15,7 @@ data class PartialWaybill(
     @SerialName("merchantId")
     val merchantId: String,
     @SerialName("status")
-    val status: String,
+    val status: WaybillStatus,
     @SerialName("stockId")
     val stockId: String,
     @SerialName("type")

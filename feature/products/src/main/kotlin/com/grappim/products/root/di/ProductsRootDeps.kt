@@ -6,6 +6,8 @@ import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.domain.storage.GeneralStorage
+import com.grappim.navigation.AppRouter
+import com.grappim.navigation.CashierScreens
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import java.time.format.DateTimeFormatter
 
@@ -20,5 +22,7 @@ interface ProductsRootDeps : ComponentDeps {
 
     @DateTimeIsoInstant
     fun dtfIso(): DateTimeFormatter
+    fun cashierScreens(): CashierScreens
+    fun appRouter(): AppRouter
 
 }

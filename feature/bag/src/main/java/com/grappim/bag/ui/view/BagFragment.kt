@@ -12,22 +12,27 @@ import androidx.fragment.app.viewModels
 import com.grappim.bag.di.BagComponent
 import com.grappim.bag.di.DaggerBagComponent
 import com.grappim.bag.ui.viewmodel.BagViewModel
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import com.grappim.uikit.theme.CashierTheme
 
-class BagFragment : BaseFragment<BagViewModel>() {
+class BagFragment : BaseFlowFragment<BagViewModel>() {
 
-    private val bagComponent: BagComponent by lazy {
+    private val component: BagComponent by lazy {
         DaggerBagComponent
             .builder()
             .bagDeps(findComponentDependencies())
             .build()
     }
 
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
+    }
+
     private val viewModelFactory: MultiViewModelFactory by lazy {
-        bagComponent.multiViewModelFactory()
+        component.multiViewModelFactory()
     }
 
     override val viewModel: BagViewModel by viewModels {
@@ -52,7 +57,7 @@ class BagFragment : BaseFragment<BagViewModel>() {
         val basketSum by viewModel.basketSum.collectAsState()
 
         BagScreen(
-            onBackClick = viewModel::onBackPressed,
+            onBackClick = viewModel::onBackPressed3,
             onScanClick = viewModel::showScanner,
             onPayClick = viewModel::goToPaymentMethod,
             onMinusClick = viewModel::removeProductFromBasket,

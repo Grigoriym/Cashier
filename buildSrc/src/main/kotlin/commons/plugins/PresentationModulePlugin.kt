@@ -50,6 +50,8 @@ private fun Project.configureCommonDependencies() {
             getCommonDependencies()
             getCommonAndroidDependencies()
 
+            implementation(Deps.cicerone)
+
             implementation(project(Modules.commonDi))
             implementation(project(Modules.commonAsynchronous))
             implementation(project(Modules.commonLce))

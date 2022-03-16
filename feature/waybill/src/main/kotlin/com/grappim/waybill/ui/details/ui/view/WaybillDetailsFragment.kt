@@ -13,9 +13,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.extensions.padWithZeros
+import com.grappim.navigation.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.details.di.DaggerWaybillDetailsComponent
@@ -25,17 +26,21 @@ import com.grappim.waybill.ui.root.ui.viewmodel.WaybillRootViewModel
 import java.time.LocalDateTime
 import java.util.*
 
-class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
+class WaybillDetailsFragment : BaseFragment2<WaybillDetailsViewModel>() {
 
-    private val waybillDetailsComponent: WaybillDetailsComponent by lazy {
+    private val component: WaybillDetailsComponent by lazy {
         DaggerWaybillDetailsComponent
             .builder()
             .waybillDetailsDeps(findComponentDependencies())
             .build()
     }
 
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
+    }
+
     private val viewModelFactory by lazy {
-        waybillDetailsComponent.multiViewModelFactory()
+        component.multiViewModelFactory()
     }
 
     override val viewModel by viewModels<WaybillDetailsViewModel>() {
@@ -76,13 +81,13 @@ class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
         WaybillDetailsScreen(
             waybill = waybill,
             productsPagingItems = productItems,
-            onBackClick = sharedViewModel::onBackPressed,
-            onSearchClick = sharedViewModel::showSearchProducts,
+            onBackClick = viewModel::onBackPressed3,
+            onSearchClick = viewModel::showSearchProducts,
             onScanClick = viewModel::showScanner,
             onActionClick = {
                 viewModel.updateWaybill(waybill)
             },
-            onProductClick = sharedViewModel::showWaybillProduct,
+            onProductClick = viewModel::showWaybillProduct,
             onDateClick = {
                 setActualDateTime()
             },
@@ -123,6 +128,12 @@ class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
         )
         dpd.datePicker.maxDate = Date().time
         dpd.show()
+    }
+
+    companion object {
+        fun newInstance() = WaybillDetailsFragment().apply {
+
+        }
     }
 
 }

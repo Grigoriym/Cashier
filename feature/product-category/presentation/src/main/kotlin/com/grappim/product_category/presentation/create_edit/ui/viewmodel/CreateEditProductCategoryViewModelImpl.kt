@@ -2,21 +2,19 @@ package com.grappim.product_category.presentation.create_edit.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
+import com.grappim.navigation.FlowRouter
 import com.grappim.product_category.domain.interactor.CreateProductCategoryUseCase
 import com.grappim.product_category.domain.interactor.EditProductCategoryUseCase
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.presentation.create_edit.model.CreateEditCategoryData
 import com.grappim.product_category.presentation.create_edit.model.CreateEditFlow
-import com.grappim.product_category.presentation.root.di.ProductCategoryScreenNavigator
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CreateEditProductCategoryViewModelImpl @AssistedInject constructor(
-    private val productCategoryScreenNavigator: ProductCategoryScreenNavigator,
     private val createProductCategoryUseCase: CreateProductCategoryUseCase,
     private val editProductCategoryUseCase: EditProductCategoryUseCase,
     @Assisted private val createEditFlow: CreateEditFlow,
@@ -60,6 +58,10 @@ class CreateEditProductCategoryViewModelImpl @AssistedInject constructor(
         }
     }
 
+    private fun doOnSuccess() {
+        flowRouter.onBackPressed()
+    }
+
     private fun createCategory() {
         viewModelScope.launch {
             createProductCategoryUseCase.invoke(
@@ -70,7 +72,7 @@ class CreateEditProductCategoryViewModelImpl @AssistedInject constructor(
                 _loading.value = it is Try.Loading
                 when (it) {
                     is Try.Success -> {
-                        onBackPressed()
+                        doOnSuccess()
                     }
                     is Try.Error -> {
                         _error.value = it.exception
@@ -91,7 +93,7 @@ class CreateEditProductCategoryViewModelImpl @AssistedInject constructor(
                 _loading.value = it is Try.Loading
                 when (it) {
                     is Try.Success -> {
-                        onBackPressed()
+                        doOnSuccess()
                     }
                     is Try.Error -> {
                         _error.value = it.exception
@@ -101,7 +103,4 @@ class CreateEditProductCategoryViewModelImpl @AssistedInject constructor(
         }
     }
 
-    override fun onBackPressed() {
-        productCategoryScreenNavigator.goBack()
-    }
 }

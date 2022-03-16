@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 class GetWaybillProductsPagingSource constructor(
     private val ioDispatcher: CoroutineDispatcher,
     private val waybillApi: WaybillApi,
-    private val waybillId: Int
+    private val waybillId: Long
 ) : PagingSource<Int, WaybillProductDTO>() {
     override fun getRefreshKey(state: PagingState<Int, WaybillProductDTO>): Int? = null
 

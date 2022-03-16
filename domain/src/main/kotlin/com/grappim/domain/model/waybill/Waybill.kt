@@ -5,14 +5,14 @@ import java.io.Serializable
 import java.math.BigDecimal
 
 data class Waybill(
-    val id: Int,
+    val id: Long,
     val createdOn: String,
     val merchantId: String,
     val number: String,
     val status: WaybillStatus,
     val stockId: String,
     val totalCost: BigDecimal,
-    val type: WaybillType,
+//    val type: WaybillType,
     val updatedOn: String,
     var reservedTime: String?,
     var reservedTimeToDemonstrate: String?,
@@ -29,7 +29,7 @@ data class Waybill(
                 status = WaybillStatus.ACTIVE,
                 stockId = "",
                 totalCost = bigDecimalOne(),
-                type = WaybillType.INWAYBILL,
+//                type = WaybillType.INWAYBILL,
                 updatedOn = "23.12.23.20123",
                 reservedTime = "",
                 comment = "",

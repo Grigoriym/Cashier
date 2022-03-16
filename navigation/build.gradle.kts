@@ -8,6 +8,8 @@ dependencies {
     implementation(project(Modules.uikit))
     implementation(project(Modules.commonDi))
 
+    implementation(Deps.cicerone)
+
     implementation(Deps.AndroidX.navigationFragment)
     implementation(Deps.AndroidX.navigationUi)
 

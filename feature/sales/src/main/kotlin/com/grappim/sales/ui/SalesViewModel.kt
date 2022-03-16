@@ -2,15 +2,14 @@ package com.grappim.sales.ui
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
-import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.common.lce.withoutParams
-import com.grappim.core.BaseViewModel
+import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
 import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
 import com.grappim.domain.interactor.sales.RemoveProductUseCase
 import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.model.product.Product
-import com.grappim.sales.di.SalesScreenNavigator
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -21,9 +20,8 @@ class SalesViewModel @Inject constructor(
     private val removeProductUseCase: RemoveProductUseCase,
     private val searchProductsUseCase: SearchProductsUseCase,
     getAllBasketProductsUseCase: GetAllBasketProductsUseCase,
-    @DecimalFormatSimple private val dfSimple: DecimalFormat,
-    private val salesScreenNavigator: SalesScreenNavigator
-) : BaseViewModel() {
+    @DecimalFormatSimple private val dfSimple: DecimalFormat
+) : BaseViewModel2() {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String>
@@ -66,10 +64,6 @@ class SalesViewModel @Inject constructor(
         }
     }
 
-    fun onBackPressed() {
-        salesScreenNavigator.goBack()
-    }
-
     fun subtractProduct(product: Product) {
         viewModelScope.launch {
             removeProductUseCase.invoke(RemoveProductUseCase.Params(product))
@@ -81,11 +75,11 @@ class SalesViewModel @Inject constructor(
     }
 
     fun showScanner() {
-//        findNavController().navigate(SalesFragmentDirections.actionSalesFragmentToScannerFragment())
+        flowRouter.goToScanner()
     }
 
     fun showBasket() {
-        salesScreenNavigator.goToBag()
+        flowRouter.goToBag()
     }
 
 }

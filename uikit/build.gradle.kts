@@ -15,6 +15,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.core:core-splashscreen:1.0.0-beta01")
     implementation(project(Modules.domain))
     implementation(project(Modules.utilsCalculations))
 

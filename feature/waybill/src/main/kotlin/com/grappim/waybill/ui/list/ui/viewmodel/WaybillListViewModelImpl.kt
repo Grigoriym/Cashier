@@ -1,6 +1,5 @@
 package com.grappim.waybill.ui.list.ui.viewmodel
 
-import android.os.Bundle
 import androidx.annotation.MainThread
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -10,15 +9,15 @@ import androidx.paging.map
 import com.grappim.common.lce.Try
 import com.grappim.common.lce.withoutParams
 import com.grappim.date_time.DateStandard
-import com.grappim.date_time.getOffsetDateTimeFromString
+import com.grappim.date_time.DateTimeIsoLocalDateTime
 import com.grappim.domain.interactor.waybill.CreateWaybillUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillListPagingUseCase
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.repository.local.WaybillLocalRepository
-import com.grappim.waybill.BundleArgsKeys
 import com.grappim.waybill.model.PagingDataModel
-import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -27,8 +26,8 @@ class WaybillListViewModelImpl @Inject constructor(
     getWaybillListPagingUseCase: GetWaybillListPagingUseCase,
     private val createWaybillUseCase: CreateWaybillUseCase,
     private val waybillLocalRepository: WaybillLocalRepository,
-    private val waybillScreenNavigator: WaybillScreenNavigator,
-    @DateStandard private val df: DateTimeFormatter
+    @DateStandard private val df: DateTimeFormatter,
+    @DateTimeIsoLocalDateTime val dtfIso: DateTimeFormatter
 ) : WaybillListViewModel() {
 
     override val isRefreshing = MutableStateFlow(false)
@@ -49,7 +48,7 @@ class WaybillListViewModelImpl @Inject constructor(
                         return@insertSeparators null
                     }
                     val afterDate = df.format(
-                        after.item.updatedOn.getOffsetDateTimeFromString()
+                        dtfIso.parse(after.item.updatedOn)
                     )
                     if (before == null) {
                         return@insertSeparators PagingDataModel.Separator(
@@ -57,7 +56,7 @@ class WaybillListViewModelImpl @Inject constructor(
                         )
                     }
                     val beforeDate = df.format(
-                        before.item.updatedOn.getOffsetDateTimeFromString()
+                        dtfIso.parse(before.item.updatedOn)
                     )
 
                     if (beforeDate != afterDate) {
@@ -71,16 +70,6 @@ class WaybillListViewModelImpl @Inject constructor(
 
     override fun setSearchText(text: String) {
         searchText.value = text
-    }
-
-    override fun refresh() {
-        viewModelScope.launch {
-
-        }
-    }
-
-    override fun onBackPressed() {
-        waybillScreenNavigator.goBack()
     }
 
     @MainThread
@@ -103,10 +92,7 @@ class WaybillListViewModelImpl @Inject constructor(
 
     override fun showDetails(waybill: Waybill) {
         waybillLocalRepository.setWaybill(waybill)
-        val args = Bundle(1).apply {
-            putSerializable(BundleArgsKeys.ARG_KEY_WAYBILL, waybill)
-        }
-        waybillScreenNavigator.goToWaybillDetails(args)
+        flowRouter.goToWaybillDetails()
     }
 
 }

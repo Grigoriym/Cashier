@@ -1,4 +1,4 @@
-package com.grappim.auth.ui.viewmodel
+package com.grappim.auth.model
 
 data class AuthTextFieldsData(
     val phone: String,

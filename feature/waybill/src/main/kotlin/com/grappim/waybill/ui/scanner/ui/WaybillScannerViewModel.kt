@@ -1,27 +1,31 @@
-package com.grappim.waybill.ui.scanner
+package com.grappim.waybill.ui.scanner.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
+import com.grappim.core.SingleLiveEvent
+import com.grappim.core.base.BaseViewModel2
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
+import com.grappim.domain.repository.local.WaybillLocalRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class WaybillScannerViewModel @Inject constructor(
     private val getWaybillProductByBarcodeUseCase: GetWaybillProductByBarcodeUseCase,
-    private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase
-) : ViewModel() {
+    private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase,
+    private val waybillLocalRepository: WaybillLocalRepository
+) : BaseViewModel2() {
 
-    private val _waybillProduct = com.grappim.core.SingleLiveEvent<Try<WaybillProduct>>()
+    private val _waybillProduct = SingleLiveEvent<Try<WaybillProduct>>()
     val waybillProduct: LiveData<Try<WaybillProduct>>
         get() = _waybillProduct
 
-    private val _product = com.grappim.core.SingleLiveEvent<Try<Product>>()
+    private val _product = SingleLiveEvent<Try<Product>>()
     val product: LiveData<Try<Product>>
         get() = _product
 
@@ -38,15 +42,14 @@ class WaybillScannerViewModel @Inject constructor(
     }
 
     fun checkProductInWaybill(
-        barcode: String,
-        waybillId: Int
+        barcode: String
     ) {
         viewModelScope.launch {
             _waybillProduct.value = Try.Loading
             getWaybillProductByBarcodeUseCase.invoke(
                 GetWaybillProductByBarcodeUseCase.Params(
                     barcode = barcode,
-                    waybillId = waybillId
+                    waybillId = waybillLocalRepository.waybill.id
                 )
             ).collect {
                 when (it) {

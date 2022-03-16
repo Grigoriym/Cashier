@@ -8,5 +8,5 @@ data class GetWaybillByBarcodeRequestDTO(
     @SerialName("barcode")
     val barcode: String,
     @SerialName("waybillId")
-    val waybillId: Int
+    val waybillId: Long
 )

@@ -27,8 +27,7 @@ class BagViewModelImpl @Inject constructor(
     private val getBagProductsUseCase: GetBagProductsUseCase,
     private val deleteBagProductsUseCase: DeleteBagProductsUseCase,
     getAllBasketProductsUseCase: GetAllBasketProductsUseCase,
-    @DecimalFormatSimple private val dfSimple: DecimalFormat,
-    private val bagScreenNavigator: BagScreenNavigator
+    @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : BagViewModel() {
 
     override val products = MutableStateFlow<List<Product>>(emptyList())
@@ -63,20 +62,11 @@ class BagViewModelImpl @Inject constructor(
     }
 
     override fun showScanner() {
-        bagScreenNavigator.goToScannerFromBag()
-//        navigator.navigate(
-//            BagFragmentDirections.actionBagFragmentToScannerFragment(
-//                ScanType.SINGLE
-//            )
-//        )
-    }
-
-    override fun onBackPressed() {
-        bagScreenNavigator.goBack()
+        flowRouter.goToScanner()
     }
 
     override fun goToPaymentMethod() {
-        bagScreenNavigator.goToPaymentMethod()
+        flowRouter.goToPaymentMethod()
     }
 
     override fun deleteBagProducts() {

@@ -12,6 +12,8 @@ import dagger.multibindings.IntoMap
 interface SearchWaybillProductBindsModule {
 
     @[Binds IntoMap ViewModelKey(SearchProductViewModel::class)]
-    fun bindWaybillListViewModel(searchProductViewModel: SearchProductViewModelImpl): ViewModel
+    fun bindWaybillListViewModel(
+        searchProductViewModel: SearchProductViewModelImpl
+    ): ViewModel
 
 }

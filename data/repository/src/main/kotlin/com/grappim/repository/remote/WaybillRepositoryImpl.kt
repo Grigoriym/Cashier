@@ -82,12 +82,8 @@ class WaybillRepositoryImpl @Inject constructor(
                 waybillId = params.waybillId
             )
         )
-        if (response.found) {
-            val domainToReturn = waybillProductMapper.dtoToDomain(response.product)
-            emit(Try.Success(domainToReturn))
-        } else {
-            throw IllegalArgumentException("not found")
-        }
+        val domainToReturn = waybillProductMapper.dtoToDomain(response.product)
+        emit(Try.Success(domainToReturn))
     }
 
     override fun getProductByBarcode(
@@ -96,7 +92,7 @@ class WaybillRepositoryImpl @Inject constructor(
         flow {
             emit(Try.Loading)
             val product = productsDao.getProductByBarcode(barcode = params.barcode)
-                ?: throw IllegalArgumentException("not found")
+                ?: error("not found")
             val domainToReturn = productMapper.entityToDomain(product)
             emit(Try.Success(domainToReturn))
         }
@@ -126,7 +122,7 @@ class WaybillRepositoryImpl @Inject constructor(
 
     override fun conductWaybill(
         params: ConductWaybillUseCase.Params
-    ): Flow<Try<Waybill>> =
+    ): Flow<Try<Unit>> =
         flow {
             emit(Try.Loading)
 
@@ -135,25 +131,20 @@ class WaybillRepositoryImpl @Inject constructor(
                 UpdateWaybillRequestDTO(dtoToUpdate)
             )
 
-            val response = waybillApi.conductWaybill(params.waybill.id)
-
-            val domainToReturn = waybillMapper.dtoToDomain(response.waybill)
-            emit(Try.Success(domainToReturn))
+            waybillApi.conductWaybill(params.waybill.id)
+            emit(Try.Success(Unit))
         }
 
     override fun rollbackWaybill(
         params: RollbackWaybillUseCase.Params
-    ): Flow<Try<Waybill>> = flow {
+    ): Flow<Try<Unit>> = flow {
         emit(Try.Loading)
         val dtoToUpdate = waybillMapper.domainToDto(params.waybill)
         waybillApi.updateWaybill(
             UpdateWaybillRequestDTO(dtoToUpdate)
         )
-
-        val response = waybillApi.rollbackWaybill(params.waybill.id)
-
-        val domainToReturn = waybillMapper.dtoToDomain(response.waybill)
-        emit(Try.Success(domainToReturn))
+        waybillApi.rollbackWaybill(params.waybill.id)
+        emit(Try.Success(Unit))
     }
 
     override fun getAcceptanceListPaging(): Flow<PagingData<Waybill>> =
@@ -197,7 +188,7 @@ class WaybillRepositoryImpl @Inject constructor(
                 CreateWaybillRequestDTO(
                     waybill = PartialWaybill(
                         merchantId = generalStorage.getMerchantId(),
-                        status = WaybillStatus.DRAFT.value,
+                        status = WaybillStatus.DRAFT,
                         stockId = generalStorage.stockId,
                         type = WaybillType.INWAYBILL.value
                     )

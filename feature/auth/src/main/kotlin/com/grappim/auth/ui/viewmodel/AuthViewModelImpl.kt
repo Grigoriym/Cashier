@@ -2,22 +2,21 @@ package com.grappim.auth.ui.viewmodel
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.viewModelScope
-import com.grappim.auth.di.AuthScreenNavigator
+import com.grappim.auth.model.AuthTextFieldsData
 import com.grappim.common.lce.Try
+import com.grappim.navigation.AppRouter
 import com.grappim.core.SingleLiveEvent
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class AuthViewModelImpl @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val generalRepository: GeneralRepository,
-    private val workerHelper: WorkerHelper,
-    private val authScreenNavigator: AuthScreenNavigator
+    private val workerHelper: WorkerHelper
 ) : AuthViewModel() {
 
     init {
@@ -55,7 +54,7 @@ internal class AuthViewModelImpl @Inject constructor(
 
     @MainThread
     override fun goToRegisterFlow() {
-        authScreenNavigator.goToSignUp()
+        flowRouter.goToSignUpFromSignIn()
     }
 
     @MainThread
@@ -74,7 +73,7 @@ internal class AuthViewModelImpl @Inject constructor(
                 when (it) {
                     is Try.Success -> {
                         workerHelper.startTokenRefresherWorker()
-                        authScreenNavigator.goToSelectStock()
+                        flowRouter.goToSelectInfo()
                     }
                     is Try.Error -> {
                         _error.value = it.exception

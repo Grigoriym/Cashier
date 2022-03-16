@@ -3,43 +3,25 @@ package com.grappim.cashier.ui.root
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.grappim.cashier.R
 import com.grappim.cashier.di.root_activity.DaggerRootActivityComponent
 import com.grappim.cashier.di.root_activity.RootActivityComponent
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.deps.HasComponentDeps
 import com.grappim.core.MainViewModel
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.logger.logD
-import javax.inject.Inject
+import com.grappim.navigation.AppRouter
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     HasComponentDeps {
 
-    @Inject
-    override lateinit var deps: ComponentDependenciesProvider
-        internal set
-
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
-
-    private var _activityComponent: RootActivityComponent? = null
-    val activityComponent
-        get() = requireNotNull(_activityComponent)
-
-    private val viewModel by viewModels<MainViewModel> {
-        viewModelFactory
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        performInject()
-        super.onCreate(savedInstanceState)
-        logD("${this} viewModel: mainViewModel: $viewModel")
-    }
-
-    private fun performInject() {
-        _activityComponent = DaggerRootActivityComponent
+    private val component: RootActivityComponent by lazy {
+        DaggerRootActivityComponent
             .factory()
             .create(
                 context = this,
@@ -47,13 +29,47 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                 rootActivityDeps = findComponentDependencies(),
                 activity = this
             )
-
-        activityComponent.inject(this)
     }
 
-    override fun onDestroy() {
-        _activityComponent = null
-        super.onDestroy()
+    override val deps: ComponentDependenciesProvider by lazy {
+        component.deps()
+    }
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        component.multiViewModelFactory()
+    }
+
+    private val appRouter: AppRouter by lazy {
+        component.appRouter()
+    }
+
+    private val viewModel by viewModels<MainViewModel> {
+        viewModelFactory
+    }
+
+    private val navigator: Navigator by lazy {
+        AppNavigator(this, R.id.nav_host_fragment)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
+        viewModel.goToAuth()
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        appRouter.navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        appRouter.navigatorHolder.removeNavigator()
+        super.onPause()
+    }
+
+    override fun onBackPressed() {
+        val fragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? BaseFragment2<*>
+        fragment?.onBackPressed() ?: super.onBackPressed()
     }
 
 }

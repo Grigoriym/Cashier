@@ -6,30 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
+import com.grappim.navigation.FlowRouter
+import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.product.di.DaggerWaybillProductComponent
 import com.grappim.waybill.ui.product.di.WaybillProductComponent
 import com.grappim.waybill.ui.product.ui.viewmodel.WaybillProductViewModel
-import com.grappim.waybill.ui.root.ui.viewmodel.WaybillRootViewModel
 
-class WaybillProductFragment : BaseFragment<WaybillProductViewModel>() {
+class WaybillProductFragment : BaseFragment2<WaybillProductViewModel>() {
 
-    companion object {
-        const val ARG_WAYBILL_ID = "arg_waybill_id"
-        const val ARG_PRODUCT = "arg_product"
-        const val ARG_WAYBILL_PRODUCT = "arg_waybill_product"
-        const val ARG_BARCODE = "arg_barcode"
-    }
-
-    private val waybillProductComponent: WaybillProductComponent by lazy {
+    private val component: WaybillProductComponent by lazy {
         DaggerWaybillProductComponent
             .builder()
             .waybillProductDeps(findComponentDependencies())
@@ -37,26 +33,20 @@ class WaybillProductFragment : BaseFragment<WaybillProductViewModel>() {
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
-        waybillProductComponent.multiViewModelFactory()
+        component.multiViewModelFactory()
     }
 
     override val viewModel: WaybillProductViewModel by viewModels {
         viewModelFactory
     }
 
-    private val sharedViewModel by viewModels<WaybillRootViewModel>(
-        ownerProducer = {
-            requireParentFragment()
-        },
-        factoryProducer = {
-            viewModelFactory
-        }
-    )
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
+    }
 
-    private val product: Product? by lazyArg(ARG_PRODUCT)
-    private val waybillId: Long by lazyArg(ARG_WAYBILL_ID)
-    private val waybillProduct: WaybillProduct? by lazyArg(ARG_WAYBILL_PRODUCT)
-    private val barcode: String? by lazyArg(ARG_BARCODE)
+    private val product: Product? by lazyArg(BundleArgsHelper.Waybill.ARG_KEY_PRODUCT)
+    private val waybillProduct: WaybillProduct? by lazyArg(BundleArgsHelper.Waybill.ARG_KEY_WAYBILL_PRODUCT)
+    private val barcode: String? by lazyArg(BundleArgsHelper.Waybill.ARG_KEY_BARCODE)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,17 +64,18 @@ class WaybillProductFragment : BaseFragment<WaybillProductViewModel>() {
     private fun WaybillProductFragmentScreen() {
         viewModel.setWaybillProductState(
             product = product,
-            waybillId = waybillId,
             waybillProduct = waybillProduct,
             barcode = barcode
         )
         val waybillProduct by viewModel.waybillProductState
+        val loading by viewModel.loading.observeAsState(false)
+        LoaderDialogCompose(show = loading)
 
-        val productCreatedState by viewModel.productCreated
+//        val productCreatedState by viewModel.productCreated
 
         WaybillProductScreen(
             waybillProductStates = waybillProduct,
-            onBackClick = sharedViewModel::onBackPressed,
+            onBackClick = viewModel::onBackPressed3,
             onActionClick = viewModel::waybillProductAction,
             setBarcode = viewModel::setBarcode,
             setProductName = viewModel::setWaybillProductName,
@@ -92,5 +83,11 @@ class WaybillProductFragment : BaseFragment<WaybillProductViewModel>() {
             setPurchasePrice = viewModel::setPurchasePrice,
             setSellingPrice = viewModel::setSellingPrice
         )
+    }
+
+    companion object {
+        fun newInstance(args: Bundle) = WaybillProductFragment().apply {
+            arguments = args
+        }
     }
 }

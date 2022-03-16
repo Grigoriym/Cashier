@@ -1,12 +1,8 @@
 package com.grappim.network.mappers.waybill
 
-import com.grappim.date_time.DateTimeIsoInstant
+import com.grappim.date_time.DateTimeIsoLocalDateTime
 import com.grappim.date_time.DateTimeStandard
-import com.grappim.date_time.getOffsetDateTimeFromString
-import com.grappim.date_time.getZonedDateTimeWithFormatter
 import com.grappim.domain.model.waybill.Waybill
-import com.grappim.domain.model.waybill.WaybillStatus
-import com.grappim.domain.model.waybill.WaybillType
 import com.grappim.logger.logD
 import com.grappim.network.model.waybill.WaybillDTO
 import java.time.Instant
@@ -16,7 +12,7 @@ import javax.inject.Inject
 
 class WaybillMapper @Inject constructor(
     @DateTimeStandard private val dtfStandard: DateTimeFormatter,
-    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
+    @DateTimeIsoLocalDateTime private val dtfIso: DateTimeFormatter
 ) {
 
     fun dtoToDomain(from: WaybillDTO): Waybill {
@@ -34,15 +30,15 @@ class WaybillMapper @Inject constructor(
             id = from.id,
             merchantId = from.merchantId,
             number = from.number,
-            status = WaybillStatus.getStatusByValue(from.status),
+            status = from.status,
             stockId = from.stockId,
             totalCost = from.totalCost,
-            type = WaybillType.getTypeByValue(from.type),
+//            type = WaybillType.getTypeByValue(from.type),
             updatedOn = from.updatedOn,
             reservedTime = from.reservedTime,
             comment = from.comment,
             updateOnToDemonstrate = dtfStandard.format(
-                from.updatedOn.getOffsetDateTimeFromString()
+                dtfIso.parse(from.updatedOn)
             ),
             reservedTimeToDemonstrate = reservedTimeToDemonstrate
         )
@@ -54,10 +50,10 @@ class WaybillMapper @Inject constructor(
             id = from.id,
             merchantId = from.merchantId,
             number = from.number,
-            status = from.status.value,
+            status = from.status,
             stockId = from.stockId,
             totalCost = from.totalCost,
-            type = from.type.value,
+//            type = from.type.value,
             updatedOn = from.updatedOn,
             reservedTime = from.reservedTime,
             comment = from.comment

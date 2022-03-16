@@ -152,4 +152,5 @@ object Deps {
     const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
     const val accompanistSwipeRefresh =
         "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
+    const val cicerone = "com.github.terrakok:cicerone:${Versions.cicerone}"
 }

@@ -9,20 +9,24 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import com.grappim.core.BaseFragment
+import androidx.fragment.app.viewModels
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
+import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.domain.model.product.Product
+import com.grappim.navigation.FlowRouter
 import com.grappim.products.BundleArgsKeys
 import com.grappim.products.create_edit.di.CreateEditProductComponent
 import com.grappim.products.create_edit.di.DaggerCreateEditProductComponent
 import com.grappim.products.create_edit.ui.viewmodel.CreateEditProductViewModel
 import com.grappim.products.create_edit.ui.viewmodel.CreateEditProductViewModelImpl
 import com.grappim.products.model.CreateEditFlow
+import com.grappim.products.root.ui.ProductsRootViewModel
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
-class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
+class CreateEditProductFragment : BaseFragment2<CreateEditProductViewModel>() {
 
     private val createComponent: CreateEditProductComponent by lazy {
         DaggerCreateEditProductComponent
@@ -31,8 +35,16 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
             .build()
     }
 
+    private val rootViewModelFactory: MultiViewModelFactory by lazy {
+        createComponent.multiViewModelFactory()
+    }
+
     private val viewModelFactory: CreateEditProductViewModelImpl.Factory by lazy {
         createComponent.provideCreateProductAssistedViewModelFactory()
+    }
+
+    override val flowRouter: FlowRouter by lazy {
+        createComponent.flowRouter()
     }
 
     private val createEditFlow by lazyArg<CreateEditFlow>(BundleArgsKeys.ARG_KEY_FLOW)
@@ -41,10 +53,18 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
     override val viewModel: CreateEditProductViewModel by assistedViewModel {
         viewModelFactory.create(
             createEditFlow = createEditFlow,
-            productToEdit = product,
-            scannedBarcode = null
+            productToEdit = product
         )
     }
+
+    private val rootViewModel by viewModels<ProductsRootViewModel>(
+        ownerProducer = {
+            requireParentFragment()
+        },
+        factoryProducer = {
+            rootViewModelFactory
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +80,11 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
 
     @Composable
     private fun CreateEditProductFragmentScreen() {
+        val scannedBarcode by rootViewModel.scannedBarcode.observeAsState()
+        scannedBarcode?.let {
+            viewModel.setBarcode(it)
+        }
+
         val categoryList by viewModel.categoriesFlow.collectAsState()
         val selectedCategory by viewModel.selectedCategory.collectAsState()
         val productName by viewModel.productName.collectAsState()
@@ -76,7 +101,7 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
         LoaderDialogCompose(show = loading)
 
         CreateEditProductScreen(
-            onBackPressed = viewModel::onBackPressed,
+            onBackPressed = viewModel::onBackPressed3,
             onCreateProductClick = viewModel::createEditProduct,
             productName = productName,
             setProductName = viewModel::setProductName,
@@ -101,11 +126,14 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
             onCategoryClick = viewModel::selectCategory,
             createEditFlow = createEditFlow,
             selectedCategory = selectedCategory,
-            onScanClick = {
-//                findNavController().navigate(
-//                    CreateEditProductFragmentDirections.actionCreateProductToScanner()
-//                )
-            }
+            onScanClick = viewModel::goToScanner
         )
+    }
+
+    companion object {
+        fun newInstance(args: Bundle) =
+            CreateEditProductFragment().apply {
+                arguments = args
+            }
     }
 }

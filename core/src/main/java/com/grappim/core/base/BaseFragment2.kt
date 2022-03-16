@@ -1,4 +1,4 @@
-package com.grappim.core
+package com.grappim.core.base
 
 import android.content.Context
 import android.os.Bundle
@@ -8,22 +8,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
+import com.grappim.navigation.BackFragment
+import com.grappim.navigation.FlowRouter
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : BaseViewModel> : Fragment {
+abstract class BaseFragment2<VM : BaseViewModel2> : Fragment, BackFragment {
 
     constructor() : super()
     constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
 
     abstract val viewModel: VM
 
+    abstract val flowRouter: FlowRouter
+
+    override fun onBackPressed() {
+        viewModel.onBackPressed3()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logD("$this fragment onViewCreated")
+        viewModel.setupFlowRouter(flowRouter)
         observeViewModel()
     }
 

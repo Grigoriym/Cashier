@@ -15,19 +15,19 @@ interface WaybillApi {
     @GET("waybill/conduct/{waybillId}")
     @RequestWithAuthToken
     suspend fun conductWaybill(
-        @Path("waybillId") waybillId: Int
-    ): GetWaybillByIdResponseDTO
+        @Path("waybillId") waybillId: Long
+    )
 
     @GET("waybill/rollback/{waybillId}")
     @RequestWithAuthToken
     suspend fun rollbackWaybill(
-        @Path("waybillId") waybillId: Int
-    ): GetWaybillByIdResponseDTO
+        @Path("waybillId") waybillId: Long
+    )
 
     @DELETE("waybill/{waybillId}")
     @RequestWithAuthToken
     suspend fun deleteWaybill(
-        @Path("waybillId") waybillId: String
+        @Path("waybillId") waybillId: Long
     )
 
     @PUT("waybill/update")
@@ -58,7 +58,7 @@ interface WaybillApi {
     @RequestWithAuthToken
     suspend fun deleteWaybillProduct()
 
-    @POST("waybill/product/get_list")
+    @POST("waybill/product/filter")
     @RequestWithAuthToken
     suspend fun getWaybillProductList(
         @Body waybillProductsRequestDTO: WaybillProductsRequestDTO

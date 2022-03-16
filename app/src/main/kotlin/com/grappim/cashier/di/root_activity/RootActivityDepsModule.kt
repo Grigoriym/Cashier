@@ -10,6 +10,7 @@ import com.grappim.product_category.presentation.root.di.ProductCategoryRootDeps
 import com.grappim.products.root.di.ProductsRootDeps
 import com.grappim.root_presentation.di.SelectInfoRootDeps
 import com.grappim.sales.di.SalesDeps
+import com.grappim.scanner.di.ScannerDeps
 import com.grappim.sign_up_presentation.di.SignUpDeps
 import com.grappim.waybill.ui.root.di.WaybillRootDeps
 import dagger.Binds
@@ -66,6 +67,11 @@ interface RootActivityDepsModule {
 
     @[Binds IntoMap ComponentDepsKey(ProductCategoryRootDeps::class)]
     fun bindProductCategoryRootDeps(
+        component: RootActivityComponent
+    ): ComponentDeps
+
+    @[Binds IntoMap ComponentDepsKey(ScannerDeps::class)]
+    fun bindScannerDeps(
         component: RootActivityComponent
     ): ComponentDeps
 }

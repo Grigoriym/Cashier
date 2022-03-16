@@ -1,6 +1,5 @@
 package com.grappim.sales.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,43 +10,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import com.grappim.sales.di.DaggerSalesComponent
 import com.grappim.sales.di.SalesComponent
 import com.grappim.uikit.theme.CashierTheme
-import javax.inject.Inject
 
-class SalesFragment : BaseFragment<SalesViewModel>() {
+class SalesFragment : BaseFlowFragment<SalesViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
+    private val component: SalesComponent by lazy {
+        DaggerSalesComponent
+            .builder()
+            .salesDeps(findComponentDependencies())
+            .build()
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        component.multiViewModelFactory()
+    }
 
     override val viewModel: SalesViewModel by viewModels {
         viewModelFactory
     }
 
-    private var _salesComponent: SalesComponent? = null
-    private val salesComponent
-        get() = requireNotNull(_salesComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _salesComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _salesComponent = DaggerSalesComponent
-            .builder()
-            .salesDeps(findComponentDependencies())
-            .build()
-        salesComponent.inject(this)
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
     }
 
     override fun onCreateView(
@@ -70,7 +59,7 @@ class SalesFragment : BaseFragment<SalesViewModel>() {
         val searchQuery by viewModel.searchQuery.collectAsState()
 
         SalesScreen(
-            onBackClick = viewModel::onBackPressed,
+            onBackClick = viewModel::onBackPressed3,
             onScanClick = viewModel::showScanner,
             onBagClick = viewModel::showBasket,
             bagCount = basketCount,

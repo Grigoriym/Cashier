@@ -9,7 +9,6 @@ import com.grappim.calculations.bigDecimalOne
 import com.grappim.common.lce.Try
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.date_time.DateTimeIsoInstant
-import com.grappim.date_time.DateTimeUtils
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
 import com.grappim.domain.interactor.products.GetCategoryListInteractor
@@ -18,7 +17,6 @@ import com.grappim.domain.model.product.Product
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.model.CreateEditFlow
-import com.grappim.products.root.di.ProductsScreenNavigator
 import com.zhuinden.flowcombinetuplekt.combineTuple
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -34,11 +32,9 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
     private val editProductUseCase: EditProductUseCase,
     private val getCategoryListInteractor: GetCategoryListInteractor,
     private val generalStorage: GeneralStorage,
-    private val productsScreenNavigator: ProductsScreenNavigator,
     @DecimalFormatSimple private val dfSimple: DecimalFormat,
     @Assisted private val createEditFlow: CreateEditFlow,
     @Assisted private val productToEdit: Product?,
-    @Assisted private val scannedBarcode: String?,
     @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
 ) : CreateEditProductViewModel() {
 
@@ -46,8 +42,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
     interface Factory {
         fun create(
             createEditFlow: CreateEditFlow,
-            productToEdit: Product?,
-            scannedBarcode: String?
+            productToEdit: Product?
         ): CreateEditProductViewModelImpl
     }
 
@@ -61,13 +56,15 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
 
     override val categoriesFlow: StateFlow<List<ProductCategory>> =
         getCategoryListInteractor
-            .getSimpleCategoryList(GetCategoryListInteractor.Params(false))
-            .map {
-                if (it.isEmpty()) {
-                    listOf(ProductCategory.createCategory())
-                } else {
-                    it
+            .categoriesInEditProduct(GetCategoryListInteractor.Params(false))
+            .map { list ->
+                if (productToEdit?.categoryId != null) {
+                    val found = list.find { category ->
+                        category.id == productToEdit.categoryId
+                    }
+                    selectedCategory.value = found
                 }
+                list
             }
             .stateIn(
                 scope = viewModelScope,
@@ -133,10 +130,6 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
         initialValue = "${productToEdit?.amount ?: bigDecimalOne()} ${productToEdit?.unit ?: ProductUnit.PIECE}"
     )
 
-    override fun onBackPressed() {
-        productsScreenNavigator.goBack()
-    }
-
     override fun dismissDropDown() {
         dropDownExpanded.value = false
     }
@@ -145,9 +138,13 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
         dropDownExpanded.value = true
     }
 
+    override fun goToScanner() {
+        flowRouter.goToScanner()
+    }
+
     override fun selectCategory(newCategory: ProductCategory) {
         if (newCategory.isCreateCategory()) {
-            productsScreenNavigator.goToCreateCategory()
+            flowRouter.goToCreateCategoryFromProduct()
         } else {
             selectedCategory.value = newCategory
             dropDownExpanded.value = false
@@ -224,7 +221,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
             ).collect {
                 when (it) {
                     is Try.Success -> {
-                        onBackPressed()
+                        onBackPressed2()
                     }
                     is Try.Error -> {
                         _error.value = it.exception
@@ -254,7 +251,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
             ).collect {
                 when (it) {
                     is Try.Success -> {
-                        onBackPressed()
+                        onBackPressed2()
                     }
                     is Try.Error -> {
                         _error.value = it.exception

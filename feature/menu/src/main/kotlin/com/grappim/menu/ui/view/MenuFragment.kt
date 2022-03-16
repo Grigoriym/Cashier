@@ -10,7 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.menu.di.DaggerMenuComponent
@@ -71,7 +71,7 @@ class MenuFragment : BaseFragment<MenuViewModel>() {
             cashierName = cashierName,
             items = items,
             onItemClick = viewModel::onItemClick,
-            onBackButtonPressed = viewModel::onBackPressed
+            onBackButtonPressed = viewModel::onBackPressed2
         )
     }
 

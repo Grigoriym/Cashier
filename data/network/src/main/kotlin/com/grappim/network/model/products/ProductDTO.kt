@@ -16,7 +16,7 @@ data class ProductDTO(
     val stockId: String,
     @Serializable(with = BigDecimalSerializer::class)
     val amount: BigDecimal,
-    val unit: String,
+    val unit: ProductUnit,
     val merchantId: String,
     @Serializable(with = BigDecimalSerializer::class)
     val purchasePrice: BigDecimal,

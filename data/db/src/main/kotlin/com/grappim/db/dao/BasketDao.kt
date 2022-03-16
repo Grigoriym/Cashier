@@ -19,6 +19,9 @@ interface BasketDao {
     @Query("DELETE FROM $basketEntityTableName")
     suspend fun clearBasket()
 
+    @Query("SELECT * FROM $basketEntityTableName WHERE id=:id LIMIT 1")
+    suspend fun getProductById(id: Long): BasketProductEntity
+
     @Query("SELECT * FROM $basketEntityTableName WHERE id IN (:ids)")
     suspend fun getProductsByUids(ids: List<Long>): List<BasketProductEntity>
 

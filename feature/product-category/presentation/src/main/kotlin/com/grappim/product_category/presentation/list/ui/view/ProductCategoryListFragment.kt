@@ -10,18 +10,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import com.grappim.product_category.presentation.list.di.DaggerProductCategoryListComponent
 import com.grappim.product_category.presentation.list.di.ProductCategoryListComponent
 import com.grappim.product_category.presentation.list.ui.viewmodel.ProductCategoryListViewModel
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
-class ProductCategoryListFragment : BaseFragment<ProductCategoryListViewModel>() {
+class ProductCategoryListFragment : BaseFragment2<ProductCategoryListViewModel>() {
 
-    private val productCategoryListComponent: ProductCategoryListComponent by lazy {
+    private val component: ProductCategoryListComponent by lazy {
         DaggerProductCategoryListComponent
             .builder()
             .productCategoryListDeps(findComponentDependencies())
@@ -29,11 +30,15 @@ class ProductCategoryListFragment : BaseFragment<ProductCategoryListViewModel>()
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
-        productCategoryListComponent.multiViewModelFactory()
+        component.multiViewModelFactory()
     }
 
     override val viewModel: ProductCategoryListViewModel by viewModels {
         viewModelFactory
+    }
+
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
     }
 
     override fun onCreateView(
@@ -56,7 +61,7 @@ class ProductCategoryListFragment : BaseFragment<ProductCategoryListViewModel>()
         LoaderDialogCompose(show = loading)
 
         ProductCategoryListScreen(
-            onBackPressed = viewModel::closeFlow,
+            onBackPressed = viewModel::onBackPressed3,
             onCreateCategoryClick = viewModel::goToCategoryCreate,
             categories = categories,
             onCategoryClick = viewModel::goToCategoryDetails

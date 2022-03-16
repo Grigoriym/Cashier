@@ -14,16 +14,16 @@ import com.grappim.auth.di.AuthComponent
 import com.grappim.auth.di.DaggerAuthComponent
 import com.grappim.auth.ui.viewmodel.AuthViewModel
 import com.grappim.common.lce.Try
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.logger.logD
+import com.grappim.navigation.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
-internal class AuthFragment : BaseFragment<AuthViewModel>() {
+class AuthFragment : BaseFlowFragment<AuthViewModel>() {
 
-    private val authComponent: AuthComponent by lazy {
+    private val component: AuthComponent by lazy {
         DaggerAuthComponent
             .builder()
             .authDeps(findComponentDependencies())
@@ -31,16 +31,15 @@ internal class AuthFragment : BaseFragment<AuthViewModel>() {
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
-        authComponent.viewModelFactory()
+        component.viewModelFactory()
     }
 
     override val viewModel: AuthViewModel by viewModels {
         viewModelFactory
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        logD("$this fragment viewModel: $viewModel")
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
     }
 
     override fun onCreateView(

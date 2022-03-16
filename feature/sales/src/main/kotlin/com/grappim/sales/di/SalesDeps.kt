@@ -2,10 +2,12 @@ package com.grappim.sales.di
 
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.domain.repository.ProductsRepository
+import com.grappim.navigation.AppRouter
+import com.grappim.navigation.CashierScreens
 
 interface SalesDeps : ComponentDeps {
 
-    fun salesScreenNavigator(): SalesScreenNavigator
-
     fun productsRepository(): ProductsRepository
+    fun cashierScreens(): CashierScreens
+    fun appRouter(): AppRouter
 }

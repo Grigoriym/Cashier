@@ -15,7 +15,7 @@ class GetWaybillProductsUseCase @Inject constructor(
 ) : SimpleFlowUseCase<GetWaybillProductsUseCase.Params, PagingData<WaybillProduct>>(ioDispatcher) {
 
     data class Params(
-        val waybillId: Int
+        val waybillId: Long
     )
 
     override fun execute(params: Params): Flow<PagingData<WaybillProduct>> =

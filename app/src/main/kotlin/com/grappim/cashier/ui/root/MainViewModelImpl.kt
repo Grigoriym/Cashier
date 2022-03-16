@@ -1,13 +1,14 @@
 package com.grappim.cashier.ui.root
 
+import com.grappim.navigation.AppRouter
 import com.grappim.core.MainViewModel
 import com.grappim.extensions.Timer
-import com.grappim.logger.logD
 import com.grappim.workers.WorkerHelper
 import javax.inject.Inject
 
 class MainViewModelImpl @Inject constructor(
-    private val workerHelper: WorkerHelper
+    private val workerHelper: WorkerHelper,
+    private val appRouter: AppRouter
 ) : MainViewModel() {
 
     private val timer: Timer by lazy {
@@ -19,8 +20,15 @@ class MainViewModelImpl @Inject constructor(
         )
     }
 
+    init {
+
+    }
+
+    override fun goToAuth() {
+        appRouter.goToAuth()
+    }
+
     private fun doWorkOnTick() {
-        logD("timer: onTick")
         workerHelper.startMainWorkers()
     }
 

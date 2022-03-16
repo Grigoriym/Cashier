@@ -16,7 +16,7 @@ class GetWaybillProductByBarcodeUseCase @Inject constructor(
 
     data class Params(
         val barcode: String,
-        val waybillId: Int
+        val waybillId: Long
     )
 
     override fun execute(params: Params): Flow<Try<WaybillProduct>> =

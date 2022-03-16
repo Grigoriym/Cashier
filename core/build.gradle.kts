@@ -11,6 +11,7 @@ dependencies {
     implementation(project(Modules.dataWorkers))
 
     implementation(Deps.AndroidX.lifecycleLiveData)
+    implementation(Deps.cicerone)
 
     implementation(Deps.Google.dagger)
     kapt(Deps.Google.daggerCompiler)
