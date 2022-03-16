@@ -6,21 +6,16 @@ import com.grappim.core.SingleLiveEvent
 import com.grappim.sign_up.domain.interactor.SignUpUseCase
 import com.grappim.sign_up.domain.interactor.ValidateSignUpFieldsUseCase
 import com.grappim.sign_up.domain.model.SignUpData
-import com.grappim.sign_up_presentation.di.SignUpScreenNavigator
 import com.grappim.sign_up_presentation.helper.FieldsValidatorHelper
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SignUpViewModelImpl @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
-    private val signUpScreenNavigator: SignUpScreenNavigator,
     private val validateSignUpFieldsUseCase: ValidateSignUpFieldsUseCase,
     private val fieldsValidatorHelper: FieldsValidatorHelper
 ) : SignUpViewModel() {
-
-    override val signUpStatus = SingleLiveEvent<Try<Unit>>()
 
     override val signUpData = SingleLiveEvent<SignUpData>()
 
@@ -70,10 +65,10 @@ class SignUpViewModelImpl @Inject constructor(
                 password = password
             )
         ).collect {
-            signUpStatus.value = it
+            _loading.value = it is Try.Loading
             when (it) {
                 is Try.Success -> {
-                    signUpScreenNavigator.returnToAuthFromSignUp()
+                    onBackPressed3()
                 }
                 is Try.Error -> {
                     _error.value = it.exception

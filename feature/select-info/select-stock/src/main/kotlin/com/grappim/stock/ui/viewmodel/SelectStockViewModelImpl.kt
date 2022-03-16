@@ -34,17 +34,9 @@ class SelectStockViewModelImpl @Inject constructor(
         getStocks()
     }
 
-    override fun onBackPressed() {
-        selectInfoFlowScreenNavigator.activityOnBackPressed()
-    }
-
     override fun selectStock(stock: Stock) {
         selectStockLocalRepository.setSelectedStock(stock)
         selectedStock.value = selectStockLocalRepository.getSelectedStock()
-    }
-
-    override fun showSelectInfo() {
-//        selectInfoFlowScreenNavigator.goToSelectCashBox()
     }
 
     override fun saveStock() {

@@ -6,11 +6,11 @@
 
     <fragment
         android:id="@+id/scannerFragment"
-        android:name="com.grappim.scanner.ScannerFragment">
-        <argument
-            android:name="scan_type"
-            android:defaultValue="SINGLE"
-            app:argType="com.grappim.scanner.ScanType" />
+        android:name="com.grappim.scanner.ui.ScannerFragment">
+<!--        <argument-->
+<!--            android:name="scan_type"-->
+<!--            android:defaultValue="SINGLE"-->
+<!--            app:argType="com.grappim.scanner.ScanType" />-->
     </fragment>
 
 </navigation>

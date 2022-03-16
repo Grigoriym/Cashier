@@ -14,6 +14,9 @@ annotation class DateStandard
 @Qualifier
 annotation class DateTimeIsoInstant
 
+@Qualifier
+annotation class DateTimeIsoLocalDateTime
+
 @Module
 object DateTimeModule {
 
@@ -31,5 +34,9 @@ object DateTimeModule {
     @[Provides DateTimeIsoInstant]
     fun provideIsoInstant(): DateTimeFormatter =
         DateTimeFormatter.ISO_INSTANT
+
+    @[Provides DateTimeIsoLocalDateTime]
+    fun provideIsoLocalDateTime(): DateTimeFormatter =
+        DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
 }

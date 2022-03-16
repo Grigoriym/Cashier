@@ -7,9 +7,9 @@ class AcceptanceStatusConverter {
 
     @TypeConverter
     fun unitToString(status: WaybillStatus): String =
-        status.value
+        status.name
 
     @TypeConverter
     fun stringToUnit(value: String): WaybillStatus =
-        WaybillStatus.getStatusByValue(value)
+        WaybillStatus.getStatusByName(value)
 }

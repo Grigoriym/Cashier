@@ -1,35 +1,56 @@
-package com.grappim.waybill.ui.scanner
+package com.grappim.waybill.ui.scanner.ui
 
 import android.Manifest
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
-import com.grappim.common.lce.Try
+import com.grappim.common.lce.Try.Error
+import com.grappim.common.lce.Try.Success
+import com.grappim.core.base.BaseFragment2
+import com.grappim.core.di.components_deps.findComponentDependencies
+import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
+import com.grappim.navigation.FlowRouter
 import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.grappim.waybill.R
+import com.grappim.waybill.ui.scanner.di.DaggerWaybillScannerComponent
+import com.grappim.waybill.ui.scanner.di.WaybillScannerComponent
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 
-class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
+class WaybillScannerFragment : BaseFragment2<WaybillScannerViewModel>(
+    R.layout.fragment_scanner
+) {
+
+    private val component: WaybillScannerComponent by lazy {
+        DaggerWaybillScannerComponent
+            .builder()
+            .waybillScannerDeps(findComponentDependencies())
+            .build()
+    }
+
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
+    }
+
+    private val viewModelFactory by lazy {
+        component.multiViewModelFactory()
+    }
 
     private val viewBinding: FragmentScannerBinding by viewBinding(FragmentScannerBinding::bind)
-    private val viewModel by viewModels<WaybillScannerViewModel>()
-
-    companion object {
-        private const val CAMERA_REQUEST_CODE = 2300
+    override val viewModel by viewModels<WaybillScannerViewModel> {
+        viewModelFactory
     }
 
     private val beepManager: BeepManager by lazy {
         BeepManager(requireActivity())
     }
-//    private val args by navArgs<WaybillScannerFragmentArgs>()
 
     private val requestPermissions =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -76,30 +97,24 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
     private fun observeViewModel() {
         viewModel.product.observe(viewLifecycleOwner) {
             when (it) {
-                is com.grappim.common.lce.Try.Success -> {
-//                    findNavController().navigate(
-//                        R.id.action_scanner_to_waybillProduct,
-//                        bundleOf(
-//                            WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
-//                            WaybillProductFragment.ARG_PRODUCT to it.data
-//                        )
-//                    )
+                is Success -> {
+                    val args = bundleOf(
+                        BundleArgsHelper.Waybill.ARG_KEY_PRODUCT to it.data
+                    )
+                    flowRouter.goToWaybillProduct(args)
                 }
-                is com.grappim.common.lce.Try.Error -> {
+                is Error -> {
                     showToast(getString(R.string.waybill_error_no_product))
                 }
             }
         }
         viewModel.waybillProduct.observe(viewLifecycleOwner) {
             when (it) {
-                is com.grappim.common.lce.Try.Success -> {
-//                    findNavController().navigate(
-//                        R.id.action_scanner_to_waybillProduct,
-//                        bundleOf(
-//                            WaybillProductFragment.ARG_WAYBILL_ID to args.waybillId,
-//                            WaybillProductFragment.ARG_WAYBILL_PRODUCT to it.data
-//                        )
-//                    )
+                is Success -> {
+                    val args = bundleOf(
+                        BundleArgsHelper.Waybill.ARG_KEY_WAYBILL_PRODUCT to it.data
+                    )
+                    flowRouter.goToWaybillProduct(args)
                 }
             }
         }
@@ -107,9 +122,12 @@ class WaybillScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     private fun handleSingleScan(result: String) {
         logD("scanned barcode $result")
-//        viewModel.checkProductInWaybill(
-//            barcode = result,
-//            waybillId = args.waybillId
-//        )
+        viewModel.checkProductInWaybill(
+            barcode = result
+        )
+    }
+
+    companion object {
+        private const val CAMERA_REQUEST_CODE = 2300
     }
 }

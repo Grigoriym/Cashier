@@ -13,15 +13,15 @@ import dagger.Provides
 @Module
 object ProductsModule {
 
-    @Provides
-    @FeatureScope
-    @FeatureNavController
-    fun provideNavController(
-        @FeatureFragmentManager fragmentManager: FragmentManager
-    ): NavController {
-        val navHostFragment = fragmentManager
-            .findFragmentById(R.id.nav_host_products) as NavHostFragment
-        return navHostFragment.navController
-    }
+//    @Provides
+//    @FeatureScope
+//    @FeatureNavController
+//    fun provideNavController(
+//        @FeatureFragmentManager fragmentManager: FragmentManager
+//    ): NavController {
+//        val navHostFragment = fragmentManager
+//            .findFragmentById(R.id.nav_host_products) as NavHostFragment
+//        return navHostFragment.navController
+//    }
 
 }

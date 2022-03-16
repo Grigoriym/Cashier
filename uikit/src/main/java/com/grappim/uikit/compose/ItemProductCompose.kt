@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.grappim.calculations.asBigDecimal
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.uikit.R
@@ -306,18 +305,7 @@ fun ItemProductCompose(
 private fun ItemProductComposePreview() {
     CashierTheme {
         ItemProductCompose(
-            waybillProduct = WaybillProduct(
-                amount = "100".asBigDecimal(),
-                barcode = "12345",
-                createdOn = "",
-                id = 1L,
-                name = "Product name",
-                productId = 2L,
-                purchasePrice = "234".asBigDecimal(),
-                sellingPrice = "4532".asBigDecimal(),
-                updatedOn = "",
-                waybillId = 45
-            ),
+            waybillProduct = WaybillProduct.getExample(),
             onProductClick = {}
         )
     }

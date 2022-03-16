@@ -15,6 +15,7 @@ I do this because I had an experience with an app of such functionality.
 ### Refactoring History
 1. Hilt -> Dagger
 2. Gson -> Kotlin Serializable
+3. Android Navigation Component -> Cicerone
 
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
@@ -39,7 +40,7 @@ I do this because I had an experience with an app of such functionality.
 - [ ] Add tests and all that stuff
 - [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
 - [ ] Learn proguard and somehow do something with it here
-- [ ] Enhance navigation, abstract navigation
+- [x] Enhance navigation, abstract navigation (kinda made it with the help of Cicerone)
 - [ ] Some modules are kinda useless or a bit messy: core, extensions, app
 - [ ] Add CI and all that cool automated features
 - [ ] I don't know the right way to integrate communication between composeScreen and viewModel, especially when there are many data to send

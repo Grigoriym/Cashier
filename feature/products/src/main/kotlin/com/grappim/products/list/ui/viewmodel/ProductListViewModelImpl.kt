@@ -18,7 +18,6 @@ import javax.inject.Inject
 class ProductListViewModelImpl @Inject constructor(
     getCategoryListInteractor: GetCategoryListInteractor,
     private val getProductsByQueryUseCase: GetProductsByQueryUseCase,
-    private val productsScreenNavigator: ProductsScreenNavigator
 ) : ProductListViewModel() {
 
     override val categories: StateFlow<List<ProductCategory>> =
@@ -48,12 +47,11 @@ class ProductListViewModelImpl @Inject constructor(
         )
     }
 
-    override fun onBackPressed() {
-        productsScreenNavigator.goBack()
-    }
-
     override fun showCreateProduct() {
-        productsScreenNavigator.goToCreateProduct()
+        val args = Bundle(1).apply {
+            putSerializable(BundleArgsKeys.ARG_KEY_FLOW, CreateEditFlow.CREATE)
+        }
+        flowRouter.goToCreateProduct(args)
     }
 
     override fun showEditProduct(product: Product) {
@@ -61,7 +59,7 @@ class ProductListViewModelImpl @Inject constructor(
             putSerializable(BundleArgsKeys.ARG_KEY_PRODUCT, product)
             putSerializable(BundleArgsKeys.ARG_KEY_FLOW, CreateEditFlow.EDIT)
         }
-        productsScreenNavigator.goToEditProduct(args)
+        flowRouter.goToEditProduct(args)
     }
 
     override fun searchProducts(newQuery: String) {
@@ -77,8 +75,5 @@ class ProductListViewModelImpl @Inject constructor(
         }
     }
 
-    override fun closeFlow() {
-        productsScreenNavigator.activityOnBackPressed()
-    }
 
 }

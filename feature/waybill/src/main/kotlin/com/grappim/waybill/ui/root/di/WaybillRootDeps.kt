@@ -7,6 +7,8 @@ import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.domain.repository.WaybillRepository
 import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.navigation.AppRouter
+import com.grappim.navigation.CashierScreens
 
 interface WaybillRootDeps : ComponentDeps {
 
@@ -19,5 +21,7 @@ interface WaybillRootDeps : ComponentDeps {
     fun appContext(): Context
 
     fun activity(): AppCompatActivity
+    fun cashierScreens(): CashierScreens
+    fun appRouter(): AppRouter
 
 }

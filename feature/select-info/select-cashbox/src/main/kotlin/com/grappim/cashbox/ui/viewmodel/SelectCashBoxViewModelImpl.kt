@@ -10,18 +10,17 @@ import com.grappim.cashbox.R
 import com.grappim.cashbox.model.CashierProgressItem
 import com.grappim.common.lce.Try
 import com.grappim.common.lce.withoutParams
+import com.grappim.navigation.AppRouter
 import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.model.cashbox.CashBox
-import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SelectCashBoxViewModelImpl @Inject constructor(
     private val getCashBoxesUseCase: GetCashBoxesUseCase,
     private val saveCashBoxUseCase: SaveCashBoxUseCase,
-    private val selectInfoFlowScreenNavigator: SelectInfoFlowScreenNavigator
+    private val appRouter: AppRouter
 ) : SelectCashBoxViewModel() {
 
     override val cashBoxes = mutableStateListOf<CashBox>()
@@ -33,10 +32,6 @@ class SelectCashBoxViewModelImpl @Inject constructor(
 
     init {
         getCashBoxes()
-    }
-
-    override fun onBackPressed() {
-        selectInfoFlowScreenNavigator.activityOnBackPressed()
     }
 
     override fun selectCashBox(cashBox: CashBox) {
@@ -59,7 +54,7 @@ class SelectCashBoxViewModelImpl @Inject constructor(
     }
 
     override fun showMenu() {
-        selectInfoFlowScreenNavigator.goToMenu()
+        appRouter.goToMenu()
     }
 
     @MainThread

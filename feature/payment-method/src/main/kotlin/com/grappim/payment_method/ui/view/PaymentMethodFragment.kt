@@ -10,26 +10,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.common.lce.Try.Loading
-import com.grappim.core.BaseFragment
+import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import com.grappim.payment_method.di.DaggerPaymentMethodComponent
 import com.grappim.payment_method.di.PaymentMethodComponent
 import com.grappim.payment_method.ui.viewmodel.PaymentMethodViewModel
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
-class PaymentMethodFragment : BaseFragment<PaymentMethodViewModel>() {
+class PaymentMethodFragment : BaseFlowFragment<PaymentMethodViewModel>() {
 
-    private val paymentMethodComponent: PaymentMethodComponent by lazy {
+    private val component: PaymentMethodComponent by lazy {
         DaggerPaymentMethodComponent
             .builder()
             .paymentMethodDeps(findComponentDependencies())
             .build()
     }
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
+    }
+
     private val viewModelFactory: MultiViewModelFactory by lazy {
-        paymentMethodComponent.multiViewModelFactory()
+        component.multiViewModelFactory()
     }
 
     override val viewModel: PaymentMethodViewModel by viewModels {
@@ -57,7 +61,7 @@ class PaymentMethodFragment : BaseFragment<PaymentMethodViewModel>() {
         LoaderDialogCompose(show = loading)
 
         PaymentMethodScreen(
-            onBackClick = viewModel::onBackPressed,
+            onBackClick = viewModel::onBackPressed3,
             itemCount = basketCount,
             basketPrice = basketSum,
             menuItems = viewModel.paymentItems,

@@ -23,7 +23,7 @@
 
 	<fragment
 			android:id="@+id/waybillScannerFragment"
-			android:name="com.grappim.waybill.ui.scanner.WaybillScannerFragment">
+			android:name="com.grappim.waybill.ui.scanner.ui.WaybillScannerFragment">
 		<argument
 				android:name="waybillId"
 				app:argType="integer" />

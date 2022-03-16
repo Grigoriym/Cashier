@@ -37,10 +37,10 @@ interface WaybillRepository {
 
     fun conductWaybill(
         params: ConductWaybillUseCase.Params
-    ): Flow<Try<Waybill>>
+    ): Flow<Try<Unit>>
 
     fun rollbackWaybill(
         params: RollbackWaybillUseCase.Params
-    ): Flow<Try<Waybill>>
+    ): Flow<Try<Unit>>
 
 }

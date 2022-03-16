@@ -1,34 +1,58 @@
-package com.grappim.scanner
+package com.grappim.scanner.ui
 
 import android.Manifest
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
+import com.grappim.core.base.BaseFlowFragment
+import com.grappim.core.di.components_deps.findComponentDependencies
+import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
+import com.grappim.navigation.FlowRouter
+import com.grappim.scanner.R
+import com.grappim.scanner.di.DaggerScannerComponent
+import com.grappim.scanner.di.ScannerComponent
 import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 
-class ScannerFragment : Fragment(R.layout.fragment_scanner) {
+class ScannerFragment : BaseFlowFragment<ScannerViewModel>(
+    R.layout.fragment_scanner
+) {
+
+    private val component: ScannerComponent by lazy {
+        DaggerScannerComponent
+            .builder()
+            .scannerDeps(findComponentDependencies())
+            .build()
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        component.multiViewModelFactory()
+    }
+
+    override val viewModel: ScannerViewModel by viewModels {
+        viewModelFactory
+    }
+
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
+    }
 
     private val viewBinding: FragmentScannerBinding by viewBinding(FragmentScannerBinding::bind)
-
-    companion object {
-        private const val CONTINUOUS_SCAN_DELAY = 1000
-        private const val CAMERA_REQUEST_CODE = 2300
-    }
 
     private var lastTimeStamp: Long = 0
     private val beepManager: BeepManager by lazy {
         BeepManager(requireActivity())
     }
-//    private val args by navArgs<ScannerFragmentArgs>()
 
     private val requestPermissions =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -89,7 +113,7 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 //                viewBinding.scannerView.decodeContinuous(barcodeCallbackContinuous)
 //            }
 //            ScanType.SINGLE -> {
-//                viewBinding.scannerView.decodeSingle(barcodeCallbackSingle)
+        viewBinding.scannerView.decodeSingle(barcodeCallbackSingle)
 //            }
 //        }
     }
@@ -99,9 +123,24 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
     }
 
     private fun handleSingleScan(result: String) {
-        logD("scanned barcode $result")
-//        findNavController().navigate(
-//            ScannerFragmentDirections.actionScannerToCreateProduct(result)
-//        )
+        logD("asdf scanned barcode $result")
+        setFragmentResult(
+            BundleArgsHelper.ProductScannerArgs.PRODUCT_SCANNER_REQUEST_KEY,
+            bundleOf(
+                BundleArgsHelper.ProductScannerArgs.ARG_KEY_SCANNED_BARCODE to result
+            )
+        )
+
+        viewModel.onBackPressed3()
+    }
+
+    companion object {
+        private const val CONTINUOUS_SCAN_DELAY = 1000
+        private const val CAMERA_REQUEST_CODE = 2300
+
+        fun newInstance(args: Bundle?) =
+            ScannerFragment().apply {
+                arguments = args
+            }
     }
 }

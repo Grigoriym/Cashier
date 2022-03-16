@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.HasComponentDeps
-import com.grappim.logger.logD
 
 inline fun <reified T : ComponentDeps> Fragment.findComponentDependencies(): T {
     return findComponentDependenciesProvider()[T::class.java] as T
@@ -20,14 +19,12 @@ fun Fragment.findComponentDependenciesProvider(): ComponentDependenciesProvider 
     while (current !is HasComponentDeps?) {
         current = current?.parentFragment
     }
-    logD("$this componentDeps current: $current")
 
     val hasDaggerProviders = current ?: when {
         activity is HasComponentDeps -> activity as HasComponentDeps
         activity?.application is HasComponentDeps -> activity?.application as HasComponentDeps
-        else -> throw IllegalStateException("Can not find suitable dagger provider for $this")
+        else -> error("Can not find suitable dagger provider for $this")
     }
-    logD("$this componentDeps hasDaggerProviders: $hasDaggerProviders")
     return hasDaggerProviders.deps
 }
 

@@ -12,12 +12,12 @@ import javax.inject.Inject
 class RollbackWaybillUseCase @Inject constructor(
     private val waybillRepository: WaybillRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : FlowUseCase<RollbackWaybillUseCase.Params, Waybill>(ioDispatcher) {
+) : FlowUseCase<RollbackWaybillUseCase.Params, Unit>(ioDispatcher) {
 
     data class Params(
         val waybill: Waybill
     )
 
-    override fun execute(params: Params): Flow<Try<Waybill>> =
+    override fun execute(params: Params): Flow<Try<Unit>> =
         waybillRepository.rollbackWaybill(params)
 }

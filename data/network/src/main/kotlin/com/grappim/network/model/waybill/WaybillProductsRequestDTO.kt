@@ -10,5 +10,5 @@ data class WaybillProductsRequestDTO(
   @SerialName("offset")
   val offset: Int,
   @SerialName("waybillId")
-  val waybillId: Int
+  val waybillId: Long
 )

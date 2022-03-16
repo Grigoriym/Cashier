@@ -10,7 +10,9 @@ import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
 import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.payment_method.helper.PaymentMethodItemGenerator
 import com.grappim.payment_method.model.PaymentMethod
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -19,8 +21,7 @@ class PaymentMethodViewModelImpl @Inject constructor(
     paymentMethodItemGenerator: PaymentMethodItemGenerator,
     private val makePaymentUseCase: MakePaymentUseCase,
     getAllBasketProductsUseCase: GetAllBasketProductsUseCase,
-    @DecimalFormatSimple private val dfSimple: DecimalFormat,
-    private val paymentMethodScreenNavigator: PaymentMethodScreenNavigator
+    @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : PaymentMethodViewModel() {
 
     override val paymentItems = paymentMethodItemGenerator.paymentMethodItems
@@ -55,10 +56,6 @@ class PaymentMethodViewModelImpl @Inject constructor(
             initialValue = "0"
         )
 
-    override fun onBackPressed() {
-        paymentMethodScreenNavigator.goBack()
-    }
-
     override fun makePayment(paymentMethod: PaymentMethod) {
         viewModelScope.launch {
             makePaymentUseCase.invoke(MakePaymentUseCase.Params(paymentMethod.type))
@@ -66,7 +63,7 @@ class PaymentMethodViewModelImpl @Inject constructor(
                     _loading.value = it is Try.Loading
                     when (it) {
                         is Try.Success -> {
-                            paymentMethodScreenNavigator.fromPaymentMethodToSales()
+                            flowRouter.returnToSalesFromPaymentMethod()
                         }
                         is Try.Error -> {
                             _error.value = it.exception

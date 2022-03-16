@@ -1,15 +1,17 @@
 package com.grappim.waybill.ui.search.ui.viewmodel
 
+import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
 import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.local.WaybillLocalRepository
-import com.grappim.waybill.ui.root.di.WaybillScreenNavigator
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,8 +20,7 @@ class SearchProductViewModelImpl @Inject constructor(
     private val searchProductsUseCase: SearchProductsUseCase,
     private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase,
     private val getWaybillProductByBarcodeUseCase: GetWaybillProductByBarcodeUseCase,
-    private val waybillLocalRepository: WaybillLocalRepository,
-    private val waybillScreenNavigator: WaybillScreenNavigator
+    private val waybillLocalRepository: WaybillLocalRepository
 ) : SearchProductViewModel() {
 
     override val searchText = MutableStateFlow("")
@@ -35,10 +36,6 @@ class SearchProductViewModelImpl @Inject constructor(
 
     override fun setSearchText(text: String) {
         searchText.value = text
-    }
-
-    override fun onBackPressed() {
-        waybillScreenNavigator.goBack()
     }
 
     private fun findProductByBarcode(
@@ -61,7 +58,10 @@ class SearchProductViewModelImpl @Inject constructor(
     }
 
     private fun showProductDetails(product: Product) {
-        waybillScreenNavigator.goToWaybillProduct()
+        val args = bundleOf(
+            BundleArgsHelper.Waybill.ARG_KEY_PRODUCT to product
+        )
+        flowRouter.goToWaybillProduct(args)
     }
 
     override fun checkProductInWaybill(
@@ -88,7 +88,10 @@ class SearchProductViewModelImpl @Inject constructor(
     }
 
     private fun showProductDetails(waybillProduct: WaybillProduct) {
-        waybillScreenNavigator.goToWaybillProduct()
+        val args = bundleOf(
+            BundleArgsHelper.Waybill.ARG_KEY_WAYBILL_PRODUCT to waybillProduct
+        )
+        flowRouter.goToWaybillProduct(args)
     }
 
 }

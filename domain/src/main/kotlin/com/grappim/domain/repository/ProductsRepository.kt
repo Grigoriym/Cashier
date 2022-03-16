@@ -22,7 +22,7 @@ interface ProductsRepository {
 
     fun getBagProducts(): Flow<Try<List<Product>>>
 
-    suspend fun addBasketProduct(params: AddProductToBasketUseCase.Params)
+    suspend fun addBasketProduct(params: AddProductToBasketUseCase.Params): BasketProduct
     suspend fun removeBasketProduct(params: RemoveProductUseCase.Params)
 
     fun getAllBasketProducts(): Flow<List<BasketProduct>>

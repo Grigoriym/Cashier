@@ -1,6 +1,7 @@
 package com.grappim.network.model.waybill
 
 import com.grappim.common.network.serializers.BigDecimalSerializer
+import com.grappim.domain.model.waybill.WaybillStatus
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
@@ -8,20 +9,20 @@ import java.math.BigDecimal
 @Serializable
 data class WaybillDTO(
     @SerialName("id")
-    val id: Int,
+    val id: Long,
     @SerialName("merchantId")
     val merchantId: String,
     @SerialName("number")
     val number: String,
     @SerialName("status")
-    val status: String,
+    val status: WaybillStatus,
     @SerialName("stockId")
     val stockId: String,
     @SerialName("totalCost")
     @Serializable(BigDecimalSerializer::class)
     val totalCost: BigDecimal,
-    @SerialName("type")
-    val type: String,
+//    @SerialName("type")
+//    val type: String,
     @SerialName("updatedOn")
     val updatedOn: String,
     @SerialName("createdOn")

@@ -13,15 +13,15 @@ import dagger.Provides
 @Module
 object WaybillRootModule {
 
-    @Provides
-    @FeatureScope
-    @FeatureNavController
-    fun provideNavController(
-        @FeatureFragmentManager fragmentManager: FragmentManager
-    ): NavController {
-        val navHostFragment = fragmentManager
-            .findFragmentById(R.id.nav_host_waybill) as NavHostFragment
-        return navHostFragment.navController
-    }
+//    @Provides
+//    @FeatureScope
+//    @FeatureNavController
+//    fun provideNavController(
+//        @FeatureFragmentManager fragmentManager: FragmentManager
+//    ): NavController {
+//        val navHostFragment = fragmentManager
+//            .findFragmentById(R.id.nav_host_waybill) as NavHostFragment
+//        return navHostFragment.navController
+//    }
 
 }

@@ -4,7 +4,9 @@ import androidx.fragment.app.FragmentManager
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.FeatureFragmentManager
 import com.grappim.common.di.FeatureScope
+import com.grappim.core.di.FeatureNavigationModule
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import com.grappim.product_category.presentation.create_edit.di.CreateEditProductCategoryDeps
 import com.grappim.product_category.presentation.list.di.ProductCategoryListDeps
 import dagger.BindsInstance
@@ -14,7 +16,7 @@ import dagger.Component
     modules = [
         ProductCategoryRootBindsModule::class,
         ProductCategoryRootDepsModule::class,
-        ProductCategoryModule::class
+        FeatureNavigationModule::class
     ],
     dependencies = [
         ProductCategoryRootDeps::class

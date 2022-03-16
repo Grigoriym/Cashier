@@ -1,10 +1,10 @@
 package com.grappim.menu.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.grappim.navigation.AppRouter
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.menu.di.MenuScreenNavigator
 import com.grappim.menu.helper.MenuItemGenerator
 import com.grappim.menu.model.MenuItemPm
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class MenuViewModelImpl @Inject constructor(
     menuItemsGenerator: MenuItemGenerator,
     generalStorage: GeneralStorage,
-    private val menuScreenNavigator: MenuScreenNavigator
+    private val appRouter: AppRouter
 ) : MenuViewModel() {
 
     override val menuItems: StateFlow<List<MenuItemPm>> =
@@ -52,23 +52,23 @@ class MenuViewModelImpl @Inject constructor(
         }
     }
 
-    override fun onBackPressed() {
-        menuScreenNavigator.goBack()
+    override fun onBackPressed2() {
+        appRouter.goBack()
     }
 
     private fun showWaybill() {
-        menuScreenNavigator.goToWaybill()
+        appRouter.goToWaybill()
     }
 
     private fun showProducts() {
-        menuScreenNavigator.goToProducts()
+        appRouter.goToProducts()
     }
 
     private fun showSales() {
-        menuScreenNavigator.goToSales()
+        appRouter.goToSales()
     }
 
     private fun showProductCategories() {
-        menuScreenNavigator.goToProductCategories()
+        appRouter.goToProductCategories()
     }
 }

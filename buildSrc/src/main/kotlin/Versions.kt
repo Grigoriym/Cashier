@@ -86,5 +86,6 @@ object Versions {
     const val combineTupleFlow = "1.1.1"
     const val viewBinding = "1.5.3"
     const val zxing = "3.6.0"
+    const val cicerone = "7.1"
 
 }

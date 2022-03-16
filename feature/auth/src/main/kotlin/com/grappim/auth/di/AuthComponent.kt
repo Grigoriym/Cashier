@@ -2,13 +2,16 @@ package com.grappim.auth.di
 
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FeatureScope
+import com.grappim.core.di.FeatureNavigationModule
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import dagger.Component
 
 @[FeatureScope Component(
     modules = [
         AuthBindsModule::class,
-        CoroutinesModule::class
+        CoroutinesModule::class,
+        FeatureNavigationModule::class
     ],
     dependencies = [
         AuthDeps::class
@@ -17,5 +20,6 @@ import dagger.Component
 internal interface AuthComponent {
 
     fun viewModelFactory(): MultiViewModelFactory
+    fun flowRouter(): FlowRouter
 
 }

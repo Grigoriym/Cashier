@@ -228,6 +228,7 @@ private fun Project.getAppDependencies() {
             implementation(Deps.viewBinding)
             implementation(Deps.coil)
             implementation(Deps.coilCompose)
+            implementation(Deps.cicerone)
 
             implementation(Deps.zxing) {
                 isTransitive = false

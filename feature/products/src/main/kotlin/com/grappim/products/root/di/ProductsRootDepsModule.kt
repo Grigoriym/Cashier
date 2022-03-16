@@ -11,14 +11,14 @@ import dagger.multibindings.IntoMap
 @Module
 interface ProductsRootDepsModule {
 
-    @[Binds IntoMap com.grappim.common.di.deps.ComponentDepsKey(ProductListDeps::class)]
+    @[Binds IntoMap ComponentDepsKey(ProductListDeps::class)]
     fun bindProductListDeps(
         productsRootComponent: ProductsRootComponent
-    ): com.grappim.common.di.deps.ComponentDeps
+    ): ComponentDeps
 
-    @[Binds IntoMap com.grappim.common.di.deps.ComponentDepsKey(CreateEditProductDeps::class)]
+    @[Binds IntoMap ComponentDepsKey(CreateEditProductDeps::class)]
     fun bindCreateProductDeps(
         productsRootComponent: ProductsRootComponent
-    ): com.grappim.common.di.deps.ComponentDeps
+    ): ComponentDeps
 
 }

@@ -2,6 +2,7 @@ package com.grappim.repository.local
 
 import com.grappim.common.di.AppScope
 import com.grappim.date_time.DateTimeIsoInstant
+import com.grappim.date_time.DateTimeIsoLocalDateTime
 import com.grappim.date_time.DateTimeStandard
 import com.grappim.date_time.getZonedDateTimeWithFormatter
 import com.grappim.domain.model.waybill.Waybill
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @AppScope
 class WaybillLocalRepositoryImpl @Inject constructor(
-    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter,
+    @DateTimeIsoLocalDateTime private val dtfIso: DateTimeFormatter,
     @DateTimeStandard private val dtfStandard: DateTimeFormatter
 ) : WaybillLocalRepository {
 

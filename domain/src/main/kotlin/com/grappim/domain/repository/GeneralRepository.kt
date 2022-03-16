@@ -19,6 +19,10 @@ interface GeneralRepository {
         params: GetCategoryListInteractor.Params
     ): Flow<List<ProductCategory>>
 
+    fun getCategoriesInEditProducts(
+        params: GetCategoryListInteractor.Params
+    ): Flow<List<ProductCategory>>
+
     fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params
     ): Flow<Try<List<Product>>>

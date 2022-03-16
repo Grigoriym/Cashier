@@ -1,9 +1,11 @@
 package com.grappim.network.model.waybill
 
 import com.grappim.common.network.serializers.BigDecimalSerializer
+import com.grappim.common.network.serializers.LocalDateTimeSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
 @Serializable
 data class WaybillProductDTO(
@@ -12,8 +14,6 @@ data class WaybillProductDTO(
     val amount: BigDecimal,
     @SerialName("barcode")
     val barcode: String,
-    @SerialName("createdOn")
-    val createdOn: String,
     @SerialName("id")
     val id: Long,
     @SerialName("name")
@@ -27,7 +27,11 @@ data class WaybillProductDTO(
     @Serializable(BigDecimalSerializer::class)
     val sellingPrice: BigDecimal,
     @SerialName("updatedOn")
-    val updatedOn: String,
+    @Serializable(LocalDateTimeSerializer::class)
+    val updatedOn: LocalDateTime,
+    @SerialName("createdOn")
+    @Serializable(LocalDateTimeSerializer::class)
+    val createdOn: LocalDateTime,
     @SerialName("waybillId")
     val waybillId: Int
 )

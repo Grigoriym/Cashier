@@ -1,15 +1,15 @@
 package com.grappim.cashier.ui.splash
 
-import com.grappim.cashier.di.splash.SplashScreenNavigator
-import com.grappim.core.BaseViewModel
+import com.grappim.navigation.AppRouter
+import com.grappim.core.base.BaseViewModel
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
-    private val splashScreenNavigator: SplashScreenNavigator
+    private val appRouter: AppRouter
 ) : BaseViewModel() {
 
     fun goToAuth() {
-        splashScreenNavigator.goToAuthFromSplash()
+        appRouter.goToAuth()
     }
 
 }

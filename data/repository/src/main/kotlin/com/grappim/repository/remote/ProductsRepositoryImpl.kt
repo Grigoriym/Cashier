@@ -3,9 +3,11 @@ package com.grappim.repository.remote
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.calculations.isLessThanOrEquals
 import com.grappim.common.asynchronous.di.ApplicationScope
+import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
 import com.grappim.date_time.DateTimeIsoInstant
+import com.grappim.date_time.DateTimeIsoLocalDateTime
 import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
@@ -33,6 +35,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -44,7 +47,7 @@ class ProductsRepositoryImpl @Inject constructor(
     private val generalStorage: GeneralStorage,
     @QualifierProductsApi private val productsApi: ProductsApi,
     @ApplicationScope private val applicationScope: CoroutineScope,
-    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
+    @DateTimeIsoLocalDateTime private val dtfIsoLocal: DateTimeFormatter
 ) : ProductsRepository {
 
     override fun createProduct(
@@ -99,12 +102,12 @@ class ProductsRepositoryImpl @Inject constructor(
             name = params.name,
             stockId = params.productStockId,
             amount = params.amount,
-            unit = params.unit.value,
+            unit = ProductUnit.getProductUnitByValue(params.unit.value),
             purchasePrice = params.purchasePrice,
             sellingPrice = params.sellingPrice,
             merchantId = params.productMerchantId,
             createdOn = params.productCreatedOn,
-            updatedOn = dtfIso.format(DateTimeUtils.getNowOffsetDateTime(true)),
+            updatedOn = dtfIsoLocal.format(DateTimeUtils.getNowOffsetDateTime(true)),
             categoryId = params.categoryId
         )
 
@@ -139,10 +142,11 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override suspend fun addBasketProduct(
         params: AddProductToBasketUseCase.Params
-    ) = applicationScope.launch {
-            val basketEntity = productMapper.domainToBasketEntity(params.product)
-            basketDao.insertOrUpdate(basketEntity)
-        }.join()
+    ): BasketProduct {
+        val basketEntity = productMapper.domainToBasketEntity(params.product)
+        basketDao.insertOrUpdate(basketEntity)
+        return productMapper.entityToBasketDomain(basketDao.getProductById(basketEntity.id))
+    }
 
     override suspend fun removeBasketProduct(params: RemoveProductUseCase.Params) =
         applicationScope.launch {

@@ -1,14 +1,14 @@
 package com.grappim.domain.model.waybill
 
-enum class WaybillStatus(val value: String) {
-    ACTIVE("active"),
-    DRAFT("draft");
+enum class WaybillStatus() {
+    ACTIVE,
+    DRAFT;
 
     companion object {
-        fun getStatusByValue(value: String): WaybillStatus =
+        fun getStatusByName(value: String): WaybillStatus =
             when (value) {
-                ACTIVE.value -> ACTIVE
-                DRAFT.value -> DRAFT
+                ACTIVE.name -> ACTIVE
+                DRAFT.name -> DRAFT
                 else -> throw IllegalArgumentException("incorrect status $value")
             }
     }

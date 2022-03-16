@@ -76,6 +76,23 @@ class GeneralRepositoryImpl @Inject constructor(
                 it.toList()
             }
 
+    override fun getCategoriesInEditProducts(
+        params: GetCategoryListInteractor.Params
+    ): Flow<List<ProductCategory>> =
+        productCategoryDao.getAllCategoriesFlow()
+            .map {
+                productCategoryEntityMapper.revertList(it).toMutableList()
+            }.map {
+                it.add(0, ProductCategory.createCategory())
+                if (params.sendDefaultCategory) {
+                    it.add(
+                        index = 0,
+                        element = ProductCategory.allItem()
+                    )
+                }
+                it.toList()
+            }
+
     override fun getProductsByCategory(
         params: SearchProductsByCategoryUseCase.Params
     ): Flow<Try<List<Product>>> = flow {
