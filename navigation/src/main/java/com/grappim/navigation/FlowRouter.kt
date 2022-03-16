@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.NavigatorHolder
 
 interface FlowRouter {
 

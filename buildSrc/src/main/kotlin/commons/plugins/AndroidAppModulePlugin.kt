@@ -38,7 +38,6 @@ internal class AndroidAppModulePlugin : Plugin<Project> {
 private fun Project.configurePlugins() =
     extensions.getByType<BaseAppModuleExtension>().run {
         getCommonPlugins()
-        plugins.apply(Plugins.safeArgs)
 
         plugins.apply(Plugins.googleServices)
         plugins.apply(Plugins.detekt)
@@ -170,8 +169,10 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.featurePaymentMethod))
             implementation(project(Modules.featureSales))
             implementation(project(Modules.featureMenu))
-            implementation(project(Modules.featureProducts))
             implementation(project(Modules.featureScanner))
+
+            implementation(project(Modules.featureProductsPresentation))
+            implementation(project(Modules.featureProductsNetwork))
 
             implementation(project(Modules.featureSignUpPresentation))
             implementation(project(Modules.featureSignUpDomain))

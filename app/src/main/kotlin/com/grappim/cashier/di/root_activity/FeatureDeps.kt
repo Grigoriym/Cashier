@@ -5,7 +5,7 @@ import com.grappim.bag.di.BagDeps
 import com.grappim.menu.di.MenuDeps
 import com.grappim.payment_method.di.PaymentMethodDeps
 import com.grappim.product_category.presentation.root.di.ProductCategoryRootDeps
-import com.grappim.products.root.di.ProductsRootDeps
+import com.grappim.products.presentation.root.di.ProductsRootDeps
 import com.grappim.root_presentation.di.SelectInfoRootDeps
 import com.grappim.sales.di.SalesDeps
 import com.grappim.scanner.di.ScannerDeps
@@ -20,6 +20,6 @@ interface FeatureDeps : AuthDeps,
     BagDeps,
     PaymentMethodDeps,
     WaybillRootDeps,
-    ProductsRootDeps,
+    com.grappim.products.presentation.root.di.ProductsRootDeps,
     ProductCategoryRootDeps,
     ScannerDeps

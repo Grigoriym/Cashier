@@ -28,10 +28,6 @@ class AppRouterImpl @Inject constructor(
         router.exit()
     }
 
-    override fun goToSplash() {
-        router.replaceScreen(cashierScreens.SplashScreen())
-    }
-
     override fun goToAuth() {
         router.newRootScreen(cashierScreens.AuthScreen())
     }

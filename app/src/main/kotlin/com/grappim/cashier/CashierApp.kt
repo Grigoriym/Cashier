@@ -18,7 +18,7 @@ class CashierApp : Application(), Configuration.Provider,
     @Inject
     lateinit var workerConfiguration: Configuration
 
-    val appComponent: ApplicationComponent by lazy {
+    private val appComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent
             .factory()
             .create(this)

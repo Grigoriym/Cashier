@@ -9,19 +9,16 @@ import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.logger.logD
-import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
 import com.grappim.stock.R
 import com.grappim.stock.model.StockProgressItem
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SelectStockViewModelImpl @Inject constructor(
     private val getStocksUseCase: GetStocksUseCase,
     private val saveStockInfoUseCase: SaveStockInfoUseCase,
-    private val selectStockLocalRepository: SelectStockLocalRepository,
-    private val selectInfoFlowScreenNavigator: SelectInfoFlowScreenNavigator
+    private val selectStockLocalRepository: SelectStockLocalRepository
 ) : SelectStockViewModel() {
 
     override val stockProgresses: List<StockProgressItem> = getStockProgressItems()

@@ -4,7 +4,6 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.viewModelScope
 import com.grappim.auth.model.AuthTextFieldsData
 import com.grappim.common.lce.Try
-import com.grappim.navigation.AppRouter
 import com.grappim.core.SingleLiveEvent
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.GeneralRepository
@@ -52,7 +51,6 @@ internal class AuthViewModelImpl @Inject constructor(
         }
     }
 
-    @MainThread
     override fun goToRegisterFlow() {
         flowRouter.goToSignUpFromSignIn()
     }

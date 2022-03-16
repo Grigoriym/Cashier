@@ -10,8 +10,6 @@ buildscript {
         classpath(BuildPlugins.kotlin)
         classpath(BuildPlugins.kotlinSerialization)
 
-        classpath(BuildPlugins.safeArgs)
-
         classpath(BuildPlugins.googleServices)
     }
 }

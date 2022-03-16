@@ -9,8 +9,6 @@ interface AppRouter {
 
     fun goBack()
 
-    fun goToSplash()
-
     fun goToAuth()
     fun goToSignUpFromSignIn()
     fun goToSelectInfo()

@@ -1,20 +1,8 @@
 package com.grappim.cashier.core.navigation
 
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import com.grappim.auth.di.AuthScreenNavigator
-import com.grappim.bag.di.BagScreenNavigator
-import com.grappim.cashier.R
-import com.grappim.cashier.di.splash.SplashScreenNavigator
 import com.grappim.common.di.ActivityScope
-import com.grappim.menu.di.MenuScreenNavigator
-import com.grappim.navigation.MainScreenNavigator
-import com.grappim.payment_method.di.PaymentMethodScreenNavigator
-import com.grappim.sales.di.SalesScreenNavigator
-import com.grappim.select_info.common_navigation.SelectInfoFlowScreenNavigator
-import com.grappim.sign_up_presentation.di.SignUpScreenNavigator
 import dagger.Lazy
 import javax.inject.Inject
 
@@ -22,98 +10,7 @@ import javax.inject.Inject
 class NavigationManager @Inject constructor(
     private val navController: Lazy<NavController>,
     private val activity: AppCompatActivity
-) : AuthScreenNavigator, SignUpScreenNavigator,
-    MenuScreenNavigator,
-    SalesScreenNavigator,
-    BagScreenNavigator,
-    PaymentMethodScreenNavigator,
-    SplashScreenNavigator,
-    SelectInfoFlowScreenNavigator,
-    MainScreenNavigator {
+) {
 
-    private fun navigateTo(directions: NavDirections) {
-        navController
-            .get()
-            .navigate(directions)
-    }
 
-    private fun navigateTo(@IdRes resId: Int) {
-        navController
-            .get()
-            .navigate(resId)
-    }
-
-    private fun navigateBack() {
-        navController.get().popBackStack()
-    }
-
-    override fun goToAuthFromSplash() {
-        navigateTo(R.id.action_splash_to_auth)
-    }
-
-    override fun goToSignUp() {
-        navigateTo(R.id.action_authFlow_to_signUpFlow)
-    }
-
-    override fun returnToAuthFromSignUp() {
-        navigateBack()
-    }
-
-    override fun goToSelectStock() {
-        navigateTo(R.id.select_info_flow)
-    }
-
-    override fun goToMenu() {
-        navigateTo(R.id.action_selectInfo_to_menuFlow)
-    }
-
-    override fun goToWaybill() {
-        navigateTo(R.id.action_menuFlow_to_waybillFlow)
-    }
-
-    override fun goToProducts() {
-        navigateTo(R.id.action_menuFlow_to_productsFlow)
-    }
-
-    override fun goToSales() {
-        navigateTo(R.id.action_menuFlow_to_salesFlow)
-    }
-
-    override fun goToBag() {
-        navigateTo(R.id.action_salesFlow_to_bagFlow)
-    }
-
-    override fun goToScannerFromSales() {
-    }
-
-    override fun goToPaymentMethod() {
-        navigateTo(R.id.action_bagFlow_to_paymentMethodFlow)
-    }
-
-    override fun goToScannerFromBag() {
-
-    }
-
-    override fun fromPaymentMethodToSales() {
-        navigateTo(R.id.action_paymentMethodFlow_to_salesFlow)
-    }
-
-    override fun goToProductCategories() {
-        navigateTo(R.id.action_menuFlow_to_ProductCategoriesFlow)
-    }
-
-    override fun goBack() {
-        navigateBack()
-    }
-
-    override fun activityOnBackPressed() {
-        activity.onBackPressed()
-    }
-
-    override fun returnToAuth() {
-        navController.get().popBackStack(
-            R.id.auth_flow,
-            true
-        )
-    }
 }

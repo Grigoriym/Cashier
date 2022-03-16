@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 interface CashierScreens {
-    fun SplashScreen(): FragmentScreen
     fun AuthScreen(): FragmentScreen
     fun SignUpScreen(): FragmentScreen
     fun MenuScreen(): FragmentScreen

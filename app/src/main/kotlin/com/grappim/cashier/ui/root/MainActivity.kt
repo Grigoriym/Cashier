@@ -15,6 +15,7 @@ import com.grappim.core.MainViewModel
 import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.core.navigation.CashierAppNavigator
 import com.grappim.navigation.AppRouter
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     }
 
     private val navigator: Navigator by lazy {
-        AppNavigator(this, R.id.nav_host_fragment)
+        CashierAppNavigator(this, R.id.nav_host_fragment)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
