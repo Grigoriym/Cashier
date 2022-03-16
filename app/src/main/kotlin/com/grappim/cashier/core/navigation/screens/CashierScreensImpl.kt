@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.grappim.auth.ui.view.AuthFragment
 import com.grappim.bag.ui.view.BagFragment
-import com.grappim.cashier.ui.splash.SplashFragment
 import com.grappim.common.di.ActivityScope
 import com.grappim.menu.ui.view.MenuFragment
 import com.grappim.navigation.CashierScreens
@@ -12,9 +11,6 @@ import com.grappim.payment_method.ui.view.PaymentMethodFragment
 import com.grappim.product_category.presentation.create_edit.ui.view.CreateEditProductCategoryFragment
 import com.grappim.product_category.presentation.list.ui.view.ProductCategoryListFragment
 import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
-import com.grappim.products.create_edit.ui.view.CreateEditProductFragment
-import com.grappim.products.list.ui.view.ProductListFragment
-import com.grappim.products.root.ui.ProductsRootFragment
 import com.grappim.root_presentation.ui.SelectInfoRootFragment
 import com.grappim.sales.ui.SalesFragment
 import com.grappim.scanner.ui.ScannerFragment
@@ -31,10 +27,6 @@ import javax.inject.Inject
 class CashierScreensImpl @Inject constructor(
 
 ) : CashierScreens {
-
-    override fun SplashScreen() = FragmentScreen {
-        SplashFragment()
-    }
 
     override fun AuthScreen() = FragmentScreen {
         AuthFragment()
@@ -53,19 +45,19 @@ class CashierScreensImpl @Inject constructor(
     }
 
     override fun Products() = FragmentScreen {
-        ProductsRootFragment()
+        com.grappim.products.presentation.root.ui.ProductsRootFragment()
     }
 
     override fun ProductsList() = FragmentScreen {
-        ProductListFragment()
+        com.grappim.products.presentation.list.ui.view.ProductListFragment()
     }
 
     override fun ProductsCreate(args: Bundle) = FragmentScreen {
-        CreateEditProductFragment.newInstance(args)
+        com.grappim.products.presentation.create_edit.ui.view.CreateEditProductFragment.newInstance(args)
     }
 
     override fun ProductsEdit(args: Bundle) = FragmentScreen {
-        CreateEditProductFragment.newInstance(args)
+        com.grappim.products.presentation.create_edit.ui.view.CreateEditProductFragment.newInstance(args)
     }
 
     override fun ProductCategories(fromProduct: Boolean?) = FragmentScreen {

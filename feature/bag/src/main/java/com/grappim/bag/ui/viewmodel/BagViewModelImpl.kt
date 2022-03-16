@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.grappim.bag.di.BagScreenNavigator
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.common.lce.Try
 import com.grappim.common.lce.withoutParams

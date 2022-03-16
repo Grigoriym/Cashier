@@ -110,7 +110,7 @@ private fun AuthScreenContent(
         item {
             SignInButton(
                 onSignInClick = onSignInClick,
-                isPhoneFullyEntered = isPhoneFullyEntered
+                isEnabled = isPhoneFullyEntered && password.isNotEmpty()
             )
         }
 
@@ -169,7 +169,7 @@ private fun TextFieldsComponent(
 @Composable
 private fun SignInButton(
     onSignInClick: () -> Unit,
-    isPhoneFullyEntered: Boolean
+    isEnabled: Boolean
 ) {
     Button(
         onClick = onSignInClick,
@@ -186,7 +186,7 @@ private fun SignInButton(
             backgroundColor = CashierBlue
         ),
         shape = RoundedCornerShape(25.dp),
-        enabled = isPhoneFullyEntered
+        enabled = isEnabled
     ) {
         Text(
             text = stringResource(id = R.string.action_sign_in),

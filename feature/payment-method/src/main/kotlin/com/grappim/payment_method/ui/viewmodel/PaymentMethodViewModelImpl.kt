@@ -7,7 +7,6 @@ import com.grappim.common.lce.withoutParams
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
 import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
-import com.grappim.payment_method.di.PaymentMethodScreenNavigator
 import com.grappim.payment_method.helper.PaymentMethodItemGenerator
 import com.grappim.payment_method.model.PaymentMethod
 import kotlinx.coroutines.flow.StateFlow

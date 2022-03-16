@@ -6,6 +6,7 @@ import androidx.annotation.LayoutRes
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.grappim.core.R
+import com.grappim.core.navigation.CashierAppNavigator
 import com.grappim.navigation.BackFragment
 
 abstract class BaseFlowFragment<VM : BaseViewModel2> : BaseFragment2<VM> {
@@ -17,7 +18,7 @@ abstract class BaseFlowFragment<VM : BaseViewModel2> : BaseFragment2<VM> {
     private val containerIdRes: Int = R.id.featureNavigationContainer
 
     private val navigator: Navigator by lazy {
-        AppNavigator(
+        CashierAppNavigator(
             activity = requireActivity(),
             containerId = containerIdRes,
             fragmentManager = childFragmentManager

@@ -11,8 +11,6 @@ interface SignUpDeps : ComponentDeps {
 
     fun resourceManager(): ResourceManager
 
-    fun signUpScreenNavigator(): SignUpScreenNavigator
-
     @QualifierAuthApi
     fun authApi(): AuthApi
     fun cashierScreens(): CashierScreens
