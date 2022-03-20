@@ -53,17 +53,19 @@ class BagFragment : BaseFlowFragment<BagViewModel>() {
 
     @Composable
     private fun BagFragmentScreen() {
-        val products by viewModel.products.collectAsState()
+        val basketProducts by viewModel.basketProducts.collectAsState()
         val basketSum by viewModel.basketSum.collectAsState()
+        val changedProduct by viewModel.changedProduct.collectAsState()
 
         BagScreen(
             onBackClick = viewModel::onBackPressed3,
             onScanClick = viewModel::showScanner,
             onPayClick = viewModel::goToPaymentMethod,
-            onMinusClick = viewModel::removeProductFromBasket,
+            onMinusClick = viewModel::subtractBasketProduct,
             onPlusClick = viewModel::addProductToBasket,
-            items = products,
-            price = basketSum
+            items = basketProducts,
+            price = basketSum,
+            changedProduct = changedProduct
         )
     }
 }

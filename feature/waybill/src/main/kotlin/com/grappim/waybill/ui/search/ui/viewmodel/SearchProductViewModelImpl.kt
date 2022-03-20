@@ -1,10 +1,10 @@
 package com.grappim.waybill.ui.search.ui.viewmodel
 
-import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.grappim.common.lce.Try
-import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.sales.SearchProductsUseCase
@@ -12,7 +12,9 @@ import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.local.WaybillLocalRepository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,13 +26,10 @@ class SearchProductViewModelImpl @Inject constructor(
 ) : SearchProductViewModel() {
 
     override val searchText = MutableStateFlow("")
-    override val productsFlow: StateFlow<List<Product>> = searchText.flatMapConcat {
-        searchProductsUseCase.invoke(SearchProductsUseCase.Params(it))
-    }.stateIn(
-        scope = viewModelScope,
-        started = WhileViewSubscribed,
-        initialValue = emptyList()
-    )
+    override val productsFlow: Flow<PagingData<Product>> = searchText.flatMapConcat {
+        searchProductsUseCase.execute(SearchProductsUseCase.Params(it))
+            .cachedIn(viewModelScope)
+    }
 
     override val waybillProduct = MutableStateFlow<Try<WaybillProduct>>(Try.Initial)
 

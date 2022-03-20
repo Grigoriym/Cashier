@@ -12,38 +12,37 @@ class ProductMapper @Inject constructor(
 
 ) {
 
-    fun domainToBasketEntity(
-        from: Product
-    ): BasketProductEntity =
-        BasketProductEntity(
-            id = from.id,
-            name = from.name,
-            basketCount = from.basketCount,
-            sellingPrice = from.sellingPrice,
-            amount = from.amount,
-            purchasePrice = from.purchasePrice,
-            barcode = from.barcode
-        )
+//    fun domainToBasketEntity(
+//        from: Product
+//    ): BasketProductEntity =
+//        BasketProductEntity(
+//            id = from.id,
+//            name = from.name,
+//            basketCount = from.basketCount,
+//            sellingPrice = from.sellingPrice,
+//            amount = from.amount,
+//            purchasePrice = from.purchasePrice,
+//            barcode = from.barcode
+//        )
 
-    fun entityToBasketDomain(
-        from: BasketProductEntity
-    ): BasketProduct =
-        BasketProduct(
-            id = from.id,
-            name = from.name,
-            basketCount = from.basketCount,
-            amount = from.amount,
-            sellingPrice = from.sellingPrice,
-            purchasePrice = from.purchasePrice,
-            barcode = from.barcode
-        )
+//    fun entityToBasketDomain(
+//        from: BasketProductEntity
+//    ): BasketProduct =
+//        BasketProduct(
+//            id = from.id,
+//            name = from.name,
+//            amount = from.amount,
+//            sellingPrice = from.sellingPrice,
+//            purchasePrice = from.purchasePrice,
+//            barcode = from.barcode
+//        )
 
     fun entityToBasketDomainList(
         from: List<BasketProductEntity>
     ): List<BasketProduct> =
         ArrayList<BasketProduct>(from.size).apply {
             from.forEach {
-                add(entityToBasketDomain(it))
+//                add(entityToBasketDomain(it))
             }
         }
 
@@ -83,8 +82,7 @@ class ProductMapper @Inject constructor(
             merchantId = from.merchantId,
             createdOn = from.createdOn,
             updatedOn = from.updatedOn,
-            categoryId = from.categoryId,
-            basketCount = from.basketCount
+            categoryId = from.categoryId
         )
 
     fun entityToDomainList(from: List<ProductEntity>): List<Product> =
@@ -132,6 +130,21 @@ fun Product.toEntity(): ProductEntity =
         updatedOn = this.updatedOn,
         categoryId = this.categoryId
     )
+
+fun Product.toDTO():ProductDTO = ProductDTO(
+    id = id,
+    barcode = barcode,
+    name = name,
+    stockId = stockId,
+    amount = amount,
+    unit = unit,
+    merchantId = merchantId,
+    purchasePrice = purchasePrice,
+    sellingPrice = sellingPrice,
+    createdOn = createdOn,
+    updatedOn = updatedOn,
+    categoryId = categoryId
+)
 
 fun List<Product>.toEntity(): List<ProductEntity> =
     this.map {

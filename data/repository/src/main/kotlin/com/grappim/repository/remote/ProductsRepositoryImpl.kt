@@ -1,12 +1,11 @@
 package com.grappim.repository.remote
 
-import com.grappim.calculations.bigDecimalZero
-import com.grappim.calculations.isLessThanOrEquals
-import com.grappim.common.asynchronous.di.ApplicationScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
-import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.date_time.DateTimeIsoLocalDateTime
 import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
@@ -14,28 +13,23 @@ import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
-import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
-import com.grappim.domain.interactor.sales.RemoveProductUseCase
 import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.model.base.ProductUnit
-import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.logger.logD
+import com.grappim.network.api.BasketApi
 import com.grappim.network.api.ProductsApi
+import com.grappim.network.di.api.QualifierBasketApi
 import com.grappim.network.di.api.QualifierProductsApi
 import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.mappers.products.toDomain
 import com.grappim.network.mappers.products.toEntity
 import com.grappim.network.model.products.*
-import com.grappim.repository.extensions.getStringForDbQuery
-import kotlinx.coroutines.CoroutineScope
+import com.grappim.repository.paging.FilterProductsPagingSource
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -46,9 +40,16 @@ class ProductsRepositoryImpl @Inject constructor(
     private val basketDao: BasketDao,
     private val generalStorage: GeneralStorage,
     @QualifierProductsApi private val productsApi: ProductsApi,
-    @ApplicationScope private val applicationScope: CoroutineScope,
-    @DateTimeIsoLocalDateTime private val dtfIsoLocal: DateTimeFormatter
+    @DateTimeIsoLocalDateTime private val dtfIsoLocal: DateTimeFormatter,
+    @QualifierBasketApi private val basketApi: BasketApi,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : ProductsRepository {
+
+    private val pagingConfig = PagingConfig(
+        pageSize = 30,
+        enablePlaceholders = false,
+        initialLoadSize = 10
+    )
 
     override fun createProduct(
         params: CreateProductUseCase.Params
@@ -121,110 +122,20 @@ class ProductsRepositoryImpl @Inject constructor(
         emit(Try.Success(Unit))
     }
 
-    override fun getBagProducts(): Flow<Try<List<Product>>> =
-        flow {
-            emit(Try.Loading)
-            val basketProducts = basketDao.getBasketProducts()
-            val products = productsDao.getAllProducts()
-            val result = mutableListOf<ProductEntity>()
-            basketProducts.forEach { basketProduct ->
-                products.forEach { product ->
-                    if (basketProduct.id == product.id) {
-                        result.add(product.apply {
-                            basketCount = basketProduct.basketCount
-                        })
-                    }
-                }
-            }
-            val domain = productMapper.entityToDomainList(result.toList())
-            emit(Try.Success(domain))
-        }
-
-    override suspend fun addBasketProduct(
-        params: AddProductToBasketUseCase.Params
-    ): BasketProduct {
-        val basketEntity = productMapper.domainToBasketEntity(params.product)
-        basketDao.insertOrUpdate(basketEntity)
-        return productMapper.entityToBasketDomain(basketDao.getProductById(basketEntity.id))
-    }
-
-    override suspend fun removeBasketProduct(params: RemoveProductUseCase.Params) =
-        applicationScope.launch {
-            val product = params.product
-            if (product.basketCount.isLessThanOrEquals(bigDecimalZero())) {
-                basketDao.removeProductByUid(product.id)
-            } else {
-                val basketProduct = productMapper.domainToBasketEntity(product)
-                basketDao.updateBasketProduct(basketProduct)
-            }
-        }.join()
-
-    override fun getAllBasketProducts(): Flow<List<BasketProduct>> =
-        basketDao.getAllBasketProducts().map {
-            productMapper.entityToBasketDomainList(it)
-        }
-
-    override fun getProducts(): Flow<List<Product>> =
-        flow {
-            val products = productsDao.getAllProducts()
-
-            val productsUids = products.map { it.id }
-            val storedBasketProducts = basketDao.getProductsByUids(productsUids)
-
-            val result = if (storedBasketProducts.isEmpty()) {
-                products
-            } else {
-                val resultList: List<ProductEntity> = products
-                resultList.forEach { product ->
-                    storedBasketProducts.forEach { storedProduct ->
-                        if (storedProduct.id == product.id) {
-                            product.basketCount = storedProduct.basketCount
-                        }
-                    }
-                }
-                resultList
-            }
-            val domain = productMapper.entityToDomainList(result)
-            emit(domain)
-        }
-
-    override suspend fun deleteBasketProducts() = applicationScope.launch {
-        basketDao.deleteBagProducts()
-    }.join()
-
     override fun searchProducts(
         params: SearchProductsUseCase.Params
-    ): Flow<List<Product>> =
-        flow {
-            val query = params.query
-            logD("searchingProducts query: $query")
-            val products = if (query.isBlank()) {
-                productsDao.getAllProducts()
-            } else {
-                productsDao.searchProducts(query.getStringForDbQuery())
-            }
-            logD("foundProducts: ${products.joinToString()}")
-
-            val productsUids = products.map { it.id }
-            val storedBasketProducts = basketDao.getProductsByUids(productsUids)
-
-            val result = if (storedBasketProducts.isEmpty()) {
-                products
-            } else {
-                val resultList: List<ProductEntity> = products
-                resultList.forEach { product ->
-                    storedBasketProducts.forEach { storedProduct ->
-                        if (storedProduct.id == product.id) {
-                            product.basketCount = storedProduct.basketCount
-                        }
-                    }
-                }
-                resultList
-            }
-
-            val domain = productMapper.entityToDomainList(result)
-            emit(domain)
-        }
+    ): Flow<PagingData<Product>> = Pager(
+        config = pagingConfig
+    ) {
+        FilterProductsPagingSource(
+            ioDispatcher = ioDispatcher,
+            generalStorage = generalStorage,
+            productsApi = productsApi,
+            query = params.query,
+            basketApi = basketApi,
+            basketDao = basketDao
+        )
+    }.flow
 
     override suspend fun filterProducts(offset: Long, limit: Long): List<Product> {
         val request = FilterProductsRequestDTO(

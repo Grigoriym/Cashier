@@ -1,60 +1,66 @@
 package com.grappim.bag.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
+import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.lce.Try
 import com.grappim.common.lce.withoutParams
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.domain.interactor.basket.DeleteBagProductsUseCase
+import com.grappim.domain.interactor.basket.ClearBasketUseCase
 import com.grappim.domain.interactor.products.GetBagProductsUseCase
-import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
-import com.grappim.domain.interactor.sales.GetAllBasketProductsUseCase
+import com.grappim.domain.interactor.sales.AddBasketProduct
 import com.grappim.domain.interactor.sales.RemoveProductUseCase
-import com.grappim.domain.model.product.Product
-import kotlinx.coroutines.flow.*
+import com.grappim.domain.model.basket.BasketProduct
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
 import java.text.DecimalFormat
 import javax.inject.Inject
 
 class BagViewModelImpl @Inject constructor(
-    private val addProductToBasketUseCase: AddProductToBasketUseCase,
+    private val addBasketProduct: AddBasketProduct,
     private val removeProductUseCase: RemoveProductUseCase,
     private val getBagProductsUseCase: GetBagProductsUseCase,
-    private val deleteBagProductsUseCase: DeleteBagProductsUseCase,
-    getAllBasketProductsUseCase: GetAllBasketProductsUseCase,
+    private val clearBasketUseCase: ClearBasketUseCase,
     @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : BagViewModel() {
 
-    override val products = MutableStateFlow<List<Product>>(emptyList())
+    override val basketProducts = MutableStateFlow<List<BasketProduct>>(emptyList())
 
-    override val basketCount: LiveData<BigDecimal> =
-        getAllBasketProductsUseCase.invoke(withoutParams())
-            .asLiveData(viewModelScope.coroutineContext).map { list ->
-            list.map {
-                it.basketCount
-            }.sumOf {
-                it
+    override val changedProduct = MutableStateFlow<BasketProduct?>(null)
+
+    override val basketCount: StateFlow<String> =
+        basketProducts
+            .map { list ->
+                list.map {
+                    it.amount
+                }.sumOf { it }
             }
-        }
+            .map {
+                dfSimple.format(it)
+            }.stateIn(
+                scope = viewModelScope,
+                started = WhileViewSubscribed,
+                initialValue = dfSimple.format(bigDecimalZero())
+            )
 
     override val basketSum: StateFlow<String> =
-        getAllBasketProductsUseCase.invoke(withoutParams()).map { list ->
-            list.map {
-                it.sellingPrice * it.basketCount
-            }.sumOf {
-                it
-            }
-        }.map {
-            dfSimple.format(it)
-        }.stateIn(
-            scope = viewModelScope,
-            started = WhileViewSubscribed,
-            initialValue = "0"
-        )
+        basketProducts
+            .map { list ->
+                list.map {
+                    it.sellingPrice * it.amount
+                }.sumOf {
+                    it
+                }
+            }.map {
+                dfSimple.format(it)
+            }.stateIn(
+                scope = viewModelScope,
+                started = WhileViewSubscribed,
+                initialValue = dfSimple.format(bigDecimalZero())
+            )
 
     init {
         getBagProducts()
@@ -70,8 +76,19 @@ class BagViewModelImpl @Inject constructor(
 
     override fun deleteBagProducts() {
         viewModelScope.launch {
-            deleteBagProductsUseCase.invoke(withoutParams())
-            getBagProducts()
+            clearBasketUseCase.invoke(withoutParams())
+                .collect {
+                    _loading.value = it is Try.Loading
+                    when (it) {
+                        is Try.Success -> {
+                            basketProducts.value = emptyList()
+                            changedProduct.value = null
+                        }
+                        is Try.Error -> {
+                            _error.value = it.exception
+                        }
+                    }
+                }
         }
     }
 
@@ -79,26 +96,58 @@ class BagViewModelImpl @Inject constructor(
         viewModelScope.launch {
             getBagProductsUseCase.invoke(withoutParams())
                 .collect {
+                    _loading.value = it is Try.Loading
+                    changedProduct.value = null
                     when (it) {
                         is Try.Success -> {
-                            products.value = it.data!!
+                            basketProducts.value = it.data
+                        }
+                        is Try.Error -> {
+                            _error.value = it.exception
                         }
                     }
                 }
         }
     }
 
-    override fun addProductToBasket(product: Product) {
+    override fun addProductToBasket(product: BasketProduct) {
         viewModelScope.launch {
-            addProductToBasketUseCase.invoke(AddProductToBasketUseCase.Params(product))
-            getBagProducts()
+            addBasketProduct
+                .invoke(AddBasketProduct.Params(product))
+                .collect {
+                    _loading.value = it is Try.Loading
+                    when (it) {
+                        is Try.Success -> {
+                            changedProduct.value = it.data
+                        }
+                        is Try.Error -> {
+                            _error.value = it.exception
+                        }
+                    }
+                }
         }
     }
 
-    override fun removeProductFromBasket(product: Product) {
+    override fun subtractBasketProduct(product: BasketProduct) {
         viewModelScope.launch {
             removeProductUseCase.invoke(RemoveProductUseCase.Params(product))
-            getBagProducts()
+                .collect {
+                    _loading.value = it is Try.Loading
+                    when (it) {
+                        is Try.Success -> {
+                            if (it.data == null) {
+                                val products = basketProducts.value.toMutableList()
+                                products.remove(product)
+                                basketProducts.value = products
+                            } else {
+                                changedProduct.value = it.data
+                            }
+                        }
+                        is Try.Error -> {
+                            _error.value = it.exception
+                        }
+                    }
+                }
         }
     }
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2126af5e5432a96d35f9ade84bed9d31",
+    "identityHash": "568944cd684b70ee816571621c91c5f2",
     "entities": [
       {
         "tableName": "product_table",
@@ -99,7 +99,7 @@
       },
       {
         "tableName": "basket_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `basketCount` TEXT NOT NULL, `amount` TEXT NOT NULL, `sellingPrice` TEXT NOT NULL, `purchasePrice` TEXT NOT NULL, `barcode` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `sellingPrice` TEXT NOT NULL, `amount` TEXT NOT NULL, `unit` TEXT NOT NULL, `barcode` TEXT NOT NULL, `productId` INTEGER NOT NULL, `stockId` TEXT NOT NULL, `merchantId` TEXT NOT NULL, `basketId` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -114,8 +114,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "basketCount",
-            "columnName": "basketCount",
+            "fieldPath": "sellingPrice",
+            "columnName": "sellingPrice",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -126,14 +126,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "sellingPrice",
-            "columnName": "sellingPrice",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "purchasePrice",
-            "columnName": "purchasePrice",
+            "fieldPath": "unit",
+            "columnName": "unit",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -141,6 +135,30 @@
             "fieldPath": "barcode",
             "columnName": "barcode",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productId",
+            "columnName": "productId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stockId",
+            "columnName": "stockId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "merchantId",
+            "columnName": "merchantId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "basketId",
+            "columnName": "basketId",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -195,7 +213,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2126af5e5432a96d35f9ade84bed9d31')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '568944cd684b70ee816571621c91c5f2')"
     ]
   }
 }

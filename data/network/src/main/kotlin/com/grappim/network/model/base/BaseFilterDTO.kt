@@ -1,18 +1,16 @@
-package com.grappim.network.model.products
+package com.grappim.network.model.base
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FilterProductsRequestDTO(
+data class BaseFilterDTO(
+    @SerialName("limit")
+    val limit: Int,
     @SerialName("offset")
     val offset: Long,
-    @SerialName("limit")
-    val limit: Long,
     @SerialName("merchantId")
     val merchantId: String,
     @SerialName("stockId")
-    val stockId: String,
-    @SerialName("query")
-    val query: String? = null
+    val stockId: String
 )

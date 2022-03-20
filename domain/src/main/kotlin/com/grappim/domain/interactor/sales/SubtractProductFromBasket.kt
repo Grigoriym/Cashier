@@ -10,16 +10,15 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class AddProductToBasketUseCase @Inject constructor(
+class SubtractProductFromBasket @Inject constructor(
     private val basketRepository: BasketRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : FlowUseCase<AddProductToBasketUseCase.Params, BasketProduct>(ioDispatcher) {
+):FlowUseCase<SubtractProductFromBasket.Params, BasketProduct>(ioDispatcher) {
 
     data class Params(
-        val product: Product
+        val product:Product
     )
 
     override fun execute(params: Params): Flow<Try<BasketProduct>> =
-        basketRepository.addProductToBasket(params)
-
+        basketRepository.subtractProduct(params)
 }

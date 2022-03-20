@@ -18,9 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.bag.R
-import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.ItemAddProductCompose
+import com.grappim.uikit.compose.ItemAddBasketProductCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
@@ -30,10 +30,11 @@ fun BagScreen(
     onBackClick: () -> Unit,
     onScanClick: () -> Unit,
     onPayClick: () -> Unit,
-    onMinusClick: (Product) -> Unit,
-    onPlusClick: (Product) -> Unit,
-    items: List<Product>,
-    price: String
+    onMinusClick: (BasketProduct) -> Unit,
+    onPlusClick: (BasketProduct) -> Unit,
+    items: List<BasketProduct>,
+    price: String,
+    changedProduct: BasketProduct?
 ) {
     Scaffold(
         modifier = Modifier,
@@ -55,40 +56,53 @@ fun BagScreen(
         MainSegment(
             items = items,
             onMinusClick = onMinusClick,
-            onPlusClick = onPlusClick
+            onPlusClick = onPlusClick,
+            changedProduct = changedProduct
         )
     }
 }
 
 @Composable
 private fun MainSegment(
-    items: List<Product>,
-    onMinusClick: (Product) -> Unit,
-    onPlusClick: (Product) -> Unit,
+    items: List<BasketProduct>,
+    onMinusClick: (BasketProduct) -> Unit,
+    onPlusClick: (BasketProduct) -> Unit,
+    changedProduct: BasketProduct?
 ) {
     Column {
         BagListSegment(
             items = items,
             onMinusClick = onMinusClick,
-            onPlusClick = onPlusClick
+            onPlusClick = onPlusClick,
+            changedProduct = changedProduct
         )
     }
 }
 
 @Composable
 private fun BagListSegment(
-    items: List<Product>,
-    onMinusClick: (Product) -> Unit,
-    onPlusClick: (Product) -> Unit,
+    items: List<BasketProduct>,
+    onMinusClick: (BasketProduct) -> Unit,
+    onPlusClick: (BasketProduct) -> Unit,
+    changedProduct: BasketProduct?
 ) {
     LazyColumn() {
         items(items) { item ->
-            ItemAddProductCompose(
-                product = item,
-                onMinusClick = onMinusClick,
-                onPlusClick = onPlusClick,
-                showCart = false
-            )
+            if (item.id == changedProduct?.id) {
+                ItemAddBasketProductCompose(
+                    basketProduct = changedProduct,
+                    onMinusClick = onMinusClick,
+                    onPlusClick = onPlusClick,
+                    showCart = false
+                )
+            } else {
+                ItemAddBasketProductCompose(
+                    basketProduct = item,
+                    onMinusClick = onMinusClick,
+                    onPlusClick = onPlusClick,
+                    showCart = false
+                )
+            }
         }
     }
 }
@@ -229,8 +243,9 @@ private fun BagScreenPreview() {
             onPayClick = { },
             onMinusClick = {},
             onPlusClick = {},
-            items = listOf(Product.empty()),
-            price = "500"
+            items = listOf(BasketProduct.empty()),
+            price = "500",
+            changedProduct = null
         )
     }
 }
@@ -242,9 +257,10 @@ private fun BagScreenPreview() {
 private fun BagListSegmentPreview() {
     CashierTheme {
         BagListSegment(
-            items = listOf(Product.empty()),
+            items = listOf(BasketProduct.empty()),
             onMinusClick = {},
-            onPlusClick = {}
+            onPlusClick = {},
+            changedProduct = null
         )
     }
 }

@@ -2,8 +2,11 @@ package com.grappim.uikit.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Card
+import androidx.compose.material.Divider
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,19 +17,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
 
 @Composable
-fun ItemAddProductCompose(
+fun ItemAddBasketProductCompose(
     modifier: Modifier = Modifier,
-    product: Product,
-    onMinusClick: (Product) -> Unit,
-    onPlusClick: (Product) -> Unit,
-    onCartClick: ((Product) -> Unit)? = null,
+    basketProduct: BasketProduct,
+    onMinusClick: (BasketProduct) -> Unit,
+    onPlusClick: (BasketProduct) -> Unit,
+    onCartClick: ((BasketProduct) -> Unit)? = null,
     showCart: Boolean = true
 ) {
     Card(
@@ -80,7 +83,7 @@ fun ItemAddProductCompose(
                         )
                         width = Dimension.fillToConstraints
                     },
-                text = product.name,
+                text = basketProduct.name,
                 color = Color.Black,
                 fontSize = 14.sp
             )
@@ -88,7 +91,7 @@ fun ItemAddProductCompose(
             Text(
                 text = stringResource(
                     id = R.string.title_price_with_currency,
-                    product.sellingPrice.toString()
+                    basketProduct.sellingPrice.toString()
                 ),
                 modifier = Modifier
                     .constrainAs(price) {
@@ -107,7 +110,7 @@ fun ItemAddProductCompose(
             if (showCart) {
                 StandardFilledButton(
                     onButtonClick = {
-                        onCartClick?.invoke(product)
+                        onCartClick?.invoke(basketProduct)
                     },
                     iconDrawable = R.drawable.ic_shopping_cart,
                     modifier = Modifier
@@ -141,12 +144,12 @@ fun ItemAddProductCompose(
                         )
                     },
                 onMinusClick = {
-                    onMinusClick(product)
+                    onMinusClick(basketProduct)
                 },
                 onPlusClick = {
-                    onPlusClick(product)
+                    onPlusClick(basketProduct)
                 },
-                text = "${product.amount} ${product.unit.value}"
+                text = "${basketProduct.amount} ${basketProduct.unit.value}"
             )
 
             Divider(
@@ -181,8 +184,8 @@ private fun CounterPreview() {
 @Preview
 private fun ItemAddProductPreview() {
     CashierTheme {
-        ItemAddProductCompose(
-            product = Product.empty(),
+        ItemAddBasketProductCompose(
+            basketProduct = BasketProduct.empty(),
             onPlusClick = {},
             onMinusClick = {},
             onCartClick = {},
@@ -194,8 +197,8 @@ private fun ItemAddProductPreview() {
 @Preview
 private fun ItemAddProductPreview2() {
     CashierTheme {
-        ItemAddProductCompose(
-            product = Product.empty(),
+        ItemAddBasketProductCompose(
+            basketProduct = BasketProduct.empty(),
             onPlusClick = {},
             onMinusClick = {},
             onCartClick = {},

@@ -2,13 +2,16 @@ package com.grappim.menu.di
 
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FeatureScope
-import com.grappim.menu.ui.view.MenuFragment
+import com.grappim.core.di.FeatureNavigationModule
+import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.navigation.FlowRouter
 import dagger.Component
 
 @[FeatureScope Component(
     modules = [
         MenuBindsModule::class,
-        CoroutinesModule::class
+        CoroutinesModule::class,
+        FeatureNavigationModule::class
     ],
     dependencies = [
         MenuDeps::class
@@ -16,6 +19,7 @@ import dagger.Component
 )]
 internal interface MenuComponent {
 
-    fun inject(menuFragment: MenuFragment)
+    fun viewModelFactory(): MultiViewModelFactory
+    fun flowRouter(): FlowRouter
 
 }

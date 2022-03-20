@@ -1,6 +1,7 @@
 package com.grappim.payment_method.di
 
 import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.domain.repository.BasketRepository
 import com.grappim.domain.repository.PaymentRepository
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.navigation.AppRouter
@@ -12,5 +13,6 @@ interface PaymentMethodDeps : ComponentDeps {
     fun appRouter(): AppRouter
     fun productsRepository(): ProductsRepository
     fun paymentRepository(): PaymentRepository
+    fun basketRepository(): BasketRepository
 
 }

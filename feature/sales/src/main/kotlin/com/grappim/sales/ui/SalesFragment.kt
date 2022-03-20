@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
@@ -53,10 +55,16 @@ class SalesFragment : BaseFlowFragment<SalesViewModel>() {
 
     @Composable
     private fun SalesFragmentScreen() {
-        val viewModel: SalesViewModel = viewModel()
-        val productItems by viewModel.products.collectAsState()
+        val productItems = viewModel.products.collectAsLazyPagingItems()
         val basketCount by viewModel.basketCount.collectAsState()
         val searchQuery by viewModel.searchQuery.collectAsState()
+        val productsChanged by viewModel.productChanged.collectAsState()
+        LaunchedEffect(productsChanged) {
+            if (productsChanged) {
+                productItems.refresh()
+                viewModel.setProductChanged(false)
+            }
+        }
 
         SalesScreen(
             onBackClick = viewModel::onBackPressed3,
@@ -68,7 +76,8 @@ class SalesFragment : BaseFlowFragment<SalesViewModel>() {
             onPlusClick = viewModel::addProduct,
             onCartClick = viewModel::onCartClicked,
             searchText = searchQuery,
-            setSearchText = viewModel::setQuery
+            setSearchText = viewModel::setQuery,
+            basketProducts = emptyList()
         )
     }
 }

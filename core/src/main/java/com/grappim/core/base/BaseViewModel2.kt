@@ -21,10 +21,6 @@ abstract class BaseViewModel2 : ViewModel() {
         flowRouter = router
     }
 
-    open fun onBackPressed2() {
-        flowRouter.goBack()
-    }
-
     fun onBackPressed3() {
         flowRouter.onBackPressed()
     }
