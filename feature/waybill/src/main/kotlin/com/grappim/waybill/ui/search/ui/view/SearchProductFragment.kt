@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
@@ -58,7 +58,7 @@ class SearchProductFragment : BaseFragment2<SearchProductViewModel>() {
     private fun SearchProductFragmentScreen() {
         val loading by viewModel.loading.observeAsState(false)
         val searchText by viewModel.searchText.collectAsState()
-        val products by viewModel.productsFlow.collectAsState()
+        val products = viewModel.productsFlow.collectAsLazyPagingItems()
 
         LoaderDialogCompose(show = loading)
 

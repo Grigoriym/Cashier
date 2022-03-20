@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -13,14 +12,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
+import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.model.product.Product
 import com.grappim.sales.R
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.ItemAddBasketProductCompose
 import com.grappim.uikit.compose.ItemAddProductCompose
-import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
+import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 internal fun SalesScreen(
@@ -28,12 +34,13 @@ internal fun SalesScreen(
     onScanClick: () -> Unit,
     onBagClick: () -> Unit,
     bagCount: String,
-    items: List<Product>,
+    items: LazyPagingItems<Product>,
     onMinusClick: (Product) -> Unit,
     onPlusClick: (Product) -> Unit,
     onCartClick: (Product) -> Unit,
     searchText: String,
     setSearchText: (String) -> Unit,
+    basketProducts: List<BasketProduct>
 ) {
     Scaffold(
         modifier = Modifier,
@@ -57,7 +64,8 @@ internal fun SalesScreen(
             items = items,
             onMinusClick = onMinusClick,
             onPlusClick = onPlusClick,
-            onCartClick = onCartClick
+            onCartClick = onCartClick,
+            basketProducts = basketProducts
         )
     }
 }
@@ -66,10 +74,11 @@ internal fun SalesScreen(
 private fun SalesScreenMainSegment(
     searchText: String,
     setSearchText: (String) -> Unit,
-    items: List<Product>,
+    items: LazyPagingItems<Product>,
     onMinusClick: (Product) -> Unit,
     onPlusClick: (Product) -> Unit,
-    onCartClick: (Product) -> Unit
+    onCartClick: (Product) -> Unit,
+    basketProducts: List<BasketProduct>
 ) {
     Column {
         OutlinedTextFieldCompose(
@@ -87,26 +96,42 @@ private fun SalesScreenMainSegment(
             items = items,
             onMinusClick = onMinusClick,
             onPlusClick = onPlusClick,
-            onCartClick = onCartClick
+            onCartClick = onCartClick,
+            basketProducts = basketProducts
         )
     }
 }
 
 @Composable
 private fun SalesListSegment(
-    items: List<Product>,
+    items: LazyPagingItems<Product>,
     onMinusClick: (Product) -> Unit,
     onPlusClick: (Product) -> Unit,
-    onCartClick: (Product) -> Unit
+    onCartClick: (Product) -> Unit,
+    basketProducts: List<BasketProduct>
 ) {
     LazyColumn() {
         items(items) { item ->
-            ItemAddProductCompose(
-                product = item,
-                onMinusClick = onMinusClick,
-                onPlusClick = onPlusClick,
-                onCartClick = onCartClick
-            )
+            item?.let {
+                if (item.basketProduct != null) {
+                    ItemAddBasketProductCompose(
+                        basketProduct = item.basketProduct!!,
+                        onMinusClick = {
+                            onMinusClick(item)
+                        },
+                        onPlusClick = {
+                            onPlusClick(item)
+                        }
+                    )
+                } else {
+                    ItemAddProductCompose(
+                        product = item,
+                        onMinusClick = onMinusClick,
+                        onPlusClick = onPlusClick,
+                        onCartClick = onCartClick
+                    )
+                }
+            }
         }
     }
 }
@@ -161,9 +186,9 @@ private fun BottomBarSegment(
 @Preview
 private fun SalesScreenPreview() {
     CashierTheme {
-        val items = listOf(
-            Product.empty()
-        )
+        val items = flowOf(
+            PagingData.empty<Product>()
+        ).collectAsLazyPagingItems()
         SalesScreen(
             onBackClick = { },
             onScanClick = { },
@@ -174,7 +199,8 @@ private fun SalesScreenPreview() {
             onCartClick = {},
             onPlusClick = {},
             searchText = "123",
-            setSearchText = {}
+            setSearchText = {},
+            basketProducts = emptyList()
         )
     }
 }

@@ -28,14 +28,17 @@ interface BasketDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(basketProductEntity: BasketProductEntity): Long
 
-    @Query("UPDATE $basketEntityTableName SET basketCount = basketCount + 1 WHERE id=:id")
-    suspend fun incBasketProduct(id: Long)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(list: List<BasketProductEntity>)
 
-    @Transaction
-    suspend fun insertOrUpdate(basketProductEntity: BasketProductEntity) {
-        val id = insert(basketProductEntity)
-        if (id == -1L) incBasketProduct(basketProductEntity.id)
-    }
+//    @Query("UPDATE $basketEntityTableName SET basketCount = basketCount + 1 WHERE id=:id")
+//    suspend fun incBasketProduct(id: Long)
+
+//    @Transaction
+//    suspend fun insertOrUpdate(basketProductEntity: BasketProductEntity) {
+//        val id = insert(basketProductEntity)
+//        if (id == -1L) incBasketProduct(basketProductEntity.id)
+//    }
 
     @Query("DELETE FROM $basketEntityTableName WHERE id=:id")
     suspend fun removeProductByUid(id: Long)

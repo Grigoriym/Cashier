@@ -1,7 +1,6 @@
 package com.grappim.waybill.ui.list.ui.viewmodel
 
 import androidx.paging.PagingData
-import com.grappim.core.base.BaseViewModel
 import com.grappim.core.base.BaseViewModel2
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.waybill.model.PagingDataModel

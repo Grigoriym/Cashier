@@ -1,23 +1,20 @@
-package com.grappim.domain.interactor.sales
+package com.grappim.domain.interactor.basket
 
 import com.grappim.common.asynchronous.FlowUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.common.lce.NoParams
 import com.grappim.common.lce.Try
-import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.repository.BasketRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RemoveProductUseCase @Inject constructor(
+class ClearBasketUseCase @Inject constructor(
     private val basketRepository: BasketRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : FlowUseCase<RemoveProductUseCase.Params, BasketProduct?>(ioDispatcher) {
+) : FlowUseCase<NoParams, NoParams>(ioDispatcher) {
 
-    data class Params(
-        val product: BasketProduct
-    )
+    override fun execute(params: NoParams): Flow<Try<NoParams>> =
+        basketRepository.clearBasket()
 
-    override fun execute(params: Params): Flow<Try<BasketProduct?>> =
-        basketRepository.subtractProduct(params)
 }

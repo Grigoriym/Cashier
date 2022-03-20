@@ -67,7 +67,6 @@ class WaybillListViewModelImpl @Inject constructor(
                 }
             }
 
-
     override fun setSearchText(text: String) {
         searchText.value = text
     }

@@ -1,10 +1,9 @@
 package com.grappim.domain.repository
 
+import androidx.paging.PagingData
 import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
-import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
-import com.grappim.domain.interactor.sales.RemoveProductUseCase
 import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.model.product.Product
@@ -20,20 +19,9 @@ interface ProductsRepository {
         params: EditProductUseCase.Params
     ): Flow<Try<Unit>>
 
-    fun getBagProducts(): Flow<Try<List<Product>>>
-
-    suspend fun addBasketProduct(params: AddProductToBasketUseCase.Params): BasketProduct
-    suspend fun removeBasketProduct(params: RemoveProductUseCase.Params)
-
-    fun getAllBasketProducts(): Flow<List<BasketProduct>>
-
-    fun getProducts(): Flow<List<Product>>
-
-    suspend fun deleteBasketProducts()
-
     fun searchProducts(
         params: SearchProductsUseCase.Params
-    ): Flow<List<Product>>
+    ): Flow<PagingData<Product>>
 
     suspend fun filterProducts(
         offset: Long,

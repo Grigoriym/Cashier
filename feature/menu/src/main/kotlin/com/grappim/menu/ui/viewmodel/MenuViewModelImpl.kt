@@ -1,12 +1,12 @@
 package com.grappim.menu.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.grappim.navigation.AppRouter
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.menu.helper.MenuItemGenerator
 import com.grappim.menu.model.MenuItemPm
+import com.grappim.navigation.AppRouter
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
@@ -50,10 +50,6 @@ class MenuViewModelImpl @Inject constructor(
                 showProductCategories()
             }
         }
-    }
-
-    override fun onBackPressed2() {
-        appRouter.goBack()
     }
 
     private fun showWaybill() {

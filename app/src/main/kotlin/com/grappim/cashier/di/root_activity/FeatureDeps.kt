@@ -20,6 +20,6 @@ interface FeatureDeps : AuthDeps,
     BagDeps,
     PaymentMethodDeps,
     WaybillRootDeps,
-    com.grappim.products.presentation.root.di.ProductsRootDeps,
+    ProductsRootDeps,
     ProductCategoryRootDeps,
     ScannerDeps

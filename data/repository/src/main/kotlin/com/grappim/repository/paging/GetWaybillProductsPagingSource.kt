@@ -27,7 +27,7 @@ class GetWaybillProductsPagingSource constructor(
                 )
                 val waybillProducts = waybillApi.getWaybillProductList(
                     request
-                ).products ?: listOf()
+                ).products ?: emptyList()
                 val newNextOffset: Int? = if (waybillProducts.isEmpty()) {
                     null
                 } else {

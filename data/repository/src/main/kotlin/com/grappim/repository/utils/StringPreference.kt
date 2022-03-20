@@ -1,6 +1,8 @@
 package com.grappim.repository.utils
 
 import android.content.SharedPreferences
+import com.grappim.logger.logD
+import com.grappim.logger.logE
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -20,6 +22,9 @@ class StringPreference(
         .edit()
         .putString(key, value)
         .apply()
+        .also {
+          logD("asdf changing $key to $value")
+        }
 
 }
 

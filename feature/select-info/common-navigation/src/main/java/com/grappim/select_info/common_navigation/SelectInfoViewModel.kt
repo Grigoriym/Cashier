@@ -1,7 +1,6 @@
 package com.grappim.select_info.common_navigation
 
 import androidx.lifecycle.LiveData
-import com.grappim.core.base.BaseViewModel
 import com.grappim.core.base.BaseViewModel2
 
 abstract class SelectInfoViewModel : BaseViewModel2() {

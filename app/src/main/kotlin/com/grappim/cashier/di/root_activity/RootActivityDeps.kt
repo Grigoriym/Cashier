@@ -28,6 +28,7 @@ interface RootActivityDeps : ComponentDeps {
 
     fun productsRepository(): ProductsRepository
     fun paymentRepository(): PaymentRepository
+    fun basketRepository(): BasketRepository
 
     fun waybillLocalRepository(): WaybillLocalRepository
     fun waybillRepository(): WaybillRepository

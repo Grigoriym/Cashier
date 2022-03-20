@@ -28,7 +28,7 @@ class PaymentRepositoryImpl @Inject constructor(
             val paymentType = params.paymentMethodType
 
             val totalSum = basketDao.getBasketProducts().map {
-                it.sellingPrice * it.basketCount
+                it.sellingPrice * it.amount
             }.sumOf {
                 it
             }
@@ -36,9 +36,9 @@ class PaymentRepositoryImpl @Inject constructor(
             val orderItems = basketDao.getBasketProducts().map {
                 OrderItemDTO(
                     productId = it.id,
-                    amount = it.basketCount,
+                    amount = it.amount,
                     sellingPrice = it.sellingPrice,
-                    purchasePrice = it.purchasePrice,
+                    purchasePrice = it.sellingPrice,
                     barcode = it.barcode,
                     name = it.name
                 )

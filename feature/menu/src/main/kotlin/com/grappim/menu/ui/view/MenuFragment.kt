@@ -1,6 +1,5 @@
 package com.grappim.menu.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,44 +9,34 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment
+import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.menu.di.DaggerMenuComponent
 import com.grappim.menu.di.MenuComponent
 import com.grappim.menu.ui.viewmodel.MenuViewModel
+import com.grappim.navigation.FlowRouter
 import com.grappim.uikit.theme.CashierTheme
-import javax.inject.Inject
 
-class MenuFragment : BaseFragment<MenuViewModel>() {
+class MenuFragment : BaseFlowFragment<MenuViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
+    private val component: MenuComponent by lazy {
+        DaggerMenuComponent
+            .builder()
+            .menuDeps(findComponentDependencies())
+            .build()
+    }
+
+    private val viewModelFactory: MultiViewModelFactory by lazy {
+        component.viewModelFactory()
+    }
 
     override val viewModel: MenuViewModel by viewModels {
         viewModelFactory
     }
 
-    private var _menuComponent: MenuComponent? = null
-    private val menuComponent
-        get() = requireNotNull(_menuComponent)
-
-    override fun onAttach(context: Context) {
-        performInject()
-        super.onAttach(context)
-    }
-
-    override fun onDestroy() {
-        _menuComponent = null
-        super.onDestroy()
-    }
-
-    private fun performInject() {
-        _menuComponent = DaggerMenuComponent
-            .builder()
-            .menuDeps(findComponentDependencies())
-            .build()
-        menuComponent.inject(this)
+    override val flowRouter: FlowRouter by lazy {
+        component.flowRouter()
     }
 
     override fun onCreateView(
@@ -71,7 +60,7 @@ class MenuFragment : BaseFragment<MenuViewModel>() {
             cashierName = cashierName,
             items = items,
             onItemClick = viewModel::onItemClick,
-            onBackButtonPressed = viewModel::onBackPressed2
+            onBackButtonPressed = viewModel::onBackPressed3
         )
     }
 
