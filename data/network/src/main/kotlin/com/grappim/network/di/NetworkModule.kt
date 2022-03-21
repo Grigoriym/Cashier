@@ -37,7 +37,9 @@ object NetworkModule {
     ): Retrofit.Builder =
         Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(
+                json.asConverterFactory("application/json".toMediaType())
+            )
 
     @[NetworkScope Provides]
     fun provideCashierRetrofit(

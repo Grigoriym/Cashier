@@ -1,13 +1,12 @@
 package com.grappim.products.presentation.create_edit.ui.viewmodel
 
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.model.base.ProductUnit
-import com.grappim.domain.model.product.Product
 import com.grappim.product_category.domain.model.ProductCategory
 import kotlinx.coroutines.flow.StateFlow
 import java.math.BigDecimal
 
-abstract class CreateEditProductViewModel : BaseViewModel2() {
+abstract class CreateEditProductViewModel : BaseViewModel() {
 
     abstract val productUnits: StateFlow<List<ProductUnit>>
     abstract val categoriesFlow: StateFlow<List<ProductCategory>>

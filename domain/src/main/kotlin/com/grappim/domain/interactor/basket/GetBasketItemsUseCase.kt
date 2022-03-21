@@ -1,6 +1,6 @@
 package com.grappim.domain.interactor.basket
 
-import com.grappim.common.asynchronous.SimpleFlowUseCase
+import com.grappim.common.asynchronous.usecase.SimpleFlowUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.lce.NoParams
 import com.grappim.domain.model.basket.BasketProduct

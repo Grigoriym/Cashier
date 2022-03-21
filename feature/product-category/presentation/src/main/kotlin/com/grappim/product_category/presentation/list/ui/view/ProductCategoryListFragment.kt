@@ -10,17 +10,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.product_category.presentation.list.di.DaggerProductCategoryListComponent
 import com.grappim.product_category.presentation.list.di.ProductCategoryListComponent
 import com.grappim.product_category.presentation.list.ui.viewmodel.ProductCategoryListViewModel
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
-class ProductCategoryListFragment : BaseFragment2<ProductCategoryListViewModel>() {
+class ProductCategoryListFragment : BaseFragment<ProductCategoryListViewModel>() {
 
     private val component: ProductCategoryListComponent by lazy {
         DaggerProductCategoryListComponent
@@ -61,7 +61,7 @@ class ProductCategoryListFragment : BaseFragment2<ProductCategoryListViewModel>(
         LoaderDialogCompose(show = loading)
 
         ProductCategoryListScreen(
-            onBackPressed = viewModel::onBackPressed3,
+            onBackPressed = viewModel::onBackPressed,
             onCreateCategoryClick = viewModel::goToCategoryCreate,
             categories = categories,
             onCategoryClick = viewModel::goToCategoryDetails

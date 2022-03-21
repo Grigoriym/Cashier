@@ -15,16 +15,18 @@ import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.menu.di.DaggerMenuComponent
 import com.grappim.menu.di.MenuComponent
 import com.grappim.menu.ui.viewmodel.MenuViewModel
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.theme.CashierTheme
 
 class MenuFragment : BaseFlowFragment<MenuViewModel>() {
 
     private val component: MenuComponent by lazy {
         DaggerMenuComponent
-            .builder()
-            .menuDeps(findComponentDependencies())
-            .build()
+            .factory()
+            .create(
+                menuDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
@@ -60,7 +62,7 @@ class MenuFragment : BaseFlowFragment<MenuViewModel>() {
             cashierName = cashierName,
             items = items,
             onItemClick = viewModel::onItemClick,
-            onBackButtonPressed = viewModel::onBackPressed3
+            onBackButtonPressed = viewModel::onBackPressed
         )
     }
 

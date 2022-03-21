@@ -11,11 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.grappim.extensions.getErrorMessage
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
-import com.grappim.navigation.BackFragment
-import com.grappim.navigation.FlowRouter
-import javax.inject.Inject
+import com.grappim.navigation.helpers.BackFragment
+import com.grappim.navigation.router.FlowRouter
 
-abstract class BaseFragment2<VM : BaseViewModel2> : Fragment, BackFragment {
+abstract class BaseFragment<VM : BaseViewModel> : Fragment, BackFragment {
 
     constructor() : super()
     constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
@@ -25,7 +24,7 @@ abstract class BaseFragment2<VM : BaseViewModel2> : Fragment, BackFragment {
     abstract val flowRouter: FlowRouter
 
     override fun onBackPressed() {
-        viewModel.onBackPressed3()
+        viewModel.onBackPressed()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

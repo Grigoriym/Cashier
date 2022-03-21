@@ -3,13 +3,13 @@ package com.grappim.waybill.ui.details.ui.viewmodel
 import androidx.compose.runtime.State
 import androidx.paging.PagingData
 import com.grappim.common.lce.Try
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class WaybillDetailsViewModel : BaseViewModel2() {
+abstract class WaybillDetailsViewModel : BaseViewModel() {
 
     abstract val comment: StateFlow<String>
     abstract val actualDate: StateFlow<String>

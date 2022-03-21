@@ -1,6 +1,6 @@
 package com.grappim.cashier.ui.root
 
-import com.grappim.navigation.AppRouter
+import com.grappim.navigation.router.ActivityRouter
 import com.grappim.core.MainViewModel
 import com.grappim.extensions.Timer
 import com.grappim.workers.WorkerHelper
@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class MainViewModelImpl @Inject constructor(
     private val workerHelper: WorkerHelper,
-    private val appRouter: AppRouter
+    private val activityRouter: ActivityRouter
 ) : MainViewModel() {
 
     private val timer: Timer by lazy {
@@ -25,7 +25,7 @@ class MainViewModelImpl @Inject constructor(
     }
 
     override fun goToAuth() {
-        appRouter.goToAuth()
+        activityRouter.goToAuth()
     }
 
     private fun doWorkOnTick() {

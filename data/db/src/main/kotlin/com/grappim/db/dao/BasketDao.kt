@@ -19,26 +19,11 @@ interface BasketDao {
     @Query("DELETE FROM $basketEntityTableName")
     suspend fun clearBasket()
 
-    @Query("SELECT * FROM $basketEntityTableName WHERE id=:id LIMIT 1")
-    suspend fun getProductById(id: Long): BasketProductEntity
-
-    @Query("SELECT * FROM $basketEntityTableName WHERE id IN (:ids)")
-    suspend fun getProductsByUids(ids: List<Long>): List<BasketProductEntity>
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(basketProductEntity: BasketProductEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(list: List<BasketProductEntity>)
-
-//    @Query("UPDATE $basketEntityTableName SET basketCount = basketCount + 1 WHERE id=:id")
-//    suspend fun incBasketProduct(id: Long)
-
-//    @Transaction
-//    suspend fun insertOrUpdate(basketProductEntity: BasketProductEntity) {
-//        val id = insert(basketProductEntity)
-//        if (id == -1L) incBasketProduct(basketProductEntity.id)
-//    }
 
     @Query("DELETE FROM $basketEntityTableName WHERE id=:id")
     suspend fun removeProductByUid(id: Long)

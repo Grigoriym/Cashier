@@ -1,13 +1,12 @@
 package com.grappim.root_presentation.ui
 
-import com.grappim.navigation.AppRouter
 import com.grappim.core.SingleLiveEvent
 import com.grappim.select_info.common_navigation.SelectInfoRootFlow
 import com.grappim.select_info.common_navigation.SelectInfoViewModel
 import javax.inject.Inject
 
 class SelectInfoViewModelImpl @Inject constructor(
-    private val appRouter: AppRouter
+
 ) : SelectInfoViewModel() {
 
     override val nextScreen = SingleLiveEvent<SelectInfoRootFlow>()
@@ -25,7 +24,7 @@ class SelectInfoViewModelImpl @Inject constructor(
     }
 
     override fun goBack() {
-        appRouter.goBack()
+        flowRouter.onBackPressed()
     }
 
 }

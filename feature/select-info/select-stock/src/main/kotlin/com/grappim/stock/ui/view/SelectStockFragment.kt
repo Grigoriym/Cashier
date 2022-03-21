@@ -12,17 +12,17 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.grappim.core.MainViewModel
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.select_info.common_navigation.SelectInfoViewModel
 import com.grappim.stock.di.DaggerSelectStockComponent
 import com.grappim.stock.di.SelectStockComponent
 import com.grappim.stock.ui.viewmodel.SelectStockViewModel
 import com.grappim.uikit.theme.CashierTheme
 
-class SelectStockFragment : BaseFragment2<SelectStockViewModel>() {
+class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
 
     private val selectStockComponent: SelectStockComponent by lazy {
         DaggerSelectStockComponent
@@ -73,7 +73,7 @@ class SelectStockFragment : BaseFragment2<SelectStockViewModel>() {
         val selectedStock by viewModel.selectedStock.collectAsState()
 
         SelectStockScreen(
-            onBackButtonPressed = viewModel::onBackPressed3,
+            onBackButtonPressed = viewModel::onBackPressed,
             stockProgressItems = viewModel.stockProgresses,
             stockItems = stocksResult,
             onRefresh = viewModel::getStocks,

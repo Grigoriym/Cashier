@@ -23,7 +23,6 @@ internal class AuthViewModelImpl @Inject constructor(
     }
 
     override val authFieldsData = MutableStateFlow(AuthTextFieldsData.empty())
-    override val loginStatus = SingleLiveEvent<Try<Unit>>()
 
     override fun setPassword(text: String) {
         val oldValue = authFieldsData.value
@@ -67,7 +66,7 @@ internal class AuthViewModelImpl @Inject constructor(
                     password = password
                 )
             ).collect {
-                loginStatus.value = it
+                _loading.value = it is Try.Loading
                 when (it) {
                     is Try.Success -> {
                         workerHelper.startTokenRefresherWorker()

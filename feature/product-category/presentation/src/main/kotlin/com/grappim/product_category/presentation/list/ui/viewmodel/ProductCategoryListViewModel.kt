@@ -1,10 +1,10 @@
 package com.grappim.product_category.presentation.list.ui.viewmodel
 
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.product_category.domain.model.ProductCategory
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class ProductCategoryListViewModel : BaseViewModel2() {
+abstract class ProductCategoryListViewModel : BaseViewModel() {
 
     abstract val categories: StateFlow<List<ProductCategory>>
 

@@ -221,7 +221,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
             ).collect {
                 when (it) {
                     is Try.Success -> {
-                        onBackPressed3()
+                        onBackPressed()
                     }
                     is Try.Error -> {
                         _error.value = it.exception
@@ -251,7 +251,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
             ).collect {
                 when (it) {
                     is Try.Success -> {
-                        onBackPressed3()
+                        onBackPressed()
                     }
                     is Try.Error -> {
                         _error.value = it.exception

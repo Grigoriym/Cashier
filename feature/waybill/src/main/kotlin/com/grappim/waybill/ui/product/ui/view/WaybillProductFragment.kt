@@ -9,21 +9,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.product.di.DaggerWaybillProductComponent
 import com.grappim.waybill.ui.product.di.WaybillProductComponent
 import com.grappim.waybill.ui.product.ui.viewmodel.WaybillProductViewModel
 
-class WaybillProductFragment : BaseFragment2<WaybillProductViewModel>() {
+class WaybillProductFragment : BaseFragment<WaybillProductViewModel>() {
 
     private val component: WaybillProductComponent by lazy {
         DaggerWaybillProductComponent
@@ -75,7 +75,7 @@ class WaybillProductFragment : BaseFragment2<WaybillProductViewModel>() {
 
         WaybillProductScreen(
             waybillProductStates = waybillProduct,
-            onBackClick = viewModel::onBackPressed3,
+            onBackClick = viewModel::onBackPressed,
             onActionClick = viewModel::waybillProductAction,
             setBarcode = viewModel::setBarcode,
             setProductName = viewModel::setWaybillProductName,

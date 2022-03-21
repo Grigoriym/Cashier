@@ -68,7 +68,7 @@ class SignUpViewModelImpl @Inject constructor(
             _loading.value = it is Try.Loading
             when (it) {
                 is Try.Success -> {
-                    onBackPressed3()
+                    onBackPressed()
                 }
                 is Try.Error -> {
                     _error.value = it.exception

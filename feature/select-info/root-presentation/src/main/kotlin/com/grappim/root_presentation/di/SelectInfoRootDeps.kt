@@ -4,8 +4,8 @@ import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
-import com.grappim.navigation.AppRouter
-import com.grappim.navigation.CashierScreens
+import com.grappim.navigation.router.ActivityRouter
+import com.grappim.navigation.screens.CashierScreens
 
 interface SelectInfoRootDeps : ComponentDeps {
 
@@ -13,6 +13,6 @@ interface SelectInfoRootDeps : ComponentDeps {
     fun selectInfoRemoteRepository(): SelectInfoRemoteRepository
 
     fun selectCashBoxLocalRepository(): SelectCashBoxLocalRepository
-    fun appRouter(): AppRouter
+    fun activityRouter(): ActivityRouter
     fun cashierScreens(): CashierScreens
 }

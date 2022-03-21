@@ -1,4 +1,4 @@
-package com.grappim.navigation
+package com.grappim.navigation.router
 
 import android.os.Bundle
 import androidx.annotation.IdRes
@@ -9,10 +9,10 @@ interface FlowRouter {
 
     fun setNavigator(navigator: Navigator)
     fun removeNavigator()
-    fun setFragmentManager(fragmentManager: FragmentManager)
     fun setContainerId(@IdRes containerId: Int)
 
     fun onBackPressed()
+    fun flowOnBackPressed()
 
     fun goBack()
     fun finishFlow()

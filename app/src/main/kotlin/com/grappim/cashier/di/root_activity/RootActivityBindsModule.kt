@@ -1,13 +1,13 @@
 package com.grappim.cashier.di.root_activity
 
 import androidx.lifecycle.ViewModel
-import com.grappim.cashier.core.navigation.router.AppRouterImpl
+import com.grappim.cashier.core.navigation.router.ActivityRouterImpl
 import com.grappim.cashier.core.navigation.screens.CashierScreensImpl
 import com.grappim.cashier.ui.root.MainViewModelImpl
 import com.grappim.core.MainViewModel
 import com.grappim.core.di.vm.ViewModelKey
-import com.grappim.navigation.AppRouter
-import com.grappim.navigation.CashierScreens
+import com.grappim.navigation.router.ActivityRouter
+import com.grappim.navigation.screens.CashierScreens
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -20,8 +20,8 @@ interface RootActivityBindsModule {
 
     @Binds
     fun bindAppCiceroneHolder(
-        appCiceroneHolderImpl: AppRouterImpl
-    ): AppRouter
+        activityCiceroneHolderImpl: ActivityRouterImpl
+    ): ActivityRouter
 
     @Binds
     fun bindCashierScreens(

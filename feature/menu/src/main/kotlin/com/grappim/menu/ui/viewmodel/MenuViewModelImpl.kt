@@ -6,7 +6,7 @@ import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.menu.helper.MenuItemGenerator
 import com.grappim.menu.model.MenuItemPm
-import com.grappim.navigation.AppRouter
+import com.grappim.navigation.router.ActivityRouter
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class MenuViewModelImpl @Inject constructor(
     menuItemsGenerator: MenuItemGenerator,
     generalStorage: GeneralStorage,
-    private val appRouter: AppRouter
+    private val activityRouter: ActivityRouter
 ) : MenuViewModel() {
 
     override val menuItems: StateFlow<List<MenuItemPm>> =
@@ -53,18 +53,18 @@ class MenuViewModelImpl @Inject constructor(
     }
 
     private fun showWaybill() {
-        appRouter.goToWaybill()
+        activityRouter.goToWaybill()
     }
 
     private fun showProducts() {
-        appRouter.goToProducts()
+        activityRouter.goToProducts()
     }
 
     private fun showSales() {
-        appRouter.goToSales()
+        activityRouter.goToSales()
     }
 
     private fun showProductCategories() {
-        appRouter.goToProductCategories()
+        activityRouter.goToProductCategories()
     }
 }

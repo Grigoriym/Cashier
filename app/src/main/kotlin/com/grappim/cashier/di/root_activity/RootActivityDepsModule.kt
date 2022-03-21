@@ -60,7 +60,7 @@ interface RootActivityDepsModule {
         component: RootActivityComponent
     ): ComponentDeps
 
-    @[Binds IntoMap ComponentDepsKey(com.grappim.products.presentation.root.di.ProductsRootDeps::class)]
+    @[Binds IntoMap ComponentDepsKey(ProductsRootDeps::class)]
     fun bindProductsRootDeps(
         component: RootActivityComponent
     ): ComponentDeps

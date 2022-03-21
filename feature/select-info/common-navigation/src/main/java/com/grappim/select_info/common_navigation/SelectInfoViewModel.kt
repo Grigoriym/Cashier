@@ -1,9 +1,9 @@
 package com.grappim.select_info.common_navigation
 
 import androidx.lifecycle.LiveData
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 
-abstract class SelectInfoViewModel : BaseViewModel2() {
+abstract class SelectInfoViewModel : BaseViewModel() {
 
     abstract val nextScreen: LiveData<SelectInfoRootFlow>
 

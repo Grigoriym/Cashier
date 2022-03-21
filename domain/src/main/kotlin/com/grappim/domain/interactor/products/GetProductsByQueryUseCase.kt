@@ -1,6 +1,6 @@
 package com.grappim.domain.interactor.products
 
-import com.grappim.common.asynchronous.SimpleFlowUseCase
+import com.grappim.common.asynchronous.usecase.SimpleFlowUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.GeneralRepository
