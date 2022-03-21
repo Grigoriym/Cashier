@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">Cashier</string>
+    <string name="app_name_dev">Cashier DEV</string>
+    <string name="app_name_qa">Cashier QA</string>
+
+    <string name="auth_forgot_password">Забыли пароль?</string>
+
+    <string name="outlet_selecting">Selecting a retail outlet</string>
+    <string name="outlet_checkout">Checkout selection</string>
+
+    <string name="title_price_with_currency">%1$s ₸</string>
+    <string name="title_basket_count">%1$s pc</string>
+
+    <string name="title_sales">Продажи</string>
+    <string name="title_menu">Меню</string>
+    <string name="title_phone_number">Номер телефона</string>
+    <string name="title_password">Пароль</string>
+    <string name="title_checkout_selection">Checkout selection</string>
+    <string name="title_quantity">Количество</string>
+    <string name="title_barcode">Баркод</string>
+    <string name="title_product_name">Наименование</string>
+    <string name="title_price">Цена</string>
+    <string name="title_price1">Цена:</string>
+    <string name="title_bag">Корзина</string>
+    <string name="title_payment_method">Payment method</string>
+    <string name="title_item1">Item:</string>
+    <string name="title_all">All</string>
+    <string name="title_cash_payment">Наличкой</string>
+    <string name="title_card_payment">Картой</string>
+    <string name="title_category">Категория</string>
+    <string name="title_amount">Amount</string>
+    <string name="title_sign_up">Регистрация</string>
+    <string name="title_email">E-mail</string>
+
+    <string name="title_products">Товары</string>
+    <string name="title_create_product">Создание товара</string>
+    <string name="title_edit_product">Редактирование товара</string>
+    <string name="title_selling_price">Selling price</string>
+    <string name="title_extra_price">Extra Price</string>
+    <string name="title_purchase_price">Purchase Price</string>
+    <string name="title_new_product">Новый товар</string>
+
+    <string name="title_create_category">Create category</string>
+    <string name="title_edit_category">Edit category</string>
+    <string name="title_category_name">Category name</string>
+
+    <string name="title_acceptance">Acceptance</string>
+    <string name="title_create_acceptance">Create acceptance</string>
+    <string name="title_actual_date">Actual date</string>
+    <string name="title_comment">Comment</string>
+    <string name="title_active">Active</string>
+    <string name="title_draft">Draft</string>
+    <string name="title_search">Search</string>
+    <string name="title_goods_acceptance">Goods acceptance (%1$d)</string>
+    <string name="title_acceptance_number">Acceptance number %1$s</string>
+    <string name="acceptance_product">Acceptance product</string>
+
+    <string name="title_product_categories">Categories</string>
+
+    <string name="waybill_error_no_product">You need to create a new product before adding it to acceptance</string>
+
+    <string name="product_search_product">Search products</string>
+
+    <string name="title_quantity_and_unit">%1$s %2$s</string>
+
+    <string name="auth_number_hint">Enter your phone number and password to sign in into your account</string>
+
+    <string name="action_sign_in">Войти</string>
+    <string name="action_back">Назад</string>
+    <string name="action_search">Search</string>
+    <string name="action_create_product">Создать товар</string>
+    <string name="action_edit_product">Редактировать товар</string>
+    <string name="action_next">Next</string>
+    <string name="action_create_acceptance">Create Acceptance</string>
+    <string name="action_generate">Сгенерировать</string>
+    <string name="action_scan">Отсканировать</string>
+    <string name="action_pay">Оплатить</string>
+    <string name="action_add_product">Add product</string>
+    <string name="action_update_product">Update product</string>
+
+    <string name="action_conduct">Conduct</string>
+    <string name="action_rollback">Rollback</string>
+    <string name="action_create">Create</string>
+
+    <string name="title_empty"></string>
+
+    <string name="sign_up_phone_empty">Please enter a phone number</string>
+    <string name="sign_up_phone_size">Please enter a valid phone number</string>
+    <string name="sign_up_email_empty">Please enter an email</string>
+    <string name="sign_up_email_validity">Please enter a valid email</string>
+    <string name="sign_up_password_empty">Please enter a password</string>
+
+    <!--    Errors-->
+    <string name="error_something_has_gone_wrong">Что-то пошло не так</string>
+    <string name="error_no_internet_connection">Отсутствует интернет соединение</string>
+    <string name="error_host_not_found">Хост не найден</string>
+    <string name="request_failed">Request ended with error</string>
+    <string name="connection_failed">Connection error</string>
+    <string name="timeout_exceeded">Waiting limit exceeded</string>
+    <string name="auth_error_refresh_token_not_passed">For security reasons, your session was closed</string>
+</resources>

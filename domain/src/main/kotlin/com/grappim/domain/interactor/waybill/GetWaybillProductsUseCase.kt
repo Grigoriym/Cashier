@@ -1,7 +1,7 @@
 package com.grappim.domain.interactor.waybill
 
 import androidx.paging.PagingData
-import com.grappim.common.asynchronous.SimpleFlowUseCase
+import com.grappim.common.asynchronous.usecase.SimpleFlowUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.WaybillRepository

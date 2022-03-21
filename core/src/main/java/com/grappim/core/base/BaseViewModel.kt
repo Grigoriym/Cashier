@@ -3,9 +3,9 @@ package com.grappim.core.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.grappim.core.SingleLiveEvent
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 
-abstract class BaseViewModel2 : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     protected lateinit var flowRouter: FlowRouter
 
@@ -21,7 +21,7 @@ abstract class BaseViewModel2 : ViewModel() {
         flowRouter = router
     }
 
-    fun onBackPressed3() {
+    fun onBackPressed() {
         flowRouter.onBackPressed()
     }
 

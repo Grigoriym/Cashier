@@ -5,7 +5,7 @@ import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.FeatureFragmentManager
 import com.grappim.common.di.FeatureScope
-import com.grappim.core.di.FeatureNavigationModule
+import com.grappim.core.di.FeatureNavigationBindsModule
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.date_time.DateTimeModule
 import com.grappim.waybill.ui.details.di.WaybillDetailsDeps
@@ -22,7 +22,7 @@ import dagger.Component
         WaybillRootDepsModule::class,
         CoroutinesModule::class,
         DateTimeModule::class,
-        FeatureNavigationModule::class
+        FeatureNavigationBindsModule::class
     ],
     dependencies = [
         WaybillRootDeps::class

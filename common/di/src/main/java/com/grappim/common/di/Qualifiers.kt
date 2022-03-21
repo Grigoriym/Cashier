@@ -9,7 +9,25 @@ annotation class ApplicationContext
 annotation class ActivityContext
 
 @Qualifier
-annotation class FeatureNavController
+annotation class FeatureFragmentManager
 
 @Qualifier
-annotation class FeatureFragmentManager
+annotation class ActivityFragmentManager
+
+@Qualifier
+annotation class ActivityCicerone
+
+@Qualifier
+annotation class ActivityRouterQualifier
+
+@Qualifier
+annotation class ActivityNavigatorHolder
+
+@Qualifier
+annotation class FeatureCicerone
+
+@Qualifier
+annotation class FeatureRouterQualifier
+
+@Qualifier
+annotation class FeatureNavigatorHolder

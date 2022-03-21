@@ -1,4 +1,4 @@
-package com.grappim.common.asynchronous
+package com.grappim.common.asynchronous.usecase
 
 import com.grappim.logger.logE
 import kotlinx.coroutines.CoroutineDispatcher

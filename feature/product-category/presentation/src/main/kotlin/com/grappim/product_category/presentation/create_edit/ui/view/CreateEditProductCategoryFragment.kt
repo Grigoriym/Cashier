@@ -9,11 +9,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.navigation.BackFragment
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.presentation.BundleArgsKeys
 import com.grappim.product_category.presentation.create_edit.di.CreateEditProductCategoryComponent
@@ -23,7 +22,7 @@ import com.grappim.product_category.presentation.create_edit.ui.viewmodel.Create
 import com.grappim.product_category.presentation.create_edit.ui.viewmodel.CreateEditProductCategoryViewModelImpl
 import com.grappim.uikit.theme.CashierTheme
 
-class CreateEditProductCategoryFragment : BaseFragment2<CreateEditProductCategoryViewModel>() {
+class CreateEditProductCategoryFragment : BaseFragment<CreateEditProductCategoryViewModel>() {
 
     private val createEditProductCategoryComponent: CreateEditProductCategoryComponent by lazy {
         DaggerCreateEditProductCategoryComponent
@@ -67,7 +66,7 @@ class CreateEditProductCategoryFragment : BaseFragment2<CreateEditProductCategor
         val categoryData by viewModel.categoryData.collectAsState()
 
         CreateEditProductCategoryScreen(
-            onBackPressed = viewModel::onBackPressed3,
+            onBackPressed = viewModel::onBackPressed,
             categoryName = categoryData.categoryName,
             setCategoryName = viewModel::setName,
             createEditFlow = flow,

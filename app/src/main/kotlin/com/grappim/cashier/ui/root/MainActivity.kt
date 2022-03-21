@@ -5,18 +5,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.grappim.cashier.R
 import com.grappim.cashier.di.root_activity.DaggerRootActivityComponent
 import com.grappim.cashier.di.root_activity.RootActivityComponent
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.deps.HasComponentDeps
 import com.grappim.core.MainViewModel
-import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.core.navigation.CashierAppNavigator
-import com.grappim.navigation.AppRouter
+import com.grappim.navigation.router.ActivityRouter
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     HasComponentDeps {
@@ -39,8 +37,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         component.multiViewModelFactory()
     }
 
-    private val appRouter: AppRouter by lazy {
-        component.appRouter()
+    private val activityRouter: ActivityRouter by lazy {
+        component.activityRouter()
     }
 
     private val viewModel by viewModels<MainViewModel> {
@@ -59,18 +57,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        appRouter.navigatorHolder.setNavigator(navigator)
+        activityRouter.setNavigator(navigator)
     }
 
     override fun onPause() {
-        appRouter.navigatorHolder.removeNavigator()
+        activityRouter.removeNavigator()
         super.onPause()
     }
 
     override fun onBackPressed() {
-        val fragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? BaseFragment2<*>
-        fragment?.onBackPressed() ?: super.onBackPressed()
+        activityRouter.onBackPressed()
     }
 
 }

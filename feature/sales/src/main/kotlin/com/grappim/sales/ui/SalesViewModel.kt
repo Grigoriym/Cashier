@@ -7,7 +7,7 @@ import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.lce.Try
 import com.grappim.common.lce.withoutParams
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.basket.GetBasketItemsUseCase
 import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
@@ -25,7 +25,7 @@ class SalesViewModel @Inject constructor(
     private val addProductToBasketUseCase: AddProductToBasketUseCase,
     private val subtractProductFromBasket: SubtractProductFromBasket,
     @DecimalFormatSimple private val dfSimple: DecimalFormat
-) : BaseViewModel2() {
+) : BaseViewModel() {
 
     private val _productChanged = MutableStateFlow(false)
     val productChanged: StateFlow<Boolean>

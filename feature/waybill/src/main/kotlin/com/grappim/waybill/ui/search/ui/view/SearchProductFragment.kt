@@ -11,17 +11,17 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.search.di.DaggerSearchWaybillProductComponent
 import com.grappim.waybill.ui.search.di.SearchWaybillProductComponent
 import com.grappim.waybill.ui.search.ui.viewmodel.SearchProductViewModel
 
-class SearchProductFragment : BaseFragment2<SearchProductViewModel>() {
+class SearchProductFragment : BaseFragment<SearchProductViewModel>() {
 
     private val component: SearchWaybillProductComponent by lazy {
         DaggerSearchWaybillProductComponent
@@ -63,7 +63,7 @@ class SearchProductFragment : BaseFragment2<SearchProductViewModel>() {
         LoaderDialogCompose(show = loading)
 
         SearchProductScreen(
-            onBackClick = viewModel::onBackPressed3,
+            onBackClick = viewModel::onBackPressed,
             searchText = searchText,
             setSearchText = viewModel::setSearchText,
             products = products,

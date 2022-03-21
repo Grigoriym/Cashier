@@ -9,7 +9,7 @@ import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.core.utils.BundleArgsHelper
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.products.presentation.R
 import com.grappim.products.presentation.root.di.DaggerProductsRootComponent
 import com.grappim.products.presentation.root.di.ProductsRootComponent

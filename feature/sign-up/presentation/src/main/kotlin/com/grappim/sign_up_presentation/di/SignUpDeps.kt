@@ -2,8 +2,8 @@ package com.grappim.sign_up_presentation.di
 
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.core.utils.ResourceManager
-import com.grappim.navigation.AppRouter
-import com.grappim.navigation.CashierScreens
+import com.grappim.navigation.router.ActivityRouter
+import com.grappim.navigation.screens.CashierScreens
 import com.grappim.network.api.AuthApi
 import com.grappim.network.di.api.QualifierAuthApi
 
@@ -14,5 +14,5 @@ interface SignUpDeps : ComponentDeps {
     @QualifierAuthApi
     fun authApi(): AuthApi
     fun cashierScreens(): CashierScreens
-    fun appRouter(): AppRouter
+    fun appRouter(): ActivityRouter
 }

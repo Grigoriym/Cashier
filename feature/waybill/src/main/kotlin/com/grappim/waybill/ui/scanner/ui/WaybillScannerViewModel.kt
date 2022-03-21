@@ -1,17 +1,15 @@
 package com.grappim.waybill.ui.scanner.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
 import com.grappim.core.SingleLiveEvent
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillProductByBarcodeUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.local.WaybillLocalRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +17,7 @@ class WaybillScannerViewModel @Inject constructor(
     private val getWaybillProductByBarcodeUseCase: GetWaybillProductByBarcodeUseCase,
     private val getProductByBarcodeUseCase: GetProductByBarcodeUseCase,
     private val waybillLocalRepository: WaybillLocalRepository
-) : BaseViewModel2() {
+) : BaseViewModel() {
 
     private val _waybillProduct = SingleLiveEvent<Try<WaybillProduct>>()
     val waybillProduct: LiveData<Try<WaybillProduct>>

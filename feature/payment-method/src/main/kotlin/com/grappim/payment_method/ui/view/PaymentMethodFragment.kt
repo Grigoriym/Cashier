@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.payment_method.di.DaggerPaymentMethodComponent
 import com.grappim.payment_method.di.PaymentMethodComponent
 import com.grappim.payment_method.ui.viewmodel.PaymentMethodViewModel
@@ -24,9 +24,11 @@ class PaymentMethodFragment : BaseFlowFragment<PaymentMethodViewModel>() {
 
     private val component: PaymentMethodComponent by lazy {
         DaggerPaymentMethodComponent
-            .builder()
-            .paymentMethodDeps(findComponentDependencies())
-            .build()
+            .factory()
+            .create(
+                paymentMethodDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
     override val flowRouter: FlowRouter by lazy {
         component.flowRouter()
@@ -61,7 +63,7 @@ class PaymentMethodFragment : BaseFlowFragment<PaymentMethodViewModel>() {
         LoaderDialogCompose(show = loading)
 
         PaymentMethodScreen(
-            onBackClick = viewModel::onBackPressed3,
+            onBackClick = viewModel::onBackPressed,
             itemCount = basketCount,
             basketPrice = basketSum,
             menuItems = viewModel.paymentItems,

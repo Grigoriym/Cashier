@@ -9,16 +9,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.products.presentation.list.di.DaggerProductsListComponent
 import com.grappim.products.presentation.list.di.ProductsListComponent
 import com.grappim.products.presentation.list.ui.viewmodel.ProductListViewModel
 import com.grappim.uikit.theme.CashierTheme
 
-class ProductListFragment : BaseFragment2<ProductListViewModel>() {
+class ProductListFragment : BaseFragment<ProductListViewModel>() {
 
     private val productListComponent: ProductsListComponent by lazy {
         DaggerProductsListComponent
@@ -59,7 +59,7 @@ class ProductListFragment : BaseFragment2<ProductListViewModel>() {
         val index by viewModel.selectedIndex.collectAsState()
 
         ProductsScreen(
-            onBackPressed = viewModel::onBackPressed3,
+            onBackPressed = viewModel::onBackPressed,
             onCreateProductClick = viewModel::showCreateProduct,
             searchText = searchQuery,
             setSearchText = viewModel::searchProducts,

@@ -4,12 +4,10 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.grappim.core.R
 import com.grappim.core.navigation.CashierAppNavigator
-import com.grappim.navigation.BackFragment
 
-abstract class BaseFlowFragment<VM : BaseViewModel2> : BaseFragment2<VM> {
+abstract class BaseFlowFragment<VM : BaseViewModel> : BaseFragment<VM> {
 
     constructor() : super()
     constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
@@ -25,13 +23,16 @@ abstract class BaseFlowFragment<VM : BaseViewModel2> : BaseFragment2<VM> {
         )
     }
 
+    /**
+     * If you have a root fragment and some child fragments,
+     * you need to make a replaceScreen on a flowRouter
+     */
     open fun initialScreen() {
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        flowRouter.setFragmentManager(childFragmentManager)
         flowRouter.setContainerId(containerIdRes)
         if (childFragmentManager.findFragmentById(containerIdRes) == null) {
             initialScreen()
@@ -49,8 +50,6 @@ abstract class BaseFlowFragment<VM : BaseViewModel2> : BaseFragment2<VM> {
     }
 
     override fun onBackPressed() {
-        val fragment = childFragmentManager
-            .findFragmentById(containerIdRes) as? BackFragment
-        fragment?.onBackPressed() ?: viewModel.onBackPressed3()
+        flowRouter.flowOnBackPressed()
     }
 }

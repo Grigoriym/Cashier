@@ -1,6 +1,6 @@
 package com.grappim.sign_up.domain.interactor
 
-import com.grappim.common.asynchronous.SimpleCoroutineUseCase
+import com.grappim.common.asynchronous.usecase.SimpleCoroutineUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.sign_up.domain.model.SignUpData
 import kotlinx.coroutines.CoroutineDispatcher

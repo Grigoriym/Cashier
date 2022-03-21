@@ -1,6 +1,6 @@
 package com.grappim.domain.interactor.cashier
 
-import com.grappim.common.asynchronous.CoroutineUseCase
+import com.grappim.common.asynchronous.usecase.CoroutineUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.lce.NoParams
 import com.grappim.domain.model.cashbox.CashBox

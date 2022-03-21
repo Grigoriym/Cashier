@@ -5,7 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.utilsLogger))
     implementation(Deps.Kotlin.serialization)
 }
 

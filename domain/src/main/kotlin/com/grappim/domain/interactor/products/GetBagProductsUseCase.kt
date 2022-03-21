@@ -1,12 +1,11 @@
 package com.grappim.domain.interactor.products
 
-import com.grappim.common.asynchronous.FlowUseCase
+import com.grappim.common.asynchronous.usecase.FlowUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.lce.NoParams
 import com.grappim.common.lce.Try
 import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.repository.BasketRepository
-import com.grappim.domain.repository.ProductsRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

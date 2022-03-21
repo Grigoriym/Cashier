@@ -6,11 +6,14 @@ import com.grappim.auth.ui.view.AuthFragment
 import com.grappim.bag.ui.view.BagFragment
 import com.grappim.common.di.ActivityScope
 import com.grappim.menu.ui.view.MenuFragment
-import com.grappim.navigation.CashierScreens
+import com.grappim.navigation.screens.CashierScreens
 import com.grappim.payment_method.ui.view.PaymentMethodFragment
 import com.grappim.product_category.presentation.create_edit.ui.view.CreateEditProductCategoryFragment
 import com.grappim.product_category.presentation.list.ui.view.ProductCategoryListFragment
 import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
+import com.grappim.products.presentation.create_edit.ui.view.CreateEditProductFragment
+import com.grappim.products.presentation.list.ui.view.ProductListFragment
+import com.grappim.products.presentation.root.ui.ProductsRootFragment
 import com.grappim.root_presentation.ui.SelectInfoRootFragment
 import com.grappim.sales.ui.SalesFragment
 import com.grappim.scanner.ui.ScannerFragment
@@ -45,19 +48,19 @@ class CashierScreensImpl @Inject constructor(
     }
 
     override fun Products() = FragmentScreen {
-        com.grappim.products.presentation.root.ui.ProductsRootFragment()
+        ProductsRootFragment()
     }
 
     override fun ProductsList() = FragmentScreen {
-        com.grappim.products.presentation.list.ui.view.ProductListFragment()
+        ProductListFragment()
     }
 
     override fun ProductsCreate(args: Bundle) = FragmentScreen {
-        com.grappim.products.presentation.create_edit.ui.view.CreateEditProductFragment.newInstance(args)
+        CreateEditProductFragment.newInstance(args)
     }
 
     override fun ProductsEdit(args: Bundle) = FragmentScreen {
-        com.grappim.products.presentation.create_edit.ui.view.CreateEditProductFragment.newInstance(args)
+        CreateEditProductFragment.newInstance(args)
     }
 
     override fun ProductCategories(fromProduct: Boolean?) = FragmentScreen {

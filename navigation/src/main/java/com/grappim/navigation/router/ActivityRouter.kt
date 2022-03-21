@@ -1,13 +1,16 @@
-package com.grappim.navigation
+package com.grappim.navigation.router
 
-import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.Router
 
-interface AppRouter {
-    val navigatorHolder: NavigatorHolder
+interface ActivityRouter {
+
+    fun setNavigator(navigator: Navigator)
+    fun removeNavigator()
+
     val router: Router
 
-    fun goBack()
+    fun onBackPressed()
 
     fun goToAuth()
     fun goToSignUpFromSignIn()
