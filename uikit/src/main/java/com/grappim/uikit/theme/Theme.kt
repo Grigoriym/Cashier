@@ -12,7 +12,8 @@ private val LightThemeColors = lightColors(
 )
 
 private val DarkThemeColors = darkColors(
-
+    primary = CashierBlue,
+    secondary = CashierBlue
 )
 
 @Composable
@@ -21,7 +22,11 @@ fun CashierTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = LightThemeColors,
+        colors = if (darkTheme) {
+            DarkThemeColors
+        } else {
+            LightThemeColors
+        },
         shapes = CashierShapes,
         content = content
     )

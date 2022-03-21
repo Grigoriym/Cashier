@@ -10,12 +10,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.domain.model.product.Product
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.products.presentation.BundleArgsKeys
 import com.grappim.products.presentation.create_edit.di.CreateEditProductComponent
 import com.grappim.products.presentation.create_edit.di.DaggerCreateEditProductComponent
@@ -26,7 +26,7 @@ import com.grappim.products.presentation.root.ui.ProductsRootViewModel
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
-class CreateEditProductFragment : BaseFragment2<CreateEditProductViewModel>() {
+class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
 
     private val component: CreateEditProductComponent by lazy {
         DaggerCreateEditProductComponent
@@ -101,7 +101,7 @@ class CreateEditProductFragment : BaseFragment2<CreateEditProductViewModel>() {
         LoaderDialogCompose(show = loading)
 
         CreateEditProductScreen(
-            onBackPressed = viewModel::onBackPressed3,
+            onBackPressed = viewModel::onBackPressed,
             onCreateProductClick = viewModel::createEditProduct,
             productName = productName,
             setProductName = viewModel::setProductName,

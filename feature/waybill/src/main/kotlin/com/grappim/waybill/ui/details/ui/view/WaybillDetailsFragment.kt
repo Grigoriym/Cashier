@@ -13,10 +13,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.extensions.padWithZeros
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.ui.details.di.DaggerWaybillDetailsComponent
@@ -26,7 +26,7 @@ import com.grappim.waybill.ui.root.ui.viewmodel.WaybillRootViewModel
 import java.time.LocalDateTime
 import java.util.*
 
-class WaybillDetailsFragment : BaseFragment2<WaybillDetailsViewModel>() {
+class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
 
     private val component: WaybillDetailsComponent by lazy {
         DaggerWaybillDetailsComponent
@@ -81,7 +81,7 @@ class WaybillDetailsFragment : BaseFragment2<WaybillDetailsViewModel>() {
         WaybillDetailsScreen(
             waybill = waybill,
             productsPagingItems = productItems,
-            onBackClick = viewModel::onBackPressed3,
+            onBackClick = viewModel::onBackPressed,
             onSearchClick = viewModel::showSearchProducts,
             onScanClick = viewModel::showScanner,
             onActionClick = {

@@ -1,11 +1,10 @@
 package com.grappim.bag.ui.viewmodel
 
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.model.basket.BasketProduct
 import kotlinx.coroutines.flow.StateFlow
-import java.math.BigDecimal
 
-abstract class BagViewModel : BaseViewModel2() {
+abstract class BagViewModel : BaseViewModel() {
 
     abstract val basketProducts: StateFlow<List<BasketProduct>>
     abstract val basketCount: StateFlow<String>

@@ -10,8 +10,7 @@ import com.grappim.common.di.deps.HasComponentDeps
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.logger.logD
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.root_presentation.R
 import com.grappim.root_presentation.di.DaggerSelectInfoRootComponent
 import com.grappim.root_presentation.di.SelectInfoRootComponent
@@ -25,7 +24,10 @@ class SelectInfoRootFragment : BaseFlowFragment<SelectInfoViewModel>(
     private val component: SelectInfoRootComponent by lazy {
         DaggerSelectInfoRootComponent
             .factory()
-            .create(findComponentDependencies())
+            .create(
+                selectInfoRootDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     override val deps: ComponentDependenciesProvider by lazy {
@@ -68,7 +70,7 @@ class SelectInfoRootFragment : BaseFlowFragment<SelectInfoViewModel>(
 
     override fun onBackPressed() {
         if (viewPager.currentItem == 0) {
-            viewModel.onBackPressed3()
+            viewModel.onBackPressed()
         } else {
             viewPager.currentItem = viewPager.currentItem - 1
         }

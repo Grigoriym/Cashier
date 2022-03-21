@@ -3,7 +3,7 @@ package com.grappim.stock.di
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 
 interface SelectStockDeps : ComponentDeps {
 

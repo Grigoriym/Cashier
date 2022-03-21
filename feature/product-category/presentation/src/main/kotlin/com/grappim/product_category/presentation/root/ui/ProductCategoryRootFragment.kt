@@ -8,8 +8,7 @@ import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.logger.logD
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.product_category.presentation.BundleArgsKeys
 import com.grappim.product_category.presentation.R
 import com.grappim.product_category.presentation.root.di.DaggerProductCategoryRootComponent

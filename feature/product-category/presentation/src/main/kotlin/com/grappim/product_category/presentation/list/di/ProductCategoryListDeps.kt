@@ -1,7 +1,7 @@
 package com.grappim.product_category.presentation.list.di
 
 import com.grappim.common.di.deps.ComponentDeps
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 
 interface ProductCategoryListDeps : ComponentDeps {

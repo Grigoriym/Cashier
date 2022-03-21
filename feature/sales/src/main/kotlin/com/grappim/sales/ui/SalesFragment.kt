@@ -10,12 +10,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.sales.di.DaggerSalesComponent
 import com.grappim.sales.di.SalesComponent
 import com.grappim.uikit.theme.CashierTheme
@@ -24,9 +23,11 @@ class SalesFragment : BaseFlowFragment<SalesViewModel>() {
 
     private val component: SalesComponent by lazy {
         DaggerSalesComponent
-            .builder()
-            .salesDeps(findComponentDependencies())
-            .build()
+            .factory()
+            .create(
+                salesDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
@@ -67,7 +68,7 @@ class SalesFragment : BaseFlowFragment<SalesViewModel>() {
         }
 
         SalesScreen(
-            onBackClick = viewModel::onBackPressed3,
+            onBackClick = viewModel::onBackPressed,
             onScanClick = viewModel::showScanner,
             onBagClick = viewModel::showBasket,
             bagCount = basketCount,

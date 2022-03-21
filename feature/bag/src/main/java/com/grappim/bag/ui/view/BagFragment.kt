@@ -15,16 +15,18 @@ import com.grappim.bag.ui.viewmodel.BagViewModel
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.theme.CashierTheme
 
 class BagFragment : BaseFlowFragment<BagViewModel>() {
 
     private val component: BagComponent by lazy {
         DaggerBagComponent
-            .builder()
-            .bagDeps(findComponentDependencies())
-            .build()
+            .factory()
+            .create(
+                bagDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     override val flowRouter: FlowRouter by lazy {
@@ -58,7 +60,7 @@ class BagFragment : BaseFlowFragment<BagViewModel>() {
         val changedProduct by viewModel.changedProduct.collectAsState()
 
         BagScreen(
-            onBackClick = viewModel::onBackPressed3,
+            onBackClick = viewModel::onBackPressed,
             onScanClick = viewModel::showScanner,
             onPayClick = viewModel::goToPaymentMethod,
             onMinusClick = viewModel::subtractBasketProduct,

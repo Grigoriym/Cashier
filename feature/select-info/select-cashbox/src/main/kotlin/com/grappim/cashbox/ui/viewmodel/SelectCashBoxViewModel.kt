@@ -2,10 +2,10 @@ package com.grappim.cashbox.ui.viewmodel
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.grappim.cashbox.model.CashierProgressItem
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.model.cashbox.CashBox
 
-abstract class SelectCashBoxViewModel : BaseViewModel2() {
+abstract class SelectCashBoxViewModel : BaseViewModel() {
 
     abstract val cashBoxProgressItems: List<CashierProgressItem>
     abstract val selectedCashBox: CashBox?

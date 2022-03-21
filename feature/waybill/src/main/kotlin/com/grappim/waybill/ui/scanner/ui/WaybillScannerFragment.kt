@@ -11,12 +11,12 @@ import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
 import com.grappim.common.lce.Try.Error
 import com.grappim.common.lce.Try.Success
-import com.grappim.core.base.BaseFragment2
+import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.grappim.waybill.R
 import com.grappim.waybill.ui.scanner.di.DaggerWaybillScannerComponent
@@ -24,7 +24,7 @@ import com.grappim.waybill.ui.scanner.di.WaybillScannerComponent
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 
-class WaybillScannerFragment : BaseFragment2<WaybillScannerViewModel>(
+class WaybillScannerFragment : BaseFragment<WaybillScannerViewModel>(
     R.layout.fragment_scanner
 ) {
 

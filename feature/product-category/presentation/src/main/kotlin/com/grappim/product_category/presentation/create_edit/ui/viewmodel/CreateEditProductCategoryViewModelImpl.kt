@@ -2,7 +2,6 @@ package com.grappim.product_category.presentation.create_edit.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
-import com.grappim.navigation.FlowRouter
 import com.grappim.product_category.domain.interactor.CreateProductCategoryUseCase
 import com.grappim.product_category.domain.interactor.EditProductCategoryUseCase
 import com.grappim.product_category.domain.model.ProductCategory

@@ -16,7 +16,7 @@ import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.scanner.R
 import com.grappim.scanner.di.DaggerScannerComponent
 import com.grappim.scanner.di.ScannerComponent
@@ -30,9 +30,11 @@ class ScannerFragment : BaseFlowFragment<ScannerViewModel>(
 
     private val component: ScannerComponent by lazy {
         DaggerScannerComponent
-            .builder()
-            .scannerDeps(findComponentDependencies())
-            .build()
+            .factory()
+            .create(
+                scannerDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
@@ -131,7 +133,7 @@ class ScannerFragment : BaseFlowFragment<ScannerViewModel>(
             )
         )
 
-        viewModel.onBackPressed3()
+        viewModel.onBackPressed()
     }
 
     companion object {

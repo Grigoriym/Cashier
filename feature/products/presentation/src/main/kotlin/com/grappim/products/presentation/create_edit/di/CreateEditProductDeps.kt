@@ -6,7 +6,7 @@ import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import java.time.format.DateTimeFormatter
 

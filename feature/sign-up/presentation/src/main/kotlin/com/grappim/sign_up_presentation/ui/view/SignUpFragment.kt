@@ -10,10 +10,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.base.BaseFragment2
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.sign_up.domain.model.SignUpData
 import com.grappim.sign_up_presentation.di.DaggerSignUpComponent
 import com.grappim.sign_up_presentation.di.SignUpComponent
@@ -25,9 +24,11 @@ class SignUpFragment : BaseFlowFragment<SignUpViewModel>() {
 
     private val component: SignUpComponent by lazy {
         DaggerSignUpComponent
-            .builder()
-            .signUpDeps(findComponentDependencies())
-            .build()
+            .factory()
+            .create(
+                signUpDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {

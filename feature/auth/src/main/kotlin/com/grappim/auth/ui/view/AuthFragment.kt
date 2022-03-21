@@ -13,11 +13,10 @@ import androidx.fragment.app.viewModels
 import com.grappim.auth.di.AuthComponent
 import com.grappim.auth.di.DaggerAuthComponent
 import com.grappim.auth.ui.viewmodel.AuthViewModel
-import com.grappim.common.lce.Try
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 
@@ -25,9 +24,11 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
 
     private val component: AuthComponent by lazy {
         DaggerAuthComponent
-            .builder()
-            .authDeps(findComponentDependencies())
-            .build()
+            .factory()
+            .create(
+                authDeps = findComponentDependencies(),
+                fragmentManager = childFragmentManager
+            )
     }
 
     private val viewModelFactory: MultiViewModelFactory by lazy {
@@ -57,11 +58,11 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
 
     @Composable
     private fun AuthFragmentScreen() {
-        val loginStatus by viewModel.loginStatus.observeAsState(Try.Initial)
+        val loading by viewModel.loading.observeAsState(false)
         val authData by viewModel.authFieldsData.collectAsState()
 
         LoaderDialogCompose(
-            show = loginStatus is Try.Loading
+            show = loading
         )
 
         AuthScreen(

@@ -1,6 +1,6 @@
 package com.grappim.domain.interactor.sales
 
-import com.grappim.common.asynchronous.FlowUseCase
+import com.grappim.common.asynchronous.usecase.FlowUseCase
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.lce.Try
 import com.grappim.domain.model.basket.BasketProduct
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SubtractProductFromBasket @Inject constructor(
     private val basketRepository: BasketRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-):FlowUseCase<SubtractProductFromBasket.Params, BasketProduct>(ioDispatcher) {
+): FlowUseCase<SubtractProductFromBasket.Params, BasketProduct>(ioDispatcher) {
 
     data class Params(
         val product:Product

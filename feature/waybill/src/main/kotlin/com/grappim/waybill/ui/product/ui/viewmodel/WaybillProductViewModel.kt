@@ -2,13 +2,13 @@ package com.grappim.waybill.ui.product.ui.viewmodel
 
 import androidx.compose.runtime.State
 import com.grappim.common.lce.Try
-import com.grappim.core.base.BaseViewModel2
+import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.waybill.ui.product.model.WaybillProductStates
 import java.math.BigDecimal
 
-abstract class WaybillProductViewModel : BaseViewModel2() {
+abstract class WaybillProductViewModel : BaseViewModel() {
     abstract val waybillProductState: State<WaybillProductStates>
     abstract val productCreated: State<Try<BigDecimal>>
 

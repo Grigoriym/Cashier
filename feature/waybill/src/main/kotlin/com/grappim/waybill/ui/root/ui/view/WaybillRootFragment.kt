@@ -6,7 +6,7 @@ import com.grappim.common.di.deps.HasComponentDeps
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.FlowRouter
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.waybill.R
 import com.grappim.waybill.ui.root.di.DaggerWaybillRootComponent
 import com.grappim.waybill.ui.root.di.WaybillRootComponent

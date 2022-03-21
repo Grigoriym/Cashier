@@ -1,4 +1,4 @@
-package com.grappim.navigation
+package com.grappim.navigation.helpers
 
 interface BackFragment {
     fun onBackPressed()

@@ -113,6 +113,6 @@ class WaybillDetailsViewModelImpl @Inject constructor(
     }
 
     private fun waybillCreatedUpdated() {
-        onBackPressed3()
+        onBackPressed()
     }
 }
