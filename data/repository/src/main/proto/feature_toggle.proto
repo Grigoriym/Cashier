@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.grappim.repository.model.datastore";
+option java_multiple_files = true;
+
+message FeatureToggleProto {
+  string merchantId = 1;
+  string stockId = 2;
+  bool isWaybillEnabled = 3;
+  bool isSalesEnabled = 4;
+}

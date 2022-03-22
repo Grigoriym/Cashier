@@ -2,6 +2,7 @@ package com.grappim.network.authenticators
 
 import com.grappim.common.di.NetworkScope
 import com.grappim.domain.storage.GeneralStorage
+import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
@@ -15,11 +16,11 @@ class TokenAuthenticator @Inject constructor(
     override fun authenticate(route: Route?, response: Response): Request? {
         synchronized(this) {
             generalStorage.clearData()
-            navigateToAuth()
+            runBlocking {
+                generalStorage.setAuthErrorFlow(true)
+            }
             return null
         }
     }
 
-    private fun navigateToAuth() {
-    }
 }

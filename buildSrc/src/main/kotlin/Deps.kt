@@ -37,6 +37,11 @@ object Deps {
 
         const val biometricKotlin =
             "androidx.biometric:biometric-ktx:${Versions.AndroidX.biometricKotlin}"
+
+        const val dataStore = "androidx.datastore:datastore:${Versions.AndroidX.dataStore}"
+        const val dataStorePreferences =
+            "androidx.datastore:datastore-preferences:${Versions.AndroidX.dataStorePreferences}"
+        const val splashScreen = "androidx.core:core-splashscreen:${Versions.AndroidX.splashScreen}"
     }
 
     object Compose {
@@ -70,6 +75,8 @@ object Deps {
 
         const val dagger = "com.google.dagger:dagger:${Versions.Google.dagger}"
         const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.Google.dagger}"
+
+        const val protobuf = "com.google.protobuf:protobuf-javalite:${Versions.Google.protobuf}"
     }
 
     object Testing {

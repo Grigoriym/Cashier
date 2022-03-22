@@ -9,6 +9,7 @@ dependencies {
     implementation(project(Modules.navigation))
     implementation(project(Modules.commonDi))
     implementation(project(Modules.dataWorkers))
+    implementation(project(Modules.domain))
 
     implementation(Deps.AndroidX.lifecycleLiveData)
     implementation(Deps.cicerone)

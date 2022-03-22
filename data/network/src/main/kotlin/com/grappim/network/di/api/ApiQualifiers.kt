@@ -19,3 +19,6 @@ annotation class QualifierProductsApi
 
 @Qualifier
 annotation class QualifierBasketApi
+
+@Qualifier
+annotation class QualifierFeatureToggleApi

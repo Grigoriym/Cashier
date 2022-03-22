@@ -40,4 +40,9 @@ object ApiModule {
         retrofit: Retrofit
     ): BasketApi = retrofit.create(BasketApi::class.java)
 
+    @[Provides ApiScope QualifierFeatureToggleApi]
+    fun provideFeatureToggleApi(
+        retrofit: Retrofit
+    ): FeatureToggleApi = retrofit.create(FeatureToggleApi::class.java)
+
 }

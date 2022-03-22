@@ -39,10 +39,10 @@ I do this because I had an experience with an app of such functionality.
 - [x] Move all UI to compose, (only scanner is left without any changes)
 - [ ] Google Sign In, Firebase Authentication
 - [ ] Add tests and all that stuff
-- [ ] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
+- [x] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
 - [ ] Learn proguard and somehow do something with it here
 - [x] Enhance navigation, abstract navigation (kinda made it with the help of Cicerone)
-- [ ] Some modules are kinda useless or a bit messy: core, extensions, app
+- [x] Some modules are kinda useless or a bit messy: core, extensions, app
 - [ ] Add CI and all that cool automated features
 - [ ] I don't know the right way to integrate communication between composeScreen and viewModel, especially when there are many data to send
 - [ ] Make usable caching of data
@@ -53,7 +53,7 @@ I do this because I had an experience with an app of such functionality.
 - [x] In perspective, Dagger 2 is better for multi module app.
 - [x] Using Dagger2 try to remove all inject lateinit
 - [ ] Refactor repositories, they are all app-scoped
-- [ ] Feature flags
+- [x] Feature flags
 - [ ] Guest Mode
 - [ ] Show sth if there are no products/categories etc.
 - [ ] Settings screen

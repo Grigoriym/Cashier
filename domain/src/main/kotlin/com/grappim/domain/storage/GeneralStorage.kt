@@ -2,13 +2,18 @@ package com.grappim.domain.storage
 
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
+import kotlinx.coroutines.flow.Flow
 
 interface GeneralStorage {
+
+    val authErrorFlow: Flow<Boolean>
 
     val cashBoxName: String
     val stockName: String
     val cashBoxId: String
     val stockId: String
+
+    suspend fun setAuthErrorFlow(isError: Boolean)
 
     fun setCashBoxInfo(cashBox: CashBox)
     fun setStockInfo(stock: Stock)

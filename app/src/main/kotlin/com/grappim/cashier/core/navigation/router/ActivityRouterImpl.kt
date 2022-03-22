@@ -38,6 +38,10 @@ class ActivityRouterImpl @Inject constructor(
         currentFragment?.onBackPressed() ?: router.exit()
     }
 
+    override fun returnToInitialScreenOnAuthError() {
+        router.newRootScreen(cashierScreens.AuthScreen())
+    }
+
     override fun goToAuth() {
         router.newRootScreen(cashierScreens.AuthScreen())
     }
