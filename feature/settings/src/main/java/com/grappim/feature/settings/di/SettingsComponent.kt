@@ -1,4 +1,4 @@
-package com.grappim.auth.di
+package com.grappim.feature.settings.di
 
 import androidx.fragment.app.FragmentManager
 import com.grappim.common.asynchronous.di.CoroutinesModule
@@ -12,25 +12,24 @@ import dagger.Component
 
 @[FeatureScope Component(
     modules = [
-        AuthBindsModule::class,
+        SettingsBindsModule::class,
         CoroutinesModule::class,
         FeatureNavigationBindsModule::class
     ],
     dependencies = [
-        AuthDeps::class
+        SettingsDeps::class
     ]
 )]
-internal interface AuthComponent {
+interface SettingsComponent {
 
     @Component.Factory
     interface Factory {
         fun create(
-            authDeps: AuthDeps,
+            settingsDeps: SettingsDeps,
             @[BindsInstance FeatureFragmentManager] fragmentManager: FragmentManager
-        ): AuthComponent
+        ): SettingsComponent
     }
 
     fun viewModelFactory(): MultiViewModelFactory
     fun flowRouter(): FlowRouter
-
 }

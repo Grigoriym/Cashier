@@ -43,4 +43,6 @@ interface FlowRouter {
     fun goToPaymentMethod()
     fun returnToSalesFromPaymentMethod()
 
+    fun goToSettings()
+
 }

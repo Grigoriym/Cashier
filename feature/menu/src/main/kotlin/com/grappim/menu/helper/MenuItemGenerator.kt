@@ -1,5 +1,7 @@
 package com.grappim.menu.helper
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import com.grappim.domain.model.FeatureToggle
 import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.menu.R
@@ -42,6 +44,13 @@ class MenuItemGenerator @Inject constructor(
                 type = MenuItemType.PRODUCT_CATEGORY,
                 text = R.string.title_product_categories,
                 image = R.drawable.ic_store_acceptance
+            )
+        )
+        result.add(
+            MenuItemPm(
+                type = MenuItemType.SETTINGS,
+                text = R.string.title_settings,
+                imageVector = Icons.Filled.Settings
             )
         )
         return result.toList()

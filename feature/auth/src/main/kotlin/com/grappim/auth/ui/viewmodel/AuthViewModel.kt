@@ -17,6 +17,7 @@ abstract class AuthViewModel : BaseViewModel() {
 
     abstract fun goToRegisterFlow()
     abstract fun loginFromIme()
+    abstract fun goToSettings()
     abstract fun setPhone(text: String)
     abstract fun setPassword(text: String)
 

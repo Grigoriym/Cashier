@@ -6,23 +6,26 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.uikit.theme.CashierBlue
-import com.grappim.uikit.theme.CashierGreen
-import com.grappim.uikit.theme.CashierTheme
 import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.menu.R
 import com.grappim.menu.model.MenuItemPm
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.theme.CashierBlue
+import com.grappim.uikit.theme.CashierGreen
+import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 fun MenuScreen(
@@ -137,10 +140,22 @@ private fun MenuItemRow(
             .padding(all = 24.dp)
             .fillMaxWidth()
     ) {
-        Image(
-            painter = painterResource(id = item.image),
-            contentDescription = "Menu item image"
-        )
+        if (item.image != null) {
+            Image(
+                painter = painterResource(id = item.image),
+                contentDescription = "Menu item image"
+            )
+        } else if (item.imageVector != null) {
+            Image(
+                imageVector = item.imageVector,
+                modifier = Modifier
+                    .size(44.dp),
+                colorFilter = ColorFilter.tint(
+                    CashierBlue
+                ),
+                contentDescription = "Menu item image"
+            )
+        }
         Spacer(modifier = Modifier.width(40.dp))
         Text(
             text = stringResource(id = item.text),
@@ -202,6 +217,11 @@ private fun MenuScreenPreview() {
                     type = MenuItemType.ACCEPTANCE,
                     text = R.string.title_acceptance,
                     image = R.drawable.ic_store_acceptance
+                ),
+                MenuItemPm(
+                    type = MenuItemType.SETTINGS,
+                    text = R.string.title_settings,
+                    imageVector = Icons.Filled.Settings
                 )
             ),
             onItemClick = {},

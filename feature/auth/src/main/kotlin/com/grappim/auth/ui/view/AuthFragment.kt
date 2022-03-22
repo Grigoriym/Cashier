@@ -73,7 +73,8 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
             password = authData.password,
             setPassword = viewModel::setPassword,
             isPhoneFullyEntered = authData.isPhoneFullyEntered,
-            onImePasswordActionDone = viewModel::loginFromIme
+            onImePasswordActionDone = viewModel::loginFromIme,
+            onSettingsClick = viewModel::goToSettings
         )
     }
 

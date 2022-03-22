@@ -54,6 +54,10 @@ internal class AuthViewModelImpl @Inject constructor(
         flowRouter.goToSignUpFromSignIn()
     }
 
+    override fun goToSettings() {
+        flowRouter.goToSettings()
+    }
+
     @MainThread
     override fun login(
         mobile: String,

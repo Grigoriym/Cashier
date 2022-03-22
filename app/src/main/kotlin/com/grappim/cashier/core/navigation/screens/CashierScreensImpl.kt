@@ -5,6 +5,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.grappim.auth.ui.view.AuthFragment
 import com.grappim.bag.ui.view.BagFragment
 import com.grappim.common.di.ActivityScope
+import com.grappim.feature.settings.ui.SettingsFragment
 import com.grappim.menu.ui.view.MenuFragment
 import com.grappim.navigation.screens.CashierScreens
 import com.grappim.payment_method.ui.view.PaymentMethodFragment
@@ -117,6 +118,10 @@ class CashierScreensImpl @Inject constructor(
 
     override fun PaymentMethod() = FragmentScreen {
         PaymentMethodFragment()
+    }
+
+    override fun Settings() = FragmentScreen {
+        SettingsFragment()
     }
 
 }

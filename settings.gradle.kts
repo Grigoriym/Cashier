@@ -35,6 +35,7 @@ include(":common:network:serializers")
 include(":common:annotations")
 
 include(":detekt-rules")
+include(":lint-rules")
 
 include(":data:network")
 include(":data:repository")
@@ -68,8 +69,9 @@ include(":feature:product-category:repository")
 include(":feature:products:network")
 include(":feature:products:presentation")
 
+include(":feature:settings")
+
 include(":feature:select-info:select-stock")
 include(":feature:select-info:select-cashbox")
 include(":feature:select-info:root-presentation")
 include(":feature:select-info:common-navigation")
-include(":lint-rules")
