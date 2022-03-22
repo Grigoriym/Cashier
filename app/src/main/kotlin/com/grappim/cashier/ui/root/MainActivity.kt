@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import com.github.terrakok.cicerone.Navigator
 import com.grappim.cashier.R
 import com.grappim.cashier.di.root_activity.DaggerRootActivityComponent
@@ -15,6 +16,7 @@ import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.core.navigation.CashierAppNavigator
 import com.grappim.navigation.router.ActivityRouter
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     HasComponentDeps {
@@ -53,6 +55,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         installSplashScreen()
         super.onCreate(savedInstanceState)
         viewModel.goToAuth()
+
+        lifecycleScope.launch {
+            viewModel.isAuthError
+                .collect {
+                    if (it) {
+                        activityRouter.returnToInitialScreenOnAuthError()
+                    }
+                }
+        }
     }
 
     override fun onResumeFragments() {

@@ -29,7 +29,8 @@ class WorkerHelper @Inject constructor(
                 ExistingWorkPolicy.KEEP,
                 listOf(
                     buildWorkRequest<ProductsWorker>(),
-                    buildWorkRequest<CategoriesWorker>()
+                    buildWorkRequest<CategoriesWorker>(),
+                    buildWorkRequest<FeatureToggleWorker>()
                 )
             ).enqueue()
     }

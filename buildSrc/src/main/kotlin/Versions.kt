@@ -32,6 +32,9 @@ object Versions {
         const val viewPager2 = "1.1.0-beta01"
         const val swipeRefresh = "1.1.0"
         const val biometricKotlin = "1.2.0-alpha04"
+        const val dataStorePreferences = "1.0.0"
+        const val dataStore = "1.0.0"
+        const val splashScreen = "1.0.0-beta01"
 
         object Compose {
             const val core = "1.1.0-rc03"
@@ -48,6 +51,7 @@ object Versions {
         const val zxing = "3.3.0"
 
         const val gms = "4.3.10"
+        const val protobuf = "3.19.4"
     }
 
     object Testing {

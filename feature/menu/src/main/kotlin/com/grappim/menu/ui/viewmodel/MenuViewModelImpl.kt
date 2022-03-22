@@ -3,25 +3,29 @@ package com.grappim.menu.ui.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.model.menu.MenuItemType
+import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.menu.helper.MenuItemGenerator
 import com.grappim.menu.model.MenuItemPm
 import com.grappim.navigation.router.ActivityRouter
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class MenuViewModelImpl @Inject constructor(
     menuItemsGenerator: MenuItemGenerator,
     generalStorage: GeneralStorage,
-    private val activityRouter: ActivityRouter
+    private val activityRouter: ActivityRouter,
+    featureToggleLocalRepository: FeatureToggleLocalRepository
 ) : MenuViewModel() {
 
     override val menuItems: StateFlow<List<MenuItemPm>> =
-        menuItemsGenerator
-            .getItems()
-            .stateIn(
+        featureToggleLocalRepository.featureToggleData
+            .map {
+                menuItemsGenerator.getItems(it)
+            }.stateIn(
                 scope = viewModelScope,
                 started = WhileViewSubscribed,
                 initialValue = emptyList()

@@ -11,6 +11,7 @@ interface ActivityRouter {
     val router: Router
 
     fun onBackPressed()
+    fun returnToInitialScreenOnAuthError()
 
     fun goToAuth()
     fun goToSignUpFromSignIn()

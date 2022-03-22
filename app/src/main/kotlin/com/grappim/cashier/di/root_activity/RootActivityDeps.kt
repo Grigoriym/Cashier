@@ -6,6 +6,7 @@ import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.core.utils.ResourceManager
 import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.domain.repository.*
+import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.repository.local.WaybillLocalRepository
@@ -38,6 +39,8 @@ interface RootActivityDeps : ComponentDeps {
     fun selectCashBoxLocalRepository(): SelectCashBoxLocalRepository
 
     fun productCategoryRepository(): ProductCategoryRepository
+
+    fun featureToggleLocalRepository(): FeatureToggleLocalRepository
 
     @ApplicationContext
     fun appContext(): Context
