@@ -63,14 +63,14 @@ private fun SettingsScreenContent(
         item {
             Spacer(modifier = Modifier.size(20.dp))
         }
-        item {
-            Image(
-                modifier = Modifier
-                    .size(logoSize.dp),
-                painter = painterResource(id = R.drawable.ic_logo),
-                contentDescription = "Logo"
-            )
-        }
+//        item {
+//            Image(
+//                modifier = Modifier
+//                    .size(logoSize.dp),
+//                painter = painterResource(id = R.drawable.ic_logo),
+//                contentDescription = "Logo"
+//            )
+//        }
     }
 }
 

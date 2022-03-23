@@ -15,6 +15,7 @@ import com.grappim.core.MainViewModel
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.core.navigation.CashierAppNavigator
+import com.grappim.logger.logD
 import com.grappim.navigation.router.ActivityRouter
 import kotlinx.coroutines.launch
 
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         lifecycleScope.launch {
             viewModel.isAuthError
                 .collect {
+                    logD("isAuthError $it")
                     if (it) {
                         activityRouter.returnToInitialScreenOnAuthError()
                     }

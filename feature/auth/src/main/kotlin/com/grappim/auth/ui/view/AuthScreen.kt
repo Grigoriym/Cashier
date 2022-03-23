@@ -14,11 +14,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -49,7 +46,8 @@ internal fun AuthScreen(
     setPassword: (String) -> Unit,
     isPhoneFullyEntered: Boolean,
     onImePasswordActionDone: () -> Unit,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    logoCounter: (Int) -> Unit
 ) {
     Scaffold(
         modifier = Modifier,
@@ -64,8 +62,10 @@ internal fun AuthScreen(
             onRegisterClick = onRegisterClick,
             onSignInClick = onSignInClick,
             onImePasswordActionDone = onImePasswordActionDone,
-            onSettingsClick = onSettingsClick
+            onSettingsClick = onSettingsClick,
+            logoCounter = logoCounter
         )
+
     }
 }
 
@@ -80,7 +80,8 @@ private fun AuthScreenContent(
     onRegisterClick: () -> Unit,
     onSignInClick: () -> Unit,
     onImePasswordActionDone: () -> Unit,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    logoCounter: (Int) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -89,6 +90,9 @@ private fun AuthScreenContent(
         targetValue = if (isLogoRotated) 360f else 0f,
         animationSpec = tween(durationMillis = 1000)
     )
+    var logoClickCounter by remember {
+        mutableStateOf(0)
+    }
 
     LazyColumn(
         modifier = modifier
@@ -124,7 +128,8 @@ private fun AuthScreenContent(
                 modifier = Modifier
                     .rotate(rotationAngle)
                     .clickable {
-                               isLogoRotated = !isLogoRotated
+                        isLogoRotated = !isLogoRotated
+                        logoCounter(++logoClickCounter)
                     },
                 painter = painterResource(id = R.drawable.ic_logo),
                 contentDescription = "Logo"
@@ -385,7 +390,8 @@ private fun AuthScreenPreview() {
             setPassword = {},
             isPhoneFullyEntered = false,
             onImePasswordActionDone = {},
-            onSettingsClick = {}
+            onSettingsClick = {},
+            logoCounter = {}
         )
     }
 }
@@ -404,7 +410,8 @@ private fun AuthScreenContentPreview() {
             onRegisterClick = {},
             onSignInClick = {},
             onImePasswordActionDone = {},
-            onSettingsClick = {}
+            onSettingsClick = {},
+            logoCounter = {}
         )
     }
 }
