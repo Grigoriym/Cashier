@@ -4,6 +4,7 @@ import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.navigation.router.ActivityRouter
 import com.grappim.domain.repository.AuthRepository
 import com.grappim.domain.repository.GeneralRepository
+import com.grappim.domain.storage.GeneralStorage
 import com.grappim.navigation.screens.CashierScreens
 import com.grappim.workers.WorkerHelper
 
@@ -15,4 +16,5 @@ interface AuthDeps : ComponentDeps {
 
     fun appRouter(): ActivityRouter
     fun cashierScreens(): CashierScreens
+    fun generalStorage(): GeneralStorage
 }

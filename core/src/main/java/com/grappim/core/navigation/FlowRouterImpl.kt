@@ -143,4 +143,8 @@ class FlowRouterImpl @Inject constructor(
         activityRouter.router.backTo(cashierScreens.Sales())
     }
 
+    override fun goToSettings() {
+        activityRouter.router.navigateTo(cashierScreens.Settings())
+    }
+
 }

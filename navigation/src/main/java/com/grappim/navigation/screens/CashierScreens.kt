@@ -31,4 +31,6 @@ interface CashierScreens {
     fun Sales(): FragmentScreen
     fun Bag(): FragmentScreen
     fun PaymentMethod(): FragmentScreen
+
+    fun Settings(): FragmentScreen
 }

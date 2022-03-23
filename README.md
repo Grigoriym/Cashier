@@ -56,7 +56,7 @@ I do this because I had an experience with an app of such functionality.
 - [x] Feature flags
 - [ ] Guest Mode
 - [ ] Show sth if there are no products/categories etc.
-- [ ] Settings screen
+- [x] Settings screen
 - [ ] android.nonTransitiveRClass=true
 - [ ] some gradle build enhancement, like in aag 2, also there dagger2 tips on scope lifecycle and their holders
 - [ ] what is api and impl modules and how do they work
@@ -66,6 +66,7 @@ I do this because I had an experience with an app of such functionality.
 - [ ] make it more convenient RequestWithAuthToken
 - [ ] make workers' logic on some timestamp or sth like that
 - [ ] Debug panel
+- [ ] Biometrics
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules

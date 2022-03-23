@@ -4,6 +4,7 @@ import com.grappim.auth.di.AuthDeps
 import com.grappim.bag.di.BagDeps
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.ComponentDepsKey
+import com.grappim.feature.settings.di.SettingsDeps
 import com.grappim.menu.di.MenuDeps
 import com.grappim.payment_method.di.PaymentMethodDeps
 import com.grappim.product_category.presentation.root.di.ProductCategoryRootDeps
@@ -72,6 +73,11 @@ interface RootActivityDepsModule {
 
     @[Binds IntoMap ComponentDepsKey(ScannerDeps::class)]
     fun bindScannerDeps(
+        component: RootActivityComponent
+    ): ComponentDeps
+
+    @[Binds IntoMap ComponentDepsKey(SettingsDeps::class)]
+    fun bindSettingsDeps(
         component: RootActivityComponent
     ): ComponentDeps
 }

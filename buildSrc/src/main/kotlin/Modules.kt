@@ -39,6 +39,8 @@ object Modules {
     const val featureProductsPresentation = ":feature:products:presentation"
     const val featureProductsNetwork = ":feature:products:network"
 
+    const val featureSettings = ":feature:settings"
+
     const val commonDb = ":common:db"
     const val commonLce = ":common:lce"
     const val commonAsynchronous = ":common:asynchronous"

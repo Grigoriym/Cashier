@@ -60,6 +60,7 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
     private fun AuthFragmentScreen() {
         val loading by viewModel.loading.observeAsState(false)
         val authData by viewModel.authFieldsData.collectAsState()
+        val snackbar by viewModel.showDevSnackbar.observeAsState()
 
         LoaderDialogCompose(
             show = loading
@@ -73,7 +74,9 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
             password = authData.password,
             setPassword = viewModel::setPassword,
             isPhoneFullyEntered = authData.isPhoneFullyEntered,
-            onImePasswordActionDone = viewModel::loginFromIme
+            onImePasswordActionDone = viewModel::loginFromIme,
+            onSettingsClick = viewModel::goToSettings,
+            logoCounter = viewModel::onLogoClick
         )
     }
 

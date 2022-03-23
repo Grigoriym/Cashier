@@ -1,6 +1,9 @@
 package com.grappim.auth.ui.view
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -10,9 +13,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -39,7 +45,9 @@ internal fun AuthScreen(
     password: String,
     setPassword: (String) -> Unit,
     isPhoneFullyEntered: Boolean,
-    onImePasswordActionDone: () -> Unit
+    onImePasswordActionDone: () -> Unit,
+    onSettingsClick: () -> Unit,
+    logoCounter: (Int) -> Unit
 ) {
     Scaffold(
         modifier = Modifier,
@@ -53,8 +61,11 @@ internal fun AuthScreen(
             isPhoneFullyEntered = isPhoneFullyEntered,
             onRegisterClick = onRegisterClick,
             onSignInClick = onSignInClick,
-            onImePasswordActionDone = onImePasswordActionDone
+            onImePasswordActionDone = onImePasswordActionDone,
+            onSettingsClick = onSettingsClick,
+            logoCounter = logoCounter
         )
+
     }
 }
 
@@ -68,9 +79,20 @@ private fun AuthScreenContent(
     isPhoneFullyEntered: Boolean,
     onRegisterClick: () -> Unit,
     onSignInClick: () -> Unit,
-    onImePasswordActionDone: () -> Unit
+    onImePasswordActionDone: () -> Unit,
+    onSettingsClick: () -> Unit,
+    logoCounter: (Int) -> Unit
 ) {
     val listState = rememberLazyListState()
+
+    var isLogoRotated by rememberSaveable { mutableStateOf(false) }
+    val rotationAngle by animateFloatAsState(
+        targetValue = if (isLogoRotated) 360f else 0f,
+        animationSpec = tween(durationMillis = 1000)
+    )
+    var logoClickCounter by remember {
+        mutableStateOf(0)
+    }
 
     LazyColumn(
         modifier = modifier
@@ -80,11 +102,35 @@ private fun AuthScreenContent(
         state = listState
     ) {
         item {
-            Spacer(modifier = Modifier.height(64.dp))
+            Box(
+                contentAlignment = Alignment.TopEnd,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                IconButton(
+                    modifier = Modifier
+                        .padding(8.dp),
+                    onClick = onSettingsClick
+                ) {
+                    Icon(
+                        modifier = Modifier,
+                        imageVector = Icons.Filled.Settings,
+                        contentDescription = null
+                    )
+                }
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(26.dp))
         }
         item {
             Image(
-                modifier = Modifier,
+                modifier = Modifier
+                    .rotate(rotationAngle)
+                    .clickable {
+                        isLogoRotated = !isLogoRotated
+                        logoCounter(++logoClickCounter)
+                    },
                 painter = painterResource(id = R.drawable.ic_logo),
                 contentDescription = "Logo"
             )
@@ -343,7 +389,9 @@ private fun AuthScreenPreview() {
             password = "",
             setPassword = {},
             isPhoneFullyEntered = false,
-            onImePasswordActionDone = {}
+            onImePasswordActionDone = {},
+            onSettingsClick = {},
+            logoCounter = {}
         )
     }
 }
@@ -361,7 +409,9 @@ private fun AuthScreenContentPreview() {
             isPhoneFullyEntered = false,
             onRegisterClick = {},
             onSignInClick = {},
-            onImePasswordActionDone = {}
+            onImePasswordActionDone = {},
+            onSettingsClick = {},
+            logoCounter = {}
         )
     }
 }

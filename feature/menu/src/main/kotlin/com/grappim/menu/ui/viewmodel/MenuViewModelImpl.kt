@@ -53,6 +53,9 @@ class MenuViewModelImpl @Inject constructor(
             MenuItemType.PRODUCT_CATEGORY -> {
                 showProductCategories()
             }
+            MenuItemType.SETTINGS -> {
+                flowRouter.goToSettings()
+            }
         }
     }
 

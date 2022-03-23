@@ -2,6 +2,7 @@ package com.grappim.cashier.di.root_activity
 
 import com.grappim.auth.di.AuthDeps
 import com.grappim.bag.di.BagDeps
+import com.grappim.feature.settings.di.SettingsDeps
 import com.grappim.menu.di.MenuDeps
 import com.grappim.payment_method.di.PaymentMethodDeps
 import com.grappim.product_category.presentation.root.di.ProductCategoryRootDeps
@@ -22,4 +23,5 @@ interface FeatureDeps : AuthDeps,
     WaybillRootDeps,
     ProductsRootDeps,
     ProductCategoryRootDeps,
-    ScannerDeps
+    ScannerDeps,
+    SettingsDeps

@@ -171,6 +171,8 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.featureMenu))
             implementation(project(Modules.featureScanner))
 
+            implementation(project(Modules.featureSettings))
+
             implementation(project(Modules.featureProductsPresentation))
             implementation(project(Modules.featureProductsNetwork))
 

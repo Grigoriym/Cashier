@@ -1,12 +1,15 @@
 package com.grappim.auth.ui.viewmodel
 
+import androidx.lifecycle.LiveData
 import com.grappim.auth.model.AuthTextFieldsData
+import com.grappim.auth.model.DevSnackbar
 import com.grappim.core.base.BaseViewModel
 import kotlinx.coroutines.flow.StateFlow
 
 abstract class AuthViewModel : BaseViewModel() {
 
     abstract val authFieldsData: StateFlow<AuthTextFieldsData>
+    abstract val showDevSnackbar: LiveData<DevSnackbar>
 
     abstract fun login()
 
@@ -17,7 +20,9 @@ abstract class AuthViewModel : BaseViewModel() {
 
     abstract fun goToRegisterFlow()
     abstract fun loginFromIme()
+    abstract fun goToSettings()
     abstract fun setPhone(text: String)
     abstract fun setPassword(text: String)
+    abstract fun onLogoClick(counter: Int)
 
 }
