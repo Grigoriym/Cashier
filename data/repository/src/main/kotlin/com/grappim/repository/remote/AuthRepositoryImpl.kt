@@ -34,7 +34,6 @@ class AuthRepositoryImpl @Inject constructor(
             )
             val oldMerchantId = generalStorage.getMerchantIdNullable()
             if (oldMerchantId != response.merchantId) {
-                logD("$this repo: clearing data")
                 generalStorage.clearData()
                 dataClearHelper.clearDb()
             }

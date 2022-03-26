@@ -83,6 +83,8 @@
     <string name="action_pay">Pay</string>
     <string name="action_add_product">Add product</string>
     <string name="action_update_product">Update product</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
 
     <string name="action_conduct">Conduct</string>
     <string name="action_rollback">Rollback</string>
@@ -95,6 +97,14 @@
     <string name="sign_up_email_empty">Please enter an email</string>
     <string name="sign_up_email_validity">Please enter a valid email</string>
     <string name="sign_up_password_empty">Please enter a password</string>
+
+    <string name="prompt_info_title">Sample App Authentication</string>
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">Sample App is using Android biometric authentication</string>
+    <string name="prompt_info_use_app_password">Use app password</string>
+
+    <string name="biometrics_dialog_set_touch_id">Set Touch Id?</string>
+    <string name="biometrics_dialog_description">It gives you a more secure way to sign in</string>
 
     <!--    Errors-->
     <string name="error_something_has_gone_wrong">Something went wrong</string>

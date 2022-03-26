@@ -5,25 +5,23 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.di.AppScope
 import com.grappim.common.di.ApplicationContext
+import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
-import com.grappim.logger.logE
 import com.grappim.repository.utils.string
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @AppScope
 class GeneralStorageImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @ApplicationContext private val context: Context
 ) : GeneralStorage {
 
     companion object {
@@ -42,6 +40,7 @@ class GeneralStorageImpl @Inject constructor(
         private const val AUTH_TOKEN = "auth_token"
 
         private const val AUTH_ERROR = "auth_error"
+        private const val BIOMETRICS_STATUS = "biometrics_status"
     }
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = FLOW_STORAGE_NAME)
@@ -54,10 +53,17 @@ class GeneralStorageImpl @Inject constructor(
 
     private val editor = sharedPreferences.edit()
 
-    private val AUTHENTICATION_ERROR = booleanPreferencesKey(AUTH_ERROR)
+    private val AUTHENTICATION_ERROR_KEY = booleanPreferencesKey(AUTH_ERROR)
     override val authErrorFlow: Flow<Boolean> = context.dataStore.data
         .map { preferences ->
-            preferences[AUTHENTICATION_ERROR] ?: false
+            preferences[AUTHENTICATION_ERROR_KEY] ?: false
+        }
+
+    private val BIOMETRICS_STATUS_KEY = stringPreferencesKey(BIOMETRICS_STATUS)
+    override val biometricsStatus: Flow<BiometricsStatus> = context.dataStore.data
+        .map { preferences ->
+            val foundPrefs = preferences[BIOMETRICS_STATUS_KEY]
+            BiometricsStatus.from(foundPrefs)
         }
 
     override var cashBoxName: String by sharedPreferences.string(CASH_BOX_NAME)
@@ -68,9 +74,15 @@ class GeneralStorageImpl @Inject constructor(
 
     override var stockId: String by sharedPreferences.string(STOCK_ID)
 
+    override suspend fun setBiometricsStatus(status: BiometricsStatus) {
+        context.dataStore.edit { settings ->
+            settings[BIOMETRICS_STATUS_KEY] = status.name
+        }
+    }
+
     override suspend fun setAuthErrorFlow(isError: Boolean) {
         context.dataStore.edit { settings ->
-            settings[AUTHENTICATION_ERROR] = isError
+            settings[AUTHENTICATION_ERROR_KEY] = isError
         }
     }
 
@@ -108,8 +120,12 @@ class GeneralStorageImpl @Inject constructor(
     override fun getBearerAuthToken(): String =
         "Bearer ${getStringValue(AUTH_TOKEN)}"
 
-    override fun clearData() {
+    override suspend fun clearData() {
+        logD("Clearing GeneralStorage")
         editor.clear().apply()
+        context.dataStore.edit {
+            it.clear()
+        }
     }
 
     private fun getStringValue(key: String): String =

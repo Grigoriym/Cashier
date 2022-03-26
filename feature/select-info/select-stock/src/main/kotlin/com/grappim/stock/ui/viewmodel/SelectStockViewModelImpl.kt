@@ -8,6 +8,7 @@ import com.grappim.domain.interactor.outlet.GetStocksUseCase
 import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
+import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import com.grappim.stock.R
 import com.grappim.stock.model.StockProgressItem
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class SelectStockViewModelImpl @Inject constructor(
     private val getStocksUseCase: GetStocksUseCase,
     private val saveStockInfoUseCase: SaveStockInfoUseCase,
-    private val selectStockLocalRepository: SelectStockLocalRepository
+    private val selectStockLocalRepository: SelectStockLocalRepository,
+    private val generalStorage: GeneralStorage
 ) : SelectStockViewModel() {
 
     override val stockProgresses: List<StockProgressItem> = getStockProgressItems()
@@ -70,8 +72,13 @@ class SelectStockViewModelImpl @Inject constructor(
         )
 
     override fun onCleared() {
-        logD("${this} viewModel onCleared")
         selectStockLocalRepository.clear()
         super.onCleared()
+    }
+
+    override fun clearData() {
+        viewModelScope.launch {
+            generalStorage.clearData()
+        }
     }
 }
