@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
@@ -47,7 +48,9 @@ internal fun AuthScreen(
     isPhoneFullyEntered: Boolean,
     onImePasswordActionDone: () -> Unit,
     onSettingsClick: () -> Unit,
-    logoCounter: (Int) -> Unit
+    logoCounter: (Int) -> Unit,
+    showBiometrics: Boolean,
+    onShowBiometricsClick: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier,
@@ -63,7 +66,9 @@ internal fun AuthScreen(
             onSignInClick = onSignInClick,
             onImePasswordActionDone = onImePasswordActionDone,
             onSettingsClick = onSettingsClick,
-            logoCounter = logoCounter
+            logoCounter = logoCounter,
+            showBiometrics = showBiometrics,
+            onShowBiometricsClick = onShowBiometricsClick
         )
 
     }
@@ -81,7 +86,9 @@ private fun AuthScreenContent(
     onSignInClick: () -> Unit,
     onImePasswordActionDone: () -> Unit,
     onSettingsClick: () -> Unit,
-    logoCounter: (Int) -> Unit
+    logoCounter: (Int) -> Unit,
+    showBiometrics: Boolean,
+    onShowBiometricsClick: () -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -156,7 +163,9 @@ private fun AuthScreenContent(
         item {
             SignInButton(
                 onSignInClick = onSignInClick,
-                isEnabled = isPhoneFullyEntered && password.isNotEmpty()
+                isEnabled = isPhoneFullyEntered && password.isNotEmpty(),
+                showBiometrics = showBiometrics,
+                onShowBiometricsClick = onShowBiometricsClick
             )
         }
 
@@ -215,10 +224,11 @@ private fun TextFieldsComponent(
 @Composable
 private fun SignInButton(
     onSignInClick: () -> Unit,
-    isEnabled: Boolean
+    isEnabled: Boolean,
+    showBiometrics: Boolean,
+    onShowBiometricsClick: () -> Unit
 ) {
-    Button(
-        onClick = onSignInClick,
+    Row(
         modifier = Modifier
             .fillMaxWidth(
                 fraction = 0.8f
@@ -227,23 +237,40 @@ private fun SignInButton(
                 start = 32.dp,
                 end = 32.dp,
                 top = 16.dp
-            ),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = CashierBlue
-        ),
-        shape = RoundedCornerShape(25.dp),
-        enabled = isEnabled
+            )
     ) {
-        Text(
-            text = stringResource(id = R.string.action_sign_in),
-            color = Color.White,
-            fontSize = 17.sp,
+        if (showBiometrics) {
+            IconButton(
+                modifier = Modifier
+                    .padding(
+                        end = 8.dp
+                    ),
+                onClick = onShowBiometricsClick,
+            ) {
+                Icon(imageVector = Icons.Filled.Fingerprint, contentDescription = "")
+            }
+        }
+        Button(
+            onClick = onSignInClick,
             modifier = Modifier
-                .padding(
-                    top = 4.dp,
-                    bottom = 4.dp
-                )
-        )
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = CashierBlue
+            ),
+            shape = RoundedCornerShape(25.dp),
+            enabled = isEnabled
+        ) {
+            Text(
+                text = stringResource(id = R.string.action_sign_in),
+                color = Color.White,
+                fontSize = 17.sp,
+                modifier = Modifier
+                    .padding(
+                        top = 4.dp,
+                        bottom = 4.dp
+                    )
+            )
+        }
     }
 }
 
@@ -391,7 +418,9 @@ private fun AuthScreenPreview() {
             isPhoneFullyEntered = false,
             onImePasswordActionDone = {},
             onSettingsClick = {},
-            logoCounter = {}
+            logoCounter = {},
+            showBiometrics = true,
+            onShowBiometricsClick = {}
         )
     }
 }
@@ -411,7 +440,9 @@ private fun AuthScreenContentPreview() {
             onSignInClick = {},
             onImePasswordActionDone = {},
             onSettingsClick = {},
-            logoCounter = {}
+            logoCounter = {},
+            showBiometrics = true,
+            onShowBiometricsClick = {}
         )
     }
 }

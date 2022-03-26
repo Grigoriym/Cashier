@@ -54,6 +54,11 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
         }
     )
 
+    override fun onBackPressed() {
+        viewModel.clearData()
+        super.onBackPressed()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,7 +78,9 @@ class SelectStockFragment : BaseFragment<SelectStockViewModel>() {
         val selectedStock by viewModel.selectedStock.collectAsState()
 
         SelectStockScreen(
-            onBackButtonPressed = viewModel::onBackPressed,
+            onBackButtonPressed = {
+                onBackPressed()
+            },
             stockProgressItems = viewModel.stockProgresses,
             stockItems = stocksResult,
             onRefresh = viewModel::getStocks,

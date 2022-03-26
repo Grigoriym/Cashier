@@ -1,5 +1,6 @@
 package com.grappim.domain.storage
 
+import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 import kotlinx.coroutines.flow.Flow
@@ -12,6 +13,8 @@ interface GeneralStorage {
     val stockName: String
     val cashBoxId: String
     val stockId: String
+
+    val biometricsStatus: Flow<BiometricsStatus>
 
     suspend fun setAuthErrorFlow(isError: Boolean)
 
@@ -29,6 +32,7 @@ interface GeneralStorage {
 
     fun getBearerAuthToken(): String
 
-    fun clearData()
+    suspend fun clearData()
+    suspend fun setBiometricsStatus(status: BiometricsStatus)
 
 }

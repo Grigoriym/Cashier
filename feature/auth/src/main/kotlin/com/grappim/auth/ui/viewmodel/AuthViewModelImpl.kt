@@ -1,36 +1,52 @@
 package com.grappim.auth.ui.viewmodel
 
+import android.content.Intent
 import androidx.annotation.MainThread
 import androidx.lifecycle.viewModelScope
+import com.grappim.auth.biometric.BiometricPromptUtils
 import com.grappim.auth.model.AuthTextFieldsData
+import com.grappim.auth.model.BiometricsDialogClickState
+import com.grappim.auth.model.BiometricsState
 import com.grappim.auth.model.DevSnackbar
 import com.grappim.common.lce.Try
 import com.grappim.core.SingleLiveEvent
+import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.login.LoginUseCase
+import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage
+import com.grappim.logger.logD
 import com.grappim.workers.WorkerHelper
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class AuthViewModelImpl @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val generalRepository: GeneralRepository,
     private val workerHelper: WorkerHelper,
-    private val generalStorage: GeneralStorage
+    private val generalStorage: GeneralStorage,
+    private val biometricPromptUtils: BiometricPromptUtils
 ) : AuthViewModel() {
 
     init {
         viewModelScope.launch {
             generalStorage.setAuthErrorFlow(false)
         }
-        clearData()
     }
 
     override val authFieldsData = MutableStateFlow(AuthTextFieldsData.empty())
 
     override val showDevSnackbar = SingleLiveEvent<DevSnackbar>()
+    override val setFingerprintEvent = SingleLiveEvent<BiometricsState>()
+    override val dialogAnswer = SingleLiveEvent<BiometricsDialogClickState>()
+
+    override val biometricsIntent = SingleLiveEvent<Intent>()
+
+    override val biometricsStatus: Flow<BiometricsStatus?>
+        get() = generalStorage.biometricsStatus
 
     override fun setPassword(text: String) {
         val oldValue = authFieldsData.value
@@ -95,8 +111,8 @@ internal class AuthViewModelImpl @Inject constructor(
                 _loading.value = it is Try.Loading
                 when (it) {
                     is Try.Success -> {
-                        workerHelper.startTokenRefresherWorker()
-                        flowRouter.goToSelectInfo()
+                        authSuccess()
+
                     }
                     is Try.Error -> {
                         _error.value = it.exception
@@ -106,10 +122,48 @@ internal class AuthViewModelImpl @Inject constructor(
         }
     }
 
-    private fun clearData() {
-        viewModelScope.launch {
-            generalRepository.clearData()
+    private fun doOnSuccess() {
+        workerHelper.startTokenRefresherWorker()
+        flowRouter.goToSelectInfo()
+    }
+
+    private fun showBiometricPrompt() {
+        val biometricPrompt = biometricPromptUtils.createBiometricPrompt {
+            doOnSuccess()
         }
+        val promptInfo = biometricPromptUtils.createPromptInfo()
+        biometricPrompt.authenticate(promptInfo)
+    }
+
+    override fun setDialogAnswer(answer: BiometricsDialogClickState) {
+        viewModelScope.launch {
+            setFingerprintEvent.value = BiometricsState.ShowNothing
+            dialogAnswer.value = answer
+            when (answer) {
+                BiometricsDialogClickState.Positive -> {
+                    generalStorage.setBiometricsStatus(BiometricsStatus.SET)
+                    biometricPromptUtils.checkBiometricsAvailability(
+                        doOnSuccess = {
+                            showBiometricPrompt()
+                        },
+                        doOnError = {
+                            _error.value = IllegalArgumentException("lol")
+                        },
+                        doOnNoneEnrolled = {
+                            biometricsIntent.value = it
+                        }
+                    )
+                }
+                BiometricsDialogClickState.Negative -> {
+                    generalStorage.setBiometricsStatus(BiometricsStatus.REFUSED)
+                    doOnSuccess()
+                }
+            }
+        }
+    }
+
+    private fun authSuccess() {
+        setFingerprintEvent.value = BiometricsState.ShowPrompt
     }
 
 }

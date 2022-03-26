@@ -1,5 +1,6 @@
 package com.grappim.auth.di
 
+import com.grappim.auth.biometric.BiometricPromptUtils
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.navigation.router.ActivityRouter
 import com.grappim.domain.repository.AuthRepository
@@ -17,4 +18,5 @@ interface AuthDeps : ComponentDeps {
     fun appRouter(): ActivityRouter
     fun cashierScreens(): CashierScreens
     fun generalStorage(): GeneralStorage
+    fun biometricPromptUtils(): BiometricPromptUtils
 }

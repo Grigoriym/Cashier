@@ -22,11 +22,12 @@ fun CashierTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = if (darkTheme) {
-            DarkThemeColors
-        } else {
-            LightThemeColors
-        },
+//        colors = if (darkTheme) {
+//            DarkThemeColors
+//        } else {
+//            LightThemeColors
+//        },
+        colors = LightThemeColors,
         shapes = CashierShapes,
         content = content
     )

@@ -1,6 +1,7 @@
 package com.grappim.auth.di
 
 import androidx.fragment.app.FragmentManager
+import com.grappim.auth.biometric.BiometricPromptUtils
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FeatureFragmentManager
 import com.grappim.common.di.FeatureScope
@@ -32,5 +33,6 @@ internal interface AuthComponent {
 
     fun viewModelFactory(): MultiViewModelFactory
     fun flowRouter(): FlowRouter
+    fun biometricPromptUtils(): BiometricPromptUtils
 
 }
