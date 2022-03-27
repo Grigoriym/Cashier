@@ -57,7 +57,7 @@ class MenuFragment : BaseFlowFragment<MenuViewModel>() {
     private fun MenuFragmentScreen() {
         val cashierName by viewModel.cashierName.collectAsState()
         val items by viewModel.menuItems.collectAsState()
-error("asd")
+
         MenuScreen(
             cashierName = cashierName,
             items = items,
