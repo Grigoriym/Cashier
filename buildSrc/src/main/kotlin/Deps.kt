@@ -65,8 +65,6 @@ object Deps {
         const val paging = "androidx.paging:paging-compose:${Versions.AndroidX.Compose.paging}"
         const val constraint =
             "androidx.constraintlayout:constraintlayout-compose:${Versions.AndroidX.Compose.constraint}"
-        const val navigation =
-            "androidx.navigation:navigation-compose:${Versions.AndroidX.Compose.navigation}"
     }
 
     object Google {
@@ -96,6 +94,7 @@ object Deps {
     object Firebase {
         const val bom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
     }
 
     object Rx2 {

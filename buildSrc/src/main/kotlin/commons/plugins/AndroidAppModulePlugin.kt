@@ -27,7 +27,7 @@ internal class AndroidAppModulePlugin : Plugin<Project> {
                 configurePlugins()
                 configureAndroidBlock()
                 configureBuildVariants()
-                getCommonVariantFilters()
+                ignoreCommonVariantFilters()
                 configureCommonDependencies()
                 configureCommonTestDependencies()
             }
@@ -40,21 +40,23 @@ private fun Project.configurePlugins() =
         getCommonPlugins()
 
         plugins.apply(Plugins.googleServices)
+        plugins.apply(Plugins.crashlytics)
         plugins.apply(Plugins.detekt)
 
-        turnOffGoogleServicesOnDebugBuilds()
+//        turnOffGoogleServicesOnDebugBuilds()
     }
 
 private fun Project.turnOffGoogleServicesOnDebugBuilds() =
     extensions.getByType<BaseAppModuleExtension>().run {
         applicationVariants.all {
-            println("asd ${this.name}")
-            if (this.name.contains("qa") ||
-                this.name.contains("dev")
+            println("turnOffGoogleServicesOnDebugBuilds taskName: ${this.name}")
+            if ((this.name.contains(ProductFlavorQa.name, true) ||
+                        (this.name.contains(ProductFlavorDev.name, true) &&
+                                !this.name.contains(BuildTypeDebug.name, true)))
             ) {
                 tasks.all {
-                    println("asd tasks: ${this.name}")
                     if (this.name.contains("GoogleServices")) {
+                        println("asd tasks GoogleServices: ${this.name}")
                         this.enabled = false
                     }
                 }
@@ -196,6 +198,7 @@ private fun Project.getAppDependencies() {
 
             implementation(platform(Deps.Firebase.bom))
             implementation(Deps.Firebase.analytics)
+            implementation(Deps.Firebase.crashlytics)
 
             implementation(Deps.AndroidX.constraintLayout)
             implementation(Deps.AndroidX.viewPager2)
@@ -220,7 +223,6 @@ private fun Project.getAppDependencies() {
             implementation(Deps.Compose.lifecycleViewModel)
             implementation(Deps.Compose.paging)
             implementation(Deps.Compose.constraint)
-            implementation(Deps.Compose.navigation)
 
             implementation(Deps.accompanistSwipeRefresh)
 

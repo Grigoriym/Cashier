@@ -22,6 +22,7 @@ object Plugins {
     const val detekt = "io.gitlab.arturbosch.detekt"
     const val gradleVersions = "com.github.ben-manes.versions"
     const val gradleDoctor = "com.osacky.doctor"
+    const val crashlytics = "com.google.firebase.crashlytics"
 
     const val googleServices = "com.google.gms.google-services"
 

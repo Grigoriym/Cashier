@@ -69,6 +69,9 @@ I do this because I had an experience with an app of such functionality.
 - [x] Biometrics
 - [ ] GridLayout possibility in products
 - [ ] SafetyNet attestation API
+- [ ] Firebase services
+- [ ] Publish app to googlePlay, appGallery, galaxyStore
+- [ ] Analytics
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules

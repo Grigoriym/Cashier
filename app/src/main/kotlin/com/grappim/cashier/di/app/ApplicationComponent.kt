@@ -30,7 +30,8 @@ Component(
         CoroutinesModule::class,
         WorkersModule::class,
         AppComponentDepsModule::class,
-        SerializationModule::class
+        SerializationModule::class,
+        AnalyticsBindsModule::class
     ],
     dependencies = [
 
@@ -41,7 +42,7 @@ interface ApplicationComponent : RootActivityDeps {
     @Component.Factory
     interface Factory {
         fun create(
-            @BindsInstance @ApplicationContext context: Context
+            @[BindsInstance ApplicationContext] context: Context
         ): ApplicationComponent
     }
 

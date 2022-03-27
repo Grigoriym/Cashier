@@ -5,4 +5,5 @@ object BuildPlugins {
         "org.jetbrains.kotlin:kotlin-serialization:${Versions.Kotlin.core}"
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
     const val googleServices = "com.google.gms:google-services:${Versions.Google.gms}"
+    const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:${Versions.Google.crashlyticsGradle}"
 }
