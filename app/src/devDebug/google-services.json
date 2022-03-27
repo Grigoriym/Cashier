@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1006827150793",
+    "project_id": "cashier-330106",
+    "storage_bucket": "cashier-330106.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006827150793:android:cc42f8443bf54bd7519c18",
+        "android_client_info": {
+          "package_name": "com.grappim.cashier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006827150793-rb9gtnpm54v3nbjj5pa21dpc6ddre89t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5XwAJ2RbOdMSLk2uRonh9Zr5vJSvjBAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006827150793-rb9gtnpm54v3nbjj5pa21dpc6ddre89t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006827150793:android:3228b48b71daf40d519c18",
+        "android_client_info": {
+          "package_name": "com.grappim.cashier.dev.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006827150793-rb9gtnpm54v3nbjj5pa21dpc6ddre89t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5XwAJ2RbOdMSLk2uRonh9Zr5vJSvjBAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006827150793-rb9gtnpm54v3nbjj5pa21dpc6ddre89t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

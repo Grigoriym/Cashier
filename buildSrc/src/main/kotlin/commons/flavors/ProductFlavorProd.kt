@@ -12,7 +12,6 @@ object ProductFlavorProd : BuildProductFlavor {
         namedDomainObjectContainer: NamedDomainObjectContainer<ProductFlavor>
     ): ProductFlavor =
         namedDomainObjectContainer.create(name) {
-//            versionNameSuffix = "-prod"
             dimension = ConfigData.FLAVOR_ENVIRONMENT
         }
 
@@ -20,8 +19,6 @@ object ProductFlavorProd : BuildProductFlavor {
         namedDomainObjectContainer: NamedDomainObjectContainer<ApplicationProductFlavor>
     ): ApplicationProductFlavor =
         namedDomainObjectContainer.create(name) {
-//            applicationIdSuffix = ".prod"
-//            versionNameSuffix = "-prod"
             dimension = ConfigData.FLAVOR_ENVIRONMENT
         }
 }

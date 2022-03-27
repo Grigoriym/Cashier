@@ -11,6 +11,7 @@ buildscript {
         classpath(BuildPlugins.kotlinSerialization)
 
         classpath(BuildPlugins.googleServices)
+        classpath(BuildPlugins.crashlytics)
     }
 }
 

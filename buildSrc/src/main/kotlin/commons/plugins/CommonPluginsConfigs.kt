@@ -127,7 +127,7 @@ internal fun Project.getCommonLibraryBuildVariants() =
         }
     }
 
-internal fun Project.getCommonVariantFilters() =
+internal fun Project.ignoreCommonVariantFilters() =
     extensions.getByType<BaseExtension>().run {
         variantFilter {
             val flavorNames = flavors.map { it.name }

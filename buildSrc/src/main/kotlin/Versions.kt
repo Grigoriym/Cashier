@@ -24,9 +24,9 @@ object Versions {
         const val fragment = "1.4.1"
         const val activity = "1.4.0"
         const val constraint = "2.1.3"
-        const val paging = "3.1.0"
-        const val lifecycle = "2.4.0"
-        const val room = "2.4.1"
+        const val paging = "3.1.1"
+        const val lifecycle = "2.4.1"
+        const val room = "2.4.2"
         const val workManager = "2.7.1"
         const val startup = "1.1.0"
         const val viewPager2 = "1.1.0-beta01"
@@ -34,14 +34,13 @@ object Versions {
         const val biometricKotlin = "1.2.0-alpha04"
         const val dataStorePreferences = "1.0.0"
         const val dataStore = "1.0.0"
-        const val splashScreen = "1.0.0-beta01"
+        const val splashScreen = "1.0.0-beta02"
 
         object Compose {
-            const val core = "1.1.0-rc03"
+            const val core = "1.1.1"
             const val lifecycle = "2.4.0"
             const val paging = "1.0.0-alpha14"
             const val constraint = "1.0.0"
-            const val navigation = "2.4.0-alpha10"
         }
     }
 
@@ -52,6 +51,7 @@ object Versions {
 
         const val gms = "4.3.10"
         const val protobuf = "3.19.4"
+        const val crashlyticsGradle = "2.8.1"
     }
 
     object Testing {
@@ -71,7 +71,7 @@ object Versions {
 
     const val lint = "30.0.4"
 
-    const val firebaseBom = "28.4.2"
+    const val firebaseBom = "29.3.0"
 
     const val accompanist = "0.20.2"
 

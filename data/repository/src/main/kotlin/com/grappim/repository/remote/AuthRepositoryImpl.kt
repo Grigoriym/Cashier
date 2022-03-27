@@ -2,6 +2,7 @@ package com.grappim.repository.remote
 
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
+import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.repository.AuthRepository
 import com.grappim.domain.storage.GeneralStorage
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     @QualifierAuthApi private val authApi: AuthApi,
     private val generalStorage: GeneralStorage,
-    private val dataClearHelper: DataClearHelper
+    private val dataClearHelper: DataClearHelper,
+    private val crashesAnalytics: CrashesAnalytics
 ) : AuthRepository {
 
     override fun login(
@@ -43,6 +45,9 @@ class AuthRepositoryImpl @Inject constructor(
                 merchantName = response.merchantName
             )
             generalStorage.setAuthToken(response.token)
+
+            crashesAnalytics.setUserId(response.merchantId)
+            crashesAnalytics.userName(response.merchantName)
 
             emit(Try.Success(Unit))
         }

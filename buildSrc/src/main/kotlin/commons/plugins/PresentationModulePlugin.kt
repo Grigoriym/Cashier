@@ -1,6 +1,5 @@
 package commons.plugins
 
-import Plugins
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -37,7 +36,7 @@ private fun Project.configureAndroidBlock() =
 private fun Project.configureLibraryBuildVariants() =
     extensions.getByType<BaseExtension>().run {
         getCommonLibraryBuildVariants()
-        getCommonVariantFilters()
+        ignoreCommonVariantFilters()
     }
 
 private fun Project.configureCommonDependencies() {
