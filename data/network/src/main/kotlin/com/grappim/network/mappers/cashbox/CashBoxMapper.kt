@@ -2,25 +2,18 @@ package com.grappim.network.mappers.cashbox
 
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.network.model.cashbox.CashBoxDTO
-import javax.inject.Inject
 
-class CashBoxMapper @Inject constructor(
+fun CashBoxDTO.toDomain(): CashBox =
+    CashBox(
+        name = this.name,
+        cashBoxId = this.cashBoxId,
+        merchantId = this.merchantId,
+        stockId = this.stockId
+    )
 
-) {
-
-    suspend fun dtoToDomain(from: CashBoxDTO): CashBox =
-        CashBox(
-            name = from.name,
-            cashBoxId = from.cashBoxId,
-            merchantId = from.merchantId,
-            stockId = from.stockId
-        )
-
-    suspend fun dtoToDomainList(from: List<CashBoxDTO>): List<CashBox> =
-        ArrayList<CashBox>(from.size).apply {
-            from.forEach {
-                add(dtoToDomain(it))
-            }
+fun List<CashBoxDTO>.toDomain(): List<CashBox> =
+    ArrayList<CashBox>(this.size).apply {
+        this@toDomain.forEach {
+            add(it.toDomain())
         }
-
-}
+    }

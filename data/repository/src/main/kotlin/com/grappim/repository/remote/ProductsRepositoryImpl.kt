@@ -22,7 +22,6 @@ import com.grappim.network.api.BasketApi
 import com.grappim.network.api.ProductsApi
 import com.grappim.network.di.api.QualifierBasketApi
 import com.grappim.network.di.api.QualifierProductsApi
-import com.grappim.network.mappers.products.ProductMapper
 import com.grappim.network.mappers.products.toDomain
 import com.grappim.network.mappers.products.toEntity
 import com.grappim.network.model.products.*
@@ -36,7 +35,6 @@ import javax.inject.Inject
 @AppScope
 class ProductsRepositoryImpl @Inject constructor(
     private val productsDao: ProductsDao,
-    private val productMapper: ProductMapper,
     private val basketDao: BasketDao,
     private val generalStorage: GeneralStorage,
     @QualifierProductsApi private val productsApi: ProductsApi,
@@ -71,7 +69,7 @@ class ProductsRepositoryImpl @Inject constructor(
             )
         )
 
-        val domain = productMapper.dtoToEntity(response.product)
+        val domain = response.product.toEntity()
 
         productsDao.insert(
             ProductEntity(
@@ -116,7 +114,7 @@ class ProductsRepositoryImpl @Inject constructor(
             UpdateProductRequestDTO(productDTO)
         )
 
-        val entity = productMapper.dtoToEntity(response.product)
+        val entity = response.product.toEntity()
         productsDao.update(entity)
 
         emit(Try.Success(Unit))

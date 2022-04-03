@@ -54,7 +54,6 @@ include(":feature:payment-method")
 include(":feature:sales")
 include(":feature:menu")
 include(":feature:scanner")
-include(":feature:product-category")
 
 include(":feature:sign-up:presentation")
 include(":feature:sign-up:domain")
