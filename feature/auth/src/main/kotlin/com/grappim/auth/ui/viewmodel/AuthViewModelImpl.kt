@@ -162,6 +162,12 @@ internal class AuthViewModelImpl @Inject constructor(
         }
     }
 
+    override fun enterGuestMode() {
+        viewModelScope.launch {
+            generalStorage.clearData()
+        }
+    }
+
     private fun authSuccess() {
         setFingerprintEvent.value = BiometricsState.ShowPrompt
     }

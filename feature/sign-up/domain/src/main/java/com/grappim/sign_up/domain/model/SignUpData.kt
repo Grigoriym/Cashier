@@ -3,7 +3,8 @@ package com.grappim.sign_up.domain.model
 data class SignUpData(
     val phone: String = "",
     val email: String = "",
-    val password: String = ""
+    val password: String = "",
+    val repeatPassword: String = ""
 ) {
     companion object {
         fun empty(): SignUpData = SignUpData()
@@ -17,4 +18,7 @@ data class SignUpData(
 
     fun setPassword(newPassword: String): SignUpData =
         copy(password = newPassword)
+
+    fun setRepeatPassword(newPassword: String): SignUpData =
+        copy(repeatPassword = newPassword)
 }

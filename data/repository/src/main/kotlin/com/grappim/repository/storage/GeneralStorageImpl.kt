@@ -7,6 +7,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.grappim.common.di.AppScope
 import com.grappim.common.di.ApplicationContext
 import com.grappim.domain.model.biometrics.BiometricsStatus
@@ -45,13 +47,20 @@ class GeneralStorageImpl @Inject constructor(
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = FLOW_STORAGE_NAME)
 
-    private val sharedPreferences = context
-        .getSharedPreferences(
+    private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    private val sharedPreferences by lazy {
+        EncryptedSharedPreferences.create(
             STORAGE_NAME,
-            Context.MODE_PRIVATE
+            masterKeyAlias,
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
+    }
 
-    private val editor = sharedPreferences.edit()
+    private val editor by lazy {
+        sharedPreferences.edit()
+    }
 
     private val AUTHENTICATION_ERROR_KEY = booleanPreferencesKey(AUTH_ERROR)
     override val authErrorFlow: Flow<Boolean> = context.dataStore.data

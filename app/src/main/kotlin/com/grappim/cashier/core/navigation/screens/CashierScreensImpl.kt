@@ -1,6 +1,9 @@
 package com.grappim.cashier.core.navigation.screens
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.grappim.auth.ui.view.AuthFragment
 import com.grappim.bag.ui.view.BagFragment
@@ -122,6 +125,13 @@ class CashierScreensImpl @Inject constructor(
 
     override fun Settings() = FragmentScreen {
         SettingsFragment()
+    }
+
+    override fun GithubSrc() = ActivityScreen {
+        Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://github.com/Grigoriym/Cashier")
+        )
     }
 
 }

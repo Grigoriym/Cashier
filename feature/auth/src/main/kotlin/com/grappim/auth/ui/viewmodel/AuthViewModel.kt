@@ -24,6 +24,7 @@ abstract class AuthViewModel : BaseViewModel() {
     abstract fun setDialogAnswer(
         answer: BiometricsDialogClickState
     )
+    abstract fun enterGuestMode()
 
     abstract fun login(
         mobile: String,

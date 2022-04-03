@@ -2,6 +2,7 @@ package com.grappim.sign_up_presentation.di
 
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.core.utils.ResourceManager
+import com.grappim.domain.password.PasswordManager
 import com.grappim.navigation.router.ActivityRouter
 import com.grappim.navigation.screens.CashierScreens
 import com.grappim.network.api.AuthApi
@@ -15,4 +16,5 @@ interface SignUpDeps : ComponentDeps {
     fun authApi(): AuthApi
     fun cashierScreens(): CashierScreens
     fun appRouter(): ActivityRouter
+    fun passwordManager(): PasswordManager
 }

@@ -14,6 +14,7 @@ abstract class SignUpViewModel : BaseViewModel() {
     abstract fun setPhone(newPhone: String)
 
     abstract fun setPassword(newPassword: String)
+    abstract fun setRepeatPassword(newPassword: String)
 
     abstract fun setEmail(newEmail: String)
 

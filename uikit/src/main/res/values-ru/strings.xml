@@ -31,6 +31,7 @@
     <string name="title_amount">Amount</string>
     <string name="title_sign_up">Регистрация</string>
     <string name="title_email">E-mail</string>
+    <string name="title_guest_mode">Гостевой режим</string>
 
     <string name="title_products">Товары</string>
     <string name="title_create_product">Создание товара</string>
@@ -83,6 +84,8 @@
     <string name="action_pay">Оплатить</string>
     <string name="action_add_product">Add product</string>
     <string name="action_update_product">Update product</string>
+    <string name="action_yes">Да</string>
+    <string name="action_no">Нет</string>
 
     <string name="action_conduct">Conduct</string>
     <string name="action_rollback">Rollback</string>

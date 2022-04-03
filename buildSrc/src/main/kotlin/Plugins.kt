@@ -9,6 +9,8 @@ object Plugins {
 
     const val presentationPlugin = "com.grappim.plugin.presentation"
 
+    const val protobuf = "com.google.protobuf"
+
     const val kotlinParcelize = "kotlin-parcelize"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKaptFull = "kotlin-kapt"

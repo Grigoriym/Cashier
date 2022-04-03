@@ -5,12 +5,19 @@ import com.google.protobuf.gradle.protoc
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.grappimDataPlugin)
-    id("com.google.protobuf") version "0.8.17"
+    id(Plugins.protobuf) version Versions.protobufPlugin
 }
 
 android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
+    }
+    defaultConfig {
+        buildConfigField(
+            "String",
+            "cashier_secret_key",
+            "${extra["cashier_secret_key"]}"
+        )
     }
 }
 
@@ -52,6 +59,7 @@ dependencies {
     implementation(Deps.AndroidX.dataStore)
     implementation(Deps.AndroidX.dataStorePreferences)
     implementation(Deps.Google.protobuf)
+    implementation(Deps.AndroidX.securityCrypto)
 
     coreLibraryDesugaring(Deps.desugar)
 }

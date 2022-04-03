@@ -1,4 +1,4 @@
-package com.grappim.feature.settings.ui
+package com.grappim.uikit.compose
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
