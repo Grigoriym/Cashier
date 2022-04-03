@@ -50,7 +50,8 @@ internal fun AuthScreen(
     onSettingsClick: () -> Unit,
     logoCounter: (Int) -> Unit,
     showBiometrics: Boolean,
-    onShowBiometricsClick: () -> Unit
+    onShowBiometricsClick: () -> Unit,
+    onGuestModeClick: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier,
@@ -68,7 +69,8 @@ internal fun AuthScreen(
             onSettingsClick = onSettingsClick,
             logoCounter = logoCounter,
             showBiometrics = showBiometrics,
-            onShowBiometricsClick = onShowBiometricsClick
+            onShowBiometricsClick = onShowBiometricsClick,
+            onGuestModeClick = onGuestModeClick
         )
 
     }
@@ -88,7 +90,8 @@ private fun AuthScreenContent(
     onSettingsClick: () -> Unit,
     logoCounter: (Int) -> Unit,
     showBiometrics: Boolean,
-    onShowBiometricsClick: () -> Unit
+    onShowBiometricsClick: () -> Unit,
+    onGuestModeClick: () -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -182,6 +185,46 @@ private fun AuthScreenContent(
                 onRegisterClick = onRegisterClick
             )
         }
+        item {
+            GuestModeSegment(
+                onGuestModeClick = onGuestModeClick
+            )
+        }
+    }
+}
+
+@Composable
+private fun GuestModeSegment(
+    modifier:Modifier = Modifier,
+    onGuestModeClick: () -> Unit
+){
+    Button(
+        onClick = onGuestModeClick,
+        modifier = modifier
+            .fillMaxWidth(
+                fraction = 0.8f
+            )
+            .padding(
+                start = 32.dp,
+                end = 32.dp,
+                top = 16.dp,
+                bottom = 32.dp
+            ),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.White
+        ),
+        shape = RoundedCornerShape(25.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.title_guest_mode),
+            color = CashierBlue,
+            fontSize = 17.sp,
+            modifier = Modifier
+                .padding(
+                    top = 4.dp,
+                    bottom = 4.dp
+                )
+        )
     }
 }
 
@@ -420,7 +463,8 @@ private fun AuthScreenPreview() {
             onSettingsClick = {},
             logoCounter = {},
             showBiometrics = true,
-            onShowBiometricsClick = {}
+            onShowBiometricsClick = {},
+            onGuestModeClick = {}
         )
     }
 }
@@ -442,7 +486,8 @@ private fun AuthScreenContentPreview() {
             onSettingsClick = {},
             logoCounter = {},
             showBiometrics = true,
-            onShowBiometricsClick = {}
+            onShowBiometricsClick = {},
+            onGuestModeClick = {}
         )
     }
 }

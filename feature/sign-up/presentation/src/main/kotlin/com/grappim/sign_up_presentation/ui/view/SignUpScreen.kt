@@ -44,6 +44,8 @@ internal fun SignUpScreen(
     setPassword: (String) -> Unit,
     email: String,
     setEmail: (String) -> Unit,
+    repeatPassword: String,
+    repeatPasswordSet: (String) -> Unit,
     validationData: SignUpFieldsValidationData?
 ) {
     Box(
@@ -58,7 +60,9 @@ internal fun SignUpScreen(
             email = email,
             setEmail = setEmail,
             onSignUpClick = onSignUpClick,
-            validationData = validationData
+            validationData = validationData,
+            repeatPassword = repeatPassword,
+            repeatPasswordSet = repeatPasswordSet
         )
     }
 }
@@ -73,6 +77,8 @@ private fun SignUpScreenContent(
     email: String,
     setEmail: (String) -> Unit,
     onSignUpClick: () -> Unit,
+    repeatPassword: String,
+    repeatPasswordSet: (String) -> Unit,
     validationData: SignUpFieldsValidationData?
 ) {
     val listState = rememberLazyListState()
@@ -111,12 +117,25 @@ private fun SignUpScreenContent(
             PasswordTextFieldCompose(
                 password = password,
                 onPasswordChange = passwordSetText,
-                modifier = Modifier,
                 onImeAction = {},
                 isError = passwordError != null,
                 errorMessage = {
                     ShowError(error = passwordError)
                 }
+            )
+        }
+        item {
+            val passwordError: NativeText? = validationData?.repeatPasswordErrorText
+
+            PasswordTextFieldCompose(
+                password = repeatPassword,
+                onPasswordChange = repeatPasswordSet,
+                onImeAction = {},
+                isError = passwordError != null,
+                errorMessage = {
+                    ShowError(error = passwordError)
+                },
+                placeholderText = stringResource(id = R.string.title_repeat_password)
             )
         }
         item {
@@ -133,7 +152,6 @@ private fun ShowError(
 ) {
     Box(
         modifier = Modifier
-            .requiredHeight(16.dp)
             .padding(
                 start = 16.dp,
                 end = 12.dp
@@ -341,7 +359,9 @@ private fun RegisterScreenContentPreview() {
             email = "",
             setEmail = {},
             onSignUpClick = {},
-            validationData = null
+            validationData = null,
+            repeatPassword = "",
+            repeatPasswordSet = {}
         )
     }
 }

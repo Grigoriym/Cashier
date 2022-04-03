@@ -33,6 +33,12 @@ class SignUpViewModelImpl @Inject constructor(
         clearValidation()
     }
 
+    override fun setRepeatPassword(newPassword: String) {
+        val oldData = signUpData.value ?: SignUpData.empty()
+        signUpData.value = oldData.setRepeatPassword(newPassword)
+        clearValidation()
+    }
+
     override fun setEmail(newEmail: String) {
         val oldData = signUpData.value ?: SignUpData.empty()
         signUpData.value = oldData.setEmail(newEmail)

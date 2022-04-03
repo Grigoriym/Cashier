@@ -31,7 +31,8 @@ Component(
         WorkersModule::class,
         AppComponentDepsModule::class,
         SerializationModule::class,
-        AnalyticsBindsModule::class
+        AnalyticsBindsModule::class,
+        PasswordManagerBindModule::class
     ],
     dependencies = [
 

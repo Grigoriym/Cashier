@@ -62,7 +62,6 @@ I do this because I had an experience with an app of such functionality.
 - [ ] what is api and impl modules and how do they work
 - [ ] abstract image loader (coil)
 - [ ] refactor all stuff connected to workManager
-- [ ] add rx as an alternative
 - [ ] make it more convenient RequestWithAuthToken
 - [ ] make workers' logic on some timestamp or sth like that
 - [ ] Debug panel
@@ -72,6 +71,7 @@ I do this because I had an experience with an app of such functionality.
 - [ ] Firebase services
 - [ ] Publish app to googlePlay, appGallery, galaxyStore
 - [ ] Analytics
+- [ ] Add online receipts
 
 ### Thanks to
 1. [Dmitry Akishin - Logging in a multi-module Android project](https://proandroiddev.com/logging-in-a-multi-module-android-project-7294382e59fa) - for implementing logging in android modules and pure koltin/java modules

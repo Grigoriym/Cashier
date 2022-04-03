@@ -44,5 +44,6 @@ interface FlowRouter {
     fun returnToSalesFromPaymentMethod()
 
     fun goToSettings()
+    fun goToGithubSrc()
 
 }

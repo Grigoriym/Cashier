@@ -1,6 +1,7 @@
 package com.grappim.navigation.screens
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 interface CashierScreens {
@@ -33,4 +34,5 @@ interface CashierScreens {
     fun PaymentMethod(): FragmentScreen
 
     fun Settings(): FragmentScreen
+    fun GithubSrc(): ActivityScreen
 }

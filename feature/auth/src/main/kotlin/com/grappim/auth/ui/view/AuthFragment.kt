@@ -129,7 +129,8 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
             showBiometrics = biometricsStatus == BiometricsStatus.SET,
             onShowBiometricsClick = {
                 viewModel.setDialogAnswer(BiometricsDialogClickState.Positive)
-            }
+            },
+            onGuestModeClick = viewModel::enterGuestMode
         )
     }
 

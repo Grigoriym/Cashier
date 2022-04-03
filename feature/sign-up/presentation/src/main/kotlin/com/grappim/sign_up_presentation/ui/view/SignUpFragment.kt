@@ -71,7 +71,9 @@ class SignUpFragment : BaseFlowFragment<SignUpViewModel>() {
             setPassword = viewModel::setPassword,
             email = data.email,
             setEmail = viewModel::setEmail,
-            validationData = validationData
+            validationData = validationData,
+            repeatPassword = data.repeatPassword,
+            repeatPasswordSet = viewModel::setRepeatPassword
         )
     }
 

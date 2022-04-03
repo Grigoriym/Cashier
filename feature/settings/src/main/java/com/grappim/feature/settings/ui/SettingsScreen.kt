@@ -1,50 +1,44 @@
 package com.grappim.feature.settings.ui
 
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.grappim.feature.settings.R
+import com.grappim.uikit.compose.SettingsMenuItem
+import com.grappim.uikit.compose.SettingsSwitch
 import com.grappim.uikit.theme.CashierTheme
 
 @Composable
 internal fun SettingsScreen(
-    info: String
+    info: String,
+    onGithubSrcClick: () -> Unit,
+    useBiometrics: Boolean,
+    onUseBiometricsChecked: (Boolean) -> Unit
 ) {
     Scaffold {
-        SettingsScreenContent(info)
+        SettingsScreenContent(
+            info = info,
+            onGithubSrcClick = onGithubSrcClick,
+            onUseBiometricsChecked = onUseBiometricsChecked,
+            useBiometrics = useBiometrics
+        )
     }
 }
 
 @Composable
 private fun SettingsScreenContent(
-    info: String
+    info: String,
+    onGithubSrcClick: () -> Unit,
+    useBiometrics: Boolean,
+    onUseBiometricsChecked: (Boolean) -> Unit
 ) {
-    val infiniteTransition = rememberInfiniteTransition()
-    val logoSize by infiniteTransition.animateFloat(
-        initialValue = 50f,
-        targetValue = 100f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(800,100, FastOutLinearInEasing),
-            repeatMode = RepeatMode.Reverse
-        )
-    )
-
     LazyColumn(
         modifier = Modifier
             .fillMaxHeight()
@@ -61,16 +55,22 @@ private fun SettingsScreenContent(
             }
         }
         item {
-            Spacer(modifier = Modifier.size(20.dp))
+            SettingsMenuItem(
+                title = {
+                    Text(text = stringResource(id = R.string.title_github_src))
+                },
+                onClick = onGithubSrcClick
+            )
         }
-//        item {
-//            Image(
-//                modifier = Modifier
-//                    .size(logoSize.dp),
-//                painter = painterResource(id = R.drawable.ic_logo),
-//                contentDescription = "Logo"
-//            )
-//        }
+        item {
+            SettingsSwitch(
+                title = {
+                    Text(text = stringResource(id = R.string.title_use_biometrics))
+                },
+                onCheckedChange = onUseBiometricsChecked,
+                switchValue = useBiometrics
+            )
+        }
     }
 }
 
@@ -81,7 +81,10 @@ private fun SettingsScreenContent(
 private fun SettingsScreenContentPreview() {
     CashierTheme {
         SettingsScreenContent(
-            info = "test"
+            info = "test",
+            onGithubSrcClick = {},
+            useBiometrics = true,
+            onUseBiometricsChecked = {}
         )
     }
 }

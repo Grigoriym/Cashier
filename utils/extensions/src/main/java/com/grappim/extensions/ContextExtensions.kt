@@ -1,6 +1,7 @@
 package com.grappim.extensions
 
 import android.content.Context
+import android.os.Build
 import android.widget.Toast
 import com.grappim.domain.model.exception.NetworkException
 
@@ -29,4 +30,19 @@ fun Context.getErrorMessage(throwable: Throwable): String {
     } else {
         throwable.message.toString()
     }
+}
+
+fun Context.getAppVersion(): String {
+    val manager = packageManager
+    val info = manager?.getPackageInfo(
+        packageName,
+        0
+    )
+    val versionName = info?.versionName
+    val versionNumber = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        info?.longVersionCode
+    } else {
+        info?.versionCode
+    }
+    return "$versionName $versionNumber"
 }

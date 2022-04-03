@@ -5,6 +5,7 @@ object Versions {
     const val gradleDoctor = "0.7.3"
     const val scabbard = "0.5.0"
     const val graphGenerator = "0.7.0"
+    const val protobufPlugin = "0.8.17"
 
     const val detekt = "1.19.0"
     const val detektFormatting = "1.17.1"
@@ -35,6 +36,7 @@ object Versions {
         const val dataStorePreferences = "1.0.0"
         const val dataStore = "1.0.0"
         const val splashScreen = "1.0.0-beta02"
+        const val securityCrypto = "1.0.0"
 
         object Compose {
             const val core = "1.1.1"
@@ -61,12 +63,6 @@ object Versions {
 
         const val assertJCore = "3.18.1"
         const val androidCoreTesting = "1.1.1"
-    }
-
-    object Rx2 {
-        const val android = "2.1.1"
-        const val java = "2.2.9"
-        const val retrofitAdapter = "2.5.0"
     }
 
     const val lint = "30.0.4"

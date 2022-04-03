@@ -147,4 +147,8 @@ class FlowRouterImpl @Inject constructor(
         activityRouter.router.navigateTo(cashierScreens.Settings())
     }
 
+    override fun goToGithubSrc() {
+        activityRouter.router.navigateTo(cashierScreens.GithubSrc())
+    }
+
 }

@@ -42,6 +42,8 @@ object Deps {
         const val dataStorePreferences =
             "androidx.datastore:datastore-preferences:${Versions.AndroidX.dataStorePreferences}"
         const val splashScreen = "androidx.core:core-splashscreen:${Versions.AndroidX.splashScreen}"
+
+        const val securityCrypto = "androidx.security:security-crypto:${Versions.AndroidX.securityCrypto}"
     }
 
     object Compose {
@@ -95,13 +97,6 @@ object Deps {
         const val bom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
         const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
-    }
-
-    object Rx2 {
-        const val android = "io.reactivex.rxjava2:rxandroid:${Versions.Rx2.android}"
-        const val java = "io.reactivex.rxjava2:rxjava:${Versions.Rx2.java}"
-        const val retrofitAdapter =
-            "com.squareup.retrofit2:adapter-rxjava2:${Versions.Rx2.retrofitAdapter}"
     }
 
     object Detekt {

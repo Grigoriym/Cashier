@@ -1,16 +1,19 @@
 package com.grappim.feature.settings.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.viewModels
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.extensions.getAppVersion
 import com.grappim.feature.settings.di.DaggerSettingsComponent
 import com.grappim.feature.settings.di.SettingsComponent
 import com.grappim.navigation.router.FlowRouter
@@ -44,27 +47,23 @@ class SettingsFragment : BaseFlowFragment<SettingsViewModel>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
-        val manager = requireContext().packageManager
-        val info = manager?.getPackageInfo(
-            requireContext().packageName,
-            0
-        )
-        val versionName = info?.versionName
-        val versionNumber = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            info?.longVersionCode
-        } else {
-            info?.versionCode
-        }
-        val resultInfo = "$versionName $versionNumber"
         setContent {
             CashierTheme {
-                SettingsFragmentScreen(resultInfo)
+                SettingsFragmentScreen()
             }
         }
     }
 
     @Composable
-    private fun SettingsFragmentScreen(info: String) {
-        SettingsScreen(info)
+    private fun SettingsFragmentScreen() {
+        val info = LocalContext.current.getAppVersion()
+        val biometricStatus by viewModel.biometricStatus.collectAsState(initial = false)
+
+        SettingsScreen(
+            info = info,
+            onGithubSrcClick = viewModel::onGithubSrcClicked,
+            onUseBiometricsChecked = viewModel::setUseBiometrics,
+            useBiometrics = biometricStatus
+        )
     }
 }

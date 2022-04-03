@@ -4,9 +4,9 @@ import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
 import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.interactor.login.LoginUseCase
+import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.repository.AuthRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.logger.logD
 import com.grappim.network.api.AuthApi
 import com.grappim.network.di.api.QualifierAuthApi
 import com.grappim.network.model.login.LoginRequestDTO
@@ -20,7 +20,8 @@ class AuthRepositoryImpl @Inject constructor(
     @QualifierAuthApi private val authApi: AuthApi,
     private val generalStorage: GeneralStorage,
     private val dataClearHelper: DataClearHelper,
-    private val crashesAnalytics: CrashesAnalytics
+    private val crashesAnalytics: CrashesAnalytics,
+    private val passwordManager: PasswordManager
 ) : AuthRepository {
 
     override fun login(
@@ -28,10 +29,11 @@ class AuthRepositoryImpl @Inject constructor(
     ): Flow<Try<Unit>> =
         flow {
             emit(Try.Loading)
+            val hashedPassword = passwordManager.encryptPassword(loginRequestData.password)
             val response = authApi.login(
                 LoginRequestDTO(
                     mobile = loginRequestData.phone,
-                    password = loginRequestData.password
+                    password = hashedPassword
                 )
             )
             val oldMerchantId = generalStorage.getMerchantIdNullable()

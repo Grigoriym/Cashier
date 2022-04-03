@@ -5,6 +5,7 @@ import com.grappim.common.di.ApplicationContext
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.core.utils.ResourceManager
 import com.grappim.date_time.DateTimeIsoInstant
+import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.repository.*
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
@@ -50,4 +51,5 @@ interface RootActivityDeps : ComponentDeps {
 
     @DateTimeIsoInstant
     fun dtfIso(): DateTimeFormatter
+    fun passwordManager(): PasswordManager
 }

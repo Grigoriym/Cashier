@@ -2,6 +2,7 @@ package com.grappim.sign_up_repository
 
 import com.grappim.common.di.FeatureScope
 import com.grappim.common.lce.Try
+import com.grappim.domain.password.PasswordManager
 import com.grappim.network.api.AuthApi
 import com.grappim.network.di.api.QualifierAuthApi
 import com.grappim.network.model.sign_up.SignUpDTO
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @FeatureScope
 class SignUpRepositoryImpl @Inject constructor(
-    @QualifierAuthApi private val authApi: AuthApi
+    @QualifierAuthApi private val authApi: AuthApi,
+    private val passwordManager: PasswordManager
 ) : SignUpRepository {
 
     override fun signUp(
@@ -21,10 +23,11 @@ class SignUpRepositoryImpl @Inject constructor(
     ): Flow<Try<Unit>> =
         flow {
             emit(Try.Loading)
+            val encryptedPassword = passwordManager.encryptPassword(params.password)
             val requestBody = SignUpDTO(
                 phone = params.phone,
                 email = params.email,
-                password = params.password
+                password = encryptedPassword
             )
             authApi.signUp(requestBody)
             emit(Try.Success(Unit))
