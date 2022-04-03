@@ -11,8 +11,8 @@ import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.CashierApi
 import com.grappim.network.di.api.QualifierCashierApi
-import com.grappim.network.mappers.cashbox.CashBoxMapper
-import com.grappim.network.mappers.outlet.StockMapper
+import com.grappim.network.mappers.cashbox.toDomain
+import com.grappim.network.mappers.stock.toDomain
 import com.grappim.network.model.cashbox.GetCashBoxListRequestDTO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -24,9 +24,7 @@ import javax.inject.Inject
 class SelectInfoRemoteRepositoryImpl @Inject constructor(
     @QualifierCashierApi private val cashierApi: CashierApi,
     @ApplicationScope private val applicationScope: CoroutineScope,
-    private val generalStorage: GeneralStorage,
-    private val cashBoxMapper: CashBoxMapper,
-    private val stockMapper: StockMapper
+    private val generalStorage: GeneralStorage
 ) : SelectInfoRemoteRepository {
 
     override suspend fun saveCashBox(
@@ -44,13 +42,13 @@ class SelectInfoRemoteRepositoryImpl @Inject constructor(
     override fun getStocks(): Flow<Try<List<Stock>>> = flow {
         emit(Try.Loading)
         val response = cashierApi.getStocks(generalStorage.getMerchantId())
-        val mappedResponse = stockMapper.dtoToDomainList(response.stocks)
+        val mappedResponse = response.stocks.toDomain()
         emit(Try.Success(mappedResponse))
     }
 
     override suspend fun getStocks2(): List<Stock> {
         val response = cashierApi.getStocks(generalStorage.getMerchantId())
-        return stockMapper.dtoToDomainList(response.stocks)
+        return response.stocks.toDomain()
     }
 
     override fun getCashBoxes(): Flow<Try<List<CashBox>>> =
@@ -62,7 +60,7 @@ class SelectInfoRemoteRepositoryImpl @Inject constructor(
                     stockId = generalStorage.stockId
                 )
             )
-            val domain = cashBoxMapper.dtoToDomainList(response.cashBoxes)
+            val domain = response.cashBoxes.toDomain()
             emit(Try.Success(domain))
         }
 }

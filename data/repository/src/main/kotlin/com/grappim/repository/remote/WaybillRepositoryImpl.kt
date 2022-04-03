@@ -19,9 +19,9 @@ import com.grappim.domain.repository.WaybillRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.api.WaybillApi
 import com.grappim.network.di.api.QualifierWaybillApi
-import com.grappim.network.mappers.products.ProductMapper
+import com.grappim.network.mappers.products.toDomain
 import com.grappim.network.mappers.waybill.WaybillMapper
-import com.grappim.network.mappers.waybill.WaybillProductMapper
+import com.grappim.network.mappers.waybill.toDomain
 import com.grappim.network.model.waybill.*
 import com.grappim.repository.paging.GetWaybillPagingSource
 import com.grappim.repository.paging.GetWaybillProductsPagingSource
@@ -38,9 +38,7 @@ class WaybillRepositoryImpl @Inject constructor(
     @QualifierWaybillApi private val waybillApi: WaybillApi,
     private val generalStorage: GeneralStorage,
     private val productsDao: ProductsDao,
-    private val waybillMapper: WaybillMapper,
-    private val waybillProductMapper: WaybillProductMapper,
-    private val productMapper: ProductMapper
+    private val waybillMapper: WaybillMapper
 ) : WaybillRepository {
 
     private val pagingConfig = PagingConfig(
@@ -82,7 +80,7 @@ class WaybillRepositoryImpl @Inject constructor(
                 waybillId = params.waybillId
             )
         )
-        val domainToReturn = waybillProductMapper.dtoToDomain(response.product)
+        val domainToReturn = response.product.toDomain()
         emit(Try.Success(domainToReturn))
     }
 
@@ -93,7 +91,7 @@ class WaybillRepositoryImpl @Inject constructor(
             emit(Try.Loading)
             val product = productsDao.getProductByBarcode(barcode = params.barcode)
                 ?: error("not found")
-            val domainToReturn = productMapper.entityToDomain(product)
+            val domainToReturn = product.toDomain()
             emit(Try.Success(domainToReturn))
         }
 
@@ -177,7 +175,7 @@ class WaybillRepositoryImpl @Inject constructor(
         }.flow
             .map {
                 it.map { productsDTO ->
-                    waybillProductMapper.dtoToDomain(productsDTO)
+                    productsDTO.toDomain()
                 }
             }
 
@@ -194,8 +192,6 @@ class WaybillRepositoryImpl @Inject constructor(
                     )
                 )
             )
-
-//            val result = waybillApi.getWaybillById(responseId.waybill.id)
             val mappedResult = waybillMapper.dtoToDomain(responseId.waybill)
             emit(Try.Success(mappedResult))
         }

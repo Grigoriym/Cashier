@@ -14,7 +14,7 @@ import com.grappim.domain.interactor.products.SearchProductsByCategoryUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.network.mappers.products.ProductMapper
+import com.grappim.network.mappers.products.toDomain2
 import com.grappim.product_category.db.ProductCategoryDao
 import com.grappim.product_category.db.ProductCategoryEntity
 import com.grappim.product_category.db.ProductCategoryEntityMapper
@@ -38,7 +38,6 @@ class GeneralRepositoryImpl @Inject constructor(
     private val generalStorage: GeneralStorage,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @ApplicationScope private val applicationScope: CoroutineScope,
-    private val productMapper: ProductMapper,
     private val productCategoryEntityMapper: ProductCategoryEntityMapper
 ) : GeneralRepository {
 
@@ -104,7 +103,7 @@ class GeneralRepositoryImpl @Inject constructor(
             productsDao.searchProductsByCategoryId(category.id)
         }
 
-        val domain = productMapper.entityToDomainList(entities)
+        val domain = entities.toDomain2()
 
         emit(Try.Success(domain))
     }
@@ -136,7 +135,7 @@ class GeneralRepositoryImpl @Inject constructor(
                 productsDao.getProductsFlow(
                     RoomQueryHelper.toSQLiteQuery(roomQuery)
                 ).map {
-                    productMapper.entityToDomainList(it)
+                    it.toDomain2()
                 }
             )
         }
