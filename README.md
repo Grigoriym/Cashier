@@ -13,9 +13,9 @@ I do this because I had an experience with an app of such functionality.
 ![](https://github.com/Grigoriym/Cashier/blob/master/art/app_flow.png)
 
 ### Refactoring History
-1. Hilt -> Dagger
-2. Gson -> Kotlin Serializable
-3. Android Navigation Component -> Cicerone
+1. Hilt -> Dagger (because of multi-modular architecture)
+2. Gson -> Kotlin Serializable (why not?)
+3. Android Navigation Component -> Cicerone (because of multi-modular architecture)
 
 ### Build With
 - [Kotlin](https://kotlinlang.org/)
@@ -23,7 +23,6 @@ I do this because I had an experience with an app of such functionality.
 - [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for android and Java.
 - [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
 - [Hilt](https://dagger.dev/hilt/) - A dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.
-- [Navigation Component](https://developer.android.com/guide/navigation) - interactions that allow users to navigate across, into, and back out from the different pieces of content within your app.
 - [Pagination](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) - helps you load and display pages of data from a larger dataset from local storage or over network.
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel?gclid=Cj0KCQjwqKuKBhCxARIsACf4XuF8OuNAkgHbABABjvBrDdeFkUtP3222N8A6eGgxazM5HVEy2zKdxU0aAjwVEALw_wcB&gclsrc=aw.ds) -  is designed to store and manage UI-related data in a lifecycle conscious way.
 - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) - is an API that makes it easy to schedule reliable, asynchronous tasks that are expected to run even if the app exits or the device restarts.
@@ -33,7 +32,10 @@ I do this because I had an experience with an app of such functionality.
 - [Coil](https://github.com/coil-kt/coil) - An image loading library for Android backed by Kotlin Coroutines.
 - [Android Debug Database](https://github.com/amitshekhariitbhu/Android-Debug-Database) - A powerful library for debugging databases and shared preferences in Android applications
 - [Scabbard](https://arunkumar9t2.github.io/scabbard/) - A tool to visualize and understand your Dagger 2 dependency graph.
-- [CIcerone](https://github.com/terrakok/Cicerone) - is a lightweight library that makes the navigation in an Android app easy.
+- [Cicerone](https://github.com/terrakok/Cicerone) - is a lightweight library that makes the navigation in an Android app easy.
+
+### TODOs
+- [ ] Remove excessive emit(Try.Loading) from repos. Check flow use cases
 
 ### Roadmap
 - [x] Move all UI to compose, (only scanner is left without any changes)
@@ -48,7 +50,7 @@ I do this because I had an experience with an app of such functionality.
 - [ ] Make usable caching of data
 - [ ] Is SingleLiveData a good choice? But I have no other options with compose, at least for now.
 - [ ] Compose has problems with the soft keyboard.
-- [ ] I have not a general ui kit, And I need a designer
+- [ ] I do not have a general ui kit, And I need a designer
 - [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
 - [x] In perspective, Dagger 2 is better for multi module app.
 - [x] Using Dagger2 try to remove all inject lateinit
@@ -61,7 +63,7 @@ I do this because I had an experience with an app of such functionality.
 - [ ] some gradle build enhancement, like in aag 2, also there dagger2 tips on scope lifecycle and their holders
 - [ ] what is api and impl modules and how do they work
 - [ ] abstract image loader (coil)
-- [ ] refactor all stuff connected to workManager
+- [ ] refactor all stuff connected to the workManager
 - [ ] make it more convenient RequestWithAuthToken
 - [ ] make workers' logic on some timestamp or sth like that
 - [ ] Debug panel

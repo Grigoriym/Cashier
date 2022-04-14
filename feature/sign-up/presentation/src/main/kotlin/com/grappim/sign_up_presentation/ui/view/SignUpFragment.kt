@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
@@ -57,8 +58,8 @@ class SignUpFragment : BaseFlowFragment<SignUpViewModel>() {
 
     @Composable
     private fun SignUpFragmentScreen() {
-        val data by viewModel.signUpData.observeAsState(SignUpData.empty())
-        val validationData by viewModel.signUpValidation.observeAsState(initial = null)
+        val data by viewModel.signUpData.collectAsState()
+        val validationData by viewModel.signUpValidation.collectAsState()
         val loading by viewModel.loading.observeAsState(false)
 
         LoaderDialogCompose(show = loading)

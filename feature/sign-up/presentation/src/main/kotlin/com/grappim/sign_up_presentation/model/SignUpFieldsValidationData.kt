@@ -7,4 +7,14 @@ data class SignUpFieldsValidationData(
     val emailErrorText: NativeText? = null,
     val passwordErrorText: NativeText? = null,
     val repeatPasswordErrorText: NativeText? = null
-)
+) {
+    companion object {
+        fun empty() =
+            SignUpFieldsValidationData(
+                phoneNumberErrorText = null,
+                emailErrorText = null,
+                passwordErrorText = null,
+                repeatPasswordErrorText = null
+            )
+    }
+}

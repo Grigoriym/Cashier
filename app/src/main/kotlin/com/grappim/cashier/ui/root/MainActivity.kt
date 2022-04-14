@@ -2,7 +2,6 @@ package com.grappim.cashier.ui.root
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.github.terrakok.cicerone.Navigator
@@ -12,6 +11,7 @@ import com.grappim.cashier.di.root_activity.RootActivityComponent
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.deps.HasComponentDeps
 import com.grappim.core.MainViewModel
+import com.grappim.core.base.BaseActivity
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.core.navigation.CashierAppNavigator
@@ -19,7 +19,7 @@ import com.grappim.logger.logD
 import com.grappim.navigation.router.ActivityRouter
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(R.layout.activity_main),
+class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main),
     HasComponentDeps {
 
     private val component: RootActivityComponent by lazy {
@@ -40,11 +40,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         component.multiViewModelFactory()
     }
 
-    private val activityRouter: ActivityRouter by lazy {
+    override val activityRouter: ActivityRouter by lazy {
         component.activityRouter()
     }
 
-    private val viewModel by viewModels<MainViewModel> {
+    override val viewModel by viewModels<MainViewModel> {
         viewModelFactory
     }
 
@@ -54,8 +54,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
+        viewModel.setupActivityRouter(activityRouter)
         super.onCreate(savedInstanceState)
-        viewModel.goToAuth()
+        if (savedInstanceState == null) {
+            viewModel.goToAuth()
+        }
 
         lifecycleScope.launch {
             viewModel.isAuthError

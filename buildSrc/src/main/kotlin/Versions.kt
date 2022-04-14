@@ -40,7 +40,7 @@ object Versions {
 
         object Compose {
             const val core = "1.1.1"
-            const val lifecycle = "2.4.0"
+            const val lifecycle = "2.4.1"
             const val paging = "1.0.0-alpha14"
             const val constraint = "1.0.0"
         }
@@ -69,7 +69,7 @@ object Versions {
 
     const val firebaseBom = "29.3.0"
 
-    const val accompanist = "0.20.2"
+    const val accompanist = "0.23.1"
 
     const val retrofit = "2.9.0"
     const val okHttp = "5.0.0-alpha.3"

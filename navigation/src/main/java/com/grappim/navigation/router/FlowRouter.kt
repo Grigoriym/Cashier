@@ -17,6 +17,11 @@ interface FlowRouter {
     fun goBack()
     fun finishFlow()
 
+    fun goToMenu()
+    fun goToSales()
+
+    fun goToProductCategories()
+
     fun goToSignUpFromSignIn()
     fun goToSelectInfo()
 
@@ -25,6 +30,7 @@ interface FlowRouter {
     fun goToCreateProductCategory(args: Bundle)
     fun goToEditProductCategory(args: Bundle)
 
+    fun goToProducts()
     fun showProductsList()
     fun goToCreateProduct(args: Bundle)
     fun goToEditProduct(args: Bundle)
@@ -32,6 +38,7 @@ interface FlowRouter {
 
     fun goToScanner()
 
+    fun goToWaybill()
     fun showWaybillList()
     fun goToWaybillDetails()
     fun goToWaybillProduct(args: Bundle)

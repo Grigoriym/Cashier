@@ -4,13 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScrollableTabRow
-import androidx.compose.material.Tab
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,7 +16,7 @@ import com.grappim.products.presentation.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemProductCompose
 import com.grappim.uikit.compose.button.BigActionButtonCompose
-import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
+import com.grappim.uikit.compose.text_field.CashierOutlinedTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierTheme
@@ -77,7 +73,7 @@ private fun ProductsScreenMainSegment(
     onProductClick: (Product) -> Unit
 ) {
     Column {
-        OutlinedTextFieldCompose(
+        CashierOutlinedTextField(
             modifier = Modifier
                 .padding(
                     top = 24.dp,
@@ -110,8 +106,8 @@ private fun CategoriesSegment(
     if (categories.isNotEmpty()) {
         ScrollableTabRow(
             selectedTabIndex = selectedIndex,
-            backgroundColor = Color.White,
-            contentColor = Color.White,
+            backgroundColor = MaterialTheme.colors.background,
+            contentColor = MaterialTheme.colors.background,
             edgePadding = 16.dp
         ) {
             categories.forEachIndexed { index, category ->

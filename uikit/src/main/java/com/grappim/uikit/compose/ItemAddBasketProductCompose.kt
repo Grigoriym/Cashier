@@ -1,12 +1,10 @@
 package com.grappim.uikit.compose
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,7 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.grappim.domain.model.basket.BasketProduct
@@ -48,11 +45,10 @@ fun ItemAddBasketProductCompose(
                 divider
             ) = createRefs()
 
-            Image(
+            CashierImage(
                 painter = painterResource(
                     id = R.drawable.ic_image_placeholder
                 ),
-                contentDescription = "",
                 modifier = Modifier
                     .size(50.dp)
                     .constrainAs(image) {
@@ -67,7 +63,7 @@ fun ItemAddBasketProductCompose(
                     }
             )
 
-            Text(
+            CashierTextBody1(
                 modifier = Modifier
                     .constrainAs(title) {
                         top.linkTo(
@@ -83,12 +79,10 @@ fun ItemAddBasketProductCompose(
                         )
                         width = Dimension.fillToConstraints
                     },
-                text = basketProduct.name,
-                color = Color.Black,
-                fontSize = 14.sp
+                text = basketProduct.name
             )
 
-            Text(
+            CashierText(
                 text = stringResource(
                     id = R.string.title_price_with_currency,
                     basketProduct.sellingPrice.toString()
@@ -103,8 +97,7 @@ fun ItemAddBasketProductCompose(
                             anchor = title.top
                         )
                     },
-                color = CashierBlue,
-                fontSize = 16.sp
+                color = CashierBlue
             )
 
             if (showCart) {

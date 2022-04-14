@@ -1,18 +1,20 @@
 package com.grappim.menu.ui.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,6 +25,8 @@ import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.menu.R
 import com.grappim.menu.model.MenuItemPm
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.CashierIcon
+import com.grappim.uikit.compose.CashierImage
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGreen
 import com.grappim.uikit.theme.CashierTheme
@@ -58,47 +62,40 @@ private fun MenuItemsSection(
     items: List<MenuItemPm>,
     onItemClick: (MenuItemPm) -> Unit
 ) {
-    Surface(
+    Column(
         modifier = Modifier
-            .fillMaxSize(),
-        color = Color.White
+            .fillMaxSize()
+            .padding(top = 20.dp)
     ) {
-        Column(
+        CashierNameSegment(cashierName = cashierName)
+        LazyColumn(
             modifier = Modifier
-                .padding(top = 20.dp)
-                .fillMaxWidth()
+                .padding(top = 24.dp)
+                .weight(1f),
+            contentPadding = PaddingValues(
+                start = 16.dp,
+                top = 10.dp,
+                end = 16.dp,
+                bottom = 10.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            CashierNameSegment(cashierName = cashierName)
-            LazyColumn(
-                modifier = Modifier
-                    .padding(top = 24.dp)
-                    .weight(1f),
-                contentPadding = PaddingValues(
-                    start = 16.dp,
-                    top = 10.dp,
-                    end = 16.dp,
-                    bottom = 10.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items(items) { menuItem ->
-                    Card(
+            items(items) { menuItem ->
+                rememberRipple()
+                Card(
+                    onClick = {
+                        onItemClick(menuItem)
+                    },
+                    modifier = Modifier
+                        .fillParentMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    elevation = 4.dp
+                ) {
+                    MenuItemRow(
+                        item = menuItem,
                         modifier = Modifier
-                            .fillParentMaxWidth(),
-                        elevation = 4.dp,
-                        shape = RoundedCornerShape(10.dp),
-                        onClick = {
-                            onItemClick(menuItem)
-                        },
-                        backgroundColor = Color.White,
-                        indication = rememberRipple()
-                    ) {
-                        MenuItemRow(
-                            item = menuItem,
-                            modifier = Modifier
-                                .fillParentMaxWidth()
-                        )
-                    }
+                            .fillParentMaxWidth()
+                    )
                 }
             }
         }
@@ -116,15 +113,14 @@ private fun CashierNameSegment(
             text = cashierName,
             fontSize = 20.sp,
             modifier = Modifier
-                .padding(start = 18.dp),
-            color = Color.Black
+                .padding(start = 18.dp)
         )
         Spacer(modifier = Modifier.width(13.dp))
-        Icon(
-            painter = painterResource(id = R.drawable.ic_dot),
+        CashierIcon(
+            imageVector = Icons.Filled.Circle,
             tint = CashierGreen,
-            contentDescription = "",
             modifier = Modifier
+                .size(12.dp)
                 .align(Alignment.CenterVertically)
         )
     }
@@ -141,19 +137,15 @@ private fun MenuItemRow(
             .fillMaxWidth()
     ) {
         if (item.image != null) {
-            Image(
-                painter = painterResource(id = item.image),
-                contentDescription = "Menu item image"
+            CashierImage(
+                painter = painterResource(id = item.image)
             )
         } else if (item.imageVector != null) {
-            Image(
+            CashierImage(
                 imageVector = item.imageVector,
                 modifier = Modifier
                     .size(44.dp),
-                colorFilter = ColorFilter.tint(
-                    CashierBlue
-                ),
-                contentDescription = "Menu item image"
+                colorFilter = ColorFilter.tint(CashierBlue),
             )
         }
         Spacer(modifier = Modifier.width(40.dp))
@@ -161,16 +153,12 @@ private fun MenuItemRow(
             text = stringResource(id = item.text),
             modifier = Modifier
                 .align(Alignment.CenterVertically),
-            fontSize = 22.sp,
-            color = Color.Black
+            fontSize = 22.sp
         )
         Spacer(modifier = Modifier.weight(1f))
-        Icon(
-            painter = painterResource(
-                id = R.drawable.ic_keyboard_arrow_right
-            ),
+        CashierIcon(
+            imageVector = Icons.Filled.ChevronRight,
             tint = CashierBlue,
-            contentDescription = "",
             modifier = Modifier
                 .padding(end = 34.dp)
                 .align(Alignment.CenterVertically)

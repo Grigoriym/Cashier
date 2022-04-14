@@ -1,15 +1,15 @@
 package com.grappim.sign_up_presentation.ui.viewmodel
 
-import androidx.lifecycle.LiveData
 import com.grappim.core.base.BaseViewModel
 import com.grappim.sign_up.domain.model.SignUpData
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
+import kotlinx.coroutines.flow.StateFlow
 
 abstract class SignUpViewModel : BaseViewModel() {
 
-    abstract val signUpData: LiveData<SignUpData>
+    abstract val signUpData: StateFlow<SignUpData>
 
-    abstract val signUpValidation: LiveData<SignUpFieldsValidationData>
+    abstract val signUpValidation: StateFlow<SignUpFieldsValidationData>
 
     abstract fun setPhone(newPhone: String)
 

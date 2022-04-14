@@ -108,7 +108,6 @@ private fun CategoryName(
             imeAction = ImeAction.Done
         ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
             focusedIndicatorColor = CashierBlue,
             unfocusedIndicatorColor = CashierLightGray
         )

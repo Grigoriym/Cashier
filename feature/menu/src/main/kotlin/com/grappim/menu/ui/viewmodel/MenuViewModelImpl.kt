@@ -7,7 +7,6 @@ import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.menu.helper.MenuItemGenerator
 import com.grappim.menu.model.MenuItemPm
-import com.grappim.navigation.router.ActivityRouter
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -17,7 +16,6 @@ import javax.inject.Inject
 class MenuViewModelImpl @Inject constructor(
     menuItemsGenerator: MenuItemGenerator,
     generalStorage: GeneralStorage,
-    private val activityRouter: ActivityRouter,
     featureToggleLocalRepository: FeatureToggleLocalRepository
 ) : MenuViewModel() {
 
@@ -60,18 +58,18 @@ class MenuViewModelImpl @Inject constructor(
     }
 
     private fun showWaybill() {
-        activityRouter.goToWaybill()
+        flowRouter.goToWaybill()
     }
 
     private fun showProducts() {
-        activityRouter.goToProducts()
+        flowRouter.goToProducts()
     }
 
     private fun showSales() {
-        activityRouter.goToSales()
+        flowRouter.goToSales()
     }
 
     private fun showProductCategories() {
-        activityRouter.goToProductCategories()
+        flowRouter.goToProductCategories()
     }
 }

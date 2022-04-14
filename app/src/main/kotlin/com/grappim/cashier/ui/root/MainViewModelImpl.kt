@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 class MainViewModelImpl @Inject constructor(
     private val workerHelper: WorkerHelper,
-    private val activityRouter: ActivityRouter,
     generalStorage: GeneralStorage
 ) : MainViewModel() {
 

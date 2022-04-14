@@ -2,7 +2,6 @@ package com.grappim.auth.ui.view
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.auth.R
+import com.grappim.uikit.compose.CashierImage
+import com.grappim.uikit.compose.CashierText
+import com.grappim.uikit.compose.button.CashierImageButton
+import com.grappim.uikit.compose.button.CashierMediumButton
 import com.grappim.uikit.compose.button.PasswordTextFieldCompose
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
@@ -117,39 +120,32 @@ private fun AuthScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                IconButton(
-                    modifier = Modifier
-                        .padding(8.dp),
-                    onClick = onSettingsClick
-                ) {
-                    Icon(
-                        modifier = Modifier,
-                        imageVector = Icons.Filled.Settings,
-                        contentDescription = null
-                    )
-                }
+                CashierImageButton(
+                    imageVector = Icons.Filled.Settings,
+                    onIconClick = onSettingsClick
+                )
             }
         }
         item {
-            Spacer(modifier = Modifier.height(26.dp))
-        }
-        item {
-            Image(
+            CashierImage(
                 modifier = Modifier
+                    .padding(
+                        top = 26.dp
+                    )
                     .rotate(rotationAngle)
                     .clickable {
                         isLogoRotated = !isLogoRotated
                         logoCounter(++logoClickCounter)
                     },
-                painter = painterResource(id = R.drawable.ic_logo),
-                contentDescription = "Logo"
+                painter = painterResource(id = R.drawable.ic_logo)
             )
         }
         item {
-            Spacer(modifier = Modifier.height(25.dp))
-        }
-        item {
             TextFieldsComponent(
+                modifier = Modifier
+                    .padding(
+                        top = 25.dp
+                    ),
                 phoneText = phoneText,
                 phoneSetText = phoneSetText,
                 password = password,
@@ -160,26 +156,22 @@ private fun AuthScreenContent(
         }
 
         item {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-
-        item {
             SignInButton(
+                modifier = Modifier
+                    .padding(
+                        top = 16.dp
+                    ),
                 onSignInClick = onSignInClick,
                 isEnabled = isPhoneFullyEntered && password.isNotEmpty(),
                 showBiometrics = showBiometrics,
                 onShowBiometricsClick = onShowBiometricsClick
             )
         }
-
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-
         item {
             SignUpSegment(
                 modifier = Modifier
                     .padding(
+                        top = 16.dp,
                         bottom = 16.dp,
                     ),
                 onRegisterClick = onRegisterClick
@@ -195,9 +187,9 @@ private fun AuthScreenContent(
 
 @Composable
 private fun GuestModeSegment(
-    modifier:Modifier = Modifier,
+    modifier: Modifier = Modifier,
     onGuestModeClick: () -> Unit
-){
+) {
     Button(
         onClick = onGuestModeClick,
         modifier = modifier
@@ -215,10 +207,9 @@ private fun GuestModeSegment(
         ),
         shape = RoundedCornerShape(25.dp)
     ) {
-        Text(
+        CashierText(
             text = stringResource(id = R.string.title_guest_mode),
             color = CashierBlue,
-            fontSize = 17.sp,
             modifier = Modifier
                 .padding(
                     top = 4.dp,
@@ -230,6 +221,7 @@ private fun GuestModeSegment(
 
 @Composable
 private fun TextFieldsComponent(
+    modifier: Modifier = Modifier,
     phoneText: String,
     phoneSetText: (String) -> Unit,
     password: String,
@@ -237,7 +229,9 @@ private fun TextFieldsComponent(
     isPhoneFullyEntered: Boolean,
     onImePasswordActionDone: () -> Unit
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         PhoneNumberTextFieldComposable(
             modifier = Modifier
                 .padding(
@@ -266,13 +260,14 @@ private fun TextFieldsComponent(
 
 @Composable
 private fun SignInButton(
+    modifier: Modifier = Modifier,
     onSignInClick: () -> Unit,
     isEnabled: Boolean,
     showBiometrics: Boolean,
     onShowBiometricsClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(
                 fraction = 0.8f
             )
@@ -283,37 +278,31 @@ private fun SignInButton(
             )
     ) {
         if (showBiometrics) {
-            IconButton(
+            CashierImageButton(
+                imageVector = Icons.Filled.Fingerprint,
                 modifier = Modifier
                     .padding(
                         end = 8.dp
                     ),
-                onClick = onShowBiometricsClick,
-            ) {
-                Icon(imageVector = Icons.Filled.Fingerprint, contentDescription = "")
-            }
+                onIconClick = onShowBiometricsClick
+            )
         }
-        Button(
+        val textColor = if (isEnabled) {
+            Color.White
+        } else {
+            CashierBlue
+        }
+        CashierMediumButton(
             onClick = onSignInClick,
             modifier = Modifier
                 .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = CashierBlue
+            backgroundColor = ButtonDefaults.buttonColors(
+                disabledBackgroundColor = CashierGray
             ),
-            shape = RoundedCornerShape(25.dp),
-            enabled = isEnabled
-        ) {
-            Text(
-                text = stringResource(id = R.string.action_sign_in),
-                color = Color.White,
-                fontSize = 17.sp,
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        bottom = 4.dp
-                    )
-            )
-        }
+            text = stringResource(id = R.string.action_sign_in),
+            enabled = isEnabled,
+            textColor = textColor
+        )
     }
 }
 
@@ -322,7 +311,8 @@ private fun SignUpSegment(
     modifier: Modifier = Modifier,
     onRegisterClick: () -> Unit
 ) {
-    Button(
+    CashierMediumButton(
+        text = stringResource(id = R.string.title_sign_up),
         onClick = onRegisterClick,
         modifier = modifier
             .fillMaxWidth(
@@ -333,22 +323,11 @@ private fun SignUpSegment(
                 end = 32.dp,
                 top = 16.dp
             ),
-        colors = ButtonDefaults.buttonColors(
+        backgroundColor = ButtonDefaults.buttonColors(
             backgroundColor = Color.White
         ),
-        shape = RoundedCornerShape(25.dp)
-    ) {
-        Text(
-            text = stringResource(id = R.string.title_sign_up),
-            color = CashierBlue,
-            fontSize = 17.sp,
-            modifier = Modifier
-                .padding(
-                    top = 4.dp,
-                    bottom = 4.dp
-                )
-        )
-    }
+        textColor = CashierBlue
+    )
 }
 
 @Composable
@@ -382,8 +361,6 @@ private fun PhoneNumberTextFieldComposable(
             }
         },
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            cursorColor = Color.Black,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),

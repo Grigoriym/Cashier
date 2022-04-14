@@ -16,7 +16,7 @@ import androidx.paging.compose.items
 import com.grappim.domain.model.product.Product
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemProductCompose
-import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
+import com.grappim.uikit.compose.text_field.CashierOutlinedTextField
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
 import kotlinx.coroutines.flow.flowOf
@@ -54,7 +54,7 @@ private fun MainSegment(
     onProductClick: (Product) -> Unit
 ) {
     Column {
-        OutlinedTextFieldCompose(
+        CashierOutlinedTextField(
             modifier = Modifier
                 .padding(
                     top = 24.dp,

@@ -1,6 +1,7 @@
 package com.grappim.cashier.di.navigation
 
 import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.grappim.common.di.ActivityCicerone
 import com.grappim.common.di.ActivityNavigatorHolder
@@ -12,16 +13,16 @@ import dagger.Provides
 @Module
 object ActivityNavigationModule {
 
-    @[ActivityScope ActivityCicerone Provides]
+    @[ActivityScope Provides ActivityCicerone]
     fun provideActivityCicerone(): Cicerone<Router> = Cicerone.create()
 
-    @[ActivityScope ActivityRouterQualifier Provides]
+    @[ActivityScope Provides ActivityRouterQualifier]
     fun provideActivityRouter(
         @ActivityCicerone cicerone: Cicerone<Router>
-    ) = cicerone.router
+    ): Router = cicerone.router
 
-    @[ActivityScope ActivityNavigatorHolder Provides]
+    @[ActivityScope Provides ActivityNavigatorHolder]
     fun provideActivityNavigatorHolder(
         @ActivityCicerone cicerone: Cicerone<Router>
-    ) = cicerone.getNavigatorHolder()
+    ): NavigatorHolder = cicerone.getNavigatorHolder()
 }

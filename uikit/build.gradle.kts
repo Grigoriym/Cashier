@@ -15,7 +15,6 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-splashscreen:1.0.0-beta01")
     implementation(project(Modules.domain))
     implementation(project(Modules.utilsCalculations))
 
@@ -26,6 +25,7 @@ dependencies {
     }
     implementation(Deps.Google.zxingCore)
 
+    implementation(Deps.AndroidX.splashScreen)
     implementation(Deps.AndroidX.swipeRefresh)
     implementation(Deps.circularProgressBar)
     implementation(Deps.viewBinding)
@@ -40,4 +40,6 @@ dependencies {
     implementation(Deps.Compose.foundationLayout)
     implementation(Deps.Compose.icons)
     implementation(Deps.Compose.constraint)
+
+    implementation(Deps.Accompanist.systemUiController())
 }

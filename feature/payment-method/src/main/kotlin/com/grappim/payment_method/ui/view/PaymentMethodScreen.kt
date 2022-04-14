@@ -72,16 +72,16 @@ private fun MainSegment(
         )
     ) {
         items(menuItems) { item ->
+            rememberRipple()
             Card(
-                modifier = Modifier
-                    .fillParentMaxWidth(),
-                elevation = 4.dp,
-                shape = RoundedCornerShape(10.dp),
                 onClick = {
                     onItemClick(item)
                 },
+                modifier = Modifier
+                    .fillParentMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
                 backgroundColor = Color.White,
-                indication = rememberRipple()
+                elevation = 4.dp
             ) {
                 Box(
                     modifier = Modifier
@@ -130,7 +130,6 @@ private fun BottomBarSegment(
                 Text(
                     text = stringResource(id = R.string.title_item1),
                     fontSize = 16.sp,
-                    color = Color.Black,
                     modifier = Modifier
                         .weight(1f),
                     textAlign = TextAlign.Start
@@ -153,7 +152,6 @@ private fun BottomBarSegment(
                 Text(
                     text = stringResource(id = R.string.title_price1),
                     fontSize = 16.sp,
-                    color = Color.Black,
                     modifier = Modifier
                         .weight(1f),
                     textAlign = TextAlign.Start

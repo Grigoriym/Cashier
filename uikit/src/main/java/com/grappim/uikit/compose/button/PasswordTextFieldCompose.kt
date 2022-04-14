@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
@@ -56,8 +59,6 @@ fun PasswordTextFieldCompose(
             )
         },
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            cursorColor = Color.Black,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
@@ -90,14 +91,10 @@ fun PasswordTextFieldCompose(
             } else {
                 Icons.Filled.VisibilityOff
             }
-            IconButton(
+            CashierIconButton(
+                imageVector = image,
                 onClick = { passwordVisibility = !passwordVisibility }
-            ) {
-                Icon(
-                    imageVector = image,
-                    contentDescription = ""
-                )
-            }
+            )
         }
     )
     errorMessage?.invoke()

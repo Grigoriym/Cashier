@@ -224,7 +224,7 @@ private fun Project.getAppDependencies() {
             implementation(Deps.Compose.paging)
             implementation(Deps.Compose.constraint)
 
-            implementation(Deps.accompanistSwipeRefresh)
+            implementation(Deps.Accompanist.accompanistSwipeRefresh)
 
             implementation(Deps.Google.zxingCore)
             implementation(Deps.combineTupleLiveData)

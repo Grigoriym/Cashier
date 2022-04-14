@@ -55,14 +55,12 @@ fun SelectCashBoxScreen(
                 isEnabled = selectedCashBox != null
             )
         }
-    ) { innerPadding ->
+    ) {
         Column(
             modifier = Modifier
-                .padding(innerPadding)
         ) {
             Text(
                 text = stringResource(id = R.string.title_checkout_selection),
-                color = Color.Black,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.grappim.bag.R
 import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemAddBasketProductCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
@@ -134,18 +135,15 @@ private fun BottomSegment(
                         bottom = 10.dp
                     )
             ) {
-                Text(
+                CashierText(
                     text = stringResource(id = R.string.title_item1),
-                    fontSize = 16.sp,
-                    color = Color.Black,
                     modifier = Modifier
                         .weight(1f),
                     textAlign = TextAlign.Start
                 )
 
-                Text(
+                CashierText(
                     text = "$itemSize",
-                    fontSize = 16.sp,
                     color = CashierBlue,
                     modifier = Modifier
                         .weight(1f),
@@ -160,20 +158,17 @@ private fun BottomSegment(
                         bottom = 10.dp
                     )
             ) {
-                Text(
+                CashierText(
                     text = stringResource(id = R.string.title_price1),
-                    fontSize = 16.sp,
-                    color = Color.Black,
                     modifier = Modifier
                         .weight(1f),
                     textAlign = TextAlign.Start
                 )
-                Text(
+                CashierText(
                     text = stringResource(
                         id = R.string.title_price_with_currency,
                         price
                     ),
-                    fontSize = 16.sp,
                     color = CashierBlue,
                     modifier = Modifier
                         .weight(1f),

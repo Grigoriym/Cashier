@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Theme.Cashier" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Cashier" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/cashier_blue</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/cashier_white</item>
@@ -8,8 +8,8 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/cashier_black</item>
 
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowBackground">@color/cashier_white</item>
+        <item name="android:windowTranslucentStatus">@bool/windowTranslucentStatus</item>
+        <item name="android:windowBackground">@color/cashier_background</item>
 
         <item name="colorPrimaryDark">@color/cashier_white</item>
     </style>

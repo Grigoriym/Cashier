@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,9 +28,9 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillStatus
-import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.*
 import com.grappim.uikit.compose.button.BigActionButtonCompose
-import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
+import com.grappim.uikit.compose.text_field.CashierOutlinedTextField
 import com.grappim.uikit.theme.*
 import com.grappim.waybill.R
 import com.grappim.waybill.model.PagingDataModel
@@ -65,7 +67,7 @@ fun WaybillListScreen(
             modifier = Modifier
                 .padding(innerPadding)
         ) {
-            OutlinedTextFieldCompose(
+            CashierOutlinedTextField(
                 modifier = Modifier
                     .padding(
                         top = 24.dp,
@@ -127,7 +129,7 @@ private fun WaybillItemSegment(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = Color.White
+                color = MaterialTheme.colors.background
             )
             .clickable {
                 onWaybillClick.invoke(item.item)
@@ -141,10 +143,8 @@ private fun WaybillItemSegment(
             divider
         ) = createRefs()
 
-        Text(
+        CashierText(
             text = item.item.number,
-            color = Color.Black,
-            fontSize = 16.sp,
             modifier = Modifier
                 .constrainAs(textNumber) {
                     top.linkTo(
@@ -158,10 +158,9 @@ private fun WaybillItemSegment(
                 }
         )
 
-        Text(
+        CashierTextBody1(
             text = item.item.updateOnToDemonstrate,
             color = CashierGray,
-            fontSize = 14.sp,
             modifier = Modifier
                 .constrainAs(textDate) {
                     start.linkTo(
@@ -177,12 +176,11 @@ private fun WaybillItemSegment(
                     )
                 }
         )
-        Text(
+        CashierText(
             text = stringResource(
                 id = R.string.title_price_with_currency,
                 item.item.totalCost.toString()
             ),
-            fontSize = 16.sp,
             color = CashierBlue,
             modifier = Modifier
                 .constrainAs(textTotalCost) {
@@ -218,9 +216,8 @@ private fun WaybillItemSegment(
                     )
                 }
         ) {
-            Text(
+            CashierTextBody1(
                 text = item.item.status.name,
-                fontSize = 14.sp,
                 color = Color.White,
                 modifier = Modifier
                     .padding(
@@ -263,19 +260,16 @@ private fun WaybillListHeaderSegment(
                 bottom = 10.dp
             )
     ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_calendar_today_24),
-            contentDescription = "",
+        CashierIcon(
+            imageVector = Icons.Filled.CalendarToday,
             tint = CashierGray,
             modifier = Modifier
                 .padding(start = 18.dp)
         )
-        Text(
+        CashierTextGray(
             text = header.text,
             modifier = Modifier
-                .padding(start = 12.dp),
-            color = CashierGray,
-            fontSize = 16.sp
+                .padding(start = 12.dp)
         )
     }
 }

@@ -31,7 +31,6 @@ class BasketRepositoryImpl @Inject constructor(
     override fun addBasketProduct(
         params: AddBasketProduct.Params
     ): Flow<Try<BasketProduct>> = flow {
-        emit(Try.Loading)
         val addBasketProduct = params.product.toAddBasketProductDTO()
         val dto = basketApi.addProductToBasket(addBasketProduct)
         emit(Try.Success(dto.toDomain()))
@@ -40,7 +39,6 @@ class BasketRepositoryImpl @Inject constructor(
     override fun addProductToBasket(
         params: AddProductToBasketUseCase.Params
     ): Flow<Try<BasketProduct>> = flow {
-        emit(Try.Loading)
         val addBasketProduct = params.product.toAddBasketProductDTO()
         val dto = basketApi.addProductToBasket(addBasketProduct)
         emit(Try.Success(dto.toDomain()))

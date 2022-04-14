@@ -9,18 +9,13 @@ import com.grappim.auth.model.BiometricsDialogClickState
 import com.grappim.auth.model.BiometricsState
 import com.grappim.auth.model.DevSnackbar
 import com.grappim.common.lce.Try
-import com.grappim.core.SingleLiveEvent
-import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.model.biometrics.BiometricsStatus
-import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.logger.logD
 import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,11 +34,10 @@ internal class AuthViewModelImpl @Inject constructor(
 
     override val authFieldsData = MutableStateFlow(AuthTextFieldsData.empty())
 
-    override val showDevSnackbar = SingleLiveEvent<DevSnackbar>()
-    override val setFingerprintEvent = SingleLiveEvent<BiometricsState>()
-    override val dialogAnswer = SingleLiveEvent<BiometricsDialogClickState>()
+    override val showDevSnackbar = MutableSharedFlow<DevSnackbar>()
+    override val setFingerprintEvent = MutableSharedFlow<BiometricsState>()
 
-    override val biometricsIntent = SingleLiveEvent<Intent>()
+    override val biometricsIntent = MutableSharedFlow<Intent>()
 
     override val biometricsStatus: Flow<BiometricsStatus?>
         get() = generalStorage.biometricsStatus
@@ -83,15 +77,17 @@ internal class AuthViewModelImpl @Inject constructor(
     }
 
     override fun onLogoClick(counter: Int) {
-        when (counter) {
-            in 7..9 -> {
-                showDevSnackbar.value = DevSnackbar.firstPhase(counter)
-            }
-            10 -> {
-                showDevSnackbar.value = DevSnackbar.secondPhase()
-            }
-            else -> {
-                showDevSnackbar.value = DevSnackbar.default()
+        viewModelScope.launch {
+            when (counter) {
+                in 7..9 -> {
+                    showDevSnackbar.emit(DevSnackbar.firstPhase(counter))
+                }
+                10 -> {
+                    showDevSnackbar.emit(DevSnackbar.secondPhase())
+                }
+                else -> {
+                    showDevSnackbar.emit(DevSnackbar.default())
+                }
             }
         }
     }
@@ -137,8 +133,7 @@ internal class AuthViewModelImpl @Inject constructor(
 
     override fun setDialogAnswer(answer: BiometricsDialogClickState) {
         viewModelScope.launch {
-            setFingerprintEvent.value = BiometricsState.ShowNothing
-            dialogAnswer.value = answer
+            setFingerprintEvent.emit(BiometricsState.ShowNothing)
             when (answer) {
                 BiometricsDialogClickState.Positive -> {
                     generalStorage.setBiometricsStatus(BiometricsStatus.SET)
@@ -150,7 +145,7 @@ internal class AuthViewModelImpl @Inject constructor(
                             _error.value = IllegalArgumentException("lol")
                         },
                         doOnNoneEnrolled = {
-                            biometricsIntent.value = it
+                            biometricsIntent.emit(it)
                         }
                     )
                 }
@@ -169,7 +164,9 @@ internal class AuthViewModelImpl @Inject constructor(
     }
 
     private fun authSuccess() {
-        setFingerprintEvent.value = BiometricsState.ShowPrompt
+        viewModelScope.launch {
+            setFingerprintEvent.emit(BiometricsState.ShowPrompt)
+        }
     }
 
 }
