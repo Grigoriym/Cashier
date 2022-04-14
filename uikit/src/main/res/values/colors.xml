@@ -16,4 +16,6 @@
     <color name="cashier_red">#FF3B30</color>
 
     <color name="cashier_search">#8E8E93</color>
+
+    <color name="cashier_background">@color/cashier_white</color>
 </resources>

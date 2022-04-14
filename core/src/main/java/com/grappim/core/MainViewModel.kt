@@ -1,10 +1,9 @@
 package com.grappim.core
 
-import androidx.lifecycle.ViewModel
-import com.grappim.domain.model.FeatureToggle
+import com.grappim.core.base.BaseActivityViewModel
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class MainViewModel : ViewModel() {
+abstract class MainViewModel : BaseActivityViewModel() {
 
     abstract fun startSync()
     abstract fun stopSync()

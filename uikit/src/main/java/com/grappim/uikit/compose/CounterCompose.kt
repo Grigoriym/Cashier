@@ -124,10 +124,8 @@ fun CounterComposable(
                 color = CashierLightGray
             )
         ) {
-            Icon(
-                imageVector = Icons.Filled.Add,
-                contentDescription = "",
-                tint = CashierBlue
+            CashierIcon(
+                imageVector = Icons.Filled.Add
             )
         }
     }

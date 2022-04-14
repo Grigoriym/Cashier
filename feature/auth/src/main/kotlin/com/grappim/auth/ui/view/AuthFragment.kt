@@ -97,9 +97,9 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
     private fun AuthFragmentScreen() {
         val loading by viewModel.loading.observeAsState(false)
         val authData by viewModel.authFieldsData.collectAsState()
-        val snackbar by viewModel.showDevSnackbar.observeAsState()
-        val fingerprintEvent by viewModel.setFingerprintEvent.observeAsState()
-        val biometricsIntent by viewModel.biometricsIntent.observeAsState()
+        val snackbar by viewModel.showDevSnackbar.collectAsState(null)
+        val fingerprintEvent by viewModel.setFingerprintEvent.collectAsState(BiometricsState.ShowNothing)
+        val biometricsIntent by viewModel.biometricsIntent.collectAsState(null)
         val biometricsStatus by viewModel.biometricsStatus.collectAsState(null)
 
         LaunchedEffect(biometricsIntent) {

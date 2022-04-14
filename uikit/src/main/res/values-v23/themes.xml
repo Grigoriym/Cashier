@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Cashier" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Cashier" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
 
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowBackground">@color/cashier_white</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
     </style>
 
 </resources>

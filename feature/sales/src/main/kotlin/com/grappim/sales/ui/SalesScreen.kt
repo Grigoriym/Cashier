@@ -23,7 +23,7 @@ import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemAddBasketProductCompose
 import com.grappim.uikit.compose.ItemAddProductCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
-import com.grappim.uikit.compose.text_field.OutlinedTextFieldCompose
+import com.grappim.uikit.compose.text_field.CashierOutlinedTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
 import kotlinx.coroutines.flow.flowOf
@@ -81,7 +81,7 @@ private fun SalesScreenMainSegment(
     basketProducts: List<BasketProduct>
 ) {
     Column {
-        OutlinedTextFieldCompose(
+        CashierOutlinedTextField(
             modifier = Modifier
                 .padding(
                     top = 24.dp,

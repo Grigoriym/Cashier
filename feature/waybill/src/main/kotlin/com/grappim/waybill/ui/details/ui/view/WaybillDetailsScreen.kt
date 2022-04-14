@@ -29,8 +29,9 @@ import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.uikit.compose.BaseTopAppBar
-import com.grappim.uikit.compose.button.BigActionButtonCompose
+import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemProductCompose
+import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
@@ -72,13 +73,11 @@ fun WaybillDetailsScreen(
             modifier = Modifier
                 .padding(innerPadding)
         ) {
-            Text(
+            CashierText(
                 text = stringResource(
                     R.string.title_acceptance_number,
                     waybill.number
                 ),
-                color = Color.Black,
-                fontSize = 17.sp,
                 modifier = Modifier
                     .padding(
                         top = 32.dp,
@@ -93,13 +92,11 @@ fun WaybillDetailsScreen(
                 setComment = setComment
             )
 
-            Text(
+            CashierText(
                 text = stringResource(
                     R.string.title_goods_acceptance,
                     productsPagingItems.itemCount
                 ),
-                color = Color.Black,
-                fontSize = 17.sp,
                 modifier = Modifier
                     .padding(
                         top = 24.dp,
@@ -128,7 +125,9 @@ private fun BottomBarSegment(
     onActionButtonClick: () -> Unit,
     waybillStatus: WaybillStatus
 ) {
-    Surface {
+    Surface(
+        color = MaterialTheme.colors.background
+    ) {
         Column {
             Row(
                 modifier = Modifier
@@ -137,19 +136,16 @@ private fun BottomBarSegment(
                         end = 16.dp
                     )
             ) {
-                Text(
+                CashierText(
                     modifier = Modifier
                         .weight(1f),
                     text = stringResource(id = R.string.title_price1),
-                    fontSize = 16.sp,
-                    color = Color.Black
                 )
 
-                Text(
+                CashierText(
                     modifier = Modifier
                         .weight(1f),
                     text = price,
-                    fontSize = 16.sp,
                     color = CashierBlue,
                     textAlign = TextAlign.End
                 )
@@ -195,9 +191,7 @@ private fun TextFieldsSegment(
                     start = 16.dp,
                     end = 16.dp
                 ),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White
-            ),
+            colors = TextFieldDefaults.textFieldColors(),
             placeholder = {
                 Text(text = stringResource(id = R.string.title_actual_date))
             },
@@ -215,9 +209,7 @@ private fun TextFieldsSegment(
                     start = 16.dp,
                     end = 16.dp
                 ),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White
-            ),
+            colors = TextFieldDefaults.textFieldColors(),
             placeholder = {
                 Text(text = stringResource(id = R.string.title_comment))
             },

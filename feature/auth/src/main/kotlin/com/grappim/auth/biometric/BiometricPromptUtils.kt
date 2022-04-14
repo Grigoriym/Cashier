@@ -22,10 +22,10 @@ class BiometricPromptUtils @Inject constructor(
 ) {
 
     @Suppress("DEPRECATION")
-    fun checkBiometricsAvailability(
+    suspend fun checkBiometricsAvailability(
         doOnSuccess: () -> Unit,
         doOnError: () -> Unit,
-        doOnNoneEnrolled: (enrollIntent: Intent) -> Unit
+        doOnNoneEnrolled: suspend (enrollIntent: Intent) -> Unit
     ) {
         val biometricManager = BiometricManager.from(activityContext)
         when (val answer = biometricManager.canAuthenticate(BIOMETRIC_WEAK)) {

@@ -62,7 +62,6 @@ fun SelectStockScreen(
         ) {
             Text(
                 text = stringResource(id = R.string.outlet_selecting),
-                color = Color.Black,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier

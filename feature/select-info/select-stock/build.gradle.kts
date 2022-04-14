@@ -31,5 +31,5 @@ dependencies {
     implementation(Deps.coil)
 
     implementation(Deps.Compose.paging)
-    implementation(Deps.accompanistSwipeRefresh)
+    implementation(Deps.Accompanist.accompanistSwipeRefresh)
 }

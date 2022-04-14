@@ -8,7 +8,6 @@ import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.common.lce.Try
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.date_time.DateTimeIsoInstant
 import com.grappim.domain.interactor.products.CreateProductUseCase
 import com.grappim.domain.interactor.products.EditProductUseCase
 import com.grappim.domain.interactor.products.GetCategoryListInteractor
@@ -24,18 +23,16 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
-import java.time.format.DateTimeFormatter
 
 class CreateEditProductViewModelImpl @AssistedInject constructor(
     private val createProductUseCase: CreateProductUseCase,
     private val priceCalculationsUtils: PriceCalculationsUtils,
     private val editProductUseCase: EditProductUseCase,
-    private val getCategoryListInteractor: GetCategoryListInteractor,
+    getCategoryListInteractor: GetCategoryListInteractor,
     private val generalStorage: GeneralStorage,
     @DecimalFormatSimple private val dfSimple: DecimalFormat,
     @Assisted private val createEditFlow: CreateEditFlow,
-    @Assisted private val productToEdit: Product?,
-    @DateTimeIsoInstant private val dtfIso: DateTimeFormatter
+    @Assisted private val productToEdit: Product?
 ) : CreateEditProductViewModel() {
 
     @AssistedFactory

@@ -5,15 +5,24 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightThemeColors = lightColors(
     primary = CashierBlue,
-    secondary = CashierBlue
+    secondary = CashierBlue,
+    surface = Color.White,
+    onSurface = Color.White,
+    onBackground = Color.Black
 )
 
 private val DarkThemeColors = darkColors(
     primary = CashierBlue,
-    secondary = CashierBlue
+    secondary = CashierBlue,
+    surface = Color.Black,
+    onSurface = CashierGray,
+    onBackground = Color.White
 )
 
 @Composable
@@ -21,13 +30,22 @@ fun CashierTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+//    val systemUiController = rememberSystemUiController()
+//    val useDarkIcons = MaterialTheme.colors.isLight
+//
+//    SideEffect {
+//        systemUiController.setSystemBarsColor(
+//            color = Color.Transparent,
+//            darkIcons = useDarkIcons
+//        )
+//    }
+
     MaterialTheme(
-//        colors = if (darkTheme) {
-//            DarkThemeColors
-//        } else {
-//            LightThemeColors
-//        },
-        colors = LightThemeColors,
+        colors = if (darkTheme) {
+            DarkThemeColors
+        } else {
+            LightThemeColors
+        },
         shapes = CashierShapes,
         content = content
     )

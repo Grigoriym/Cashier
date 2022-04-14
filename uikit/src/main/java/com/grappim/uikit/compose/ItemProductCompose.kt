@@ -9,6 +9,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,11 +50,10 @@ fun ItemProductCompose(
                 arrow
             ) = createRefs()
 
-            Image(
+            CashierImage(
                 painter = painterResource(
                     id = R.drawable.ic_image_placeholder
                 ),
-                contentDescription = "",
                 modifier = Modifier
                     .size(50.dp)
                     .constrainAs(productImage) {
@@ -107,7 +108,7 @@ fun ItemProductCompose(
                 fontSize = 16.sp
             )
 
-            Text(
+            CashierTextBody1(
                 modifier = Modifier
                     .constrainAs(productCountUnit) {
                         centerVerticallyTo(productPrice)
@@ -117,7 +118,6 @@ fun ItemProductCompose(
                         )
                     },
                 text = waybillProduct.amount.toString(),
-                fontSize = 14.sp,
                 color = CashierGray
             )
 
@@ -140,7 +140,7 @@ fun ItemProductCompose(
                 thickness = 1.dp
             )
 
-            Icon(
+            CashierIcon(
                 modifier = Modifier
                     .constrainAs(arrow) {
                         bottom.linkTo(
@@ -154,10 +154,7 @@ fun ItemProductCompose(
                             margin = 34.dp
                         )
                     },
-                painter = painterResource(
-                    id = R.drawable.ic_keyboard_arrow_right
-                ),
-                contentDescription = ""
+                imageVector = Icons.Filled.ChevronRight
             )
         }
     }

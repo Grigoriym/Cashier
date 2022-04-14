@@ -1,9 +1,11 @@
 package com.grappim.sign_up_presentation.ui.view
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -22,7 +24,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,9 +31,11 @@ import com.grappim.core.resources.NativeText
 import com.grappim.core.resources.asString
 import com.grappim.sign_up_presentation.R
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
+import com.grappim.uikit.compose.CashierIcon
+import com.grappim.uikit.compose.CashierTextGray
+import com.grappim.uikit.compose.CashierTextH5Text
+import com.grappim.uikit.compose.button.CashierMediumButton
 import com.grappim.uikit.compose.button.PasswordTextFieldCompose
-import com.grappim.uikit.theme.CashierBlue
-import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierTheme
 
 @Composable
@@ -48,7 +51,7 @@ internal fun SignUpScreen(
     repeatPasswordSet: (String) -> Unit,
     validationData: SignUpFieldsValidationData?
 ) {
-    Box(
+    Scaffold(
         modifier = Modifier
     ) {
         SignUpScreenContent(
@@ -184,16 +187,13 @@ private fun ShowError(
 
 @Composable
 private fun HeaderText() {
-    Text(
+    CashierTextH5Text(
         text = stringResource(
             id = R.string.title_sign_up
         ),
-        fontSize = 24.sp,
         style = TextStyle.Default.copy(
             fontWeight = FontWeight.Bold
         ),
-        color = Color.Black,
-        textAlign = TextAlign.Center,
         modifier = Modifier
             .padding(
                 top = 32.dp
@@ -221,26 +221,20 @@ private fun EmailTextFieldComposable(
                 top = 16.dp
             ),
         leadingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Email,
-                contentDescription = "",
-                tint = CashierBlue
+            CashierIcon(
+                imageVector = Icons.Filled.Email
             )
         },
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            cursorColor = Color.Black,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
         isError = emailError != null,
         placeholder = {
-            Text(
+            CashierTextGray(
                 text = stringResource(
                     id = R.string.title_email
-                ),
-                fontSize = 16.sp,
-                color = CashierGray
+                )
             )
         },
         keyboardOptions = KeyboardOptions.Default.copy(
@@ -278,24 +272,18 @@ private fun PhoneNumberTextFieldComposable(
                 top = 16.dp
             ),
         leadingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Phone,
-                contentDescription = "",
-                tint = CashierBlue
+            CashierIcon(
+                imageVector = Icons.Filled.Phone
             )
         },
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            cursorColor = Color.Black,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
         isError = phoneError != null,
         placeholder = {
-            Text(
-                text = stringResource(id = R.string.title_phone_number),
-                fontSize = 16.sp,
-                color = CashierGray
+            CashierTextGray(
+                text = stringResource(id = R.string.title_phone_number)
             )
         },
         keyboardOptions = KeyboardOptions.Default.copy(
@@ -316,8 +304,9 @@ private fun PhoneNumberTextFieldComposable(
 private fun SignUpButton(
     onSignUpClick: () -> Unit
 ) {
-    Button(
+    CashierMediumButton(
         onClick = onSignUpClick,
+        text = stringResource(id = R.string.title_sign_up),
         modifier = Modifier
             .fillMaxWidth(
                 fraction = 0.8f
@@ -327,22 +316,7 @@ private fun SignUpButton(
                 end = 32.dp,
                 top = 16.dp
             ),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = CashierBlue
-        ),
-        shape = RoundedCornerShape(25.dp)
-    ) {
-        Text(
-            text = stringResource(id = R.string.title_sign_up),
-            color = Color.White,
-            fontSize = 17.sp,
-            modifier = Modifier
-                .padding(
-                    top = 4.dp,
-                    bottom = 4.dp
-                )
-        )
-    }
+    )
 }
 
 @Composable

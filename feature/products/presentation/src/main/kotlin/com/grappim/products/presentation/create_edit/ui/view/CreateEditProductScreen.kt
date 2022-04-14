@@ -184,7 +184,6 @@ private fun CreateEditProductScreenMainSegment(
                     imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White,
                     focusedIndicatorColor = CashierBlue,
                     unfocusedIndicatorColor = CashierLightGray
                 ),
@@ -252,7 +251,6 @@ private fun CreateEditProductScreenMainSegment(
                     imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White,
                     focusedIndicatorColor = CashierBlue,
                     unfocusedIndicatorColor = CashierLightGray
                 ),
@@ -336,7 +334,7 @@ private fun CategoryDropDownSegment(
 
             val text = selectedCategory?.name ?: stringResource(id = R.string.title_category)
             val color = if (selectedCategory != null) {
-                Color.Black
+                Color.Unspecified
             } else {
                 CashierGray
             }
@@ -430,7 +428,6 @@ private fun PricesSegment(
                     top = 24.dp
                 ),
             text = stringResource(id = R.string.title_price),
-            color = Color.Black,
             fontSize = 16.sp
         )
 
@@ -458,7 +455,6 @@ private fun PricesSegment(
                 imeAction = ImeAction.Next
             ),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White,
                 focusedIndicatorColor = CashierBlue,
                 unfocusedIndicatorColor = CashierLightGray
             ),
@@ -493,7 +489,6 @@ private fun PricesSegment(
                 imeAction = ImeAction.Next
             ),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White,
                 focusedIndicatorColor = CashierBlue,
                 unfocusedIndicatorColor = CashierLightGray
             ),
@@ -528,7 +523,6 @@ private fun PricesSegment(
                 imeAction = ImeAction.Done
             ),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White,
                 focusedIndicatorColor = CashierBlue,
                 unfocusedIndicatorColor = CashierLightGray
             ),
@@ -554,7 +548,6 @@ private fun QuantitySegment(
                     top = 24.dp
                 ),
             text = stringResource(id = R.string.title_quantity),
-            color = Color.Black,
             fontSize = 16.sp
         )
 

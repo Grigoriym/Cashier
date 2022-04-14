@@ -10,10 +10,10 @@ import com.grappim.common.di.FeatureFragmentManager
 import com.grappim.common.di.FeatureNavigatorHolder
 import com.grappim.common.di.FeatureRouterQualifier
 import com.grappim.common.di.FeatureScope
-import com.grappim.navigation.router.ActivityRouter
 import com.grappim.navigation.helpers.BackFragment
-import com.grappim.navigation.screens.CashierScreens
+import com.grappim.navigation.router.ActivityRouter
 import com.grappim.navigation.router.FlowRouter
+import com.grappim.navigation.screens.CashierScreens
 import javax.inject.Inject
 
 @FeatureScope
@@ -63,12 +63,24 @@ class FlowRouterImpl @Inject constructor(
         activityRouter.router.exit()
     }
 
+    override fun goToMenu() {
+        activityRouter.goToMenu()
+    }
+
+    override fun goToSales() {
+        activityRouter.goToSales()
+    }
+
+    override fun goToProductCategories() {
+        activityRouter.goToProductCategories()
+    }
+
     override fun goToSignUpFromSignIn() {
-        activityRouter.router.navigateTo(cashierScreens.SignUpScreen())
+        activityRouter.goToSignUpFromSignIn()
     }
 
     override fun goToSelectInfo() {
-        activityRouter.router.navigateTo(cashierScreens.SelectInfoRoot())
+        activityRouter.goToSelectInfo()
     }
 
     override fun showProductCategoriesList() {
@@ -81,6 +93,10 @@ class FlowRouterImpl @Inject constructor(
 
     override fun goToEditProductCategory(args: Bundle) {
         router.navigateTo(cashierScreens.ProductCategoryEdit(args))
+    }
+
+    override fun goToProducts() {
+        activityRouter.goToProducts()
     }
 
     override fun goToCreateProductCategory(args: Bundle) {
@@ -105,6 +121,10 @@ class FlowRouterImpl @Inject constructor(
 
     override fun goToScanner() {
         activityRouter.router.navigateTo(cashierScreens.Scanner(null))
+    }
+
+    override fun goToWaybill() {
+        activityRouter.goToWaybill()
     }
 
     override fun showWaybillList() {

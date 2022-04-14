@@ -43,7 +43,8 @@ object Deps {
             "androidx.datastore:datastore-preferences:${Versions.AndroidX.dataStorePreferences}"
         const val splashScreen = "androidx.core:core-splashscreen:${Versions.AndroidX.splashScreen}"
 
-        const val securityCrypto = "androidx.security:security-crypto:${Versions.AndroidX.securityCrypto}"
+        const val securityCrypto =
+            "androidx.security:security-crypto:${Versions.AndroidX.securityCrypto}"
     }
 
     object Compose {
@@ -67,6 +68,16 @@ object Deps {
         const val paging = "androidx.paging:paging-compose:${Versions.AndroidX.Compose.paging}"
         const val constraint =
             "androidx.constraintlayout:constraintlayout-compose:${Versions.AndroidX.Compose.constraint}"
+    }
+
+    object Accompanist {
+        private fun accompanist(module: String = "", version: String = Versions.accompanist) =
+            "com.google.accompanist:accompanist$module:$version"
+
+        fun systemUiController() = accompanist("-systemuicontroller")
+        
+        const val accompanistSwipeRefresh =
+            "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
     }
 
     object Google {
@@ -144,7 +155,6 @@ object Deps {
         "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.viewBinding}"
     const val coil = "io.coil-kt:coil:${Versions.coil}"
     const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
-    const val accompanistSwipeRefresh =
-        "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
+
     const val cicerone = "com.github.terrakok:cicerone:${Versions.cicerone}"
 }

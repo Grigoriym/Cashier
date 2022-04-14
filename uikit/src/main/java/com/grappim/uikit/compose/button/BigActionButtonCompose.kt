@@ -1,18 +1,23 @@
 package com.grappim.uikit.compose.button
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Easing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierBlueDisabled
 import com.grappim.uikit.theme.CashierTheme
@@ -24,14 +29,21 @@ fun BigActionButtonCompose(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true
 ) {
-    val backgroundColor = if (isEnabled) {
-        CashierBlue
-    } else {
-        CashierBlueDisabled
-    }
+    val backgroundColor by animateColorAsState(
+        targetValue = if (isEnabled) {
+            CashierBlue
+        } else {
+            CashierBlueDisabled
+        },
+        animationSpec = tween(
+            durationMillis = 200,
+            easing = LinearEasing
+        )
+    )
     Surface(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        color = MaterialTheme.colors.background
     ) {
         Button(
             onClick = onButtonClick,
@@ -48,10 +60,9 @@ fun BigActionButtonCompose(
                 ),
             enabled = isEnabled
         ) {
-            Text(
+            CashierText(
                 text = buttonText,
                 color = Color.White,
-                fontSize = 17.sp,
                 modifier = Modifier
                     .padding(
                         top = 13.dp,

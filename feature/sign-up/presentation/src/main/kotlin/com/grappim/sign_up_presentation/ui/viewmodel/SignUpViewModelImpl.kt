@@ -2,12 +2,12 @@ package com.grappim.sign_up_presentation.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
-import com.grappim.core.SingleLiveEvent
 import com.grappim.sign_up.domain.interactor.SignUpUseCase
 import com.grappim.sign_up.domain.interactor.ValidateSignUpFieldsUseCase
 import com.grappim.sign_up.domain.model.SignUpData
 import com.grappim.sign_up_presentation.helper.FieldsValidatorHelper
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,30 +17,32 @@ class SignUpViewModelImpl @Inject constructor(
     private val fieldsValidatorHelper: FieldsValidatorHelper
 ) : SignUpViewModel() {
 
-    override val signUpData = SingleLiveEvent<SignUpData>()
+    override val signUpData = MutableStateFlow(SignUpData.empty())
 
-    override val signUpValidation = SingleLiveEvent<SignUpFieldsValidationData>()
+    override val signUpValidation = MutableStateFlow(
+        SignUpFieldsValidationData.empty()
+    )
 
     override fun setPhone(newPhone: String) {
-        val oldData = signUpData.value ?: SignUpData.empty()
+        val oldData = signUpData.value
         signUpData.value = oldData.setPhone(newPhone)
         clearValidation()
     }
 
     override fun setPassword(newPassword: String) {
-        val oldData = signUpData.value ?: SignUpData.empty()
+        val oldData = signUpData.value
         signUpData.value = oldData.setPassword(newPassword)
         clearValidation()
     }
 
     override fun setRepeatPassword(newPassword: String) {
-        val oldData = signUpData.value ?: SignUpData.empty()
+        val oldData = signUpData.value
         signUpData.value = oldData.setRepeatPassword(newPassword)
         clearValidation()
     }
 
     override fun setEmail(newEmail: String) {
-        val oldData = signUpData.value ?: SignUpData.empty()
+        val oldData = signUpData.value
         signUpData.value = oldData.setEmail(newEmail)
         clearValidation()
     }

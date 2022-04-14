@@ -1,6 +1,5 @@
 package com.grappim.product_category.presentation.list.ui.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -20,6 +18,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.presentation.R
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.CashierImage
+import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.theme.CashierTheme
 
@@ -99,11 +99,10 @@ private fun ProductCategoryItem(
                 title
             ) = createRefs()
 
-            Image(
+            CashierImage(
                 painter = painterResource(
                     id = R.drawable.ic_image_placeholder
                 ),
-                contentDescription = "",
                 modifier = Modifier
                     .size(50.dp)
                     .constrainAs(image) {
@@ -122,7 +121,7 @@ private fun ProductCategoryItem(
                     }
             )
 
-            Text(
+            CashierText(
                 text = productCategory.name,
                 modifier = Modifier
                     .constrainAs(title) {

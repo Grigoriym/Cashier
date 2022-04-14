@@ -3,6 +3,9 @@ package com.grappim.uikit.compose
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,43 +26,38 @@ import java.util.*
 @Composable
 fun BaseTopAppBar(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primarySurface,
+    backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
     elevation: Dp = 4.dp,
-
     toolbarTitle: String,
     backButtonAction: () -> Unit
 ) {
     TopAppBar(
         modifier = modifier,
         contentColor = contentColor,
-        backgroundColor = Color.White,
+        backgroundColor = backgroundColor,
         elevation = elevation
     ) {
         TextButton(
             modifier = Modifier
                 .padding(start = 14.dp),
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = colorResource(
-                    id = R.color.cashier_white
-                )
+                backgroundColor = backgroundColor
             ),
             onClick = backButtonAction,
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_back_ios_24),
-                tint = CashierBlue,
-                contentDescription = "Back button"
+            CashierIcon(
+                imageVector = Icons.Filled.ArrowBackIos,
+                tint = CashierBlue
             )
         }
-        Text(
+        CashierText(
             text = toolbarTitle,
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterVertically)
                 .padding(end = 64.dp),
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onSecondary
+            textAlign = TextAlign.Center
         )
     }
 }
