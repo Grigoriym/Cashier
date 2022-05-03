@@ -1,5 +1,7 @@
 package com.grappim.uikit.compose.text_field
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -19,11 +21,13 @@ import androidx.compose.ui.unit.dp
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.compose.CashierText
+import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierGreySuit
+import com.grappim.uikit.theme.CashierLightGray
 import com.grappim.uikit.theme.CashierTheme
 
 @Composable
-fun CashierOutlinedTextField(
+fun CashierSearchTextField(
     text: String,
     onTextChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -44,7 +48,8 @@ fun CashierOutlinedTextField(
         },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = Color.Transparent,
+            backgroundColor = CashierLightGray
         ),
         placeholder = {
             CashierText(
@@ -67,12 +72,27 @@ fun CashierOutlinedTextField(
 }
 
 @Preview(
-    showBackground = true
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_NO
 )
 @Composable
 private fun OutlinedTextFieldComposePreview() {
     CashierTheme {
-        CashierOutlinedTextField(
+        CashierSearchTextField(
+            text = "text",
+            onTextChange = {}
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
+@Composable
+private fun OutlinedTextFieldComposeNightPreview() {
+    CashierTheme {
+        CashierSearchTextField(
             text = "text",
             onTextChange = {}
         )

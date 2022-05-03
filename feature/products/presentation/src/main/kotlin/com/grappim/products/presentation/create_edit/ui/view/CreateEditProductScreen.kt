@@ -35,9 +35,11 @@ import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.presentation.R
 import com.grappim.products.presentation.model.CreateEditFlow
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.CounterComposable
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
+import com.grappim.uikit.compose.text_field.CashierStandardTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierLightGray
@@ -82,7 +84,6 @@ fun CreateEditProductScreen(
     }
 
     Scaffold(
-        modifier = Modifier,
         topBar = {
             BaseTopAppBar(
                 toolbarTitle = title
@@ -93,7 +94,6 @@ fun CreateEditProductScreen(
         bottomBar = {
             BigActionButtonCompose(
                 buttonText = title,
-                modifier = Modifier,
                 onButtonClick = onCreateProductClick
             )
         }
@@ -167,25 +167,17 @@ private fun CreateEditProductScreenMainSegment(
     ) {
         item {
             val focusManager = LocalFocusManager.current
-            TextField(
+            CashierStandardTextField(
                 value = productName,
                 onValueChange = setProductName,
                 modifier = Modifier
                     .fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_product_name
-                        )
-                    )
-                },
+                placeholderText = stringResource(
+                    id = R.string.title_product_name
+                ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = CashierBlue,
-                    unfocusedIndicatorColor = CashierLightGray
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
@@ -224,7 +216,7 @@ private fun CreateEditProductScreenMainSegment(
         item {
             val focusManager = LocalFocusManager.current
 
-            TextField(
+            CashierStandardTextField(
                 value = barcode,
                 onValueChange = setBarcode,
                 modifier = Modifier
@@ -232,27 +224,15 @@ private fun CreateEditProductScreenMainSegment(
                         top = 16.dp
                     )
                     .fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_barcode
-                        )
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_barcode
-                        )
-                    )
-                },
+                placeholderText = stringResource(
+                    id = R.string.title_barcode
+                ),
+                labelText = stringResource(
+                    id = R.string.title_barcode
+                ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = CashierBlue,
-                    unfocusedIndicatorColor = CashierLightGray
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
@@ -422,41 +402,28 @@ private fun PricesSegment(
     val focusManager = LocalFocusManager.current
 
     Column {
-        Text(
+        CashierText(
             modifier = Modifier
                 .padding(
                     top = 24.dp
                 ),
-            text = stringResource(id = R.string.title_price),
-            fontSize = 16.sp
+            text = stringResource(id = R.string.title_price)
         )
 
-        TextField(
+        CashierStandardTextField(
             value = purchasePrice,
             onValueChange = setPurchasePrice,
             modifier = Modifier
                 .fillMaxWidth(),
-            placeholder = {
-                Text(
-                    text = stringResource(
-                        id = R.string.title_purchase_price
-                    )
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(
-                        id = R.string.title_purchase_price
-                    )
-                )
-            },
+            placeholderText = stringResource(
+                id = R.string.title_purchase_price
+            ),
+            labelText = stringResource(
+                id = R.string.title_purchase_price
+            ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
-            ),
-            colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = CashierBlue,
-                unfocusedIndicatorColor = CashierLightGray
             ),
             keyboardActions = KeyboardActions(
                 onNext = {
@@ -465,32 +432,20 @@ private fun PricesSegment(
             )
         )
 
-        TextField(
+        CashierStandardTextField(
             value = extraPrice,
             onValueChange = setExtraPrice,
             modifier = Modifier
                 .fillMaxWidth(),
-            placeholder = {
-                Text(
-                    text = stringResource(
-                        id = R.string.title_extra_price
-                    )
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(
-                        id = R.string.title_extra_price
-                    )
-                )
-            },
+            placeholderText = stringResource(
+                id = R.string.title_extra_price
+            ),
+            labelText = stringResource(
+                id = R.string.title_extra_price
+            ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
-            ),
-            colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = CashierBlue,
-                unfocusedIndicatorColor = CashierLightGray
             ),
             keyboardActions = KeyboardActions(
                 onNext = {
@@ -499,32 +454,20 @@ private fun PricesSegment(
             )
         )
 
-        TextField(
+        CashierStandardTextField(
             value = sellingPrice,
             onValueChange = setSellingPrice,
             modifier = Modifier
                 .fillMaxWidth(),
-            placeholder = {
-                Text(
-                    text = stringResource(
-                        id = R.string.title_selling_price
-                    )
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(
-                        id = R.string.title_selling_price
-                    )
-                )
-            },
+            placeholderText = stringResource(
+                id = R.string.title_selling_price
+            ),
+            labelText = stringResource(
+                id = R.string.title_selling_price
+            ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
-            ),
-            colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = CashierBlue,
-                unfocusedIndicatorColor = CashierLightGray
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
@@ -610,25 +553,23 @@ private fun ProductUnitChip(
                     }
                 )
         ) {
-            Text(
+            CashierText(
                 text = unit.value,
-                style = MaterialTheme.typography.body2,
                 color = if (isSelected) {
                     Color.White
                 } else {
                     CashierBlue
                 },
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(8.dp),
+                fontSize = 14.sp
             )
         }
     }
 }
 
 @Composable
-@Preview(
-    showBackground = true
-)
+@Preview
 private fun CategoryDropDownSectionPreview() {
     CashierTheme {
         CategoryDropDownSegment(

@@ -1,5 +1,7 @@
 package com.grappim.products.presentation.list.ui.view
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,9 +16,10 @@ import com.grappim.domain.model.product.Product
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.presentation.R
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemProductCompose
 import com.grappim.uikit.compose.button.BigActionButtonCompose
-import com.grappim.uikit.compose.text_field.CashierOutlinedTextField
+import com.grappim.uikit.compose.text_field.CashierSearchTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierTheme
@@ -34,7 +37,6 @@ internal fun ProductsScreen(
     onProductClick: (Product) -> Unit
 ) {
     Scaffold(
-        modifier = Modifier,
         topBar = {
             BaseTopAppBar(
                 toolbarTitle = stringResource(id = R.string.title_products)
@@ -45,7 +47,6 @@ internal fun ProductsScreen(
         bottomBar = {
             BigActionButtonCompose(
                 buttonText = stringResource(id = R.string.action_create_product),
-                modifier = Modifier,
                 onButtonClick = onCreateProductClick
             )
         }
@@ -73,7 +74,7 @@ private fun ProductsScreenMainSegment(
     onProductClick: (Product) -> Unit
 ) {
     Column {
-        CashierOutlinedTextField(
+        CashierSearchTextField(
             modifier = Modifier
                 .padding(
                     top = 24.dp,
@@ -111,13 +112,22 @@ private fun CategoriesSegment(
             edgePadding = 16.dp
         ) {
             categories.forEachIndexed { index, category ->
+                val selected = selectedIndex == index
+                val textColor = if (selected) {
+                    CashierBlue
+                } else {
+                    CashierGray
+                }
                 Tab(
-                    selected = selectedIndex == index,
+                    selected = selected,
                     onClick = {
                         onTabClick(index, category)
                     },
                     text = {
-                        Text(text = category.name)
+                        CashierText(
+                            text = category.name,
+                            color = textColor
+                        )
                     },
                     selectedContentColor = CashierBlue,
                     unselectedContentColor = CashierGray
@@ -143,20 +153,46 @@ private fun ProductListSegment(
 }
 
 @Composable
-@Preview
+@Preview(
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_NO
+)
 private fun ProductsScreenPreview() {
     CashierTheme {
         ProductsScreen(
             onBackPressed = {},
             onCreateProductClick = {},
-            searchText = "",
+            searchText = "search text",
             setSearchText = {},
             categories = listOf(ProductCategory.empty(), ProductCategory.empty()),
             selectedIndex = 0,
             onTabClick = { index, category ->
 
             },
-            products = emptyList(),
+            products = listOf(Product.empty(), Product.empty()),
+            onProductClick = {}
+        )
+    }
+}
+
+@Composable
+@Preview(
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
+private fun ProductsScreenNightPreview() {
+    CashierTheme {
+        ProductsScreen(
+            onBackPressed = {},
+            onCreateProductClick = {},
+            searchText = "search text",
+            setSearchText = {},
+            categories = listOf(ProductCategory.empty(), ProductCategory.empty()),
+            selectedIndex = 0,
+            onTabClick = { index, category ->
+
+            },
+            products = listOf(Product.empty(), Product.empty()),
             onProductClick = {}
         )
     }

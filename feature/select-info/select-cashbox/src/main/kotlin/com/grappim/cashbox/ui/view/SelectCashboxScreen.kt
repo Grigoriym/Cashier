@@ -9,6 +9,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +27,7 @@ import com.grappim.cashbox.R
 import com.grappim.cashbox.model.CashierProgressItem
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.theme.*
 
@@ -164,9 +167,8 @@ private fun CashBoxListItem(
                 .size(24.dp)
         ) {
             if (isItemSelected) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_check_circle_green),
-                    contentDescription = "",
+                CashierIcon(
+                    imageVector = Icons.Filled.CheckCircle,
                     tint = CashierGreen,
                     modifier = Modifier
                         .size(24.dp)
@@ -192,11 +194,8 @@ private fun CashBoxProgressItem(
             CashierGray
         }
 
-        Icon(
-            painter = painterResource(
-                id = R.drawable.ic_check_circle_gray
-            ),
-            contentDescription = "",
+        CashierIcon(
+            imageVector = Icons.Filled.CheckCircle,
             tint = color,
             modifier = Modifier
                 .padding(start = 16.dp)

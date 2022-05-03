@@ -1,20 +1,21 @@
 package com.grappim.waybill.ui.product.ui.view
 
-import androidx.compose.foundation.layout.*
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.button.BigActionButtonCompose
+import com.grappim.uikit.compose.text_field.CashierStandardTextField
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
 import com.grappim.waybill.ui.product.model.WaybillProductStates
@@ -68,7 +69,6 @@ fun WaybillProductScreen(
             }
         }
 
-
         Column(
             modifier = Modifier
                 .padding(
@@ -77,120 +77,108 @@ fun WaybillProductScreen(
                     top = 16.dp
                 )
         ) {
-            TextField(
+            CashierStandardTextField(
                 value = barcode,
                 onValueChange = setBarcode,
                 modifier = Modifier
                     .fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_barcode
-                        )
-                    )
-                },
+                placeholderText = stringResource(
+                    id = R.string.title_barcode
+                ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
                 )
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            TextField(
+            CashierStandardTextField(
                 value = productName,
                 onValueChange = setProductName,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_product_name
-                        )
-                    )
-                },
+                    .fillMaxWidth()
+                    .padding(
+                        top = 16.dp
+                    ),
+                placeholderText = stringResource(
+                    id = R.string.title_product_name
+                ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
                 )
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            TextField(
+            CashierStandardTextField(
                 value = amount,
                 onValueChange = setAmount,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_amount
-                        )
-                    )
-                },
+                    .fillMaxWidth()
+                    .padding(
+                        top = 16.dp
+                    ),
+                placeholderText = stringResource(
+                    id = R.string.title_amount
+                ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
                 )
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            TextField(
+            CashierStandardTextField(
                 value = purchasePrice,
                 onValueChange = setPurchasePrice,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_purchase_price
-                        )
-                    )
-                },
+                    .fillMaxWidth()
+                    .padding(
+                        top = 16.dp
+                    ),
+                placeholderText = stringResource(
+                    id = R.string.title_purchase_price
+                ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
                 )
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            TextField(
+            CashierStandardTextField(
                 value = sellingPrice,
                 onValueChange = setSellingPrice,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.title_selling_price
-                        )
-                    )
-                },
+                    .fillMaxWidth()
+                    .padding(
+                        top = 16.dp
+                    ),
+                placeholderText = stringResource(
+                    id = R.string.title_selling_price
+                ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
                 )
             )
         }
     }
 }
 
-@Preview
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO,
+    showBackground = true
+)
 @Composable
 private fun WaybillProductScreenPreview() {
+    CashierTheme {
+        WaybillProductScreen(
+            onBackClick = {},
+            onActionClick = {},
+            waybillProductStates = WaybillProductStates.EmptyState,
+            setBarcode = {},
+            setProductName = {},
+            setAmount = {},
+            setPurchasePrice = {},
+            setSellingPrice = {}
+        )
+    }
+}
+
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES,
+    showBackground = true
+)
+@Composable
+private fun WaybillProductScreenNightPreview() {
     CashierTheme {
         WaybillProductScreen(
             onBackClick = {},

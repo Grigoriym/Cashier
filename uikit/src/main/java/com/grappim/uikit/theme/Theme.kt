@@ -22,7 +22,8 @@ private val DarkThemeColors = darkColors(
     secondary = CashierBlue,
     surface = Color.Black,
     onSurface = CashierGray,
-    onBackground = Color.White
+    onBackground = Color.White,
+    background = CashierBackground
 )
 
 @Composable

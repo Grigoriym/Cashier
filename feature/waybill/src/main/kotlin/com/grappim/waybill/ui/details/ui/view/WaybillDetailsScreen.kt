@@ -1,7 +1,10 @@
 package com.grappim.waybill.ui.details.ui.view
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -33,6 +38,7 @@ import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemProductCompose
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
+import com.grappim.uikit.compose.text_field.CashierStandardTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
 import com.grappim.waybill.R
@@ -181,7 +187,7 @@ private fun TextFieldsSegment(
     }
 
     Column {
-        TextField(
+        CashierStandardTextField(
             value = date,
             onValueChange = {},
             modifier = Modifier
@@ -191,15 +197,12 @@ private fun TextFieldsSegment(
                     start = 16.dp,
                     end = 16.dp
                 ),
-            colors = TextFieldDefaults.textFieldColors(),
-            placeholder = {
-                Text(text = stringResource(id = R.string.title_actual_date))
-            },
+            placeholderText = stringResource(id = R.string.title_actual_date),
             readOnly = true,
             interactionSource = source
         )
 
-        TextField(
+        CashierStandardTextField(
             value = comment,
             onValueChange = setComment,
             modifier = Modifier
@@ -209,10 +212,7 @@ private fun TextFieldsSegment(
                     start = 16.dp,
                     end = 16.dp
                 ),
-            colors = TextFieldDefaults.textFieldColors(),
-            placeholder = {
-                Text(text = stringResource(id = R.string.title_comment))
-            },
+            placeholderText = stringResource(id = R.string.title_comment),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             )
@@ -235,12 +235,13 @@ private fun ActionButtonsSegment(
     ) {
         StandardFilledButton(
             onButtonClick = onSearchClick,
-            iconDrawable = R.drawable.ic_search,
+            imageVector = Icons.Filled.Search,
             modifier = Modifier
                 .weight(1f)
                 .padding(
                     end = 8.dp
-                )
+                ),
+            iconTint = Color.White
         )
         StandardFilledButton(
             onButtonClick = onScanClick,
@@ -284,7 +285,9 @@ private fun WaybillProductsList(
     }
 }
 
-@Preview
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO
+)
 @Composable
 private fun TextFieldsSegmentPreview() {
     CashierTheme {
@@ -297,7 +300,26 @@ private fun TextFieldsSegmentPreview() {
     }
 }
 
-@Preview
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES,
+    showBackground = true
+)
+@Composable
+private fun TextFieldsSegmentNightPreview() {
+    CashierTheme {
+        TextFieldsSegment(
+            onDateClick = {},
+            date = "24.24.24",
+            comment = "comment",
+            setComment = {}
+        )
+    }
+}
+
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO,
+    showBackground = true
+)
 @Composable
 private fun ActionButtonsSegmentPreview() {
     CashierTheme {
@@ -308,9 +330,53 @@ private fun ActionButtonsSegmentPreview() {
     }
 }
 
-@Preview
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES
+)
+@Composable
+private fun ActionButtonsSegmentPreviewNight() {
+    CashierTheme {
+        ActionButtonsSegment(
+            onScanClick = {},
+            onSearchClick = {}
+        )
+    }
+}
+
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO,
+    showBackground = true
+)
 @Composable
 private fun WaybillDetailsScreenPreview() {
+    CashierTheme {
+        val products = flowOf(
+            PagingData
+                .empty<WaybillProduct>()
+        ).collectAsLazyPagingItems()
+        WaybillDetailsScreen(
+            waybill = Waybill.empty(),
+            productsPagingItems = products,
+            onBackClick = {},
+            onSearchClick = {},
+            onScanClick = {},
+            onActionClick = {},
+            onProductClick = {},
+            onDateClick = {},
+            onRefresh = {},
+            comment = "",
+            setComment = {},
+            actualDate = ""
+        )
+    }
+}
+
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES,
+    showBackground = true
+)
+@Composable
+private fun WaybillDetailsScreenNightPreview() {
     CashierTheme {
         val products = flowOf(
             PagingData

@@ -14,11 +14,9 @@ import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -30,7 +28,7 @@ import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillStatus
 import com.grappim.uikit.compose.*
 import com.grappim.uikit.compose.button.BigActionButtonCompose
-import com.grappim.uikit.compose.text_field.CashierOutlinedTextField
+import com.grappim.uikit.compose.text_field.CashierSearchTextField
 import com.grappim.uikit.theme.*
 import com.grappim.waybill.R
 import com.grappim.waybill.model.PagingDataModel
@@ -67,7 +65,7 @@ fun WaybillListScreen(
             modifier = Modifier
                 .padding(innerPadding)
         ) {
-            CashierOutlinedTextField(
+            CashierSearchTextField(
                 modifier = Modifier
                     .padding(
                         top = 24.dp,

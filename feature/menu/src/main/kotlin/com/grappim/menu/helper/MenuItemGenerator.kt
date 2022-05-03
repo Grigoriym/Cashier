@@ -1,7 +1,10 @@
 package com.grappim.menu.helper
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddBusiness
+import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Work
 import com.grappim.domain.model.FeatureToggle
 import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.menu.R
@@ -27,7 +30,7 @@ class MenuItemGenerator @Inject constructor(
             MenuItemPm(
                 type = MenuItemType.PRODUCTS,
                 text = R.string.title_products,
-                image = R.drawable.ic_store
+                imageVector = Icons.Filled.AddBusiness
             )
         )
         if (featureToggle.isWaybillEnabled) {
@@ -35,7 +38,7 @@ class MenuItemGenerator @Inject constructor(
                 MenuItemPm(
                     type = MenuItemType.ACCEPTANCE,
                     text = R.string.title_acceptance,
-                    image = R.drawable.ic_store_acceptance
+                    imageVector = Icons.Filled.Work
                 )
             )
         }
@@ -43,7 +46,7 @@ class MenuItemGenerator @Inject constructor(
             MenuItemPm(
                 type = MenuItemType.PRODUCT_CATEGORY,
                 text = R.string.title_product_categories,
-                image = R.drawable.ic_store_acceptance
+                imageVector = Icons.Filled.Category
             )
         )
         result.add(
