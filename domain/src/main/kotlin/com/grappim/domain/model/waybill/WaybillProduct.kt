@@ -24,7 +24,7 @@ data class WaybillProduct(
                 barcode = "12345",
                 createdOn = LocalDateTime.now(),
                 id = 1L,
-                name = "Product name",
+                name = "Waybill Product name",
                 productId = 2L,
                 purchasePrice = "234".asBigDecimal(),
                 sellingPrice = "4532".asBigDecimal(),

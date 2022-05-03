@@ -60,9 +60,8 @@ fun CounterComposable(
                 color = CashierLightGray
             )
         ) {
-            Icon(
+            CashierIcon(
                 imageVector = Icons.Filled.Remove,
-                contentDescription = "",
                 tint = CashierBlue
             )
         }
@@ -92,7 +91,7 @@ fun CounterComposable(
                     )
                 }
         ) {
-            Text(
+            CashierText(
                 text = text,
                 modifier = Modifier
                     .align(Alignment.Center)

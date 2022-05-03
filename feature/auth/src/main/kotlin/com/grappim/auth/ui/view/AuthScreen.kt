@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Settings
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.auth.R
+import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.compose.CashierImage
 import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.button.CashierImageButton
@@ -353,9 +355,8 @@ private fun PhoneNumberTextFieldComposable(
         },
         trailingIcon = {
             if (isPhoneFullyEntered) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_check_circle_green),
-                    contentDescription = "",
+                CashierIcon(
+                    imageVector = Icons.Filled.CheckCircle,
                     tint = CashierGreen
                 )
             }

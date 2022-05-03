@@ -65,8 +65,8 @@ internal fun AuthBiometricsDialog(
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-@Preview
 private fun AuthBiometricsDialogPreview() {
     AuthBiometricsDialog(
         open = true,

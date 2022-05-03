@@ -29,7 +29,7 @@ data class Product(
         fun empty(): Product = Product(
             id = 1,
             barcode = "123",
-            name = "title",
+            name = "Product name",
             sellingPrice = "100".asBigDecimal(),
             purchasePrice = "120".asBigDecimal(),
             amount = "6".asBigDecimal(),

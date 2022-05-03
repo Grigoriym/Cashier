@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -185,7 +187,7 @@ private fun BottomSegment(
             ) {
                 StandardFilledButton(
                     onButtonClick = onPayClick,
-                    iconDrawable = R.drawable.ic_shopping_cart,
+                    imageVector = Icons.Filled.ShoppingCart,
                     modifier = Modifier
                         .weight(2f)
                         .padding(

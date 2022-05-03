@@ -1,13 +1,13 @@
 package com.grappim.uikit.compose
 
-import androidx.compose.foundation.Image
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
@@ -85,7 +85,6 @@ fun ItemProductCompose(
                         width = Dimension.fillToConstraints
                     },
                 text = waybillProduct.name,
-                color = Color.Black,
                 fontSize = 14.sp
             )
 
@@ -140,7 +139,7 @@ fun ItemProductCompose(
                 thickness = 1.dp
             )
 
-            CashierIcon(
+            ArrowIcon(
                 modifier = Modifier
                     .constrainAs(arrow) {
                         bottom.linkTo(
@@ -153,11 +152,20 @@ fun ItemProductCompose(
                             anchor = parent.end,
                             margin = 34.dp
                         )
-                    },
-                imageVector = Icons.Filled.ChevronRight
+                    }
             )
         }
     }
+}
+
+@Composable
+private fun ArrowIcon(
+    modifier: Modifier = Modifier
+) {
+    CashierIcon(
+        modifier = modifier,
+        imageVector = Icons.Filled.ChevronRight
+    )
 }
 
 @Composable
@@ -182,11 +190,10 @@ fun ItemProductCompose(
                 arrow
             ) = createRefs()
 
-            Image(
+            CashierImage(
                 painter = painterResource(
                     id = R.drawable.ic_image_placeholder
                 ),
-                contentDescription = "",
                 modifier = Modifier
                     .size(50.dp)
                     .constrainAs(productImage) {
@@ -201,7 +208,7 @@ fun ItemProductCompose(
                     }
             )
 
-            Text(
+            CashierTextBody1(
                 modifier = Modifier
                     .constrainAs(productName) {
                         top.linkTo(
@@ -218,11 +225,10 @@ fun ItemProductCompose(
                         width = Dimension.fillToConstraints
                     },
                 text = product.name,
-                color = Color.Black,
                 fontSize = 14.sp
             )
 
-            Text(
+            CashierText(
                 modifier = Modifier
                     .padding(
                         end = 16.dp
@@ -237,11 +243,10 @@ fun ItemProductCompose(
                         )
                     },
                 text = "${product.sellingPrice}",
-                color = CashierBlue,
-                fontSize = 16.sp
+                color = CashierBlue
             )
 
-            Text(
+            CashierTextBody1(
                 modifier = Modifier
                     .constrainAs(productCountUnit) {
                         centerVerticallyTo(productPrice)
@@ -251,7 +256,6 @@ fun ItemProductCompose(
                         )
                     },
                 text = product.amount.toString(),
-                fontSize = 14.sp,
                 color = CashierGray
             )
 
@@ -274,7 +278,7 @@ fun ItemProductCompose(
                 thickness = 1.dp
             )
 
-            Icon(
+            ArrowIcon(
                 modifier = Modifier
                     .constrainAs(arrow) {
                         bottom.linkTo(
@@ -287,22 +291,59 @@ fun ItemProductCompose(
                             anchor = parent.end,
                             margin = 34.dp
                         )
-                    },
-                painter = painterResource(
-                    id = R.drawable.ic_keyboard_arrow_right
-                ),
-                contentDescription = ""
+                    }
             )
         }
     }
 }
 
 @Composable
-@Preview
-private fun ItemProductComposePreview() {
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO
+)
+private fun ItemWaybillProductComposePreview() {
     CashierTheme {
         ItemProductCompose(
             waybillProduct = WaybillProduct.getExample(),
+            onProductClick = {}
+        )
+    }
+}
+
+@Composable
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES
+)
+private fun ItemWaybillProductComposeNightPreview() {
+    CashierTheme {
+        ItemProductCompose(
+            waybillProduct = WaybillProduct.getExample(),
+            onProductClick = {}
+        )
+    }
+}
+
+@Composable
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO
+)
+private fun ItemProductComposePreview() {
+    CashierTheme {
+        ItemProductCompose(
+            product = Product.empty(),
+            onProductClick = {}
+        )
+    }
+}
+
+@Composable
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES
+)
+private fun ItemProductComposeNightPreview() {
+    CashierTheme {
+        ItemProductCompose(
+            product = Product.empty(),
             onProductClick = {}
         )
     }
