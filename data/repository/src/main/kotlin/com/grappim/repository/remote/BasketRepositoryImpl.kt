@@ -2,18 +2,21 @@ package com.grappim.repository.remote
 
 import com.grappim.common.lce.Try
 import com.grappim.db.dao.BasketDao
-import com.grappim.domain.interactor.sales.AddBasketProduct
-import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
-import com.grappim.domain.interactor.sales.RemoveProductUseCase
-import com.grappim.domain.interactor.sales.SubtractProductFromBasket
+import com.grappim.domain.interactor.sales.AddBasketProductParams
+import com.grappim.domain.interactor.sales.AddProductToBasketParams
+import com.grappim.domain.interactor.sales.RemoveProductParams
+import com.grappim.domain.interactor.sales.SubtractProductFromBasketParams
 import com.grappim.domain.model.basket.BasketProduct
 import com.grappim.domain.repository.BasketRepository
 import com.grappim.domain.storage.GeneralStorage
+import com.grappim.logger.logE
 import com.grappim.network.api.BasketApi
 import com.grappim.network.di.api.QualifierBasketApi
 import com.grappim.network.mappers.*
+import com.grappim.common.asynchronous.doOnError
+import com.grappim.common.asynchronous.mapSuccess
+import com.grappim.common.asynchronous.runOperationCatching
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -28,56 +31,56 @@ class BasketRepositoryImpl @Inject constructor(
             it.toDomain2()
         }
 
-    override fun addBasketProduct(
-        params: AddBasketProduct.Params
-    ): Flow<Try<BasketProduct>> = flow {
+    override suspend fun addBasketProduct(
+        params: AddBasketProductParams
+    ): Try<BasketProduct, Throwable> = runOperationCatching {
         val addBasketProduct = params.product.toAddBasketProductDTO()
-        val dto = basketApi.addProductToBasket(addBasketProduct)
-        emit(Try.Success(dto.toDomain()))
+        basketApi.addProductToBasket(addBasketProduct)
+    }.mapSuccess { dto ->
+        dto.toDomain()
+    }.doOnError { e ->
+        logE(e)
     }
 
-    override fun addProductToBasket(
-        params: AddProductToBasketUseCase.Params
-    ): Flow<Try<BasketProduct>> = flow {
+    override suspend fun addProductToBasket(
+        params: AddProductToBasketParams
+    ): Try<BasketProduct, Throwable> = runOperationCatching {
         val addBasketProduct = params.product.toAddBasketProductDTO()
         val dto = basketApi.addProductToBasket(addBasketProduct)
-        emit(Try.Success(dto.toDomain()))
+        dto.toDomain()
     }
 
-    override fun getBasketProducts(): Flow<Try<List<BasketProduct>>> =
-        flow {
-            emit(Try.Loading)
+    override suspend fun getBasketProducts(): Try<List<BasketProduct>, Throwable> =
+        runOperationCatching {
             val products = basketApi.getBasketProducts(
                 stockId = generalStorage.stockId
             ).map {
                 it.toDomain()
             }
-            emit(Try.Success(products))
+            products
         }
 
-    override fun subtractProduct(
-        params: RemoveProductUseCase.Params
-    ): Flow<Try<BasketProduct?>> = flow {
-        emit(Try.Loading)
+    override suspend fun subtractProduct(
+        params: RemoveProductParams
+    ): Try<BasketProduct?, Throwable> = runOperationCatching {
         val response = basketApi.subtractProduct(
             params.product.toDTO()
         )
-        emit(Try.Success(response.basketProduct?.toDomain()))
+        response.basketProduct?.toDomain()
     }
 
-    override fun subtractProduct(
-        params: SubtractProductFromBasket.Params
-    ): Flow<Try<BasketProduct>> = flow {
-        emit(Try.Loading)
+    override suspend fun subtractProduct(
+        params: SubtractProductFromBasketParams
+    ): Try<BasketProduct, Throwable> = runOperationCatching {
         val response = basketApi.subtractProduct(
             params.product.toBasketProductDTO()
         )
-        emit(Try.Success(response.basketProduct?.toDomain()!!))
+        response.basketProduct?.toDomain()!!
     }
 
-    override fun clearBasket(): Flow<Try<Unit>> = flow {
-        emit(Try.Loading)
+    override suspend fun clearBasket(): Try<Unit, Throwable> = runOperationCatching {
         basketApi.clearBasket()
-        emit(Try.Success(Unit))
+    }.doOnError { e ->
+        logE(e)
     }
 }

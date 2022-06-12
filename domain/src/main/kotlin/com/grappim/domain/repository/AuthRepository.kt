@@ -1,11 +1,10 @@
 package com.grappim.domain.repository
 
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.login.LoginUseCase
-import kotlinx.coroutines.flow.Flow
+import com.grappim.domain.interactor.login.LoginParams
 
 interface AuthRepository {
 
-    fun login(loginRequestData: LoginUseCase.Params): Flow<Try<Unit>>
+    suspend fun login(loginRequestData: LoginParams): Try<Unit, Throwable>
 
 }

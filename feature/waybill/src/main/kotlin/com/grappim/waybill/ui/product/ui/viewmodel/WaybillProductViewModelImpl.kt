@@ -1,20 +1,19 @@
 package com.grappim.waybill.ui.product.ui.viewmodel
 
-import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.calculations.bigDecimalZero
-import com.grappim.common.di.ApplicationContext
 import com.grappim.common.lce.Try
+import com.grappim.domain.interactor.waybill.CreateWaybillProductParams
 import com.grappim.domain.interactor.waybill.CreateWaybillProductUseCase
+import com.grappim.domain.interactor.waybill.UpdateWaybillProductParams
 import com.grappim.domain.interactor.waybill.UpdateWaybillProductUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.repository.local.WaybillLocalRepository
-import com.grappim.waybill.R
 import com.grappim.waybill.ui.product.model.WaybillProductStates
 import com.grappim.waybill.ui.product.model.WaybillProductType
 import kotlinx.coroutines.launch
@@ -25,17 +24,12 @@ import javax.inject.Inject
 class WaybillProductViewModelImpl @Inject constructor(
     private val createWaybillProductUseCase: CreateWaybillProductUseCase,
     private val updateWaybillProductUseCase: UpdateWaybillProductUseCase,
-    @ApplicationContext private val context: Context,
     @DecimalFormatSimple private val dfSimple: DecimalFormat,
     private val waybillLocalRepository: WaybillLocalRepository
 ) : WaybillProductViewModel() {
 
     override val waybillProductState = mutableStateOf<WaybillProductStates>(
         WaybillProductStates.EmptyState
-    )
-
-    override val productCreated = mutableStateOf<Try<BigDecimal>>(
-        Try.Initial
     )
 
     override fun setBarcode(barcode: String) {
@@ -128,7 +122,7 @@ class WaybillProductViewModelImpl @Inject constructor(
                 else -> {
                     state = WaybillProductType.NEW_PRODUCT
                     barcodeForState = barcode!!
-                    name = context.getString(R.string.title_new_product)
+                    name = "New Product"
                     purchasePrice = bigDecimalZero()
                     sellingPrice = bigDecimalZero()
                     amount = bigDecimalOne()
@@ -191,8 +185,9 @@ class WaybillProductViewModelImpl @Inject constructor(
         id: Long
     ) {
         viewModelScope.launch {
-            updateWaybillProductUseCase.invoke(
-                UpdateWaybillProductUseCase.Params(
+            _loading.value = true
+            val result = updateWaybillProductUseCase.execute(
+                UpdateWaybillProductParams(
                     waybillId = waybillLocalRepository.waybill.id,
                     barcode = barcode,
                     name = name,
@@ -202,15 +197,14 @@ class WaybillProductViewModelImpl @Inject constructor(
                     productId = productId,
                     id = id
                 )
-            ).collect {
-                _loading.value = it is Try.Loading
-                when (it) {
-                    is Try.Success -> {
-                        onProductDone()
-                    }
-                    is Try.Error -> {
-                        _error.value = it.exception
-                    }
+            )
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    onProductDone()
+                }
+                is Try.Error -> {
+                    _error.value = result.result
                 }
             }
         }
@@ -229,8 +223,9 @@ class WaybillProductViewModelImpl @Inject constructor(
         productId: Long
     ) {
         viewModelScope.launch {
-            createWaybillProductUseCase.invoke(
-                CreateWaybillProductUseCase.Params(
+            _loading.value = true
+            val result = createWaybillProductUseCase.execute(
+                CreateWaybillProductParams(
                     waybillId = waybillLocalRepository.waybill.id,
                     barcode = barcode,
                     name = name,
@@ -239,15 +234,14 @@ class WaybillProductViewModelImpl @Inject constructor(
                     amount = amount,
                     productId = productId
                 )
-            ).collect {
-                _loading.value = it is Try.Loading
-                when (it) {
-                    is Try.Success -> {
-                        onProductDone()
-                    }
-                    is Try.Error -> {
-                        _error.value = it.exception
-                    }
+            )
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    onProductDone()
+                }
+                is Try.Error -> {
+                    _error.value = result.result
                 }
             }
         }

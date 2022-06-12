@@ -3,13 +3,12 @@ package com.grappim.stock.ui.viewmodel
 import androidx.annotation.MainThread
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
-import com.grappim.common.lce.withoutParams
 import com.grappim.domain.interactor.outlet.GetStocksUseCase
-import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
+import com.grappim.domain.interactor.outlet.SaveStockParams
+import com.grappim.domain.interactor.outlet.SaveStockUseCase
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.logger.logD
 import com.grappim.stock.R
 import com.grappim.stock.model.StockProgressItem
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 class SelectStockViewModelImpl @Inject constructor(
     private val getStocksUseCase: GetStocksUseCase,
-    private val saveStockInfoUseCase: SaveStockInfoUseCase,
+    private val saveStockInfoUseCase: SaveStockUseCase,
     private val selectStockLocalRepository: SelectStockLocalRepository,
     private val generalStorage: GeneralStorage
 ) : SelectStockViewModel() {
@@ -43,25 +42,24 @@ class SelectStockViewModelImpl @Inject constructor(
             val stockToSave = requireNotNull(selectStockLocalRepository.getSelectedStock()) {
                 "Stock must not be null"
             }
-            saveStockInfoUseCase.invoke(SaveStockInfoUseCase.Params(stockToSave))
+            saveStockInfoUseCase.execute(SaveStockParams(stockToSave))
         }
     }
 
     @MainThread
     override fun getStocks() {
         viewModelScope.launch {
-            getStocksUseCase(withoutParams())
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                        is Try.Success -> {
-                            stocksResult.value = it.data
-                        }
-                    }
+            _loading.value = true
+            val result = getStocksUseCase.execute()
+            _loading.value = false
+            when (result) {
+                is Try.Error -> {
+                    _error.value = result.result
                 }
+                is Try.Success -> {
+                    stocksResult.value = result.result
+                }
+            }
         }
     }
 

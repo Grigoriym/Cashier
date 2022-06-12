@@ -38,7 +38,7 @@ class ErrorMappingInterceptor @Inject constructor(
         }
 
     private fun mapErrorBodyToException(response: Response): Throwable {
-        val responseBody = requireNotNull(response.body?.string())
+        val responseBody = requireNotNull(response.body.string())
         val dto = json.decodeFromString<BaseApiErrorDTO>(responseBody)
         val baseApiError = BaseApiError(
             system = dto.system,

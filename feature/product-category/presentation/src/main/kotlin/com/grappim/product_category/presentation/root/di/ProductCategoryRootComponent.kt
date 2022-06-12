@@ -6,6 +6,7 @@ import com.grappim.common.di.FeatureFragmentManager
 import com.grappim.common.di.FeatureScope
 import com.grappim.core.di.FeatureNavigationBindsModule
 import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.product_category.domain.di.ProductCategoryInteractorModule
 import com.grappim.product_category.presentation.create_edit.di.CreateEditProductCategoryDeps
 import com.grappim.product_category.presentation.list.di.ProductCategoryListDeps
 import dagger.BindsInstance
@@ -15,7 +16,8 @@ import dagger.Component
     modules = [
         ProductCategoryRootBindsModule::class,
         ProductCategoryRootDepsModule::class,
-        FeatureNavigationBindsModule::class
+        FeatureNavigationBindsModule::class,
+        ProductCategoryInteractorModule::class
     ],
     dependencies = [
         ProductCategoryRootDeps::class

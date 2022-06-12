@@ -2,25 +2,24 @@ package com.grappim.domain.repository
 
 import androidx.paging.PagingData
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.products.CreateProductUseCase
-import com.grappim.domain.interactor.products.EditProductUseCase
-import com.grappim.domain.interactor.sales.SearchProductsUseCase
-import com.grappim.domain.model.basket.BasketProduct
+import com.grappim.domain.interactor.products.CreateProductParams
+import com.grappim.domain.interactor.products.EditProductParams
+import com.grappim.domain.interactor.sales.SearchProductsParams
 import com.grappim.domain.model.product.Product
 import kotlinx.coroutines.flow.Flow
 
 interface ProductsRepository {
 
-    fun createProduct(
-        params: CreateProductUseCase.Params
-    ): Flow<Try<Unit>>
+    suspend fun createProduct(
+        params: CreateProductParams
+    ): Try<Unit, Throwable>
 
-    fun updateProduct(
-        params: EditProductUseCase.Params
-    ): Flow<Try<Unit>>
+    suspend fun updateProduct(
+        params: EditProductParams
+    ): Try<Unit, Throwable>
 
     fun searchProducts(
-        params: SearchProductsUseCase.Params
+        params: SearchProductsParams
     ): Flow<PagingData<Product>>
 
     suspend fun filterProducts(

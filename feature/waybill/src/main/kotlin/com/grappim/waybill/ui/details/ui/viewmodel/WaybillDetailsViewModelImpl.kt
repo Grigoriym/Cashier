@@ -1,15 +1,12 @@
 package com.grappim.waybill.ui.details.ui.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.grappim.common.lce.Try
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.core.utils.BundleArgsHelper
-import com.grappim.domain.interactor.waybill.ConductWaybillUseCase
-import com.grappim.domain.interactor.waybill.GetWaybillProductsUseCase
-import com.grappim.domain.interactor.waybill.RollbackWaybillUseCase
+import com.grappim.domain.interactor.waybill.*
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.model.waybill.WaybillProduct
 import com.grappim.domain.model.waybill.WaybillStatus
@@ -45,11 +42,11 @@ class WaybillDetailsViewModelImpl @Inject constructor(
                 initialValue = ""
             )
 
-    override val waybillUpdate = mutableStateOf<Try<Waybill>>(Try.Initial)
     override val products: Flow<PagingData<WaybillProduct>> =
         waybillLocalRepository.waybillFlow
             .flatMapLatest {
-                waybillProductsUseCase(GetWaybillProductsUseCase.Params(it.id))
+                waybillProductsUseCase
+                    .execute(GetWaybillProductsParams(it.id))
             }
 
     override fun setComment(text: String) {
@@ -64,34 +61,32 @@ class WaybillDetailsViewModelImpl @Inject constructor(
         when (waybill.status) {
             WaybillStatus.DRAFT -> {
                 viewModelScope.launch {
-                    conductWaybillUseCase.invoke(ConductWaybillUseCase.Params(waybill))
-                        .collect {
-                            _loading.value = it is Try.Loading
-                            when (it) {
-                                is Try.Success -> {
-                                    waybillCreatedUpdated()
-                                }
-                                is Try.Error -> {
-                                    _error.value = it.exception
-                                }
-                            }
+                    _loading.value = true
+                    val result = conductWaybillUseCase.execute(ConductWaybillParams(waybill))
+                    _loading.value = false
+                    when (result) {
+                        is Try.Success -> {
+                            waybillCreatedUpdated()
                         }
+                        is Try.Error -> {
+                            _error.value = result.result
+                        }
+                    }
                 }
             }
             WaybillStatus.ACTIVE -> {
                 viewModelScope.launch {
-                    rollbackWaybillUseCase.invoke(RollbackWaybillUseCase.Params(waybill))
-                        .collect {
-                            _loading.value = it is Try.Loading
-                            when (it) {
-                                is Try.Success -> {
-                                    waybillCreatedUpdated()
-                                }
-                                is Try.Error -> {
-                                    _error.value = it.exception
-                                }
-                            }
+                    _loading.value = true
+                    val result = rollbackWaybillUseCase.execute(RollbackWaybillParams(waybill))
+                    _loading.value = false
+                    when (result) {
+                        is Try.Success -> {
+                            waybillCreatedUpdated()
                         }
+                        is Try.Error -> {
+                            _error.value = result.result
+                        }
+                    }
                 }
             }
         }

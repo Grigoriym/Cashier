@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
-import com.grappim.common.lce.Try.Error
-import com.grappim.common.lce.Try.Success
 import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.utils.BundleArgsHelper
@@ -97,22 +95,22 @@ class WaybillScannerFragment : BaseFragment<WaybillScannerViewModel>(
     private fun observeViewModel() {
         viewModel.product.observe(viewLifecycleOwner) {
             when (it) {
-                is Success -> {
+                is ProductByBarcodeResult.SuccessResult -> {
                     val args = bundleOf(
-                        BundleArgsHelper.Waybill.ARG_KEY_PRODUCT to it.data
+                        BundleArgsHelper.Waybill.ARG_KEY_PRODUCT to it.result
                     )
                     flowRouter.goToWaybillProduct(args)
                 }
-                is Error -> {
+                is ProductByBarcodeResult.ErrorResult -> {
                     showToast(getString(R.string.waybill_error_no_product))
                 }
             }
         }
         viewModel.waybillProduct.observe(viewLifecycleOwner) {
             when (it) {
-                is Success -> {
+                is WaybillProductByBarcodeResult.SuccessResult -> {
                     val args = bundleOf(
-                        BundleArgsHelper.Waybill.ARG_KEY_WAYBILL_PRODUCT to it.data
+                        BundleArgsHelper.Waybill.ARG_KEY_WAYBILL_PRODUCT to it.result
                     )
                     flowRouter.goToWaybillProduct(args)
                 }

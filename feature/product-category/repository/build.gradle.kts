@@ -18,6 +18,7 @@ dependencies {
   implementation(project(Modules.commonDi))
   implementation(project(Modules.commonDb))
   implementation(project(Modules.commonLce))
+  implementation(project(Modules.commonAsynchronous))
 
   implementation(project(Modules.featureProductCategoryDomain))
   implementation(project(Modules.featureProductCategoryDb))

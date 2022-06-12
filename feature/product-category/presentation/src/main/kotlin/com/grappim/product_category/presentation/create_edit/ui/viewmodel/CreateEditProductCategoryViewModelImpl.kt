@@ -2,7 +2,9 @@ package com.grappim.product_category.presentation.create_edit.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
+import com.grappim.product_category.domain.interactor.CreateProductCategoryParams
 import com.grappim.product_category.domain.interactor.CreateProductCategoryUseCase
+import com.grappim.product_category.domain.interactor.EditProductCategoryParams
 import com.grappim.product_category.domain.interactor.EditProductCategoryUseCase
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.presentation.create_edit.model.CreateEditCategoryData
@@ -63,19 +65,19 @@ class CreateEditProductCategoryViewModelImpl @AssistedInject constructor(
 
     private fun createCategory() {
         viewModelScope.launch {
-            createProductCategoryUseCase.invoke(
-                params = CreateProductCategoryUseCase.InParams(
+            _loading.value = true
+            val result = createProductCategoryUseCase.execute(
+                CreateProductCategoryParams(
                     name = categoryData.value.categoryName
                 )
-            ).collect {
-                _loading.value = it is Try.Loading
-                when (it) {
-                    is Try.Success -> {
-                        doOnSuccess()
-                    }
-                    is Try.Error -> {
-                        _error.value = it.exception
-                    }
+            )
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    doOnSuccess()
+                }
+                is Try.Error -> {
+                    _error.value = result.result
                 }
             }
         }
@@ -83,20 +85,20 @@ class CreateEditProductCategoryViewModelImpl @AssistedInject constructor(
 
     private fun editCategory() {
         viewModelScope.launch {
-            editProductCategoryUseCase.invoke(
-                params = EditProductCategoryUseCase.Params(
+            _loading.value = true
+            val result = editProductCategoryUseCase.execute(
+                EditProductCategoryParams(
                     newName = categoryData.value.categoryName,
                     productCategory = requireNotNull(productCategory)
                 )
-            ).collect {
-                _loading.value = it is Try.Loading
-                when (it) {
-                    is Try.Success -> {
-                        doOnSuccess()
-                    }
-                    is Try.Error -> {
-                        _error.value = it.exception
-                    }
+            )
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    doOnSuccess()
+                }
+                is Try.Error -> {
+                    _error.value = result.result
                 }
             }
         }

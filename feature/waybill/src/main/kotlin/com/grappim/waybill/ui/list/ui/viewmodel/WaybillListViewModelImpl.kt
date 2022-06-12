@@ -7,10 +7,9 @@ import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.grappim.common.lce.Try
-import com.grappim.common.lce.withoutParams
 import com.grappim.date_time.DateStandard
 import com.grappim.date_time.DateTimeIsoLocalDateTime
-import com.grappim.domain.interactor.waybill.CreateWaybillUseCase
+import com.grappim.domain.interactor.waybill.CreateDraftWaybillUseCase
 import com.grappim.domain.interactor.waybill.GetWaybillListPagingUseCase
 import com.grappim.domain.model.waybill.Waybill
 import com.grappim.domain.repository.local.WaybillLocalRepository
@@ -24,7 +23,7 @@ import javax.inject.Inject
 
 class WaybillListViewModelImpl @Inject constructor(
     getWaybillListPagingUseCase: GetWaybillListPagingUseCase,
-    private val createWaybillUseCase: CreateWaybillUseCase,
+    private val createDraftWaybillUseCase: CreateDraftWaybillUseCase,
     private val waybillLocalRepository: WaybillLocalRepository,
     @DateStandard private val df: DateTimeFormatter,
     @DateTimeIsoLocalDateTime val dtfIso: DateTimeFormatter
@@ -74,18 +73,17 @@ class WaybillListViewModelImpl @Inject constructor(
     @MainThread
     override fun createDraftWaybill() {
         viewModelScope.launch {
-            createWaybillUseCase(withoutParams())
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Success -> {
-                            showDetails(it.data)
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = createDraftWaybillUseCase.createDraftWaybill()
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    showDetails(result.result)
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 

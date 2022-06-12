@@ -3,16 +3,17 @@ package com.grappim.repository.remote
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
 import com.grappim.domain.analytics.CrashesAnalytics
-import com.grappim.domain.interactor.login.LoginUseCase
+import com.grappim.domain.interactor.login.LoginParams
 import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.repository.AuthRepository
 import com.grappim.domain.storage.GeneralStorage
+import com.grappim.logger.logE
 import com.grappim.network.api.AuthApi
 import com.grappim.network.di.api.QualifierAuthApi
 import com.grappim.network.model.login.LoginRequestDTO
 import com.grappim.repository.utils.DataClearHelper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.grappim.common.asynchronous.doOnError
+import com.grappim.common.asynchronous.runOperationCatching
 import javax.inject.Inject
 
 @AppScope
@@ -24,11 +25,10 @@ class AuthRepositoryImpl @Inject constructor(
     private val passwordManager: PasswordManager
 ) : AuthRepository {
 
-    override fun login(
-        loginRequestData: LoginUseCase.Params
-    ): Flow<Try<Unit>> =
-        flow {
-            emit(Try.Loading)
+    override suspend fun login(
+        loginRequestData: LoginParams
+    ): Try<Unit, Throwable> =
+        runOperationCatching {
             val hashedPassword = passwordManager.encryptPassword(loginRequestData.password)
             val response = authApi.login(
                 LoginRequestDTO(
@@ -50,8 +50,8 @@ class AuthRepositoryImpl @Inject constructor(
 
             crashesAnalytics.setUserId(response.merchantId)
             crashesAnalytics.userName(response.merchantName)
-
-            emit(Try.Success(Unit))
+        }.doOnError { e ->
+            logE(e)
         }
 
 }

@@ -374,7 +374,7 @@ private fun CategoryDropDownSegment(
                             Color.White
                         )
                 ) {
-                    categoryItems.forEachIndexed { index, category ->
+                    categoryItems.forEachIndexed { _, category ->
                         DropdownMenuItem(
                             onClick = {
                                 onCategoryClick(category)

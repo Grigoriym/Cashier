@@ -1,10 +1,10 @@
 package com.grappim.domain.repository
 
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.sales.AddBasketProduct
-import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
-import com.grappim.domain.interactor.sales.RemoveProductUseCase
-import com.grappim.domain.interactor.sales.SubtractProductFromBasket
+import com.grappim.domain.interactor.sales.AddBasketProductParams
+import com.grappim.domain.interactor.sales.AddProductToBasketParams
+import com.grappim.domain.interactor.sales.RemoveProductParams
+import com.grappim.domain.interactor.sales.SubtractProductFromBasketParams
 import com.grappim.domain.model.basket.BasketProduct
 import kotlinx.coroutines.flow.Flow
 
@@ -12,22 +12,22 @@ interface BasketRepository {
 
     fun getBasketItems(): Flow<List<BasketProduct>>
 
-    fun addBasketProduct(
-        params: AddBasketProduct.Params
-    ): Flow<Try<BasketProduct>>
+    suspend fun addBasketProduct(
+        params: AddBasketProductParams
+    ): Try<BasketProduct, Throwable>
 
-    fun clearBasket(): Flow<Try<Unit>>
-    fun getBasketProducts(): Flow<Try<List<BasketProduct>>>
-    fun subtractProduct(
-        params: RemoveProductUseCase.Params
-    ): Flow<Try<BasketProduct?>>
+    suspend fun clearBasket(): Try<Unit, Throwable>
+    suspend fun getBasketProducts(): Try<List<BasketProduct>, Throwable>
+    suspend fun subtractProduct(
+        params: RemoveProductParams
+    ): Try<BasketProduct?, Throwable>
 
-    fun addProductToBasket(
-        params: AddProductToBasketUseCase.Params
-    ): Flow<Try<BasketProduct>>
+    suspend fun addProductToBasket(
+        params: AddProductToBasketParams
+    ): Try<BasketProduct, Throwable>
 
-    fun subtractProduct(
-        params: SubtractProductFromBasket.Params
-    ): Flow<Try<BasketProduct>>
+    suspend fun subtractProduct(
+        params: SubtractProductFromBasketParams
+    ): Try<BasketProduct, Throwable>
 
 }

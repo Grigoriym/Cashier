@@ -7,8 +7,9 @@ import androidx.paging.map
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
+import com.grappim.common.lce.VoidTry
 import com.grappim.db.dao.ProductsDao
-import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
+import com.grappim.domain.interactor.products.GetProductBarcodeParams
 import com.grappim.domain.interactor.waybill.*
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.Waybill
@@ -25,9 +26,9 @@ import com.grappim.network.mappers.waybill.toDomain
 import com.grappim.network.model.waybill.*
 import com.grappim.repository.paging.GetWaybillPagingSource
 import com.grappim.repository.paging.GetWaybillProductsPagingSource
+import com.grappim.common.asynchronous.runOperationCatching
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -47,11 +48,10 @@ class WaybillRepositoryImpl @Inject constructor(
         initialLoadSize = 10
     )
 
-    override fun createWaybillProduct(
-        params: CreateWaybillProductUseCase.Params
-    ): Flow<Try<BigDecimal>> =
-        flow {
-            emit(Try.Loading)
+    override suspend fun createWaybillProduct(
+        params: CreateWaybillProductParams
+    ): Try<BigDecimal, Throwable> =
+        runOperationCatching {
             val response = waybillApi.createWaybillProduct(
                 CreateWaybillProductRequestDTO(
                     product = PartialWaybillProductDTO(
@@ -65,15 +65,12 @@ class WaybillRepositoryImpl @Inject constructor(
                     )
                 )
             )
-
-            val totalCost = response.totalCost
-            emit(Try.Success(totalCost))
+            response.totalCost
         }
 
-    override fun getWaybillProductByBarcode(
-        params: GetWaybillProductByBarcodeUseCase.Params
-    ): Flow<Try<WaybillProduct>> = flow {
-        emit(Try.Loading)
+    override suspend fun getWaybillProductByBarcode(
+        params: GetWaybillProductByBarcodeParams
+    ): Try<WaybillProduct, Throwable> = runOperationCatching {
         val response = waybillApi.getWaybillProductByBarcode(
             GetWaybillByBarcodeRequestDTO(
                 barcode = params.barcode,
@@ -81,68 +78,58 @@ class WaybillRepositoryImpl @Inject constructor(
             )
         )
         val domainToReturn = response.product.toDomain()
-        emit(Try.Success(domainToReturn))
+        domainToReturn
     }
 
-    override fun getProductByBarcode(
-        params: GetProductByBarcodeUseCase.Params
-    ): Flow<Try<Product>> =
-        flow {
-            emit(Try.Loading)
-            val product = productsDao.getProductByBarcode(barcode = params.barcode)
-                ?: error("not found")
-            val domainToReturn = product.toDomain()
-            emit(Try.Success(domainToReturn))
-        }
+    override suspend fun getProductByBarcode(
+        params: GetProductBarcodeParams
+    ): Try<Product, Throwable> = runOperationCatching {
+        val product = productsDao.getProductByBarcode(barcode = params.barcode)
+            ?: error("not found")
+        val domainToReturn = product.toDomain()
+        domainToReturn
+    }
 
-    override fun updateWaybillProduct(
-        params: UpdateWaybillProductUseCase.Params
-    ): Flow<Try<BigDecimal>> =
-        flow {
-            emit(Try.Loading)
-            val response = waybillApi.updateWaybillProduct(
-                CreateWaybillProductRequestDTO(
-                    product = PartialWaybillProductDTO(
-                        amount = params.amount,
-                        barcode = params.barcode,
-                        name = params.name,
-                        purchasePrice = params.purchasePrice,
-                        sellingPrice = params.sellingPrice,
-                        waybillId = params.waybillId,
-                        productId = params.productId,
-                        id = params.id
-                    )
+    override suspend fun updateWaybillProduct(
+        params: UpdateWaybillProductParams
+    ): Try<BigDecimal, Throwable> = runOperationCatching {
+        val response = waybillApi.updateWaybillProduct(
+            CreateWaybillProductRequestDTO(
+                product = PartialWaybillProductDTO(
+                    amount = params.amount,
+                    barcode = params.barcode,
+                    name = params.name,
+                    purchasePrice = params.purchasePrice,
+                    sellingPrice = params.sellingPrice,
+                    waybillId = params.waybillId,
+                    productId = params.productId,
+                    id = params.id
                 )
             )
-            val totalCost = response.totalCost
-            emit(Try.Success(totalCost))
-        }
+        )
+        val totalCost = response.totalCost
+        totalCost
+    }
 
-    override fun conductWaybill(
-        params: ConductWaybillUseCase.Params
-    ): Flow<Try<Unit>> =
-        flow {
-            emit(Try.Loading)
-
+    override suspend fun conductWaybill(
+        params: ConductWaybillParams
+    ): Try<Unit, Throwable> =
+        runOperationCatching {
             val dtoToUpdate = waybillMapper.domainToDto(params.waybill)
             waybillApi.updateWaybill(
                 UpdateWaybillRequestDTO(dtoToUpdate)
             )
-
             waybillApi.conductWaybill(params.waybill.id)
-            emit(Try.Success(Unit))
         }
 
-    override fun rollbackWaybill(
-        params: RollbackWaybillUseCase.Params
-    ): Flow<Try<Unit>> = flow {
-        emit(Try.Loading)
+    override suspend fun rollbackWaybill(
+        params: RollbackWaybillParams
+    ): VoidTry<Throwable> = runOperationCatching {
         val dtoToUpdate = waybillMapper.domainToDto(params.waybill)
         waybillApi.updateWaybill(
             UpdateWaybillRequestDTO(dtoToUpdate)
         )
         waybillApi.rollbackWaybill(params.waybill.id)
-        emit(Try.Success(Unit))
     }
 
     override fun getAcceptanceListPaging(): Flow<PagingData<Waybill>> =
@@ -162,7 +149,7 @@ class WaybillRepositoryImpl @Inject constructor(
             }
 
     override fun getProducts(
-        params: GetWaybillProductsUseCase.Params
+        params: GetWaybillProductsParams
     ): Flow<PagingData<WaybillProduct>> =
         Pager(
             config = pagingConfig
@@ -179,9 +166,8 @@ class WaybillRepositoryImpl @Inject constructor(
                 }
             }
 
-    override fun createDraftWaybill(): Flow<Try<Waybill>> =
-        flow {
-            emit(Try.Loading)
+    override suspend fun createDraftWaybill(): Try<Waybill, Throwable> =
+        runOperationCatching {
             val responseId = waybillApi.createWaybill(
                 CreateWaybillRequestDTO(
                     waybill = PartialWaybill(
@@ -193,6 +179,6 @@ class WaybillRepositoryImpl @Inject constructor(
                 )
             )
             val mappedResult = waybillMapper.dtoToDomain(responseId.waybill)
-            emit(Try.Success(mappedResult))
+            mappedResult
         }
 }

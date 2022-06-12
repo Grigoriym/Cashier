@@ -3,12 +3,13 @@ package com.grappim.auth.ui.viewmodel
 import android.content.Intent
 import androidx.annotation.MainThread
 import androidx.lifecycle.viewModelScope
-import com.grappim.auth.biometric.BiometricPromptUtils
+import com.grappim.utils.biometric.BiometricPromptUtils
 import com.grappim.auth.model.AuthTextFieldsData
 import com.grappim.auth.model.BiometricsDialogClickState
 import com.grappim.auth.model.BiometricsState
 import com.grappim.auth.model.DevSnackbar
 import com.grappim.common.lce.Try
+import com.grappim.domain.interactor.login.LoginParams
 import com.grappim.domain.interactor.login.LoginUseCase
 import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.storage.GeneralStorage
@@ -98,21 +99,20 @@ internal class AuthViewModelImpl @Inject constructor(
         password: String
     ) {
         viewModelScope.launch {
-            loginUseCase(
-                LoginUseCase.Params(
+            _loading.value = true
+            val result = loginUseCase.login(
+                LoginParams(
                     phone = mobile,
                     password = password
                 )
-            ).collect {
-                _loading.value = it is Try.Loading
-                when (it) {
-                    is Try.Success -> {
-                        authSuccess()
-
-                    }
-                    is Try.Error -> {
-                        _error.value = it.exception
-                    }
+            )
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    authSuccess()
+                }
+                is Try.Error -> {
+                    _error.value = result.result
                 }
             }
         }

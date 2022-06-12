@@ -18,8 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cashier.Starting"
         android:usesCleartextTraffic="false"
-        tools:ignore="LockedOrientationActivity"
-        tools:targetApi="m">
+        tools:ignore="LockedOrientationActivity">
 
         <provider
             android:name="androidx.startup.InitializationProvider"

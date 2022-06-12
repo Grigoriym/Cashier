@@ -1,6 +1,5 @@
 package com.grappim.cashbox.ui.viewmodel
 
-import androidx.annotation.MainThread
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -9,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.grappim.cashbox.R
 import com.grappim.cashbox.model.CashierProgressItem
 import com.grappim.common.lce.Try
-import com.grappim.common.lce.withoutParams
 import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
+import com.grappim.domain.interactor.cashier.SaveCashBoxParams
 import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
 import com.grappim.domain.model.cashbox.CashBox
 import kotlinx.coroutines.launch
@@ -47,7 +46,7 @@ class SelectCashBoxViewModelImpl @Inject constructor(
             val cashBoxToSave = requireNotNull(selectedCashBox) {
                 "CashBox must not be null"
             }
-            saveCashBoxUseCase(SaveCashBoxUseCase.Params(cashBoxToSave))
+            saveCashBoxUseCase.execute(SaveCashBoxParams(cashBoxToSave))
         }
     }
 
@@ -55,23 +54,20 @@ class SelectCashBoxViewModelImpl @Inject constructor(
         flowRouter.goToMenu()
     }
 
-    @MainThread
     override fun getCashBoxes() {
         viewModelScope.launch {
-            getCashBoxesUseCase(withoutParams())
-                .collect {
-                    _loading.value = it is Try.Loading
-
-                    when (it) {
-                        is Try.Success -> {
-                            cashBoxes.clear()
-                            cashBoxes.addAll(it.data)
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = getCashBoxesUseCase.execute()
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    cashBoxes.clear()
+                    cashBoxes.addAll(result.result)
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 

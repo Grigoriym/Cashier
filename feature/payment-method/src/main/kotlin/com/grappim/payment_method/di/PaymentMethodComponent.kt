@@ -16,7 +16,8 @@ import dagger.Component
         PaymentMethodBindsModule::class,
         CoroutinesModule::class,
         DecimalFormatModule::class,
-        FeatureNavigationBindsModule::class
+        FeatureNavigationBindsModule::class,
+        PaymentMethodInteractorModule::class
     ],
     dependencies = [
         PaymentMethodDeps::class

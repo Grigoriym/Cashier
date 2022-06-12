@@ -15,7 +15,8 @@ import dagger.Component
     modules = [
         SelectInfoRootBindsModule::class,
         SelectIntoRootDepsModule::class,
-        FeatureNavigationBindsModule::class
+        FeatureNavigationBindsModule::class,
+        SelectInfoInteractorModule::class
     ],
     dependencies = [
         SelectInfoRootDeps::class

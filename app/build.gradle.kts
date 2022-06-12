@@ -5,4 +5,5 @@ plugins {
 
 dependencies {
     implementation(Deps.AndroidX.splashScreen)
+    implementation(project(Modules.utilsBiometric))
 }
