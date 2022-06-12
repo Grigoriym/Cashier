@@ -2,8 +2,7 @@ package com.grappim.sign_up_presentation.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
-import com.grappim.sign_up.domain.interactor.SignUpUseCase
-import com.grappim.sign_up.domain.interactor.ValidateSignUpFieldsUseCase
+import com.grappim.sign_up.domain.interactor.*
 import com.grappim.sign_up.domain.model.SignUpData
 import com.grappim.sign_up_presentation.helper.FieldsValidatorHelper
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
@@ -51,36 +50,36 @@ class SignUpViewModelImpl @Inject constructor(
         signUpValidation.value = SignUpFieldsValidationData()
     }
 
-    private suspend fun validateData(): ValidateSignUpFieldsUseCase.ValidationData? {
-        val currentData = signUpData.value ?: SignUpData.empty()
+    private suspend fun validateData(): ValidateSignUpFieldsUseCaseImpl.ValidationData? {
+        val currentData = signUpData.value
 
-        val validationData = validateSignUpFieldsUseCase.invoke(
-            ValidateSignUpFieldsUseCase.Params(currentData)
+        val validationData = validateSignUpFieldsUseCase.execute(
+            ValidateFieldsParams(currentData)
         )
         return validationData
     }
 
     private suspend fun signUp() {
-        val currentData = signUpData.value ?: SignUpData.empty()
+        val currentData = signUpData.value
         val phone = currentData.phone.trim()
         val email = currentData.email.trim()
         val password = currentData.password.trim()
 
-        signUpUseCase.invoke(
-            SignUpUseCase.Params(
+        _loading.value = true
+        val result = signUpUseCase.signUp(
+            SignUpParams(
                 phone = phone,
                 email = email,
                 password = password
             )
-        ).collect {
-            _loading.value = it is Try.Loading
-            when (it) {
-                is Try.Success -> {
-                    onBackPressed()
-                }
-                is Try.Error -> {
-                    _error.value = it.exception
-                }
+        )
+        _loading.value = false
+        when (result) {
+            is Try.Success -> {
+                onBackPressed()
+            }
+            is Try.Error -> {
+                _error.value = result.result
             }
         }
     }

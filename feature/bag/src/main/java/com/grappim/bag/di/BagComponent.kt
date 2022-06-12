@@ -16,7 +16,8 @@ import dagger.Component
         BagBindsModule::class,
         CoroutinesModule::class,
         DecimalFormatModule::class,
-        FeatureNavigationBindsModule::class
+        FeatureNavigationBindsModule::class,
+        BagInteractorModule::class
     ],
     dependencies = [
         BagDeps::class

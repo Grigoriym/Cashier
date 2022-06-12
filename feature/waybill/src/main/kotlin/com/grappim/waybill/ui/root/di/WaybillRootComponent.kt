@@ -22,7 +22,8 @@ import dagger.Component
         WaybillRootDepsModule::class,
         CoroutinesModule::class,
         DateTimeModule::class,
-        FeatureNavigationBindsModule::class
+        FeatureNavigationBindsModule::class,
+        WaybillInteractorModule::class
     ],
     dependencies = [
         WaybillRootDeps::class
@@ -39,7 +40,7 @@ interface WaybillRootComponent :
     interface Factory {
         fun create(
             waybillRootDeps: WaybillRootDeps,
-            @BindsInstance @FeatureFragmentManager fragmentManager: FragmentManager
+            @[BindsInstance FeatureFragmentManager] fragmentManager: FragmentManager
         ): WaybillRootComponent
     }
 

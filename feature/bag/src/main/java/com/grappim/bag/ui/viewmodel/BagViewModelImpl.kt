@@ -4,11 +4,12 @@ import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.lce.Try
-import com.grappim.common.lce.withoutParams
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.basket.ClearBasketUseCase
 import com.grappim.domain.interactor.products.GetBagProductsUseCase
-import com.grappim.domain.interactor.sales.AddBasketProduct
+import com.grappim.domain.interactor.sales.AddBasketProductParams
+import com.grappim.domain.interactor.sales.AddBasketProductUseCase
+import com.grappim.domain.interactor.sales.RemoveProductParams
 import com.grappim.domain.interactor.sales.RemoveProductUseCase
 import com.grappim.domain.model.basket.BasketProduct
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,7 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 class BagViewModelImpl @Inject constructor(
-    private val addBasketProduct: AddBasketProduct,
+    private val addBasketProduct: AddBasketProductUseCase,
     private val removeProductUseCase: RemoveProductUseCase,
     private val getBagProductsUseCase: GetBagProductsUseCase,
     private val clearBasketUseCase: ClearBasketUseCase,
@@ -76,78 +77,74 @@ class BagViewModelImpl @Inject constructor(
 
     override fun deleteBagProducts() {
         viewModelScope.launch {
-            clearBasketUseCase.invoke(withoutParams())
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Success -> {
-                            basketProducts.value = emptyList()
-                            changedProduct.value = null
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = clearBasketUseCase.clearBasket()
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    basketProducts.value = emptyList()
+                    changedProduct.value = null
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 
     override fun getBagProducts() {
         viewModelScope.launch {
-            getBagProductsUseCase.invoke(withoutParams())
-                .collect {
-                    _loading.value = it is Try.Loading
-                    changedProduct.value = null
-                    when (it) {
-                        is Try.Success -> {
-                            basketProducts.value = it.data
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = getBagProductsUseCase.execute()
+            _loading.value = false
+            changedProduct.value = null
+            when (result) {
+                is Try.Success -> {
+                    basketProducts.value = result.result
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 
     override fun addProductToBasket(product: BasketProduct) {
         viewModelScope.launch {
-            addBasketProduct
-                .invoke(AddBasketProduct.Params(product))
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Success -> {
-                            changedProduct.value = it.data
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = addBasketProduct
+                .execute(AddBasketProductParams(product))
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    changedProduct.value = result.result
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 
     override fun subtractBasketProduct(product: BasketProduct) {
         viewModelScope.launch {
-            removeProductUseCase.invoke(RemoveProductUseCase.Params(product))
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Success -> {
-                            if (it.data == null) {
-                                val products = basketProducts.value.toMutableList()
-                                products.remove(product)
-                                basketProducts.value = products
-                            } else {
-                                changedProduct.value = it.data
-                            }
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
+            _loading.value = true
+            val result = removeProductUseCase.execute(RemoveProductParams(product))
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    if (result.result == null) {
+                        val products = basketProducts.value.toMutableList()
+                        products.remove(product)
+                        basketProducts.value = products
+                    } else {
+                        changedProduct.value = result.result
                     }
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 }

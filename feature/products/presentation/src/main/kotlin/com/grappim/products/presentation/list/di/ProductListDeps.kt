@@ -1,6 +1,8 @@
 package com.grappim.products.presentation.list.di
 
 import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.domain.interactor.products.GetCategoryListUseCase
+import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.navigation.router.FlowRouter
@@ -12,4 +14,7 @@ interface ProductListDeps : ComponentDeps {
     fun generalRepository(): GeneralRepository
     fun productCategoryRepository(): ProductCategoryRepository
     fun flowRouter(): FlowRouter
+
+    fun getCategoryListUseCase(): GetCategoryListUseCase
+    fun getProductsByQueryUseCase(): GetProductsByQueryUseCase
 }

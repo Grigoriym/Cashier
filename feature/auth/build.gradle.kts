@@ -15,6 +15,13 @@ android {
 
 dependencies {
     implementation(project(Modules.dataWorkers))
+    implementation(project(Modules.utilsBiometric))
 
-    implementation(Deps.AndroidX.biometricKotlin)
+    testImplementation(Deps.Testing.junit)
+    testImplementation(Deps.Testing.assertJCore)
+    testImplementation(Deps.Testing.kotlinCoroutinesTest)
+    testImplementation(Deps.Testing.kotlinTest)
+    testImplementation(Deps.Testing.androidCoreTesting)
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("io.strikt:strikt-core:0.34.1")
 }

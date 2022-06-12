@@ -1,6 +1,6 @@
 object Versions {
 
-    const val gradlePlugin = "7.0.4"
+    const val gradlePlugin = "7.2.0"
     const val gradleVersions = "0.39.0"
     const val gradleDoctor = "0.7.3"
     const val scabbard = "0.5.0"
@@ -29,7 +29,7 @@ object Versions {
         const val lifecycle = "2.4.1"
         const val room = "2.4.2"
         const val workManager = "2.7.1"
-        const val startup = "1.1.0"
+        const val startup = "1.1.1"
         const val viewPager2 = "1.1.0-beta01"
         const val swipeRefresh = "1.1.0"
         const val biometricKotlin = "1.2.0-alpha04"
@@ -47,8 +47,8 @@ object Versions {
     }
 
     object Google {
-        const val material = "1.5.0"
-        const val dagger = "2.40.5"
+        const val material = "1.6.0"
+        const val dagger = "2.42"
         const val zxing = "3.3.0"
 
         const val gms = "4.3.10"
@@ -67,12 +67,12 @@ object Versions {
 
     const val lint = "30.0.4"
 
-    const val firebaseBom = "29.3.0"
+    const val firebaseBom = "30.0.2"
 
     const val accompanist = "0.23.1"
 
     const val retrofit = "2.9.0"
-    const val okHttp = "5.0.0-alpha.3"
+    const val okHttp = "5.0.0-alpha.7"
     const val retrofitKotlinSerialization = "0.8.0"
 
     const val desugaring = "1.1.5"
@@ -81,9 +81,9 @@ object Versions {
     const val recyclerAnimators = "4.0.2"
     const val chucker = "3.5.2"
     const val debugDb = "1.0.6"
-    const val combineTupleLiveData = "1.3.0"
+    const val combineTupleLiveData = "2.0.0"
     const val combineTupleFlow = "1.1.1"
-    const val viewBinding = "1.5.3"
+    const val viewBinding = "1.5.6"
     const val zxing = "3.6.0"
     const val cicerone = "7.1"
 

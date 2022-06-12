@@ -3,6 +3,9 @@ package com.grappim.products.presentation.create_edit.di
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.date_time.DateTimeIsoInstant
+import com.grappim.domain.interactor.products.CreateProductUseCase
+import com.grappim.domain.interactor.products.EditProductUseCase
+import com.grappim.domain.interactor.products.GetCategoryListUseCase
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.domain.storage.GeneralStorage
@@ -21,4 +24,8 @@ interface CreateEditProductDeps : ComponentDeps {
     @DateTimeIsoInstant
     fun dtfIso(): DateTimeFormatter
     fun multiViewModelFactory(): MultiViewModelFactory
+
+    fun createProductUseCase(): CreateProductUseCase
+    fun editProductUseCase(): EditProductUseCase
+    fun getCategoryListInteractor(): GetCategoryListUseCase
 }

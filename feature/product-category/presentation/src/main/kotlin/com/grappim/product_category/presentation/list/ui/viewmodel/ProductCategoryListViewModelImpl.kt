@@ -16,7 +16,7 @@ class ProductCategoryListViewModelImpl @Inject constructor(
 ) : ProductCategoryListViewModel() {
 
     override val categories: StateFlow<List<ProductCategory>> =
-        getProductCategoriesUseCase.categoriesFlow()
+        getProductCategoriesUseCase.execute()
             .stateIn(
                 scope = viewModelScope,
                 started = WhileViewSubscribed,

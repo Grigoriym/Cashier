@@ -3,20 +3,18 @@ package com.grappim.repository.remote
 import com.grappim.common.asynchronous.di.ApplicationScope
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.di.AppScope
-import com.grappim.common.lce.Try
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.productEntityTableName
 import com.grappim.db.helper.RoomQueryHelper
-import com.grappim.domain.interactor.products.GetCategoryListInteractor
-import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
-import com.grappim.domain.interactor.products.SearchProductsByCategoryUseCase
+import com.grappim.domain.interactor.products.GetCategoryListInteractorParams
+import com.grappim.domain.interactor.products.GetProductsByQueryParams
+import com.grappim.domain.interactor.products.GetProductsByQueryUseCaseImpl
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.mappers.products.toDomain2
 import com.grappim.product_category.db.ProductCategoryDao
-import com.grappim.product_category.db.ProductCategoryEntity
 import com.grappim.product_category.db.ProductCategoryEntityMapper
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.repository.extensions.getStringForDbQuery
@@ -41,27 +39,9 @@ class GeneralRepositoryImpl @Inject constructor(
     private val productCategoryEntityMapper: ProductCategoryEntityMapper
 ) : GeneralRepository {
 
-    override fun getCategories(
-        params: GetCategoryListInteractor.Params
-    ): Flow<Try<List<ProductCategory>>> = flow {
-        emit(Try.Loading)
-        val categories = productCategoryDao.getAllCategories().toMutableList()
-        if (params.sendDefaultCategory) {
-            categories.add(
-                0,
-                ProductCategoryEntity(
-                    id = -1,
-                    name = "All",
-                    merchantId = "",
-                    stockId = "",
-                )
-            )
-        }
-        val domain = productCategoryEntityMapper.revertList(categories.toList())
-        emit(Try.Success(domain))
-    }
-
-    override fun getCategories2(params: GetCategoryListInteractor.Params): Flow<List<ProductCategory>> =
+    override fun getCategories2(
+        params: GetCategoryListInteractorParams
+    ): Flow<List<ProductCategory>> =
         productCategoryDao.getAllCategoriesFlow()
             .map {
                 productCategoryEntityMapper.revertList(it).toMutableList()
@@ -76,7 +56,7 @@ class GeneralRepositoryImpl @Inject constructor(
             }
 
     override fun getCategoriesInEditProducts(
-        params: GetCategoryListInteractor.Params
+        params: GetCategoryListInteractorParams
     ): Flow<List<ProductCategory>> =
         productCategoryDao.getAllCategoriesFlow()
             .map {
@@ -92,24 +72,8 @@ class GeneralRepositoryImpl @Inject constructor(
                 it.toList()
             }
 
-    override fun getProductsByCategory(
-        params: SearchProductsByCategoryUseCase.Params
-    ): Flow<Try<List<Product>>> = flow {
-        emit(Try.Loading)
-        val category = params.category
-        val entities = if (category.isDefault) {
-            productsDao.getAllProducts()
-        } else {
-            productsDao.searchProductsByCategoryId(category.id)
-        }
-
-        val domain = entities.toDomain2()
-
-        emit(Try.Success(domain))
-    }
-
     override fun getProductsByQuery(
-        params: GetProductsByQueryUseCase.Params
+        params: GetProductsByQueryParams
     ): Flow<List<Product>> =
         flow {
             val category = params.category

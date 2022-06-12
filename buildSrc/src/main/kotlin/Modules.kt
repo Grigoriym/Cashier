@@ -18,6 +18,7 @@ object Modules {
     const val utilsCalculations = ":utils:calculations"
     const val utilsDateTime = ":utils:date-time"
     const val utilsExtensions = ":utils:extensions"
+    const val utilsBiometric = ":utils:biometric"
 
     const val featureAuth = ":feature:auth"
     const val featureWaybill = ":feature:waybill"

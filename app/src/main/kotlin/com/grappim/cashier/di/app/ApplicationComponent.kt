@@ -8,6 +8,7 @@ import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.*
 import com.grappim.date_time.DateTimeModule
 import com.grappim.db.di.DatabaseModule
+import com.grappim.domain.di.InteractorModule
 import com.grappim.network.di.NetworkModule
 import com.grappim.network.di.api.ApiModule
 import com.grappim.network.di.serialization.SerializationModule
@@ -32,7 +33,8 @@ Component(
         AppComponentDepsModule::class,
         SerializationModule::class,
         AnalyticsBindsModule::class,
-        PasswordManagerBindModule::class
+        PasswordManagerBindModule::class,
+        InteractorModule::class
     ],
     dependencies = [
 

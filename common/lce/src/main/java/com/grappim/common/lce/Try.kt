@@ -1,13 +1,10 @@
 package com.grappim.common.lce
 
-sealed class Try<out Data> {
-    object Loading : Try<Nothing>()
-    object Empty : Try<Nothing>()
-    object Initial : Try<Nothing>()
-    data class Error(val exception: Throwable) : Try<Nothing>()
-    data class Success<out Data>(val data: Data) : Try<Data>()
+sealed class Try<out S, out E> {
 
-    override fun toString(): String {
-        return super.toString()
-    }
+    data class Success<out S>(val result: S) : Try<S, Nothing>()
+
+    data class Error<out E>(val result: E) : Try<Nothing, E>()
 }
+
+typealias VoidTry<E> = Try<Unit, E>

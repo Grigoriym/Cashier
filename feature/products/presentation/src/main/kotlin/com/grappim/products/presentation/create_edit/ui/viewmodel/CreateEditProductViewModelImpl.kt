@@ -8,9 +8,7 @@ import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.common.lce.Try
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.domain.interactor.products.CreateProductUseCase
-import com.grappim.domain.interactor.products.EditProductUseCase
-import com.grappim.domain.interactor.products.GetCategoryListInteractor
+import com.grappim.domain.interactor.products.*
 import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.storage.GeneralStorage
@@ -28,7 +26,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
     private val createProductUseCase: CreateProductUseCase,
     private val priceCalculationsUtils: PriceCalculationsUtils,
     private val editProductUseCase: EditProductUseCase,
-    getCategoryListInteractor: GetCategoryListInteractor,
+    getCategoryListUseCase: GetCategoryListUseCase,
     private val generalStorage: GeneralStorage,
     @DecimalFormatSimple private val dfSimple: DecimalFormat,
     @Assisted private val createEditFlow: CreateEditFlow,
@@ -52,8 +50,8 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
     )
 
     override val categoriesFlow: StateFlow<List<ProductCategory>> =
-        getCategoryListInteractor
-            .categoriesInEditProduct(GetCategoryListInteractor.Params(false))
+        getCategoryListUseCase
+            .categoriesInEditProduct(GetCategoryListInteractorParams(false))
             .map { list ->
                 if (productToEdit?.categoryId != null) {
                     val found = list.find { category ->
@@ -202,8 +200,9 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
 
     private fun createProduct() {
         viewModelScope.launch {
-            createProductUseCase.invoke(
-                CreateProductUseCase.Params(
+            _loading.value = true
+            val result = createProductUseCase.execute(
+                CreateProductParams(
                     name = productName.value,
                     barcode = barcode.value,
                     sellingPrice = sellingPrice.value.asBigDecimal(),
@@ -215,14 +214,14 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
                     categoryName = selectedCategory.value?.name ?: "",
                     categoryId = selectedCategory.value?.id ?: 0
                 )
-            ).collect {
-                when (it) {
-                    is Try.Success -> {
-                        onBackPressed()
-                    }
-                    is Try.Error -> {
-                        _error.value = it.exception
-                    }
+            )
+            _loading.value = true
+            when (result) {
+                is Try.Success -> {
+                    onBackPressed()
+                }
+                is Try.Error -> {
+                    _error.value = result.result
                 }
             }
         }
@@ -230,8 +229,8 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
 
     private fun editProduct() {
         viewModelScope.launch {
-            editProductUseCase.invoke(
-                EditProductUseCase.Params(
+            val result = editProductUseCase.execute(
+                EditProductParams(
                     name = productName.value,
                     barcode = barcode.value,
                     sellingPrice = sellingPrice.value.asBigDecimal(),
@@ -245,14 +244,13 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
                     categoryId = selectedCategory.value?.id ?: 0,
                     category = selectedCategory.value?.name ?: ""
                 )
-            ).collect {
-                when (it) {
-                    is Try.Success -> {
-                        onBackPressed()
-                    }
-                    is Try.Error -> {
-                        _error.value = it.exception
-                    }
+            )
+            when (result) {
+                is Try.Success -> {
+                    onBackPressed()
+                }
+                is Try.Error -> {
+                    _error.value = result.result
                 }
             }
         }

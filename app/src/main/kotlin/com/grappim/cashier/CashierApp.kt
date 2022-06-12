@@ -1,6 +1,7 @@
 package com.grappim.cashier
 
 import android.app.Application
+import android.os.StrictMode
 import androidx.work.Configuration
 import com.grappim.cashier.di.app.ApplicationComponent
 import com.grappim.cashier.di.app.DaggerApplicationComponent
@@ -26,10 +27,28 @@ class CashierApp : Application(), Configuration.Provider,
 
     override fun onCreate() {
         super.onCreate()
+        setupStrictMode()
         appComponent.inject(this)
     }
 
     override fun getWorkManagerConfiguration(): Configuration =
         workerConfiguration
+
+    private fun setupStrictMode() {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(
+                StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build()
+            )
+            StrictMode.setVmPolicy(
+                StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build()
+            )
+        }
+    }
 
 }

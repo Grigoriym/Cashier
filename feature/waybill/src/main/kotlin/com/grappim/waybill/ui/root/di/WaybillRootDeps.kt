@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.grappim.common.di.ApplicationContext
 import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
+import com.grappim.domain.interactor.sales.SearchProductsUseCase
 import com.grappim.domain.repository.ProductsRepository
 import com.grappim.domain.repository.WaybillRepository
 import com.grappim.domain.repository.local.WaybillLocalRepository
@@ -24,4 +26,6 @@ interface WaybillRootDeps : ComponentDeps {
     fun cashierScreens(): CashierScreens
     fun appRouter(): ActivityRouter
 
+    fun searchProductsUseCase(): SearchProductsUseCase
+    fun getProductByBarcodeUseCase(): GetProductByBarcodeUseCase
 }

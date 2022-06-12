@@ -4,13 +4,15 @@ import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.lce.Try
-import com.grappim.common.lce.withoutParams
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.basket.GetBasketItemsUseCase
+import com.grappim.domain.interactor.payment.MakePaymentParams
 import com.grappim.domain.interactor.payment.MakePaymentUseCase
+import com.grappim.logger.logE
 import com.grappim.payment_method.helper.PaymentMethodItemGenerator
 import com.grappim.payment_method.model.PaymentMethod
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -27,7 +29,7 @@ class PaymentMethodViewModelImpl @Inject constructor(
     override val paymentItems = paymentMethodItemGenerator.paymentMethodItems
 
     override val basketCount: StateFlow<String> = getBasketItemsUseCase
-        .invoke(withoutParams()).map { list ->
+        .execute().map { list ->
             list.map {
                 it.sellingPrice
             }.sumOf {
@@ -35,6 +37,8 @@ class PaymentMethodViewModelImpl @Inject constructor(
             }
         }.map {
             dfSimple.format(it)
+        }.catch { e ->
+            logE(e)
         }.stateIn(
             scope = viewModelScope,
             started = WhileViewSubscribed,
@@ -42,7 +46,7 @@ class PaymentMethodViewModelImpl @Inject constructor(
         )
 
     override val basketSum: StateFlow<String> = getBasketItemsUseCase
-        .invoke(withoutParams()).map { list ->
+        .execute().map { list ->
             list.map {
                 it.sellingPrice * it.amount
             }.sumOf {
@@ -58,18 +62,17 @@ class PaymentMethodViewModelImpl @Inject constructor(
 
     override fun makePayment(paymentMethod: PaymentMethod) {
         viewModelScope.launch {
-            makePaymentUseCase.invoke(MakePaymentUseCase.Params(paymentMethod.type))
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Success -> {
-                            flowRouter.returnToSalesFromPaymentMethod()
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = makePaymentUseCase.execute(MakePaymentParams(paymentMethod.type))
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    flowRouter.returnToSalesFromPaymentMethod()
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 }

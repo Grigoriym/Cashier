@@ -3,7 +3,9 @@ package com.grappim.products.presentation.list.ui.viewmodel
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.domain.interactor.products.GetCategoryListInteractor
+import com.grappim.domain.interactor.products.GetCategoryListUseCase
+import com.grappim.domain.interactor.products.GetCategoryListInteractorParams
+import com.grappim.domain.interactor.products.GetProductsByQueryParams
 import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
 import com.grappim.domain.model.product.Product
 import com.grappim.product_category.domain.model.ProductCategory
@@ -15,13 +17,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductListViewModelImpl @Inject constructor(
-    getCategoryListInteractor: GetCategoryListInteractor,
+    getCategoryListInteractor: GetCategoryListUseCase,
     private val getProductsByQueryUseCase: GetProductsByQueryUseCase,
 ) : ProductListViewModel() {
 
     override val categories: StateFlow<List<ProductCategory>> =
         getCategoryListInteractor.getSimpleCategoryList(
-            GetCategoryListInteractor.Params()
+            GetCategoryListInteractorParams()
         ).stateIn(
             scope = viewModelScope,
             started = WhileViewSubscribed,
@@ -38,8 +40,8 @@ class ProductListViewModelImpl @Inject constructor(
         query,
         _selectedCategory
     ).flatMapLatest { (query, category) ->
-        getProductsByQueryUseCase.invoke(
-            GetProductsByQueryUseCase.Params(
+        getProductsByQueryUseCase.execute(
+            GetProductsByQueryParams(
                 category,
                 query
             )

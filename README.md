@@ -36,6 +36,7 @@ I do this because I had an experience with an app of such functionality.
 
 ### TODOs
 - [ ] Remove excessive emit(Try.Loading) from repos. Check flow use cases
+- [ ] Remove base useCases, otherwise it is problematic to test
 
 ### Roadmap
 - [x] Move all UI to compose, (only scanner is left without any changes)

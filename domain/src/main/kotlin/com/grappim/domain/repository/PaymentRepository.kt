@@ -1,11 +1,10 @@
 package com.grappim.domain.repository
 
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.payment.MakePaymentUseCase
-import kotlinx.coroutines.flow.Flow
+import com.grappim.domain.interactor.payment.MakePaymentParams
 
 interface PaymentRepository {
 
-    fun makePayment(params: MakePaymentUseCase.Params): Flow<Try<Unit>>
+    suspend fun makePayment(params: MakePaymentParams): Try<Unit, Throwable>
 
 }

@@ -1,19 +1,19 @@
 package com.grappim.product_category.repository
 
+import com.grappim.common.asynchronous.runOperationCatching
 import com.grappim.common.di.AppScope
-import com.grappim.common.lce.Try
+import com.grappim.common.lce.VoidTry
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.di.api.QualifierProductCategoryApi
 import com.grappim.product_category.db.ProductCategoryDao
 import com.grappim.product_category.db.ProductCategoryEntityMapper
-import com.grappim.product_category.domain.interactor.CreateProductCategoryUseCase
-import com.grappim.product_category.domain.interactor.EditProductCategoryUseCase
+import com.grappim.product_category.domain.interactor.CreateProductCategoryParams
+import com.grappim.product_category.domain.interactor.EditProductCategoryParams
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import com.grappim.product_category.network.api.ProductCategoryApi
 import com.grappim.product_category.network.model.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -25,16 +25,6 @@ class ProductCategoryRepositoryImpl @Inject constructor(
     private val generalStorage: GeneralStorage,
     private val productCategoryEntityMapper: ProductCategoryEntityMapper
 ) : ProductCategoryRepository {
-
-    override fun getCategoriesFlow(): Flow<Try<List<ProductCategory>>> = flow {
-        emit(Try.Loading)
-        val result = getCategories()
-        emit(Try.Success(result))
-    }
-
-    override fun getCategoriesFlow2(): Flow<List<ProductCategory>> = flow {
-        emit(getCategories())
-    }
 
     override fun categoriesFlow(): Flow<List<ProductCategory>> =
         productCategoryDao.getAllCategoriesFlow()
@@ -88,10 +78,9 @@ class ProductCategoryRepositoryImpl @Inject constructor(
         productCategoryDao.insert(entities)
     }
 
-    override fun createProductCategory(
-        params: CreateProductCategoryUseCase.InParams
-    ): Flow<Try<Unit>> = flow {
-        emit(Try.Loading)
+    override suspend fun createProductCategory(
+        params: CreateProductCategoryParams
+    ): VoidTry<Throwable> = runOperationCatching {
         val response = productCategoryApi.createCategory(
             CreateProductCategoryRequestDTO(
                 category = CreateProductCategoryDTO(
@@ -106,14 +95,11 @@ class ProductCategoryRepositoryImpl @Inject constructor(
             id = response.id,
             name = params.name
         )
-
-        emit(Try.Success(Unit))
     }
 
-    override fun editProductCategory(
-        params: EditProductCategoryUseCase.Params
-    ): Flow<Try<Unit>> = flow {
-        emit(Try.Loading)
+    override suspend fun editProductCategory(
+        params: EditProductCategoryParams
+    ): VoidTry<Throwable> = runOperationCatching {
         val response = productCategoryApi.editCategory(
             EditProductCategoryRequestDTO(
                 category = ProductCategoryDTO(
@@ -126,8 +112,6 @@ class ProductCategoryRepositoryImpl @Inject constructor(
         )
 
         insertCategory(productCategoryDTOMapper.map(response))
-
-        emit(Try.Success(Unit))
     }
 
 

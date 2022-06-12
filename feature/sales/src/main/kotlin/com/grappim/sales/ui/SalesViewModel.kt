@@ -6,13 +6,10 @@ import androidx.paging.cachedIn
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.lce.Try
-import com.grappim.common.lce.withoutParams
 import com.grappim.core.base.BaseViewModel
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.interactor.basket.GetBasketItemsUseCase
-import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
-import com.grappim.domain.interactor.sales.SearchProductsUseCase
-import com.grappim.domain.interactor.sales.SubtractProductFromBasket
+import com.grappim.domain.interactor.sales.*
 import com.grappim.domain.model.product.Product
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -23,7 +20,7 @@ class SalesViewModel @Inject constructor(
     getBasketItemsUseCase: GetBasketItemsUseCase,
     private val searchProductsUseCase: SearchProductsUseCase,
     private val addProductToBasketUseCase: AddProductToBasketUseCase,
-    private val subtractProductFromBasket: SubtractProductFromBasket,
+    private val subtractProductFromBasketUseCase: SubtractProductFromBasketUseCase,
     @DecimalFormatSimple private val dfSimple: DecimalFormat
 ) : BaseViewModel() {
 
@@ -36,12 +33,12 @@ class SalesViewModel @Inject constructor(
         get() = _searchQuery.asStateFlow()
 
     val products: Flow<PagingData<Product>> = searchQuery.flatMapLatest {
-        searchProductsUseCase.execute(SearchProductsUseCase.Params(it))
+        searchProductsUseCase.execute(SearchProductsParams(it))
             .cachedIn(viewModelScope)
     }
 
     val basketCount: StateFlow<String> = getBasketItemsUseCase
-        .invoke(withoutParams())
+        .execute()
         .map { list ->
             list.map {
                 it.sellingPrice
@@ -71,35 +68,37 @@ class SalesViewModel @Inject constructor(
 
     fun addProduct(product: Product) {
         viewModelScope.launch {
-            addProductToBasketUseCase.invoke(AddProductToBasketUseCase.Params(product))
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Success -> {
-                            _productChanged.value = true
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = addProductToBasketUseCase.execute(
+                AddProductToBasketParams(product)
+            )
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    _productChanged.value = true
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 
     fun subtractProduct(product: Product) {
         viewModelScope.launch {
-            subtractProductFromBasket.invoke(SubtractProductFromBasket.Params(product))
-                .collect {
-                    _loading.value = it is Try.Loading
-                    when (it) {
-                        is Try.Success -> {
-                            _productChanged.value = true
-                        }
-                        is Try.Error -> {
-                            _error.value = it.exception
-                        }
-                    }
+            _loading.value = true
+            val result = subtractProductFromBasketUseCase.execute(
+                SubtractProductFromBasketParams(product)
+            )
+            _loading.value = false
+            when (result) {
+                is Try.Success -> {
+                    _productChanged.value = true
                 }
+                is Try.Error -> {
+                    _error.value = result.result
+                }
+            }
         }
     }
 

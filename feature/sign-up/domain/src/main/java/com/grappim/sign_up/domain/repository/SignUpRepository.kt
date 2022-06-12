@@ -1,12 +1,11 @@
 package com.grappim.sign_up.domain.repository
 
-import com.grappim.common.lce.Try
-import com.grappim.sign_up.domain.interactor.SignUpUseCase
-import kotlinx.coroutines.flow.Flow
+import com.grappim.common.lce.VoidTry
+import com.grappim.sign_up.domain.interactor.SignUpParams
 
 interface SignUpRepository {
 
-    fun signUp(
-        params: SignUpUseCase.Params
-    ): Flow<Try<Unit>>
+    suspend fun signUp(
+        params: SignUpParams
+    ): VoidTry<Throwable>
 }

@@ -3,8 +3,8 @@ package com.grappim.repository.remote
 import com.grappim.common.asynchronous.di.ApplicationScope
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
-import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
+import com.grappim.domain.interactor.cashier.SaveCashBoxParams
+import com.grappim.domain.interactor.outlet.SaveStockParams
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.SelectInfoRemoteRepository
@@ -14,9 +14,8 @@ import com.grappim.network.di.api.QualifierCashierApi
 import com.grappim.network.mappers.cashbox.toDomain
 import com.grappim.network.mappers.stock.toDomain
 import com.grappim.network.model.cashbox.GetCashBoxListRequestDTO
+import com.grappim.common.asynchronous.runOperationCatching
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,32 +27,24 @@ class SelectInfoRemoteRepositoryImpl @Inject constructor(
 ) : SelectInfoRemoteRepository {
 
     override suspend fun saveCashBox(
-        params: SaveCashBoxUseCase.Params
+        params: SaveCashBoxParams
     ) = applicationScope.launch {
         generalStorage.setCashBoxInfo(params.cashBox)
     }.join()
 
     override suspend fun saveStock(
-        params: SaveStockInfoUseCase.Params
+        params: SaveStockParams
     ) = applicationScope.launch {
         generalStorage.setStockInfo(params.stock)
     }.join()
-
-    override fun getStocks(): Flow<Try<List<Stock>>> = flow {
-        emit(Try.Loading)
-        val response = cashierApi.getStocks(generalStorage.getMerchantId())
-        val mappedResponse = response.stocks.toDomain()
-        emit(Try.Success(mappedResponse))
-    }
 
     override suspend fun getStocks2(): List<Stock> {
         val response = cashierApi.getStocks(generalStorage.getMerchantId())
         return response.stocks.toDomain()
     }
 
-    override fun getCashBoxes(): Flow<Try<List<CashBox>>> =
-        flow {
-            emit(Try.Loading)
+    override suspend fun getCashBoxes(): Try<List<CashBox>, Throwable> =
+        runOperationCatching {
             val response = cashierApi.getCashBoxList(
                 getCashBoxListRequestDTO = GetCashBoxListRequestDTO(
                     merchantId = generalStorage.getMerchantId(),
@@ -61,6 +52,6 @@ class SelectInfoRemoteRepositoryImpl @Inject constructor(
                 )
             )
             val domain = response.cashBoxes.toDomain()
-            emit(Try.Success(domain))
+            domain
         }
 }

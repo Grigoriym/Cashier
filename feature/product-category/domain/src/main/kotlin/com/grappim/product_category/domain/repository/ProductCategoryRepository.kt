@@ -1,16 +1,12 @@
 package com.grappim.product_category.domain.repository
 
-import com.grappim.common.lce.Try
-import com.grappim.product_category.domain.interactor.CreateProductCategoryUseCase
-import com.grappim.product_category.domain.interactor.EditProductCategoryUseCase
+import com.grappim.common.lce.VoidTry
+import com.grappim.product_category.domain.interactor.CreateProductCategoryParams
+import com.grappim.product_category.domain.interactor.EditProductCategoryParams
 import com.grappim.product_category.domain.model.ProductCategory
 import kotlinx.coroutines.flow.Flow
 
 interface ProductCategoryRepository {
-
-    fun getCategoriesFlow(): Flow<Try<List<ProductCategory>>>
-
-    fun getCategoriesFlow2(): Flow<List<ProductCategory>>
 
     fun categoriesFlow(): Flow<List<ProductCategory>>
 
@@ -21,12 +17,12 @@ interface ProductCategoryRepository {
 
     suspend fun insertCategories(newCategories: List<ProductCategory>)
 
-    fun createProductCategory(
-        params: CreateProductCategoryUseCase.InParams
-    ): Flow<Try<Unit>>
+    suspend fun createProductCategory(
+        params: CreateProductCategoryParams
+    ): VoidTry<Throwable>
 
-    fun editProductCategory(
-        params: EditProductCategoryUseCase.Params
-    ): Flow<Try<Unit>>
+    suspend fun editProductCategory(
+        params: EditProductCategoryParams
+    ): VoidTry<Throwable>
 
 }

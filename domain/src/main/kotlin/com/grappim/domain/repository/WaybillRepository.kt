@@ -2,7 +2,8 @@ package com.grappim.domain.repository
 
 import androidx.paging.PagingData
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
+import com.grappim.common.lce.VoidTry
+import com.grappim.domain.interactor.products.GetProductBarcodeParams
 import com.grappim.domain.interactor.waybill.*
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.model.waybill.Waybill
@@ -13,34 +14,34 @@ import java.math.BigDecimal
 interface WaybillRepository {
 
     fun getAcceptanceListPaging(): Flow<PagingData<Waybill>>
-    fun createDraftWaybill(): Flow<Try<Waybill>>
+    suspend fun createDraftWaybill(): Try<Waybill, Throwable>
 
     fun getProducts(
-        params: GetWaybillProductsUseCase.Params
+        params: GetWaybillProductsParams
     ): Flow<PagingData<WaybillProduct>>
 
-    fun createWaybillProduct(
-        params: CreateWaybillProductUseCase.Params
-    ): Flow<Try<BigDecimal>>
+    suspend fun createWaybillProduct(
+        params: CreateWaybillProductParams
+    ): Try<BigDecimal, Throwable>
 
-    fun getWaybillProductByBarcode(
-        params: GetWaybillProductByBarcodeUseCase.Params
-    ): Flow<Try<WaybillProduct>>
+    suspend fun getWaybillProductByBarcode(
+        params: GetWaybillProductByBarcodeParams
+    ): Try<WaybillProduct, Throwable>
 
-    fun getProductByBarcode(
-        params: GetProductByBarcodeUseCase.Params
-    ): Flow<Try<Product>>
+    suspend fun getProductByBarcode(
+        params: GetProductBarcodeParams
+    ): Try<Product, Throwable>
 
-    fun updateWaybillProduct(
-        params: UpdateWaybillProductUseCase.Params
-    ): Flow<Try<BigDecimal>>
+    suspend fun updateWaybillProduct(
+        params: UpdateWaybillProductParams
+    ): Try<BigDecimal, Throwable>
 
-    fun conductWaybill(
-        params: ConductWaybillUseCase.Params
-    ): Flow<Try<Unit>>
+    suspend fun conductWaybill(
+        params: ConductWaybillParams
+    ): Try<Unit, Throwable>
 
-    fun rollbackWaybill(
-        params: RollbackWaybillUseCase.Params
-    ): Flow<Try<Unit>>
+    suspend fun rollbackWaybill(
+        params: RollbackWaybillParams
+    ): VoidTry<Throwable>
 
 }

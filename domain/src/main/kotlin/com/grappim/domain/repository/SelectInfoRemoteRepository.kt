@@ -1,23 +1,20 @@
 package com.grappim.domain.repository
 
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
-import com.grappim.domain.interactor.outlet.SaveStockInfoUseCase
+import com.grappim.domain.interactor.cashier.SaveCashBoxParams
+import com.grappim.domain.interactor.outlet.SaveStockParams
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
-import kotlinx.coroutines.flow.Flow
 
 interface SelectInfoRemoteRepository {
 
     suspend fun saveCashBox(
-        params: SaveCashBoxUseCase.Params
+        params: SaveCashBoxParams
     )
 
-    suspend fun saveStock(params: SaveStockInfoUseCase.Params)
+    suspend fun saveStock(params: SaveStockParams)
 
-    fun getCashBoxes(): Flow<Try<List<CashBox>>>
-
-    fun getStocks(): Flow<Try<List<Stock>>>
+    suspend fun getCashBoxes(): Try<List<CashBox>, Throwable>
 
     suspend fun getStocks2(): List<Stock>
 

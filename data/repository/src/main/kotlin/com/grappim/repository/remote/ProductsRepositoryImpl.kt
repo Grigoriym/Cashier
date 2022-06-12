@@ -11,9 +11,9 @@ import com.grappim.date_time.DateTimeUtils
 import com.grappim.db.dao.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
-import com.grappim.domain.interactor.products.CreateProductUseCase
-import com.grappim.domain.interactor.products.EditProductUseCase
-import com.grappim.domain.interactor.sales.SearchProductsUseCase
+import com.grappim.domain.interactor.products.CreateProductParams
+import com.grappim.domain.interactor.products.EditProductParams
+import com.grappim.domain.interactor.sales.SearchProductsParams
 import com.grappim.domain.model.base.ProductUnit
 import com.grappim.domain.model.product.Product
 import com.grappim.domain.repository.ProductsRepository
@@ -26,9 +26,9 @@ import com.grappim.network.mappers.products.toDomain
 import com.grappim.network.mappers.products.toEntity
 import com.grappim.network.model.products.*
 import com.grappim.repository.paging.FilterProductsPagingSource
+import com.grappim.common.asynchronous.runOperationCatching
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -49,10 +49,9 @@ class ProductsRepositoryImpl @Inject constructor(
         initialLoadSize = 10
     )
 
-    override fun createProduct(
-        params: CreateProductUseCase.Params
-    ): Flow<Try<Unit>> = flow {
-        emit(Try.Loading)
+    override suspend fun createProduct(
+        params: CreateProductParams
+    ): Try<Unit, Throwable> = runOperationCatching {
         val response = productsApi.createProduct(
             createProduct = CreateProductRequestDTO(
                 CreateProductRequestParamsDTO(
@@ -87,14 +86,11 @@ class ProductsRepositoryImpl @Inject constructor(
                 categoryId = domain.categoryId
             )
         )
-
-        emit(Try.Success(Unit))
     }
 
-    override fun updateProduct(
-        params: EditProductUseCase.Params
-    ): Flow<Try<Unit>> = flow {
-        emit(Try.Loading)
+    override suspend fun updateProduct(
+        params: EditProductParams
+    ): Try<Unit, Throwable> = runOperationCatching {
         val productDTO = ProductDTO(
             id = params.productId,
             barcode = params.barcode,
@@ -116,12 +112,10 @@ class ProductsRepositoryImpl @Inject constructor(
 
         val entity = response.product.toEntity()
         productsDao.update(entity)
-
-        emit(Try.Success(Unit))
     }
 
     override fun searchProducts(
-        params: SearchProductsUseCase.Params
+        params: SearchProductsParams
     ): Flow<PagingData<Product>> = Pager(
         config = pagingConfig
     ) {

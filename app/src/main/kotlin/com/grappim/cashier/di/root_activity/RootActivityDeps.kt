@@ -5,6 +5,12 @@ import com.grappim.common.di.ApplicationContext
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.core.utils.ResourceManager
 import com.grappim.date_time.DateTimeIsoInstant
+import com.grappim.domain.interactor.basket.GetBasketItemsUseCase
+import com.grappim.domain.interactor.products.GetCategoryListUseCase
+import com.grappim.domain.interactor.products.GetProductByBarcodeUseCase
+import com.grappim.domain.interactor.sales.AddProductToBasketUseCase
+import com.grappim.domain.interactor.sales.SearchProductsUseCase
+import com.grappim.domain.interactor.sales.SubtractProductFromBasketUseCase
 import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.repository.*
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
@@ -52,4 +58,11 @@ interface RootActivityDeps : ComponentDeps {
     @DateTimeIsoInstant
     fun dtfIso(): DateTimeFormatter
     fun passwordManager(): PasswordManager
+
+    fun getBasketItemsUseCase(): GetBasketItemsUseCase
+    fun searchProductsUseCase(): SearchProductsUseCase
+    fun addProductToBasketUseCase(): AddProductToBasketUseCase
+    fun subtractProductFromBasketUseCase(): SubtractProductFromBasketUseCase
+    fun getProductByBarcodeUseCase(): GetProductByBarcodeUseCase
+    fun getCategoryListUseCase(): GetCategoryListUseCase
 }
