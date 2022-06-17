@@ -3,8 +3,8 @@ package com.grappim.repository.remote
 import com.grappim.common.asynchronous.di.ApplicationScope
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.cashier.SaveCashBoxParams
-import com.grappim.domain.interactor.outlet.SaveStockParams
+import com.grappim.domain.interactor.cashbox.saveCashbox.SaveCashBoxParams
+import com.grappim.domain.interactor.stock.saveStock.SaveStockParams
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.SelectInfoRemoteRepository

@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.grappim.cashbox.R
 import com.grappim.cashbox.model.CashierProgressItem
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.cashier.GetCashBoxesUseCase
-import com.grappim.domain.interactor.cashier.SaveCashBoxParams
-import com.grappim.domain.interactor.cashier.SaveCashBoxUseCase
+import com.grappim.domain.interactor.cashbox.getCashbox.GetCashBoxesUseCase
+import com.grappim.domain.interactor.cashbox.saveCashbox.SaveCashBoxParams
+import com.grappim.domain.interactor.cashbox.saveCashbox.SaveCashBoxUseCase
 import com.grappim.domain.model.cashbox.CashBox
 import kotlinx.coroutines.launch
 import javax.inject.Inject

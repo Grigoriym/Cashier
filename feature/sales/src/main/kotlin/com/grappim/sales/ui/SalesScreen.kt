@@ -16,8 +16,8 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.grappim.domain.model.basket.BasketProduct
-import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.BasketProduct
+import com.grappim.domain.model.Product
 import com.grappim.sales.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemAddBasketProductCompose

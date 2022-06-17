@@ -1,8 +1,8 @@
 package com.grappim.domain.repository
 
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.cashier.SaveCashBoxParams
-import com.grappim.domain.interactor.outlet.SaveStockParams
+import com.grappim.domain.interactor.cashbox.saveCashbox.SaveCashBoxParams
+import com.grappim.domain.interactor.stock.saveStock.SaveStockParams
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
 

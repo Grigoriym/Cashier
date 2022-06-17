@@ -6,19 +6,7 @@ import javax.inject.Qualifier
 annotation class QualifierCashierApi
 
 @Qualifier
-annotation class QualifierWaybillApi
-
-@Qualifier
-annotation class QualifierAuthApi
-
-@Qualifier
 annotation class QualifierProductCategoryApi
-
-@Qualifier
-annotation class QualifierProductsApi
-
-@Qualifier
-annotation class QualifierBasketApi
 
 @Qualifier
 annotation class QualifierFeatureToggleApi

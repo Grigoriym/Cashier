@@ -20,10 +20,7 @@ dependencies {
 
   implementation(Deps.Kotlin.serialization)
 
-  api(Deps.okhttp)
-  api(Deps.loggingInterceptor)
   api(Deps.retrofit)
-  api(Deps.retrofitKotlinSerializationConverter)
 
   coreLibraryDesugaring(Deps.desugar)
 }

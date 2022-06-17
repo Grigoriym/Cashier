@@ -1,17 +1,25 @@
 package com.grappim.repository.di
 
-import com.grappim.domain.repository.*
+import com.grappim.domain.repository.FeatureToggleRepository
+import com.grappim.domain.repository.GeneralRepository
+import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
-import com.grappim.domain.repository.local.WaybillLocalRepository
+import com.grappim.feature.bag.domain.BagRepository
+import com.grappim.feature.bag.repository.BagRepositoryImpl
+import com.grappim.feature.payment_method.domain.repository.PaymentRepository
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import com.grappim.product_category.repository.ProductCategoryRepositoryImpl
 import com.grappim.repository.local.FeatureToggleLocalRepositoryImpl
 import com.grappim.repository.local.SelectCashBoxLocalRepositoryImpl
 import com.grappim.repository.local.SelectStockLocalRepositoryImpl
-import com.grappim.repository.local.WaybillLocalRepositoryImpl
-import com.grappim.repository.remote.*
+import com.grappim.repository.remote.FeatureToggleRepositoryImpl
+import com.grappim.repository.remote.GeneralRepositoryImpl
+import com.grappim.repository.remote.PaymentRepositoryImpl
+import com.grappim.repository.remote.SelectInfoRemoteRepositoryImpl
+import com.grappim.repository.utils.DataClearHelper
+import com.grappim.repository.utils.DataClearHelperImpl
 import dagger.Binds
 import dagger.Module
 
@@ -19,9 +27,9 @@ import dagger.Module
 interface RepositoryModule {
 
     @Binds
-    fun bindProductsRepository(
-        productsRepositoryImpl: ProductsRepositoryImpl
-    ): ProductsRepository
+    fun bindDataClearHelper(
+        dataClearHelperImpl: DataClearHelperImpl
+    ): DataClearHelper
 
     @Binds
     fun bindGeneralRepository(
@@ -34,24 +42,9 @@ interface RepositoryModule {
     ): SelectInfoRemoteRepository
 
     @Binds
-    fun bindAuthRepository(
-        authRepositoryImpl: AuthRepositoryImpl
-    ): AuthRepository
-
-    @Binds
-    fun bindWaybillRepository(
-        waybillRepositoryImpl: WaybillRepositoryImpl
-    ): WaybillRepository
-
-    @Binds
     fun bindPaymentRepository(
         paymentRepositoryImpl: PaymentRepositoryImpl
     ): PaymentRepository
-
-    @Binds
-    fun bindWaybillLocalRepository(
-        waybillLocalRepositoryImpl: WaybillLocalRepositoryImpl
-    ): WaybillLocalRepository
 
     @Binds
     fun bindSelectStockRepository(
@@ -67,11 +60,6 @@ interface RepositoryModule {
     fun bindProductCategoryRepository(
         productCategoryRepositoryImpl: ProductCategoryRepositoryImpl
     ): ProductCategoryRepository
-
-    @Binds
-    fun bindBasketRepository(
-        basketRepositoryImpl: BasketRepositoryImpl
-    ): BasketRepository
 
     @Binds
     fun bindFeatureToggleRepository(

@@ -19,8 +19,12 @@ android {
 dependencies {
     implementation(project(Modules.utilsCalculations))
     implementation(project(Modules.commonDi))
-    implementation(project(Modules.featureProductCategoryDb))
     implementation(project(Modules.commonDb))
+
+    implementation(project(Modules.domain))
+
+    implementation(project(Modules.featureProductCategoryDb))
+    implementation(project(Modules.featureBagDb))
 
     implementation(Deps.Kotlin.serialization)
 

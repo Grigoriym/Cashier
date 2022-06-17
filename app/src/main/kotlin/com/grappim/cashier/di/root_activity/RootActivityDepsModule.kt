@@ -1,19 +1,18 @@
 package com.grappim.cashier.di.root_activity
 
-import com.grappim.auth.di.AuthDeps
-import com.grappim.bag.di.BagDeps
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.ComponentDepsKey
+import com.grappim.feature.auth.presentation.di.AuthDeps
+import com.grappim.feature.select_info.root_presentation.di.SelectInfoRootDeps
 import com.grappim.feature.settings.di.SettingsDeps
+import com.grappim.feature.waybill.presentation.ui.root.di.WaybillRootDeps
 import com.grappim.menu.di.MenuDeps
 import com.grappim.payment_method.di.PaymentMethodDeps
 import com.grappim.product_category.presentation.root.di.ProductCategoryRootDeps
 import com.grappim.products.presentation.root.di.ProductsRootDeps
-import com.grappim.root_presentation.di.SelectInfoRootDeps
 import com.grappim.sales.di.SalesDeps
 import com.grappim.scanner.di.ScannerDeps
 import com.grappim.sign_up_presentation.di.SignUpDeps
-import com.grappim.waybill.ui.root.di.WaybillRootDeps
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -46,7 +45,7 @@ interface RootActivityDepsModule {
         component: RootActivityComponent
     ): ComponentDeps
 
-    @[Binds IntoMap ComponentDepsKey(BagDeps::class)]
+    @[Binds IntoMap ComponentDepsKey(com.grappim.feature.bag.presentation.di.BagDeps::class)]
     fun bindBagDeps(
         component: RootActivityComponent
     ): ComponentDeps

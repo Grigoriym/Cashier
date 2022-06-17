@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.grappim.common.di.ApplicationContext
 import com.grappim.common.di.DatabaseScope
 import com.grappim.db.CashierDatabase
-import com.grappim.db.dao.BasketDao
+import com.grappim.feature.bag.db.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.di.configs.DatabaseBuildConfigProvider
 import com.grappim.db.di.configs.DatabaseConfigsModule

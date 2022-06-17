@@ -5,10 +5,17 @@ import android.net.Uri
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.grappim.auth.ui.view.AuthFragment
-import com.grappim.bag.ui.view.BagFragment
 import com.grappim.common.di.ActivityScope
+import com.grappim.feature.auth.presentation.ui.view.AuthFragment
+import com.grappim.feature.bag.presentation.ui.view.BagFragment
+import com.grappim.feature.select_info.root_presentation.ui.SelectInfoRootFragment
 import com.grappim.feature.settings.ui.SettingsFragment
+import com.grappim.feature.waybill.presentation.ui.details.ui.view.WaybillDetailsFragment
+import com.grappim.feature.waybill.presentation.ui.list.ui.view.WaybillListFragment
+import com.grappim.feature.waybill.presentation.ui.product.ui.view.WaybillProductFragment
+import com.grappim.feature.waybill.presentation.ui.root.ui.view.WaybillRootFragment
+import com.grappim.feature.waybill.presentation.ui.scanner.ui.WaybillScannerFragment
+import com.grappim.feature.waybill.presentation.ui.search.ui.view.SearchProductFragment
 import com.grappim.menu.ui.view.MenuFragment
 import com.grappim.navigation.screens.CashierScreens
 import com.grappim.payment_method.ui.view.PaymentMethodFragment
@@ -18,16 +25,9 @@ import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFrag
 import com.grappim.products.presentation.create_edit.ui.view.CreateEditProductFragment
 import com.grappim.products.presentation.list.ui.view.ProductListFragment
 import com.grappim.products.presentation.root.ui.ProductsRootFragment
-import com.grappim.root_presentation.ui.SelectInfoRootFragment
 import com.grappim.sales.ui.SalesFragment
 import com.grappim.scanner.ui.ScannerFragment
 import com.grappim.sign_up_presentation.ui.view.SignUpFragment
-import com.grappim.waybill.ui.details.ui.view.WaybillDetailsFragment
-import com.grappim.waybill.ui.list.ui.view.WaybillListFragment
-import com.grappim.waybill.ui.product.ui.view.WaybillProductFragment
-import com.grappim.waybill.ui.root.ui.view.WaybillRootFragment
-import com.grappim.waybill.ui.scanner.ui.WaybillScannerFragment
-import com.grappim.waybill.ui.search.ui.view.SearchProductFragment
 import javax.inject.Inject
 
 @ActivityScope

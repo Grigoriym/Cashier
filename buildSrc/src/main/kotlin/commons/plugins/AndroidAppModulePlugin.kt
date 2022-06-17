@@ -165,9 +165,11 @@ private fun Project.getAppDependencies() {
             implementation(project(Modules.commonNetworkSerializers))
             implementation(project(Modules.commonAnnotations))
 
-            implementation(project(Modules.featureAuth))
+            implementation(project(Modules.featureAuthPresentation))
+            implementation(project(Modules.featureAuthDomain))
+
             implementation(project(Modules.featureWaybill))
-            implementation(project(Modules.featureBag))
+
             implementation(project(Modules.featurePaymentMethod))
             implementation(project(Modules.featureSales))
             implementation(project(Modules.featureMenu))

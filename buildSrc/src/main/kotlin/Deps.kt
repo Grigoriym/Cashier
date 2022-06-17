@@ -101,7 +101,7 @@ object Deps {
         const val kotlinCoroutinesTest =
             "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Kotlin.coroutines}"
         const val androidCoreTesting =
-            "android.arch.core:core-testing:${Versions.Testing.androidCoreTesting}"
+            "androidx.arch.core:core-testing:${Versions.Testing.androidCoreTesting}"
     }
 
     object Firebase {
@@ -130,6 +130,15 @@ object Deps {
         const val lintTests = "com.android.tools.lint:lint-tests:${Versions.lint}"
         const val testUtils = "com.android.tools:testutils:${Versions.lint}"
     }
+
+    object Mockk {
+        const val core = "io.mockk:mockk:${Versions.mockk}"
+        const val agentJvm = "io.mockk:mockk-agent-jvm:${Versions.mockk}"
+        const val android = "io.mockk:mockk-android:${Versions.mockk}"
+    }
+
+    const val kluent = "org.amshove.kluent:kluent-android:${Versions.kluent}"
+    const val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"

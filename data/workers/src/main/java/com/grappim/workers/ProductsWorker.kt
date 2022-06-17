@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.grappim.common.asynchronous.di.IoDispatcher
-import com.grappim.domain.repository.ProductsRepository
+import com.grappim.feature.products.domain.repository.ProductsRepository
 import com.grappim.logger.logD
 import com.grappim.logger.logE
 import dagger.assisted.Assisted

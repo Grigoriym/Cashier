@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.grappim.domain.model.base.ProductUnit
+import com.grappim.domain.model.ProductUnit
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.presentation.R
 import com.grappim.products.presentation.model.CreateEditFlow

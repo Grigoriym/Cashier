@@ -17,6 +17,7 @@ android {
 dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.utilsCalculations))
+    implementation(project(Modules.featureWaybillDomain))
 
     implementation(Deps.Google.material)
 

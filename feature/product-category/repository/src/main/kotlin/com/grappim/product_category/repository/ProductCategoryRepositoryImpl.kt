@@ -7,8 +7,9 @@ import com.grappim.domain.storage.GeneralStorage
 import com.grappim.network.di.api.QualifierProductCategoryApi
 import com.grappim.product_category.db.ProductCategoryDao
 import com.grappim.product_category.db.ProductCategoryEntityMapper
-import com.grappim.product_category.domain.interactor.CreateProductCategoryParams
-import com.grappim.product_category.domain.interactor.EditProductCategoryParams
+import com.grappim.product_category.domain.interactor.createProductCateogry.CreateProductCategoryParams
+import com.grappim.product_category.domain.interactor.editProductCategory.EditProductCategoryParams
+import com.grappim.product_category.domain.interactor.getCategoryList.GetCategoryListInteractorParams
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
 import com.grappim.product_category.network.api.ProductCategoryApi
@@ -25,6 +26,39 @@ class ProductCategoryRepositoryImpl @Inject constructor(
     private val generalStorage: GeneralStorage,
     private val productCategoryEntityMapper: ProductCategoryEntityMapper
 ) : ProductCategoryRepository {
+
+    override fun getCategories2(
+        params: GetCategoryListInteractorParams
+    ): Flow<List<ProductCategory>> =
+        productCategoryDao.getAllCategoriesFlow()
+            .map {
+                productCategoryEntityMapper.revertList(it).toMutableList()
+            }.map {
+                if (params.sendDefaultCategory) {
+                    it.add(
+                        index = 0,
+                        element = ProductCategory.allItem()
+                    )
+                }
+                it.toList()
+            }
+
+    override fun getCategoriesInEditProducts(
+        params: GetCategoryListInteractorParams
+    ): Flow<List<ProductCategory>> =
+        productCategoryDao.getAllCategoriesFlow()
+            .map {
+                productCategoryEntityMapper.revertList(it).toMutableList()
+            }.map {
+                it.add(0, ProductCategory.createCategory())
+                if (params.sendDefaultCategory) {
+                    it.add(
+                        index = 0,
+                        element = ProductCategory.allItem()
+                    )
+                }
+                it.toList()
+            }
 
     override fun categoriesFlow(): Flow<List<ProductCategory>> =
         productCategoryDao.getAllCategoriesFlow()

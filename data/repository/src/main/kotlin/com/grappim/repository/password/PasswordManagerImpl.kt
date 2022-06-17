@@ -8,7 +8,6 @@ import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 import javax.inject.Inject
-import kotlin.contracts.contract
 
 @AppScope
 class PasswordManagerImpl @Inject constructor(

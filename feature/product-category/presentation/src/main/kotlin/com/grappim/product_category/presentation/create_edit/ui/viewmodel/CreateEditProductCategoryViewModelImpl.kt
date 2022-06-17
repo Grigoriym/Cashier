@@ -2,10 +2,10 @@ package com.grappim.product_category.presentation.create_edit.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
-import com.grappim.product_category.domain.interactor.CreateProductCategoryParams
-import com.grappim.product_category.domain.interactor.CreateProductCategoryUseCase
-import com.grappim.product_category.domain.interactor.EditProductCategoryParams
-import com.grappim.product_category.domain.interactor.EditProductCategoryUseCase
+import com.grappim.product_category.domain.interactor.createProductCateogry.CreateProductCategoryParams
+import com.grappim.product_category.domain.interactor.createProductCateogry.CreateProductCategoryUseCase
+import com.grappim.product_category.domain.interactor.editProductCategory.EditProductCategoryParams
+import com.grappim.product_category.domain.interactor.editProductCategory.EditProductCategoryUseCase
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.presentation.create_edit.model.CreateEditCategoryData
 import com.grappim.product_category.presentation.create_edit.model.CreateEditFlow

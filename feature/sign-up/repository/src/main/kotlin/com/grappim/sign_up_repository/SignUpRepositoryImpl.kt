@@ -4,10 +4,10 @@ import com.grappim.common.asynchronous.runOperationCatching
 import com.grappim.common.di.FeatureScope
 import com.grappim.common.lce.VoidTry
 import com.grappim.domain.password.PasswordManager
-import com.grappim.network.api.AuthApi
-import com.grappim.network.di.api.QualifierAuthApi
-import com.grappim.network.model.sign_up.SignUpDTO
-import com.grappim.sign_up.domain.interactor.SignUpParams
+import com.grappim.feature.auth.data_network.api.AuthApi
+import com.grappim.feature.auth.data_network.di.QualifierAuthApi
+import com.grappim.feature.auth.data_network.models.sign_up.SignUpDTO
+import com.grappim.sign_up.domain.interactor.sign_up.SignUpParams
 import com.grappim.sign_up.domain.repository.SignUpRepository
 import javax.inject.Inject
 

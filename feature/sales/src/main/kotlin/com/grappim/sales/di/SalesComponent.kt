@@ -28,7 +28,7 @@ internal interface SalesComponent {
     interface Factory {
         fun create(
             salesDeps: SalesDeps,
-            @BindsInstance @FeatureFragmentManager fragmentManager: FragmentManager
+            @[BindsInstance FeatureFragmentManager] fragmentManager: FragmentManager
         ): SalesComponent
     }
 

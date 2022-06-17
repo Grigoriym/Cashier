@@ -14,6 +14,9 @@ dependencies {
 
     implementation(project(Modules.featureProductCategoryDb))
     implementation(project(Modules.featureProductCategoryDomain))
+    implementation(project(Modules.featureProductsDomain))
+
+    implementation(project(Modules.featureAuthNetwork))
 
     implementation(Deps.AndroidX.workManager)
 }

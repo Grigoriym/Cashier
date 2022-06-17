@@ -20,13 +20,31 @@ object Modules {
     const val utilsExtensions = ":utils:extensions"
     const val utilsBiometric = ":utils:biometric"
 
-    const val featureAuth = ":feature:auth"
-    const val featureWaybill = ":feature:waybill"
-    const val featureBag = ":feature:bag"
-    const val featurePaymentMethod = ":feature:payment-method"
+    const val testShared = ":test-shared"
+    const val testSharedAndroid = ":test-shared-android"
+
+    const val featureAuthPresentation = ":feature:auth:presentation"
+    const val featureAuthDomain = ":feature:auth:domain"
+    const val featureAuthRepository = ":feature:auth:repository"
+    const val featureAuthNetwork = ":feature:auth:network"
+
+    const val featureWaybill = ":feature:waybill:presentation"
+    const val featureWaybillDomain = ":feature:waybill:domain"
+    const val featureWaybillRepository = ":feature:waybill:repository"
+    const val featureWaybillNetwork = ":feature:waybill:network"
+
+    const val featureBagPresentation = ":feature:bag:presentation"
+    const val featureBagDomain = ":feature:bag:domain"
+    const val featureBagNetwork = ":feature:bag:network"
+    const val featureBagRepository = ":feature:bag:repository"
+    const val featureBagDb = ":feature:bag:db"
+
     const val featureSales = ":feature:sales"
     const val featureMenu = ":feature:menu"
     const val featureScanner = ":feature:scanner"
+
+    const val featurePaymentMethod = ":feature:payment-method"
+    const val featurePaymentMethodDomain = ":feature:payment-method:domain"
 
     const val featureSignUpPresentation = ":feature:sign-up:presentation"
     const val featureSignUpDomain = ":feature:sign-up:domain"
@@ -39,6 +57,8 @@ object Modules {
 
     const val featureProductsPresentation = ":feature:products:presentation"
     const val featureProductsNetwork = ":feature:products:network"
+    const val featureProductsDomain = ":feature:products:domain"
+    const val featureProductsRepository = ":feature:products:repository"
 
     const val featureSettings = ":feature:settings"
 

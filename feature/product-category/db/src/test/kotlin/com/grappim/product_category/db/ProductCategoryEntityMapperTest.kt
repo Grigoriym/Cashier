@@ -1,7 +1,5 @@
 package com.grappim.product_category.db
 
-import com.grappim.product_category.domain.createProductCategory
-import com.grappim.product_category.domain.createProductCategoryList
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

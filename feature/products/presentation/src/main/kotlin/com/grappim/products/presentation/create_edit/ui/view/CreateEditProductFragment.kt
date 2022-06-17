@@ -14,7 +14,7 @@ import com.grappim.core.base.BaseFragment
 import com.grappim.core.delegate.lazyArg
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.Product
 import com.grappim.navigation.router.FlowRouter
 import com.grappim.products.presentation.BundleArgsKeys
 import com.grappim.products.presentation.create_edit.di.CreateEditProductComponent
