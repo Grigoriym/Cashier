@@ -3,11 +3,11 @@ package com.grappim.products.presentation.list.ui.viewmodel
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.domain.interactor.products.GetCategoryListUseCase
-import com.grappim.domain.interactor.products.GetCategoryListInteractorParams
-import com.grappim.domain.interactor.products.GetProductsByQueryParams
-import com.grappim.domain.interactor.products.GetProductsByQueryUseCase
-import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.Product
+import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryParams
+import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryUseCase
+import com.grappim.product_category.domain.interactor.getCategoryList.GetCategoryListInteractorParams
+import com.grappim.product_category.domain.interactor.getCategoryList.GetCategoryListUseCase
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.presentation.BundleArgsKeys
 import com.grappim.products.presentation.model.CreateEditFlow

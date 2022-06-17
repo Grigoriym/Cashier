@@ -1,6 +1,6 @@
 package com.grappim.payment_method.helper
 
-import com.grappim.domain.model.payment.PaymentMethodType
+import com.grappim.feature.payment_method.domain.model.PaymentMethodType
 import com.grappim.payment_method.model.PaymentMethod
 import com.grappim.payment_method.R
 import javax.inject.Inject

@@ -3,9 +3,9 @@ package com.grappim.stock.ui.viewmodel
 import androidx.annotation.MainThread
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
-import com.grappim.domain.interactor.outlet.GetStocksUseCase
-import com.grappim.domain.interactor.outlet.SaveStockParams
-import com.grappim.domain.interactor.outlet.SaveStockUseCase
+import com.grappim.domain.interactor.stock.saveStock.SaveStockUseCase
+import com.grappim.domain.interactor.stock.saveStock.SaveStockParams
+import com.grappim.domain.interactor.stock.getStocks.GetStocksUseCase
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.storage.GeneralStorage

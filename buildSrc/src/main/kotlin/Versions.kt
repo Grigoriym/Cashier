@@ -11,6 +11,9 @@ object Versions {
     const val detektFormatting = "1.17.1"
 
     const val kotest = "5.1.0"
+    const val mockk = "1.12.4"
+    const val kluent = "1.68"
+    const val turbine = "0.8.0"
 
     object Kotlin {
         const val core = "1.6.10"
@@ -20,7 +23,7 @@ object Versions {
     }
 
     object AndroidX {
-        const val core = "1.7.0"
+        const val core = "1.8.0"
         const val appCompat = "1.4.1"
         const val fragment = "1.4.1"
         const val activity = "1.4.0"
@@ -62,7 +65,7 @@ object Versions {
         const val androidEspressoCore = "3.4.0"
 
         const val assertJCore = "3.18.1"
-        const val androidCoreTesting = "1.1.1"
+        const val androidCoreTesting = "2.1.0"
     }
 
     const val lint = "30.0.4"

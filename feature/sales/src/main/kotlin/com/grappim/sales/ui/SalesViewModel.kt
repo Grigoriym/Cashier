@@ -8,9 +8,11 @@ import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.lce.Try
 import com.grappim.core.base.BaseViewModel
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.domain.interactor.basket.GetBasketItemsUseCase
-import com.grappim.domain.interactor.sales.*
-import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.Product
+import com.grappim.feature.bag.domain.interactor.GetBasketItemsUseCase
+import com.grappim.feature.bag.domain.interactor.addProductToBasket.AddProductToBasketUseCase
+import com.grappim.feature.bag.domain.interactor.subtractProductFromBasket.SubtractProductFromBasketUseCase
+import com.grappim.feature.products.domain.interactor.searchProducts.SearchProductsUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -33,7 +35,11 @@ class SalesViewModel @Inject constructor(
         get() = _searchQuery.asStateFlow()
 
     val products: Flow<PagingData<Product>> = searchQuery.flatMapLatest {
-        searchProductsUseCase.execute(SearchProductsParams(it))
+        searchProductsUseCase.execute(
+            com.grappim.feature.products.domain.interactor.searchProducts.SearchProductsParams(
+                it
+            )
+        )
             .cachedIn(viewModelScope)
     }
 
@@ -70,7 +76,9 @@ class SalesViewModel @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
             val result = addProductToBasketUseCase.execute(
-                AddProductToBasketParams(product)
+                com.grappim.feature.bag.domain.interactor.addProductToBasket.AddProductToBasketParams(
+                    product
+                )
             )
             _loading.value = false
             when (result) {
@@ -88,7 +96,9 @@ class SalesViewModel @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
             val result = subtractProductFromBasketUseCase.execute(
-                SubtractProductFromBasketParams(product)
+                com.grappim.feature.bag.domain.interactor.subtractProductFromBasket.SubtractProductFromBasketParams(
+                    product
+                )
             )
             _loading.value = false
             when (result) {

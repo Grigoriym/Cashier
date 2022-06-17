@@ -16,5 +16,7 @@ dependencies {
     implementation(project(Modules.featureSignUpDomain))
     implementation(project(Modules.featureSignUpRepository))
 
+    implementation(project(Modules.featureAuthNetwork))
+
     implementation(project(Modules.dataNetwork))
 }

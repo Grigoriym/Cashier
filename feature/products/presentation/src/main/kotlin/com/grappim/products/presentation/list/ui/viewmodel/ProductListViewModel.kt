@@ -1,7 +1,7 @@
 package com.grappim.products.presentation.list.ui.viewmodel
 
 import com.grappim.core.base.BaseViewModel
-import com.grappim.domain.model.product.Product
+import com.grappim.domain.model.Product
 import com.grappim.product_category.domain.model.ProductCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow

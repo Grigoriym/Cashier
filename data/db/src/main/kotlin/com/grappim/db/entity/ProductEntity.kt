@@ -4,8 +4,8 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.grappim.domain.model.base.ProductUnit
 import com.grappim.calculations.bigDecimalZero
+import com.grappim.domain.model.ProductUnit
 import kotlinx.parcelize.Parcelize
 import java.math.BigDecimal
 

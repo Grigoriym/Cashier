@@ -18,7 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.domain.model.payment.PaymentMethodType
+import com.grappim.feature.payment_method.domain.model.PaymentMethodType
 import com.grappim.payment_method.R
 import com.grappim.payment_method.model.PaymentMethod
 import com.grappim.uikit.compose.BaseTopAppBar

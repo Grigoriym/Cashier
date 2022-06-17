@@ -1,7 +1,7 @@
 package com.grappim.db.converter
 
 import androidx.room.TypeConverter
-import com.grappim.domain.model.base.ProductUnit
+import com.grappim.domain.model.ProductUnit
 
 class ProductUnitConverter {
 

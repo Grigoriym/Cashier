@@ -16,7 +16,7 @@ import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.navigation.router.FlowRouter
-import com.grappim.select_info.common_navigation.SelectInfoViewModel
+import com.grappim.feature.select_info.common_navigation.SelectInfoViewModel
 import com.grappim.stock.di.DaggerSelectStockComponent
 import com.grappim.stock.di.SelectStockComponent
 import com.grappim.stock.ui.viewmodel.SelectStockViewModel

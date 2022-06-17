@@ -5,10 +5,7 @@ plugins {
 }
 
 dependencies {
-  implementation(project(Modules.utilsLogger))
-  implementation(project(Modules.commonDi))
   implementation(project(Modules.commonLce))
-  implementation(project(Modules.commonAsynchronous))
 
   implementation(Deps.Kotlin.coroutinesCore)
 

@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.work.*
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.domain.storage.GeneralStorage
+import com.grappim.feature.auth.data_network.api.AuthApi
+import com.grappim.feature.auth.data_network.di.QualifierAuthApi
+import com.grappim.feature.auth.data_network.models.SendTokenToRefreshRequestDTO
 import com.grappim.logger.logD
 import com.grappim.logger.logE
-import com.grappim.network.api.AuthApi
-import com.grappim.network.di.api.QualifierAuthApi
-import com.grappim.network.model.login.SendTokenToRefreshRequestDTO
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

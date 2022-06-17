@@ -46,14 +46,30 @@ include(":utils:logger")
 include(":utils:calculations")
 include(":utils:date-time")
 include(":utils:extensions")
+include(":utils:biometric")
 
-include(":feature:auth")
-include(":feature:waybill")
-include(":feature:bag")
-include(":feature:payment-method")
+include(":feature:auth:domain")
+include(":feature:auth:presentation")
+include(":feature:auth:repository")
+include(":feature:auth:network")
+
+include(":feature:waybill:presentation")
+include(":feature:waybill:domain")
+include(":feature:waybill:repository")
+include(":feature:waybill:network")
+
+include(":feature:bag:presentation")
+include(":feature:bag:domain")
+include(":feature:bag:network")
+include(":feature:bag:repository")
+include(":feature:bag:db")
+
 include(":feature:sales")
 include(":feature:menu")
 include(":feature:scanner")
+
+include(":feature:payment-method")
+include(":feature:payment-method:domain")
 
 include(":feature:sign-up:presentation")
 include(":feature:sign-up:domain")
@@ -67,6 +83,8 @@ include(":feature:product-category:repository")
 
 include(":feature:products:network")
 include(":feature:products:presentation")
+include(":feature:products:domain")
+include(":feature:products:repository")
 
 include(":feature:settings")
 
@@ -74,4 +92,6 @@ include(":feature:select-info:select-stock")
 include(":feature:select-info:select-cashbox")
 include(":feature:select-info:root-presentation")
 include(":feature:select-info:common-navigation")
-include(":utils:biometric")
+
+include(":test-shared")
+include(":test-shared-android")

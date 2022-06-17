@@ -16,8 +16,7 @@ import dagger.Component
         ProductsRootBindsModule::class,
         ProductsRootDepsModule::class,
         CoroutinesModule::class,
-        FeatureNavigationBindsModule::class,
-        ProductsInteractorModule::class
+        FeatureNavigationBindsModule::class
     ],
     dependencies = [
         ProductsRootDeps::class

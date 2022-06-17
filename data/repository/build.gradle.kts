@@ -55,6 +55,19 @@ dependencies {
     implementation(project(Modules.featureSignUpDomain))
     implementation(project(Modules.featureSignUpRepository))
 
+    implementation(project(Modules.featurePaymentMethodDomain))
+    implementation(project(Modules.featureWaybillDomain))
+
+    implementation(project(Modules.featureProductsDomain))
+    implementation(project(Modules.featureProductsRepository))
+
+    implementation(project(Modules.featureWaybillDomain))
+    implementation(project(Modules.featureWaybillRepository))
+
+    implementation(project(Modules.featureBagDomain))
+    implementation(project(Modules.featureBagRepository))
+    implementation(project(Modules.featureBagDb))
+
     implementation(Deps.AndroidX.paging)
     implementation(Deps.AndroidX.dataStore)
     implementation(Deps.AndroidX.dataStorePreferences)

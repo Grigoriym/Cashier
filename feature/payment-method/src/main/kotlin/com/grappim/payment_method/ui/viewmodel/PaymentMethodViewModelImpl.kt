@@ -5,9 +5,9 @@ import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.bigDecimalZero
 import com.grappim.common.lce.Try
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.domain.interactor.basket.GetBasketItemsUseCase
-import com.grappim.domain.interactor.payment.MakePaymentParams
-import com.grappim.domain.interactor.payment.MakePaymentUseCase
+import com.grappim.feature.bag.domain.interactor.GetBasketItemsUseCase
+import com.grappim.feature.payment_method.domain.interactor.MakePaymentParams
+import com.grappim.feature.payment_method.domain.interactor.MakePaymentUseCase
 import com.grappim.logger.logE
 import com.grappim.payment_method.helper.PaymentMethodItemGenerator
 import com.grappim.payment_method.model.PaymentMethod

@@ -53,6 +53,8 @@ dependencies {
     implementation(project(Modules.navigation))
 
     implementation(project(Modules.featureProductCategoryNetwork))
+    implementation(project(Modules.featureBagDomain))
+    implementation(project(Modules.featureProductsDomain))
 
     implementation(Deps.Kotlin.serialization)
 

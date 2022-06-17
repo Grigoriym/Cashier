@@ -3,7 +3,7 @@ package com.grappim.product_category.presentation.list.ui.viewmodel
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.product_category.domain.interactor.GetProductCategoriesUseCase
+import com.grappim.product_category.domain.interactor.getProductCategories.GetProductCategoriesUseCase
 import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.product_category.presentation.BundleArgsKeys
 import com.grappim.product_category.presentation.create_edit.model.CreateEditFlow

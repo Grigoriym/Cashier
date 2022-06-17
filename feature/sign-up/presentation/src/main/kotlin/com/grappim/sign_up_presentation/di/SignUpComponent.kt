@@ -7,7 +7,6 @@ import com.grappim.common.di.FeatureScope
 import com.grappim.core.di.FeatureNavigationBindsModule
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.navigation.router.FlowRouter
-import com.grappim.sign_up.domain.di.SignUpInteractorModule
 import dagger.BindsInstance
 import dagger.Component
 
@@ -15,8 +14,7 @@ import dagger.Component
     modules = [
         SignUpBindsModule::class,
         CoroutinesModule::class,
-        FeatureNavigationBindsModule::class,
-        SignUpInteractorModule::class
+        FeatureNavigationBindsModule::class
     ],
     dependencies = [
         SignUpDeps::class

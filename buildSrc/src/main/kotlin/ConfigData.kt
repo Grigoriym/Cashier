@@ -2,8 +2,8 @@ import org.gradle.api.JavaVersion
 
 object ConfigData {
     const val minSdk = 23
-    const val compileSdk = 31
-    const val targetSdk = 31
+    const val compileSdk = 32
+    const val targetSdk = 32
 
     const val kotlinJvmTarget = "1.8"
 

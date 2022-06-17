@@ -2,7 +2,10 @@ package com.grappim.sign_up_presentation.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
-import com.grappim.sign_up.domain.interactor.*
+import com.grappim.sign_up.domain.interactor.sign_up.SignUpParams
+import com.grappim.sign_up.domain.interactor.sign_up.SignUpUseCase
+import com.grappim.sign_up.domain.interactor.validate.ValidateFieldsParams
+import com.grappim.sign_up.domain.interactor.validate.ValidateSignUpFieldsUseCase
 import com.grappim.sign_up.domain.model.SignUpData
 import com.grappim.sign_up_presentation.helper.FieldsValidatorHelper
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
@@ -50,7 +53,7 @@ class SignUpViewModelImpl @Inject constructor(
         signUpValidation.value = SignUpFieldsValidationData()
     }
 
-    private suspend fun validateData(): ValidateSignUpFieldsUseCaseImpl.ValidationData? {
+    private suspend fun validateData(): ValidateSignUpFieldsUseCase.ValidationData? {
         val currentData = signUpData.value
 
         val validationData = validateSignUpFieldsUseCase.execute(
