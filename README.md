@@ -1,4 +1,4 @@
-# A Demo Cashier App using compose, partially (for now) backed up by [my own backend](https://github.com/Grigoriym/cashier-api)
+# A Cashier App backed up by [my own backend](https://github.com/Grigoriym/cashier-api)
 
 ## This project is under active development and refactoring. And this is a sandbox for me as well. This is why some parts of code may look as overengineered, bad, strange, etc.
 
@@ -7,6 +7,14 @@ Imagine your local groceries where sellers at the cash register scan your produc
 Well, this app actually does this. You can choose products, you can sell them, you can scan a product by a barcode.
 There is also such a feature as Waybill, this is needed for sellers when some new products are shipped to this grocery and a seller has to add them to the database of products and to their grocery.
 I do this because I had an experience with an app of such functionality.
+
+Login | Select stock
+--- | --- |  
+![](https://github.com/Grigoriym/Cashier/blob/master/art/auth.jpg) | ![](https://github.com/Grigoriym/Cashier/blob/master/art/select_stock.jpg)
+
+Edit Product | Sales
+--- | --- |  
+![](https://github.com/Grigoriym/Cashier/blob/master/art/edit_product.jpg) | ![](https://github.com/Grigoriym/Cashier/blob/master/art/sales.jpg)
 
 ### Project structure
 [Here you can see the app flow](https://drive.google.com/file/d/1pnAnRmdSb6lBLid0wilV6QIFNJxLDUOW/view?usp=sharing)
@@ -35,13 +43,13 @@ I do this because I had an experience with an app of such functionality.
 - [Cicerone](https://github.com/terrakok/Cicerone) - is a lightweight library that makes the navigation in an Android app easy.
 
 ### TODOs
-- [ ] Remove excessive emit(Try.Loading) from repos. Check flow use cases
-- [ ] Remove base useCases, otherwise it is problematic to test
+- [x] Remove excessive emit(Try.Loading) from repos. Check flow use cases
+- [x] Remove base useCases, otherwise it is problematic to test
 
 ### Roadmap
 - [x] Move all UI to compose, (only scanner is left without any changes)
 - [ ] Google Sign In, Firebase Authentication
-- [ ] Add tests and all that stuff
+- [ ] Add tests and all that stuff (In progress)
 - [x] Make full integration with [my own backend solution](https://github.com/Grigoriym/cashier-api)
 - [ ] Learn proguard and somehow do something with it here
 - [x] Enhance navigation, abstract navigation (kinda made it with the help of Cicerone)
@@ -49,10 +57,10 @@ I do this because I had an experience with an app of such functionality.
 - [ ] Add CI and all that cool automated features
 - [ ] I don't know the right way to integrate communication between composeScreen and viewModel, especially when there are many data to send
 - [ ] Make usable caching of data
-- [ ] Is SingleLiveData a good choice? But I have no other options with compose, at least for now.
+- [x] Is SingleLiveData a good choice? But I have no other options with compose, at least for now. (Changed it for SharedFlow)
 - [ ] Compose has problems with the soft keyboard.
 - [ ] I do not have a general ui kit, And I need a designer
-- [ ] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
+- [x] [Structural and navigation anti-patterns in multi-module and modularized applications](https://proandroiddev.com/structural-and-navigation-anti-patterns-in-modularized-android-applications-a7d667e35cd6)
 - [x] In perspective, Dagger 2 is better for multi module app.
 - [x] Using Dagger2 try to remove all inject lateinit
 - [ ] Refactor repositories, they are all app-scoped
@@ -85,11 +93,3 @@ I do this because I had an experience with an app of such functionality.
 
 ### Some duct tapes
 1. rememberLazyListState() in some compose functions where we have LazyList() and Scaffold's bottomBar. It is done so that list's bottom has been constrained to the top of Scaffold's bottomBar.
-
-Login | Select stock
---- | --- |  
-![](https://github.com/Grigoriym/Cashier/blob/master/art/auth.jpg) | ![](https://github.com/Grigoriym/Cashier/blob/master/art/select_stock.jpg)
-
-Edit Product | Sales
---- | --- |  
-![](https://github.com/Grigoriym/Cashier/blob/master/art/edit_product.jpg) | ![](https://github.com/Grigoriym/Cashier/blob/master/art/sales.jpg)
