@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class SelectStockViewModelImpl @Inject constructor(
     private val getStocksUseCase: GetStocksUseCase,
-    private val saveStockInfoUseCase: SaveStockUseCase,
+    private val saveStockUseCase: SaveStockUseCase,
     private val selectStockLocalRepository: SelectStockLocalRepository,
     private val generalStorage: GeneralStorage
 ) : SelectStockViewModel() {
@@ -42,7 +42,7 @@ class SelectStockViewModelImpl @Inject constructor(
             val stockToSave = requireNotNull(selectStockLocalRepository.getSelectedStock()) {
                 "Stock must not be null"
             }
-            saveStockInfoUseCase.execute(SaveStockParams(stockToSave))
+            saveStockUseCase.execute(SaveStockParams(stockToSave))
         }
     }
 
