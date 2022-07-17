@@ -9,6 +9,7 @@ import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.test_shared.CoroutineRule
+import com.grappim.test_shared.testException
 import com.grappim.test_shared_android.getOrAwaitValue
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
@@ -55,9 +56,6 @@ class SelectStockViewModelImplTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        coEvery {
-            selectStockLocalRepository.getSelectedStock()
-        } returns testStock
 
         viewModel = SelectStockViewModelImpl(
             getStocksUseCase = getStocksUseCase,
@@ -91,7 +89,7 @@ class SelectStockViewModelImplTest {
     fun `creating viewModel calls getStocks with error results in Error`() = runTest {
         coEvery {
             getStocksUseCase.execute()
-        } returns Try.Error(IllegalStateException("error state"))
+        } returns Try.Error(testException)
 
         invoking {
             viewModel.error.getOrAwaitValue()
