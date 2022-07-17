@@ -32,4 +32,10 @@ dependencies {
 
     implementation(Deps.Compose.paging)
     implementation(Deps.Accompanist.accompanistSwipeRefresh)
+
+    testImplementation(Deps.Mockk.core)
+    testImplementation(Deps.kluent)
+    testImplementation(Deps.turbine)
+    testImplementation(Deps.Testing.androidCoreTesting)
+    testImplementation(project(Modules.testSharedAndroid))
 }
