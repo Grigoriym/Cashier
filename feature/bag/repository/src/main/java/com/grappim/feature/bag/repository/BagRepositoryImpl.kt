@@ -14,7 +14,11 @@ import com.grappim.feature.bag.domain.interactor.removeProduct.RemoveProductPara
 import com.grappim.feature.bag.domain.interactor.subtractProductFromBasket.SubtractProductFromBasketParams
 import com.grappim.feature.bag.network.api.BasketApi
 import com.grappim.feature.bag.network.di.QualifierBasketApi
-import com.grappim.feature.bag.network.mapper.*
+import com.grappim.feature.bag.network.mapper.toAddBasketProductDTO
+import com.grappim.feature.bag.network.mapper.toBasketProductDTO
+import com.grappim.feature.bag.network.mapper.toDTO
+import com.grappim.feature.bag.network.mapper.toDomain
+import com.grappim.feature.bag.network.mapper.toDomain2
 import com.grappim.logger.logE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

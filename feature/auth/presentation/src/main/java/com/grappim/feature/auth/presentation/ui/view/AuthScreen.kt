@@ -3,20 +3,36 @@ package com.grappim.feature.auth.presentation.ui.view
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -53,10 +69,8 @@ internal fun AuthScreen(
     isPhoneFullyEntered: Boolean,
     onImePasswordActionDone: () -> Unit,
     onSettingsClick: () -> Unit,
-    logoCounter: (Int) -> Unit,
     showBiometrics: Boolean,
-    onShowBiometricsClick: () -> Unit,
-    onGuestModeClick: () -> Unit
+    onShowBiometricsClick: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier,
@@ -72,12 +86,9 @@ internal fun AuthScreen(
             onSignInClick = onSignInClick,
             onImePasswordActionDone = onImePasswordActionDone,
             onSettingsClick = onSettingsClick,
-            logoCounter = logoCounter,
             showBiometrics = showBiometrics,
-            onShowBiometricsClick = onShowBiometricsClick,
-            onGuestModeClick = onGuestModeClick
+            onShowBiometricsClick = onShowBiometricsClick
         )
-
     }
 }
 
@@ -93,10 +104,8 @@ private fun AuthScreenContent(
     onSignInClick: () -> Unit,
     onImePasswordActionDone: () -> Unit,
     onSettingsClick: () -> Unit,
-    logoCounter: (Int) -> Unit,
     showBiometrics: Boolean,
-    onShowBiometricsClick: () -> Unit,
-    onGuestModeClick: () -> Unit
+    onShowBiometricsClick: () -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -105,9 +114,6 @@ private fun AuthScreenContent(
         targetValue = if (isLogoRotated) 360f else 0f,
         animationSpec = tween(durationMillis = 1000)
     )
-    var logoClickCounter by remember {
-        mutableStateOf(0)
-    }
 
     LazyColumn(
         modifier = modifier
@@ -137,7 +143,6 @@ private fun AuthScreenContent(
                     .rotate(rotationAngle)
                     .clickable {
                         isLogoRotated = !isLogoRotated
-                        logoCounter(++logoClickCounter)
                     },
                 painter = painterResource(id = R.drawable.ic_logo)
             )
@@ -179,11 +184,11 @@ private fun AuthScreenContent(
                 onRegisterClick = onRegisterClick
             )
         }
-        item {
-            GuestModeSegment(
-                onGuestModeClick = onGuestModeClick
-            )
-        }
+//        item {
+//            GuestModeSegment(
+//                onGuestModeClick = onGuestModeClick
+//            )
+//        }
     }
 }
 
@@ -439,10 +444,8 @@ private fun AuthScreenPreview() {
             isPhoneFullyEntered = false,
             onImePasswordActionDone = {},
             onSettingsClick = {},
-            logoCounter = {},
             showBiometrics = true,
-            onShowBiometricsClick = {},
-            onGuestModeClick = {}
+            onShowBiometricsClick = {}
         )
     }
 }
@@ -462,10 +465,8 @@ private fun AuthScreenContentPreview() {
             onSignInClick = {},
             onImePasswordActionDone = {},
             onSettingsClick = {},
-            logoCounter = {},
             showBiometrics = true,
-            onShowBiometricsClick = {},
-            onGuestModeClick = {}
+            onShowBiometricsClick = {}
         )
     }
 }

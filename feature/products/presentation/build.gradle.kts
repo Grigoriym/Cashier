@@ -29,4 +29,10 @@ dependencies {
     implementation(Deps.combineTupleFlow)
 
     coreLibraryDesugaring(Deps.desugar)
+
+    testImplementation(Deps.Mockk.core)
+    testImplementation(Deps.kluent)
+    testImplementation(Deps.turbine)
+    testImplementation(Deps.Testing.androidCoreTesting)
+    testImplementation(project(Modules.testSharedAndroid))
 }

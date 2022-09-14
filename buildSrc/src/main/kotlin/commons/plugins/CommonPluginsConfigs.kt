@@ -85,7 +85,10 @@ internal fun Project.getCommonAndroidBlock() =
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=kotlinx.coroutines.FlowPreview"
+            "-opt-in=kotlinx.coroutines.FlowPreview",
+            "-Xno-call-assertions",
+            "-Xno-receiver-assertions",
+            "-Xno-param-assertions"
         )
         tasks.withType(KotlinCompile::class).configureEach {
             kotlinOptions {

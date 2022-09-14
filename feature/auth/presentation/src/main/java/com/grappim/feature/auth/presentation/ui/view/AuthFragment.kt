@@ -5,19 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
+import com.grappim.core.base.BaseFlowFragment
+import com.grappim.core.di.components_deps.findComponentDependencies
+import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.feature.auth.presentation.di.AuthComponent
 import com.grappim.feature.auth.presentation.di.DaggerAuthComponent
 import com.grappim.feature.auth.presentation.model.BiometricsDialogClickState
 import com.grappim.feature.auth.presentation.model.BiometricsState
 import com.grappim.feature.auth.presentation.ui.viewmodel.AuthViewModel
-import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.logger.logD
 import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
@@ -97,7 +101,6 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
     private fun AuthFragmentScreen() {
         val loading by viewModel.loading.observeAsState(false)
         val authData by viewModel.authFieldsData.collectAsState()
-        val snackbar by viewModel.showDevSnackbar.collectAsState(null)
         val fingerprintEvent by viewModel.setFingerprintEvent.collectAsState(BiometricsState.ShowNothing)
         val biometricsIntent by viewModel.biometricsIntent.collectAsState(null)
         val biometricsStatus by viewModel.biometricsStatus.collectAsState(null)
@@ -125,12 +128,10 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
             isPhoneFullyEntered = authData.isPhoneFullyEntered,
             onImePasswordActionDone = viewModel::loginFromIme,
             onSettingsClick = viewModel::goToSettings,
-            logoCounter = viewModel::onLogoClick,
             showBiometrics = biometricsStatus == BiometricsStatus.SET,
             onShowBiometricsClick = {
                 viewModel.setDialogAnswer(BiometricsDialogClickState.Positive)
-            },
-            onGuestModeClick = viewModel::enterGuestMode
+            }
         )
     }
 

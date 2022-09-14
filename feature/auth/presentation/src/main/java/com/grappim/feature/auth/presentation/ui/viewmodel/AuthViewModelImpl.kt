@@ -34,7 +34,6 @@ internal class AuthViewModelImpl @Inject constructor(
 
     override val authFieldsData = MutableStateFlow(AuthTextFieldsData.empty())
 
-    override val showDevSnackbar = MutableSharedFlow<DevSnackbar>()
     override val setFingerprintEvent = MutableSharedFlow<BiometricsState>()
 
     override val biometricsIntent = MutableSharedFlow<Intent>()
@@ -74,22 +73,6 @@ internal class AuthViewModelImpl @Inject constructor(
 
     override fun goToSettings() {
         flowRouter.goToSettings()
-    }
-
-    override fun onLogoClick(counter: Int) {
-        viewModelScope.launch {
-            when (counter) {
-                in 7..9 -> {
-                    showDevSnackbar.emit(DevSnackbar.firstPhase(counter))
-                }
-                10 -> {
-                    showDevSnackbar.emit(DevSnackbar.secondPhase())
-                }
-                else -> {
-                    showDevSnackbar.emit(DevSnackbar.default())
-                }
-            }
-        }
     }
 
     private fun login(
@@ -152,12 +135,6 @@ internal class AuthViewModelImpl @Inject constructor(
                     doOnSuccess()
                 }
             }
-        }
-    }
-
-    override fun enterGuestMode() {
-        viewModelScope.launch {
-            generalStorage.clearData()
         }
     }
 
