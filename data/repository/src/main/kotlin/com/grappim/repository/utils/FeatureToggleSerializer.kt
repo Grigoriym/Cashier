@@ -17,7 +17,6 @@ object FeatureToggleSerializer : Serializer<FeatureToggleProto> {
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
         }
-
     }
 
     override suspend fun writeTo(t: FeatureToggleProto, output: OutputStream) =

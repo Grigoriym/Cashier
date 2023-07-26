@@ -9,15 +9,20 @@ plugins {
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         productFlavors {
             getByName(ProductFlavorDev.name) {
+                //if you want to connect to the smartphone, use the laptop's ip address here
                 buildConfigField(
                     "String",
                     "CASHIER_API",
 //                    "\"http://127.0.0.1:8081/api/v1/\""
-//                    "\"http://192.168.0.105:8081/api/v1/\""
-                    "\"http://10.0.2.2:8081/api/v1/\""
+                    "\"http://192.168.0.139:8081/api/v1/\""
+//                    "\"http://10.0.2.2:8081/api/v1/\""
                 )
             }
             getByName(ProductFlavorQa.name) {
@@ -39,6 +44,7 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
+    namespace = "com.grappim.network"
 }
 
 dependencies {

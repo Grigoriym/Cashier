@@ -3,6 +3,7 @@ package com.grappim.product_category.presentation.list.ui.view
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.grappim.product_category.domain.model.ProductCategory
-import com.grappim.product_category.presentation.R
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierImage
 import com.grappim.uikit.compose.CashierText
@@ -48,6 +49,7 @@ internal fun ProductCategoryListScreen(
         }
     ) {
         ProductCategoryListMainSegment(
+            modifier = Modifier.padding(it),
             categories = categories,
             onCategoryClick = onCategoryClick
         )
@@ -56,10 +58,13 @@ internal fun ProductCategoryListScreen(
 
 @Composable
 private fun ProductCategoryListMainSegment(
+    modifier: Modifier = Modifier,
     categories: List<ProductCategory>,
     onCategoryClick: (ProductCategory) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         ProductCategoryListSegment(
             categories = categories,
             onCategoryClick = onCategoryClick

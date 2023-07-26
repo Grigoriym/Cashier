@@ -5,6 +5,7 @@ plugins {
 
 android {
     buildFeatures {
+        buildConfig = true
         viewBinding = true
         compose = true
     }
@@ -12,6 +13,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
+    namespace = "com.grappim.uikit"
 }
 
 dependencies {
@@ -31,6 +33,7 @@ dependencies {
     implementation(Deps.circularProgressBar)
     implementation(Deps.viewBinding)
 
+    implementation(platform(Deps.Compose.bom))
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)
     implementation(Deps.Compose.toolingPreview)

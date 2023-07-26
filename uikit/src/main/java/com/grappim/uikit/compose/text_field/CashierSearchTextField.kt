@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.compose.CashierText
-import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierGreySuit
 import com.grappim.uikit.theme.CashierLightGray
 import com.grappim.uikit.theme.CashierTheme

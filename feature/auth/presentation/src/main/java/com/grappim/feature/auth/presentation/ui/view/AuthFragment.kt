@@ -79,6 +79,9 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
                 BiometricsStatus.SET -> {
                     viewModel.setDialogAnswer(BiometricsDialogClickState.Positive)
                 }
+                else -> {
+
+                }
             }
         }
     }
@@ -93,6 +96,9 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
             }
             is BiometricsState.ShowNothing -> {
                 ShowEnableBiometricsDialog(false)
+            }
+            else -> {
+
             }
         }
     }

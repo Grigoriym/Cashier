@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.grappim.domain.model.Product
 import com.grappim.product_category.domain.model.ProductCategory
-import com.grappim.products.presentation.R
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemProductCompose
@@ -55,6 +55,7 @@ internal fun ProductsScreen(
         }
     ) {
         ProductsScreenMainSegment(
+            modifier = Modifier.padding(it),
             searchText = searchText,
             setSearchText = setSearchText,
             categories = categories,
@@ -68,6 +69,7 @@ internal fun ProductsScreen(
 
 @Composable
 private fun ProductsScreenMainSegment(
+    modifier: Modifier = Modifier,
     searchText: String,
     setSearchText: (String) -> Unit,
     categories: List<ProductCategory>,
@@ -76,7 +78,9 @@ private fun ProductsScreenMainSegment(
     products: List<Product>,
     onProductClick: (Product) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         CashierSearchTextField(
             modifier = Modifier
                 .padding(

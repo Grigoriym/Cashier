@@ -3,7 +3,7 @@ package com.grappim.core.navigation
 import androidx.fragment.app.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.grappim.navigation.R
+import com.grappim.uikit.R
 
 class CashierAppNavigator(
     activity: FragmentActivity,

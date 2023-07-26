@@ -5,6 +5,7 @@ plugins {
 
 android {
 
+    namespace = "com.grappim.feature.select_info.root_presentation"
 }
 
 dependencies {

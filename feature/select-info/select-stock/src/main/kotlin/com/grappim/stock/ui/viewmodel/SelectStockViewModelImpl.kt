@@ -9,7 +9,7 @@ import com.grappim.domain.interactor.stock.getStocks.GetStocksUseCase
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.stock.R
+import com.grappim.uikit.R
 import com.grappim.stock.model.StockProgressItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.grappim.feature.waybill.presentation.R
+import com.grappim.uikit.R
 import com.grappim.feature.waybill.presentation.ui.product.model.WaybillProductStates
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.button.BigActionButtonCompose
@@ -71,6 +71,7 @@ fun WaybillProductScreen(
 
         Column(
             modifier = Modifier
+                .padding(innerPadding)
                 .padding(
                     start = 16.dp,
                     end = 16.dp,

@@ -11,14 +11,13 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.grappim.product_category.presentation.R
 import com.grappim.product_category.presentation.create_edit.model.CreateEditFlow
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.theme.CashierBlue
@@ -37,6 +36,7 @@ internal fun CreateEditProductCategoryScreen(
         CreateEditFlow.EDIT -> {
             stringResource(id = R.string.title_edit_category)
         }
+
         CreateEditFlow.CREATE -> {
             stringResource(id = R.string.title_create_category)
         }
@@ -58,7 +58,7 @@ internal fun CreateEditProductCategoryScreen(
         }
     ) {
         CreateEditCategoryMainSegment(
-            modifier = Modifier,
+            modifier = Modifier.padding(it),
             categoryName = categoryName,
             setCategoryName = setCategoryName
         )

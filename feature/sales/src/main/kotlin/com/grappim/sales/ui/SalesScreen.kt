@@ -15,10 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.grappim.domain.model.BasketProduct
 import com.grappim.domain.model.Product
-import com.grappim.sales.R
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemAddBasketProductCompose
 import com.grappim.uikit.compose.ItemAddProductCompose
@@ -59,6 +58,7 @@ internal fun SalesScreen(
         }
     ) {
         SalesScreenMainSegment(
+            modifier = Modifier.padding(it),
             searchText = searchText,
             setSearchText = setSearchText,
             items = items,
@@ -72,6 +72,7 @@ internal fun SalesScreen(
 
 @Composable
 private fun SalesScreenMainSegment(
+    modifier: Modifier = Modifier,
     searchText: String,
     setSearchText: (String) -> Unit,
     items: LazyPagingItems<Product>,
@@ -80,7 +81,9 @@ private fun SalesScreenMainSegment(
     onCartClick: (Product) -> Unit,
     basketProducts: List<BasketProduct>
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         CashierSearchTextField(
             modifier = Modifier
                 .padding(
@@ -111,7 +114,8 @@ private fun SalesListSegment(
     basketProducts: List<BasketProduct>
 ) {
     LazyColumn() {
-        items(items) { item ->
+        items(items.itemCount) { index ->
+            val item = items[index]
             item?.let {
                 if (item.basketProduct != null) {
                     ItemAddBasketProductCompose(

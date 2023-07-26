@@ -12,9 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.grappim.domain.model.Product
-import com.grappim.feature.waybill.presentation.R
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemProductCompose
 import com.grappim.uikit.compose.text_field.CashierSearchTextField
@@ -38,6 +37,7 @@ fun SearchProductScreen(
         }
     ) {
         MainSegment(
+            modifier = Modifier.padding(it),
             searchText = searchText,
             setSearchText = setSearchText,
             products = products,
@@ -48,12 +48,15 @@ fun SearchProductScreen(
 
 @Composable
 private fun MainSegment(
+    modifier: Modifier = Modifier,
     searchText: String,
     setSearchText: (String) -> Unit,
     products: LazyPagingItems<Product>,
     onProductClick: (Product) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         CashierSearchTextField(
             modifier = Modifier
                 .padding(
@@ -65,7 +68,8 @@ private fun MainSegment(
             onTextChange = setSearchText
         )
         LazyColumn() {
-            items(products) { item ->
+            items(products.itemCount) { index ->
+                val item = products[index]
                 item?.let {
                     ItemProductCompose(
                         product = item,

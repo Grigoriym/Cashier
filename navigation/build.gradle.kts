@@ -13,3 +13,6 @@ dependencies {
     implementation(Deps.Google.dagger)
     kapt(Deps.Google.daggerCompiler)
 }
+android {
+    namespace = "com.grappim.navigation"
+}

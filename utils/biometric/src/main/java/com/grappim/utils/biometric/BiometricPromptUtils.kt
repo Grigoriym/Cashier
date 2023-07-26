@@ -13,6 +13,7 @@ import com.grappim.common.di.ActivityContext
 import com.grappim.common.di.ActivityScope
 import com.grappim.logger.logD
 import javax.inject.Inject
+import com.grappim.uikit.R
 
 @ActivityScope
 class BiometricPromptUtils @Inject constructor(

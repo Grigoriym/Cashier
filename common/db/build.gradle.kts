@@ -13,3 +13,6 @@ dependencies {
   api(Deps.AndroidX.roomCore)
   kapt(Deps.AndroidX.roomCompiler)
 }
+android {
+    namespace = "com.grappim.comon.db"
+}

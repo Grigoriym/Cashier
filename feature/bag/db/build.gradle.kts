@@ -6,6 +6,7 @@ plugins {
 
 android {
 
+    namespace = "com.grappim.feature.bag.db"
 }
 
 dependencies {

@@ -1,7 +1,7 @@
 package com.grappim.feature.auth.presentation.model
 
 import com.grappim.core.resources.NativeText
-import com.grappim.feature.auth.presentation.R
+import com.grappim.uikit.R
 
 data class DevSnackbar(
     val show: Boolean,

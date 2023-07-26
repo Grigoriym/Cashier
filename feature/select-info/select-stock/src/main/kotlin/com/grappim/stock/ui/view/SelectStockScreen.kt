@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.domain.model.outlet.Stock
-import com.grappim.stock.R
+import com.grappim.uikit.R
 import com.grappim.stock.model.StockProgressItem
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierIcon

@@ -6,6 +6,7 @@ plugins {
 
 android {
 
+    namespace = "com.grappim.utils.biometric"
 }
 
 dependencies {

@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.domain.model.menu.MenuItemType
-import com.grappim.menu.R
+import com.grappim.uikit.R
 import com.grappim.menu.model.MenuItemPm
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierIcon
@@ -49,6 +49,7 @@ fun MenuScreen(
         }
     ) {
         MenuItemsSection(
+            modifier = Modifier.padding(it),
             cashierName = cashierName,
             items = items,
             onItemClick = onItemClick
@@ -58,12 +59,13 @@ fun MenuScreen(
 
 @Composable
 private fun MenuItemsSection(
+    modifier: Modifier = Modifier,
     cashierName: String,
     items: List<MenuItemPm>,
     onItemClick: (MenuItemPm) -> Unit
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(top = 20.dp)
     ) {

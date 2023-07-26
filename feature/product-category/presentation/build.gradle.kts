@@ -5,11 +5,13 @@ plugins {
 
 android {
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
+    namespace = "com.grappim.product_category.presentation"
 }
 
 dependencies {

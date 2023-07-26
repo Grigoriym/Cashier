@@ -94,6 +94,7 @@ internal fun Project.getCommonAndroidBlock() =
             kotlinOptions {
                 jvmTarget = ConfigData.kotlinJvmTarget
                 freeCompilerArgs = compilerArgs
+                freeCompilerArgs = freeCompilerArgs + "-Xjvm-default=all"
             }
         }
     }

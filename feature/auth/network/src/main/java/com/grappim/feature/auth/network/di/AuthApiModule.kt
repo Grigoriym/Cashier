@@ -1,7 +1,7 @@
-package com.grappim.feature.auth.data_network.di
+package com.grappim.feature.auth.network.di
 
 import com.grappim.common.di.ApiScope
-import com.grappim.feature.auth.data_network.api.AuthApi
+import com.grappim.feature.auth.network.api.AuthApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

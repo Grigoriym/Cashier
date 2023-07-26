@@ -32,7 +32,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.grappim.domain.model.ProductUnit
 import com.grappim.product_category.domain.model.ProductCategory
-import com.grappim.products.presentation.R
+import com.grappim.uikit.R
 import com.grappim.products.presentation.model.CreateEditFlow
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierText

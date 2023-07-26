@@ -13,7 +13,7 @@ import com.grappim.core.base.BaseFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
-import com.grappim.feature.waybill.presentation.R
+import com.grappim.uikit.R
 import com.grappim.feature.waybill.presentation.ui.scanner.di.DaggerWaybillScannerComponent
 import com.grappim.feature.waybill.presentation.ui.scanner.di.WaybillScannerComponent
 import com.grappim.logger.logD

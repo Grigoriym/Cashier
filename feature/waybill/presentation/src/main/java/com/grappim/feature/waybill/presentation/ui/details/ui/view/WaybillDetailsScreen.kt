@@ -27,12 +27,11 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.domain.model.WaybillProduct
-import com.grappim.feature.waybill.presentation.R
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemProductCompose
@@ -159,6 +158,7 @@ private fun BottomBarSegment(
                 com.grappim.feature.waybill.domain.model.WaybillStatus.ACTIVE -> {
                     R.string.action_rollback
                 }
+
                 com.grappim.feature.waybill.domain.model.WaybillStatus.DRAFT -> {
                     R.string.action_conduct
                 }
@@ -272,7 +272,8 @@ private fun WaybillProductsList(
         LazyColumn(
             modifier = modifier
         ) {
-            items(productsPagingItems) { item ->
+            items(productsPagingItems.itemCount) { index ->
+                val item = productsPagingItems[index]
                 item?.let {
                     ItemProductCompose(
                         waybillProduct = it,

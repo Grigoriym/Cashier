@@ -14,6 +14,7 @@
 
     <style name="Theme.Cashier.Starting" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme.Cashier</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
     </style>
 
 </resources>

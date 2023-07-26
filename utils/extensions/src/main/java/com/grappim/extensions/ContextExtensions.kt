@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Build
 import android.widget.Toast
 import com.grappim.domain.model.exception.NetworkException
+import com.grappim.uikit.R
 
 fun Context.showToast(message: String?, long: Boolean = true) {
     val duration = when (long) {

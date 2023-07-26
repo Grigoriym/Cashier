@@ -5,6 +5,7 @@ plugins {
 
 android {
 
+    namespace = "com.grappim.extensions"
 }
 
 dependencies {

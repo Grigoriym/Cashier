@@ -12,8 +12,8 @@ import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.feature.auth.data_network.api.AuthApi
-import com.grappim.feature.auth.data_network.di.QualifierAuthApi
+import com.grappim.feature.auth.network.api.AuthApi
+import com.grappim.feature.auth.network.di.QualifierAuthApi
 import com.grappim.feature.bag.domain.BagRepository
 import com.grappim.feature.payment_method.domain.repository.PaymentRepository
 import com.grappim.feature.products.domain.repository.ProductsRepository

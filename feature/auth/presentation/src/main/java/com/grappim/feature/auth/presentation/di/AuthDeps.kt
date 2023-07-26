@@ -5,8 +5,8 @@ import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.feature.auth.data_network.api.AuthApi
-import com.grappim.feature.auth.data_network.di.QualifierAuthApi
+import com.grappim.feature.auth.network.api.AuthApi
+import com.grappim.feature.auth.network.di.QualifierAuthApi
 import com.grappim.navigation.router.ActivityRouter
 import com.grappim.navigation.screens.CashierScreens
 import com.grappim.repository.utils.DataClearHelper

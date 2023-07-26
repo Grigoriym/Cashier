@@ -10,8 +10,8 @@ repositories {
     mavenCentral()
 }
 
-val gradlePlugin = "7.0.4"
-val kotlinCore = "1.6.10"
+val gradlePlugin = "8.0.2"
+val kotlinCore = "1.8.21"
 
 dependencies {
     implementation("com.android.tools.build:gradle:${gradlePlugin}")

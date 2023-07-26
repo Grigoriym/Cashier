@@ -6,3 +6,6 @@ plugins {
 dependencies {
     implementation(Deps.AndroidX.lifecycleLiveData)
 }
+android {
+    namespace = "com.grappim.test_shared_android"
+}

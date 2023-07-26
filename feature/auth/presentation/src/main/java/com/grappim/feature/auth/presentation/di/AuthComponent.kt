@@ -6,7 +6,7 @@ import com.grappim.common.di.FeatureFragmentManager
 import com.grappim.common.di.FeatureScope
 import com.grappim.core.di.FeatureNavigationBindsModule
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.feature.auth.data_repository.di.AuthRepositoryBindsModule
+import com.grappim.feature.auth.repository.di.AuthRepositoryBindsModule
 import com.grappim.navigation.router.FlowRouter
 import com.grappim.utils.biometric.BiometricPromptUtils
 import dagger.BindsInstance

@@ -1,4 +1,4 @@
-package com.grappim.feature.auth.data_network.models.login
+package com.grappim.feature.auth.network.models.login
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

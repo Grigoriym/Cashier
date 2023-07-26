@@ -1,4 +1,4 @@
-package com.grappim.feature.auth.data_network.models.sign_up
+package com.grappim.feature.auth.network.models.sign_up
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

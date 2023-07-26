@@ -6,3 +6,6 @@ plugins {
 dependencies {
   implementation(project(Modules.navigation))
 }
+android {
+    namespace = "com.grappim.select_info.common_navigation"
+}

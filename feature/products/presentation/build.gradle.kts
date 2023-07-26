@@ -5,6 +5,7 @@ plugins {
 
 android {
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -13,6 +14,7 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
+    namespace = "com.grappim.products.presentation"
 }
 
 dependencies {

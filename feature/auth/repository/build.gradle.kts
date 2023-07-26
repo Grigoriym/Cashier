@@ -5,6 +5,7 @@ plugins {
 
 android {
 
+    namespace = "com.grappim.feature.auth.data_repository"
 }
 
 dependencies {
