@@ -5,8 +5,10 @@ plugins {
 
 android {
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
+    namespace = "com.grappim.scanner"
 }
 
 dependencies {

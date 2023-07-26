@@ -3,6 +3,14 @@ plugins {
     id(Plugins.grappimAndroidAppPlugin)
 }
 
+android {
+    namespace = "com.grappim.cashier"
+
+    buildFeatures {
+        buildConfig = true
+    }
+}
+
 dependencies {
     implementation(Deps.AndroidX.splashScreen)
     implementation(project(Modules.utilsBiometric))

@@ -53,7 +53,7 @@ class SignUpViewModelImpl @Inject constructor(
         signUpValidation.value = SignUpFieldsValidationData()
     }
 
-    private suspend fun validateData(): ValidateSignUpFieldsUseCase.ValidationData? {
+    private fun validateData(): ValidateSignUpFieldsUseCase.ValidationData? {
         val currentData = signUpData.value
 
         val validationData = validateSignUpFieldsUseCase.execute(

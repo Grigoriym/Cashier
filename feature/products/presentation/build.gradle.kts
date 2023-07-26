@@ -5,6 +5,7 @@ plugins {
 
 android {
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -13,6 +14,7 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
+    namespace = "com.grappim.products.presentation"
 }
 
 dependencies {
@@ -29,4 +31,10 @@ dependencies {
     implementation(Deps.combineTupleFlow)
 
     coreLibraryDesugaring(Deps.desugar)
+
+    testImplementation(Deps.Mockk.core)
+    testImplementation(Deps.kluent)
+    testImplementation(Deps.turbine)
+    testImplementation(Deps.Testing.androidCoreTesting)
+    testImplementation(project(Modules.testSharedAndroid))
 }

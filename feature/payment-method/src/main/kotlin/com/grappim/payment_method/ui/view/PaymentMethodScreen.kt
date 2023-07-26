@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.feature.payment_method.domain.model.PaymentMethodType
-import com.grappim.payment_method.R
+import com.grappim.uikit.R
 import com.grappim.payment_method.model.PaymentMethod
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.theme.CashierBlue
@@ -49,6 +49,7 @@ fun PaymentMethodScreen(
         }
     ) {
         MainSegment(
+            modifier = Modifier.padding(it),
             menuItems = menuItems,
             onItemClick = onItemClick
         )
@@ -57,11 +58,12 @@ fun PaymentMethodScreen(
 
 @Composable
 private fun MainSegment(
+    modifier: Modifier = Modifier,
     menuItems: List<PaymentMethod>,
     onItemClick: (PaymentMethod) -> Unit
 ) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 24.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         contentPadding = PaddingValues(

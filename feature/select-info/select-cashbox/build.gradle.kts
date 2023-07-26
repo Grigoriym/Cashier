@@ -5,6 +5,7 @@ plugins {
 
 android {
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 
@@ -14,6 +15,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
+    namespace = "com.grappim.cashbox"
 }
 
 dependencies {

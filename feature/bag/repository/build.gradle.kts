@@ -7,6 +7,7 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
+    namespace = "com.grappim.feature.bag.repository"
 }
 
 dependencies {

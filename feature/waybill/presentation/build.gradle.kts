@@ -5,6 +5,7 @@ plugins {
 
 android {
     buildFeatures {
+        buildConfig = true
         viewBinding = true
         compose = true
     }
@@ -15,6 +16,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
     }
+    namespace = "com.grappim.feature.waybill.presentation"
 }
 
 dependencies {

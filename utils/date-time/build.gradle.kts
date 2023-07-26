@@ -6,6 +6,7 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
+    namespace = "com.grappim.date_time"
 }
 
 dependencies {

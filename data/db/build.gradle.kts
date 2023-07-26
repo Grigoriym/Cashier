@@ -5,6 +5,10 @@ plugins {
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         kapt {
             arguments {
@@ -14,6 +18,7 @@ android {
             }
         }
     }
+    namespace = "com.grappim.db"
 }
 
 dependencies {

@@ -18,7 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.grappim.domain.model.BasketProduct
-import com.grappim.feature.bag.presentation.R
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemAddBasketProductCompose
@@ -55,6 +55,7 @@ fun BagScreen(
         }
     ) {
         MainSegment(
+            modifier = Modifier.padding(it),
             items = items,
             onMinusClick = onMinusClick,
             onPlusClick = onPlusClick,
@@ -65,12 +66,15 @@ fun BagScreen(
 
 @Composable
 private fun MainSegment(
+    modifier: Modifier = Modifier,
     items: List<BasketProduct>,
     onMinusClick: (BasketProduct) -> Unit,
     onPlusClick: (BasketProduct) -> Unit,
     changedProduct: BasketProduct?
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         BagListSegment(
             items = items,
             onMinusClick = onMinusClick,

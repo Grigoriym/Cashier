@@ -1,4 +1,4 @@
-package com.grappim.feature.auth.data_network.di
+package com.grappim.feature.auth.network.di
 
 import javax.inject.Qualifier
 

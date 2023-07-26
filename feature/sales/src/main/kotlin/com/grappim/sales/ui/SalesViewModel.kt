@@ -10,10 +10,19 @@ import com.grappim.core.base.BaseViewModel
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.model.Product
 import com.grappim.feature.bag.domain.interactor.GetBasketItemsUseCase
+import com.grappim.feature.bag.domain.interactor.addProductToBasket.AddProductToBasketParams
 import com.grappim.feature.bag.domain.interactor.addProductToBasket.AddProductToBasketUseCase
+import com.grappim.feature.bag.domain.interactor.subtractProductFromBasket.SubtractProductFromBasketParams
 import com.grappim.feature.bag.domain.interactor.subtractProductFromBasket.SubtractProductFromBasketUseCase
+import com.grappim.feature.products.domain.interactor.searchProducts.SearchProductsParams
 import com.grappim.feature.products.domain.interactor.searchProducts.SearchProductsUseCase
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -34,13 +43,10 @@ class SalesViewModel @Inject constructor(
     val searchQuery: StateFlow<String>
         get() = _searchQuery.asStateFlow()
 
-    val products: Flow<PagingData<Product>> = searchQuery.flatMapLatest {
+    val products: Flow<PagingData<Product>> = searchQuery.flatMapLatest { query ->
         searchProductsUseCase.execute(
-            com.grappim.feature.products.domain.interactor.searchProducts.SearchProductsParams(
-                it
-            )
-        )
-            .cachedIn(viewModelScope)
+            SearchProductsParams(query)
+        ).cachedIn(viewModelScope)
     }
 
     val basketCount: StateFlow<String> = getBasketItemsUseCase
@@ -76,9 +82,7 @@ class SalesViewModel @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
             val result = addProductToBasketUseCase.execute(
-                com.grappim.feature.bag.domain.interactor.addProductToBasket.AddProductToBasketParams(
-                    product
-                )
+                AddProductToBasketParams(product)
             )
             _loading.value = false
             when (result) {
@@ -96,7 +100,7 @@ class SalesViewModel @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
             val result = subtractProductFromBasketUseCase.execute(
-                com.grappim.feature.bag.domain.interactor.subtractProductFromBasket.SubtractProductFromBasketParams(
+                SubtractProductFromBasketParams(
                     product
                 )
             )

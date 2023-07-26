@@ -2,6 +2,7 @@ package com.grappim.feature.settings.ui
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -10,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.grappim.feature.settings.R
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.SettingsMenuItem
 import com.grappim.uikit.compose.SettingsSwitch
 import com.grappim.uikit.theme.CashierTheme
@@ -22,8 +23,9 @@ internal fun SettingsScreen(
     useBiometrics: Boolean,
     onUseBiometricsChecked: (Boolean) -> Unit
 ) {
-    Scaffold {
+    Scaffold() {
         SettingsScreenContent(
+            modifier = Modifier.padding(it),
             info = info,
             onGithubSrcClick = onGithubSrcClick,
             onUseBiometricsChecked = onUseBiometricsChecked,
@@ -34,13 +36,14 @@ internal fun SettingsScreen(
 
 @Composable
 private fun SettingsScreenContent(
+    modifier: Modifier = Modifier,
     info: String,
     onGithubSrcClick: () -> Unit,
     useBiometrics: Boolean,
     onUseBiometricsChecked: (Boolean) -> Unit
 ) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxHeight()
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,

@@ -1,7 +1,3 @@
-import com.google.protobuf.gradle.generateProtoTasks
-import com.google.protobuf.gradle.protobuf
-import com.google.protobuf.gradle.protoc
-
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.grappimDataPlugin)
@@ -9,6 +5,9 @@ plugins {
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
@@ -19,11 +18,12 @@ android {
             "${extra["cashier_secret_key"]}"
         )
     }
+    namespace = "com.grappim.repository"
 }
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.14.0"
+        artifact = "com.google.protobuf:protoc:3.23.4"
     }
     generateProtoTasks {
         all().forEach { task ->

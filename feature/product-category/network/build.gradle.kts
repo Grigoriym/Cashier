@@ -8,6 +8,7 @@ android {
   compileOptions {
     isCoreLibraryDesugaringEnabled = true
   }
+    namespace = "com.grappim.product_category.network"
 }
 
 dependencies {

@@ -1,4 +1,4 @@
-package com.grappim.feature.auth.data_repository.remote
+package com.grappim.feature.auth.repository.remote
 
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.common.asynchronous.doOnError
@@ -10,10 +10,10 @@ import com.grappim.common.lce.Try
 import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.feature.auth.data_network.api.AuthApi
-import com.grappim.feature.auth.data_network.di.QualifierAuthApi
-import com.grappim.feature.auth.data_network.models.login.LoginRequestDTO
-import com.grappim.feature.auth.data_network.models.login.LoginResponseDTO
+import com.grappim.feature.auth.network.api.AuthApi
+import com.grappim.feature.auth.network.di.QualifierAuthApi
+import com.grappim.feature.auth.network.models.login.LoginRequestDTO
+import com.grappim.feature.auth.network.models.login.LoginResponseDTO
 import com.grappim.feature.auth.domain.AuthRepository
 import com.grappim.feature.auth.domain.LoginParams
 import com.grappim.logger.logE

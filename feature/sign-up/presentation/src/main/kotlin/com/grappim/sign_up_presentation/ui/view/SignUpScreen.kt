@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.core.resources.NativeText
 import com.grappim.core.resources.asString
-import com.grappim.sign_up_presentation.R
+import com.grappim.uikit.R
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
 import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.compose.CashierTextGray
@@ -55,7 +55,7 @@ internal fun SignUpScreen(
         modifier = Modifier
     ) {
         SignUpScreenContent(
-            modifier = Modifier,
+            modifier = Modifier.padding(it),
             phoneText = phoneText,
             phoneSetText = setPhone,
             password = password,

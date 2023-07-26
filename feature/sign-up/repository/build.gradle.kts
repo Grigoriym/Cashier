@@ -12,3 +12,6 @@ dependencies {
   implementation(project(Modules.commonLce))
   implementation(project(Modules.commonAsynchronous))
 }
+android {
+    namespace = "com.grappim.sign_up_repository"
+}

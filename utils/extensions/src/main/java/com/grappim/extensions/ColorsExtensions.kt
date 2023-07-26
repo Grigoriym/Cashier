@@ -2,6 +2,7 @@ package com.grappim.extensions
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import com.grappim.uikit.R
 
 fun Context.getBlue(): Int =
     ContextCompat.getColor(

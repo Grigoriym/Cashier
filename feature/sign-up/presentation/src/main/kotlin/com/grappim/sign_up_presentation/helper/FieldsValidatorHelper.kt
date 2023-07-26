@@ -2,7 +2,7 @@ package com.grappim.sign_up_presentation.helper
 
 import com.grappim.core.resources.NativeText
 import com.grappim.sign_up.domain.interactor.validate.ValidateSignUpFieldsUseCase
-import com.grappim.sign_up_presentation.R
+import com.grappim.uikit.R
 import com.grappim.sign_up_presentation.model.SignUpFieldsValidationData
 import javax.inject.Inject
 

@@ -17,7 +17,7 @@ import com.grappim.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
 import com.grappim.navigation.router.FlowRouter
-import com.grappim.scanner.R
+import com.grappim.uikit.R
 import com.grappim.scanner.di.DaggerScannerComponent
 import com.grappim.scanner.di.ScannerComponent
 import com.grappim.uikit.databinding.FragmentScannerBinding

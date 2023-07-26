@@ -98,11 +98,6 @@ private fun Project.configureCommonDependencies() {
     }
 }
 
-private fun KaptAnnotationProcessorOptions.daggerSettings() {
-    arg("dagger.formatGeneratedSource", "enabled")
-    arg("dagger.fullBindingGraphValidation", "ERROR")
-}
-
 private fun Project.configureAppAndroidBlock() =
     extensions.getByType<BaseAppModuleExtension>().run {
         defaultConfig {
@@ -118,19 +113,21 @@ private fun Project.configureAppAndroidBlock() =
                 option("-Xmaxerrs", 500)
             }
             arguments {
-                daggerSettings()
+                arg("dagger.formatGeneratedSource", "enabled")
+                arg("dagger.fullBindingGraphValidation", "ERROR")
             }
         }
 
         lint {
-            isAbortOnError = false
-            isCheckReleaseBuilds = false
-            isIgnoreTestSources = true
-            isWarningsAsErrors = true
+//            isAbortOnError = false
+//            isCheckReleaseBuilds = false
+//            isIgnoreTestSources = true
+//            isWarningsAsErrors = true
             xmlReport = false
         }
 
         buildFeatures {
+            buildConfig = true
             viewBinding = true
             compose = true
         }
@@ -213,6 +210,7 @@ private fun Project.getAppDependencies() {
             implementation(Deps.AndroidX.lifecycleViewModel)
             implementation(Deps.AndroidX.lifecycleRuntime)
 
+            implementation(platform(Deps.Compose.bom))
             implementation(Deps.Compose.ui)
             implementation(Deps.Compose.material)
             implementation(Deps.Compose.toolingPreview)

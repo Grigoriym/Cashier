@@ -2,7 +2,12 @@ package com.grappim.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -27,15 +32,15 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 inline fun <reified T : ViewModel> Fragment.assistedViewModel(
     crossinline viewModelProducer: (SavedStateHandle) -> T
 ) = viewModels<T> {
-    object : AbstractSavedStateViewModelFactory(this, arguments) {
-        override fun <T : ViewModel?> create(
+    object : AbstractSavedStateViewModelFactory(this@assistedViewModel, arguments) {
+        override fun <T : ViewModel> create(
             key: String,
             modelClass: Class<T>,
             handle: SavedStateHandle
-        ): T =
-            viewModelProducer(handle) as T
+        ): T = viewModelProducer(handle) as T
     }
 }

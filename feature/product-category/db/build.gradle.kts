@@ -14,6 +14,7 @@ android {
             )
         }
     }
+    namespace = "com.grappim.product_category.db"
 }
 
 dependencies {

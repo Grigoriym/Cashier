@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Work
 import com.grappim.domain.model.FeatureToggle
 import com.grappim.domain.model.menu.MenuItemType
-import com.grappim.menu.R
+import com.grappim.uikit.R
 import com.grappim.menu.model.MenuItemPm
 import javax.inject.Inject
 

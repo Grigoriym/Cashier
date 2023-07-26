@@ -24,16 +24,23 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.feature.waybill.domain.model.Waybill
-import com.grappim.feature.waybill.presentation.R
 import com.grappim.feature.waybill.presentation.model.PagingDataModel
-import com.grappim.uikit.compose.*
+import com.grappim.uikit.R
+import com.grappim.uikit.compose.BaseTopAppBar
+import com.grappim.uikit.compose.CashierIcon
+import com.grappim.uikit.compose.CashierText
+import com.grappim.uikit.compose.CashierTextBody1
+import com.grappim.uikit.compose.CashierTextGray
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.text_field.CashierSearchTextField
-import com.grappim.uikit.theme.*
+import com.grappim.uikit.theme.CashierBlue
+import com.grappim.uikit.theme.CashierGray
+import com.grappim.uikit.theme.CashierGreen
+import com.grappim.uikit.theme.CashierLightGray
+import com.grappim.uikit.theme.CashierTheme
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -103,16 +110,22 @@ private fun WaybillListSegment(
         LazyColumn(
             modifier = modifier
         ) {
-            items(lazyPagingItems) { item ->
+            items(lazyPagingItems.itemCount) { index ->
+                val item = lazyPagingItems[index]
                 when (item) {
-                    is com.grappim.feature.waybill.presentation.model.PagingDataModel.Separator -> {
+                    is PagingDataModel.Separator -> {
                         WaybillListHeaderSegment(header = item)
                     }
-                    is com.grappim.feature.waybill.presentation.model.PagingDataModel.Item -> {
+
+                    is PagingDataModel.Item -> {
                         WaybillItemSegment(
                             item = item,
                             onWaybillClick = onWaybillClick
                         )
+                    }
+
+                    else -> {
+
                     }
                 }
             }
@@ -122,7 +135,7 @@ private fun WaybillListSegment(
 
 @Composable
 private fun WaybillItemSegment(
-    item: com.grappim.feature.waybill.presentation.model.PagingDataModel.Item<Waybill>,
+    item: PagingDataModel.Item<Waybill>,
     onWaybillClick: (Waybill) -> Unit
 ) {
     ConstraintLayout(
@@ -198,6 +211,7 @@ private fun WaybillItemSegment(
             com.grappim.feature.waybill.domain.model.WaybillStatus.ACTIVE -> {
                 CashierGreen
             }
+
             com.grappim.feature.waybill.domain.model.WaybillStatus.DRAFT -> {
                 CashierBlue
             }
@@ -250,7 +264,7 @@ private fun WaybillItemSegment(
 
 @Composable
 private fun WaybillListHeaderSegment(
-    header: com.grappim.feature.waybill.presentation.model.PagingDataModel.Separator
+    header: PagingDataModel.Separator
 ) {
     Row(
         modifier = Modifier
@@ -299,7 +313,7 @@ private fun WaybillListScreenPreview() {
 private fun WaybillItemSegmentPreview() {
     CashierTheme {
         WaybillItemSegment(
-            item = com.grappim.feature.waybill.presentation.model.PagingDataModel.Item(
+            item = PagingDataModel.Item(
                 item = Waybill.empty()
             ),
             onWaybillClick = {}
@@ -312,7 +326,7 @@ private fun WaybillItemSegmentPreview() {
 private fun WaybillListHeaderSegmentPreview() {
     CashierTheme {
         WaybillListHeaderSegment(
-            com.grappim.feature.waybill.presentation.model.PagingDataModel.Separator("24.03.2021")
+            PagingDataModel.Separator("24.03.2021")
         )
     }
 }

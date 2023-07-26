@@ -20,3 +20,6 @@ dependencies {
 
     implementation(Deps.AndroidX.workManager)
 }
+android {
+    namespace = "com.grappim.workers"
+}

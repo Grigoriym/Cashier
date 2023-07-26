@@ -48,20 +48,17 @@ object Deps {
     }
 
     object Compose {
-        const val ui = "androidx.compose.ui:ui:${Versions.AndroidX.Compose.core}"
-        const val material = "androidx.compose.material:material:${Versions.AndroidX.Compose.core}"
-        const val toolingPreview =
-            "androidx.compose.ui:ui-tooling-preview:${Versions.AndroidX.Compose.core}"
-        const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.AndroidX.Compose.core}"
-        const val runtime = "androidx.compose.runtime:runtime:${Versions.AndroidX.Compose.core}"
-        const val runtimeLivedata =
-            "androidx.compose.runtime:runtime-livedata:${Versions.AndroidX.Compose.core}"
-        const val foundation =
-            "androidx.compose.foundation:foundation:${Versions.AndroidX.Compose.core}"
-        const val foundationLayout =
-            "androidx.compose.foundation:foundation-layout:${Versions.AndroidX.Compose.core}"
-        const val icons =
-            "androidx.compose.material:material-icons-extended:${Versions.AndroidX.Compose.core}"
+        const val bom = "androidx.compose:compose-bom:${Versions.AndroidX.Compose.bom}"
+
+        const val ui = "androidx.compose.ui:ui"
+        const val material = "androidx.compose.material:material"
+        const val toolingPreview = "androidx.compose.ui:ui-tooling-preview"
+        const val uiTooling = "androidx.compose.ui:ui-tooling"
+        const val runtime = "androidx.compose.runtime:runtime"
+        const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata"
+        const val foundation = "androidx.compose.foundation:foundation"
+        const val foundationLayout = "androidx.compose.foundation:foundation-layout"
+        const val icons = "androidx.compose.material:material-icons-extended"
 
         const val lifecycleViewModel =
             "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.AndroidX.Compose.lifecycle}"

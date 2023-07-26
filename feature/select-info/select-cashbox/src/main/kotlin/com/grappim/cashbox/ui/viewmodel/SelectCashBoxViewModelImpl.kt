@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.grappim.cashbox.R
+import com.grappim.uikit.R
 import com.grappim.cashbox.model.CashierProgressItem
 import com.grappim.common.lce.Try
 import com.grappim.domain.interactor.cashbox.getCashbox.GetCashBoxesUseCase

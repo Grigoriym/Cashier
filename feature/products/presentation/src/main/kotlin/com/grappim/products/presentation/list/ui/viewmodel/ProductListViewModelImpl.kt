@@ -12,17 +12,21 @@ import com.grappim.product_category.domain.model.ProductCategory
 import com.grappim.products.presentation.BundleArgsKeys
 import com.grappim.products.presentation.model.CreateEditFlow
 import com.zhuinden.flowcombinetuplekt.combineTuple
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductListViewModelImpl @Inject constructor(
-    getCategoryListInteractor: GetCategoryListUseCase,
+    getCategoryListUseCase: GetCategoryListUseCase,
     private val getProductsByQueryUseCase: GetProductsByQueryUseCase,
 ) : ProductListViewModel() {
 
     override val categories: StateFlow<List<ProductCategory>> =
-        getCategoryListInteractor.getSimpleCategoryList(
+        getCategoryListUseCase.getSimpleCategoryList(
             GetCategoryListInteractorParams()
         ).stateIn(
             scope = viewModelScope,
