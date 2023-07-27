@@ -79,6 +79,4 @@ class ProductListViewModelImpl @Inject constructor(
             selectedIndex.value = index
         }
     }
-
-
 }

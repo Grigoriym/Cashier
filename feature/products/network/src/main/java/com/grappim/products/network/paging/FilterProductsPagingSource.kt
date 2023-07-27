@@ -13,6 +13,7 @@ import com.grappim.logger.logE
 import com.grappim.products.network.api.ProductsApi
 import com.grappim.products.network.mapper.toDomain
 import com.grappim.products.network.model.FilterProductsRequestDTO
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -27,6 +28,7 @@ class FilterProductsPagingSource constructor(
 
     override fun getRefreshKey(state: PagingState<Int, Product>): Int? = null
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun load(
         params: LoadParams<Int>
     ): LoadResult<Int, Product> =
@@ -70,10 +72,11 @@ class FilterProductsPagingSource constructor(
                     prevKey = null,
                     nextKey = newNextOffset
                 )
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Throwable) {
                 logE(e)
                 LoadResult.Error(e)
             }
         }
-
 }

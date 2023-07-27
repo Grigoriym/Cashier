@@ -50,5 +50,4 @@ class CashierApp : Application(), Configuration.Provider,
             )
         }
     }
-
 }

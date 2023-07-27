@@ -19,5 +19,4 @@ class FeatureToggleRepositoryImpl @Inject constructor(
         val response = featureToggleApi.getFeatures(generalStorage.stockId)
         return response.toDomain()
     }
-
 }

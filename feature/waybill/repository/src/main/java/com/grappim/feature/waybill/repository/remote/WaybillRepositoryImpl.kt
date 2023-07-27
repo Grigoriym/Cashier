@@ -27,7 +27,12 @@ import com.grappim.feature.waybill.network.di.QualifierWaybillApi
 import com.grappim.feature.waybill.network.api.WaybillApi
 import com.grappim.feature.waybill.network.mapper.WaybillMapper
 import com.grappim.feature.waybill.network.mapper.toDomain
-import com.grappim.feature.waybill.network.model.*
+import com.grappim.feature.waybill.network.model.CreateWaybillProductRequestDTO
+import com.grappim.feature.waybill.network.model.CreateWaybillRequestDTO
+import com.grappim.feature.waybill.network.model.GetWaybillByBarcodeRequestDTO
+import com.grappim.feature.waybill.network.model.PartialWaybill
+import com.grappim.feature.waybill.network.model.PartialWaybillProductDTO
+import com.grappim.feature.waybill.network.model.UpdateWaybillRequestDTO
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

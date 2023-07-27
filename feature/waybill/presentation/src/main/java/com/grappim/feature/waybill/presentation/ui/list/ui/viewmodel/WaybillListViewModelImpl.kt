@@ -91,5 +91,4 @@ class WaybillListViewModelImpl @Inject constructor(
         waybillLocalRepository.setWaybill(waybill)
         flowRouter.goToWaybillDetails()
     }
-
 }

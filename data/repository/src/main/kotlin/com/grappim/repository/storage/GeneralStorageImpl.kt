@@ -62,16 +62,16 @@ class GeneralStorageImpl @Inject constructor(
         sharedPreferences.edit()
     }
 
-    private val AUTHENTICATION_ERROR_KEY = booleanPreferencesKey(AUTH_ERROR)
+    private val authenticationErrorKey = booleanPreferencesKey(AUTH_ERROR)
     override val authErrorFlow: Flow<Boolean> = context.dataStore.data
         .map { preferences ->
-            preferences[AUTHENTICATION_ERROR_KEY] ?: false
+            preferences[authenticationErrorKey] ?: false
         }
 
-    private val BIOMETRICS_STATUS_KEY = stringPreferencesKey(BIOMETRICS_STATUS)
+    private val biometricsStatusKey = stringPreferencesKey(BIOMETRICS_STATUS)
     override val biometricsStatus: Flow<BiometricsStatus> = context.dataStore.data
         .map { preferences ->
-            val foundPrefs = preferences[BIOMETRICS_STATUS_KEY]
+            val foundPrefs = preferences[biometricsStatusKey]
             BiometricsStatus.from(foundPrefs)
         }
 
@@ -85,13 +85,13 @@ class GeneralStorageImpl @Inject constructor(
 
     override suspend fun setBiometricsStatus(status: BiometricsStatus) {
         context.dataStore.edit { settings ->
-            settings[BIOMETRICS_STATUS_KEY] = status.name
+            settings[biometricsStatusKey] = status.name
         }
     }
 
     override suspend fun setAuthErrorFlow(isError: Boolean) {
         context.dataStore.edit { settings ->
-            settings[AUTHENTICATION_ERROR_KEY] = isError
+            settings[authenticationErrorKey] = isError
         }
     }
 

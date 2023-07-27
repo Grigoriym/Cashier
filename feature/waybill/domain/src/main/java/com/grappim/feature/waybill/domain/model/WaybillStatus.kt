@@ -1,6 +1,6 @@
 package com.grappim.feature.waybill.domain.model
 
-enum class WaybillStatus() {
+enum class WaybillStatus {
     ACTIVE,
     DRAFT;
 

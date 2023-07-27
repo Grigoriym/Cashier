@@ -124,8 +124,4 @@ class WaybillScannerFragment : BaseFragment<WaybillScannerViewModel>(
             barcode = result
         )
     }
-
-    companion object {
-        private const val CAMERA_REQUEST_CODE = 2300
-    }
 }

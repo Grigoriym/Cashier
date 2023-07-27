@@ -6,11 +6,9 @@ import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
-import com.grappim.feature.bag.domain.BagRepository
-import com.grappim.feature.bag.repository.BagRepositoryImpl
 import com.grappim.feature.payment_method.domain.repository.PaymentRepository
 import com.grappim.product_category.domain.repository.ProductCategoryRepository
-import com.grappim.product_category.repository.ProductCategoryRepositoryImpl
+import com.grappim.productcategory.repository.ProductCategoryRepositoryImpl
 import com.grappim.repository.local.FeatureToggleLocalRepositoryImpl
 import com.grappim.repository.local.SelectCashBoxLocalRepositoryImpl
 import com.grappim.repository.local.SelectStockLocalRepositoryImpl

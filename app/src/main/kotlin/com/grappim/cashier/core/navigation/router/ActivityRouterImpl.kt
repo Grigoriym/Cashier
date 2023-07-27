@@ -73,5 +73,4 @@ class ActivityRouterImpl @Inject constructor(
     override fun goToProductCategories() {
         router.navigateTo(cashierScreens.ProductCategories())
     }
-
 }

@@ -42,5 +42,4 @@ interface WaybillRepository {
     suspend fun rollbackWaybill(
         params: RollbackWaybillParams
     ): VoidTry<Throwable>
-
 }

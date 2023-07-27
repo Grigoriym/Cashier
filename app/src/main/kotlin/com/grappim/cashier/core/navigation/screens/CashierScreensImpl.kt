@@ -22,12 +22,12 @@ import com.grappim.payment_method.ui.view.PaymentMethodFragment
 import com.grappim.product_category.presentation.create_edit.ui.view.CreateEditProductCategoryFragment
 import com.grappim.product_category.presentation.list.ui.view.ProductCategoryListFragment
 import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
-import com.grappim.products.presentation.create_edit.ui.view.CreateEditProductFragment
+import com.grappim.products.presentation.createedit.ui.view.CreateEditProductFragment
 import com.grappim.products.presentation.list.ui.view.ProductListFragment
 import com.grappim.products.presentation.root.ui.ProductsRootFragment
 import com.grappim.sales.ui.SalesFragment
 import com.grappim.scanner.ui.ScannerFragment
-import com.grappim.sign_up_presentation.ui.view.SignUpFragment
+import com.grappim.signup.presentation.ui.view.SignUpFragment
 import javax.inject.Inject
 
 @ActivityScope

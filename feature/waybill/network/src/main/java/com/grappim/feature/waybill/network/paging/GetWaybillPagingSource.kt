@@ -7,6 +7,7 @@ import com.grappim.feature.waybill.network.api.WaybillApi
 import com.grappim.feature.waybill.network.model.FilterWaybillsRequestDTO
 import com.grappim.feature.waybill.network.model.WaybillDTO
 import com.grappim.logger.logE
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -17,6 +18,7 @@ class GetWaybillPagingSource(
 ) : PagingSource<Int, WaybillDTO>() {
     override fun getRefreshKey(state: PagingState<Int, WaybillDTO>): Int? = null
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, WaybillDTO> =
         withContext(ioDispatcher) {
             return@withContext try {
@@ -41,6 +43,8 @@ class GetWaybillPagingSource(
                     prevKey = null,
                     nextKey = newNextOffset
                 )
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Throwable) {
                 logE(e)
                 LoadResult.Error(e)

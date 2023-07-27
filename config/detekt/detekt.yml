@@ -1,6 +1,26 @@
 build:
   maxIssues: 40
 
+style:
+ UnusedPrivateMember:
+  active: false
+ DestructuringDeclarationWithTooManyEntries:
+  active: false
+ SerialVersionUIDInSerializableClass:
+  active: false
+
+naming:
+ FunctionNaming:
+  active: false
+
+complexity:
+ TooManyFunctions:
+  active: false
+ LongParameterList:
+  active: false
+ LongMethod:
+  active: false
+
 ##detekt-cashier-rules:
 ##  active: false
 ## WhenInsteadOfIf:

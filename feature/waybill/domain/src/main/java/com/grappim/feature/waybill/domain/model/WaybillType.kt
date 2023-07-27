@@ -12,5 +12,4 @@ enum class WaybillType(val value: String) {
                 else -> throw IllegalArgumentException("incorrect status $value")
             }
     }
-
 }

@@ -135,5 +135,4 @@ class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
 
         }
     }
-
 }

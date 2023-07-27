@@ -12,5 +12,4 @@ object ProductsApiModule {
     fun provideProductsApi(
         retrofit: Retrofit
     ): ProductsApi = retrofit.create(ProductsApi::class.java)
-
 }

@@ -15,5 +15,4 @@ interface SelectCashBoxBindsModule {
     fun provideSelectCashBoxViewModel(
         selectCashBoxViewModel: SelectCashBoxViewModelImpl
     ): ViewModel
-
 }

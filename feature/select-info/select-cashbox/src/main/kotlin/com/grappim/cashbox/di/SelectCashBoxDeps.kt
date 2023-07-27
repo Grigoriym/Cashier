@@ -12,5 +12,4 @@ interface SelectCashBoxDeps : ComponentDeps {
     fun selectInfoRemoteRepository(): SelectInfoRemoteRepository
     fun appRouter(): ActivityRouter
     fun flowRouter(): FlowRouter
-
 }

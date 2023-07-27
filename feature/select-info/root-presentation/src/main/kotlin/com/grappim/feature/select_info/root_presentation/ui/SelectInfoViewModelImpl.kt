@@ -26,5 +26,4 @@ class SelectInfoViewModelImpl @Inject constructor(
     override fun goBack() {
         flowRouter.onBackPressed()
     }
-
 }

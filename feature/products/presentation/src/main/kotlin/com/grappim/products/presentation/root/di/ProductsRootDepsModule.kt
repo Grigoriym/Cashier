@@ -2,7 +2,7 @@ package com.grappim.products.presentation.root.di
 
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.ComponentDepsKey
-import com.grappim.products.presentation.create_edit.di.CreateEditProductDeps
+import com.grappim.products.presentation.createedit.di.CreateEditProductDeps
 import com.grappim.products.presentation.list.di.ProductListDeps
 import dagger.Binds
 import dagger.Module

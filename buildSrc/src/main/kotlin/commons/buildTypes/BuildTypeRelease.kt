@@ -24,7 +24,8 @@ object BuildTypeRelease : BuildTypes {
         namedDomainObjectContainer.getByName(name) {
             isMinifyEnabled = true
             isDebuggable = false
-            isTestCoverageEnabled = false
+            enableUnitTestCoverage = false
+            enableAndroidTestCoverage = false
 
             proguardFiles(
                 proguardFile!!,

@@ -58,5 +58,4 @@ class FeatureToggleLocalRepositoryImpl @Inject constructor(
                 .build()
         }
     }
-
 }

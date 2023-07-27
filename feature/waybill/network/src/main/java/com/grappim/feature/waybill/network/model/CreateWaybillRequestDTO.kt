@@ -15,7 +15,7 @@ data class PartialWaybill(
     @SerialName("merchantId")
     val merchantId: String,
     @SerialName("status")
-    val status: com.grappim.feature.waybill.domain.model.WaybillStatus,
+    val status: WaybillStatus,
     @SerialName("stockId")
     val stockId: String,
     @SerialName("type")

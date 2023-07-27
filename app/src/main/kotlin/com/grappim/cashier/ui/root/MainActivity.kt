@@ -6,8 +6,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.github.terrakok.cicerone.Navigator
 import com.grappim.cashier.R
-import com.grappim.cashier.di.root_activity.DaggerRootActivityComponent
-import com.grappim.cashier.di.root_activity.RootActivityComponent
+import com.grappim.cashier.di.rootactivity.DaggerRootActivityComponent
+import com.grappim.cashier.di.rootactivity.RootActivityComponent
 import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.deps.HasComponentDeps
 import com.grappim.core.MainViewModel

@@ -16,5 +16,4 @@ abstract class SelectStockViewModel : BaseViewModel() {
     abstract fun getStocks()
 
     abstract fun clearData()
-
 }
