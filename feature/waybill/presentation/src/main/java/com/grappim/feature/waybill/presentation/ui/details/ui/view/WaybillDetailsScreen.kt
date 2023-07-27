@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +16,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,8 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.domain.model.WaybillProduct
 import com.grappim.uikit.R
@@ -263,11 +266,10 @@ private fun WaybillProductsList(
     onProductClick: (WaybillProduct) -> Unit,
     onRefresh: () -> Unit
 ) {
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(
-            isRefreshing = false
-        ),
-        onRefresh = onRefresh
+    val pullRefreshState = rememberPullRefreshState(false, { onRefresh() })
+    Box(
+        modifier = Modifier
+            .pullRefresh(pullRefreshState),
     ) {
         LazyColumn(
             modifier = modifier
@@ -282,6 +284,7 @@ private fun WaybillProductsList(
                 }
             }
         }
+        PullRefreshIndicator(false, pullRefreshState, Modifier.align(Alignment.TopCenter))
     }
 }
 

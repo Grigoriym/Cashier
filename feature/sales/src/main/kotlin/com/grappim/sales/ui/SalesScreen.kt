@@ -113,7 +113,7 @@ private fun SalesListSegment(
     onCartClick: (Product) -> Unit,
     basketProducts: List<BasketProduct>
 ) {
-    LazyColumn() {
+    LazyColumn {
         items(items.itemCount) { index ->
             val item = items[index]
             item?.let {

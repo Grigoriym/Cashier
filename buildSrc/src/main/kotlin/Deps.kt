@@ -72,9 +72,6 @@ object Deps {
             "com.google.accompanist:accompanist$module:$version"
 
         fun systemUiController() = accompanist("-systemuicontroller")
-        
-        const val accompanistSwipeRefresh =
-            "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
     }
 
     object Google {
