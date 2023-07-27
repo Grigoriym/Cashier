@@ -33,7 +33,6 @@ dependencies {
     implementation(Deps.coil)
 
     implementation(Deps.Compose.paging)
-    implementation(Deps.Accompanist.accompanistSwipeRefresh)
 
     testImplementation(Deps.Mockk.core)
     testImplementation(Deps.kluent)

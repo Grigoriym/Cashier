@@ -18,7 +18,11 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,8 +30,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.cashbox.model.CashierProgressItem
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.uikit.R
@@ -123,11 +125,10 @@ private fun CashBoxListSegment(
     isRefreshing: Boolean,
     onRefresh: () -> Unit
 ) {
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(
-            isRefreshing = isRefreshing
-        ),
-        onRefresh = onRefresh
+    val pullRefreshState = rememberPullRefreshState(isRefreshing, { onRefresh() })
+    Box(
+        modifier = Modifier
+            .pullRefresh(pullRefreshState),
     ) {
         LazyColumn(modifier = modifier) {
             items(cashBoxItems) { item ->
@@ -142,6 +143,7 @@ private fun CashBoxListSegment(
                 )
             }
         }
+        PullRefreshIndicator(isRefreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
     }
 }
 

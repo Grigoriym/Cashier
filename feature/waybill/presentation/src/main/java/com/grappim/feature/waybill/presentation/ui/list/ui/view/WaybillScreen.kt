@@ -2,6 +2,7 @@ package com.grappim.feature.waybill.presentation.ui.list.ui.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +15,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -24,8 +29,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.presentation.model.PagingDataModel
 import com.grappim.uikit.R
@@ -103,9 +106,10 @@ private fun WaybillListSegment(
     lazyPagingItems: LazyPagingItems<PagingDataModel<Waybill>>,
     isRefreshing: Boolean
 ) {
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-        onRefresh = onRefresh
+    val pullRefreshState = rememberPullRefreshState(isRefreshing, { onRefresh() })
+    Box(
+        modifier = Modifier
+            .pullRefresh(pullRefreshState),
     ) {
         LazyColumn(
             modifier = modifier
@@ -130,6 +134,7 @@ private fun WaybillListSegment(
                 }
             }
         }
+        PullRefreshIndicator(isRefreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
     }
 }
 
