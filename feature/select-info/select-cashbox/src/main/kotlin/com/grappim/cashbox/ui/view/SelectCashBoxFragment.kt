@@ -77,5 +77,4 @@ class SelectCashBoxFragment : BaseFragment<SelectCashBoxViewModel>() {
             selectedCashBox = viewModel.selectedCashBox
         )
     }
-
 }

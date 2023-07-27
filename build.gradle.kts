@@ -46,8 +46,8 @@ subprojects {
     detekt {
         buildUponDefaultConfig = true
         toolVersion = Versions.detekt
-        config = rootProject.files("${rootDir}/config/detekt/detekt.yml")
-        source = files("src/main/java", "src/main/kotlin")
+        config.setFrom("${rootDir}/config/detekt/detekt.yml")
+        source.setFrom("src/main/java", "src/main/kotlin")
         parallel = true
 
         ignoreFailures = true

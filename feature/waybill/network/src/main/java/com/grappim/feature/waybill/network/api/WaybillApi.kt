@@ -1,8 +1,24 @@
 package com.grappim.feature.waybill.network.api
 
 import com.grappim.common.annotations.RequestWithAuthToken
-import com.grappim.feature.waybill.network.model.*
-import retrofit2.http.*
+import com.grappim.feature.waybill.network.model.CreateWaybillProductRequestDTO
+import com.grappim.feature.waybill.network.model.CreateWaybillProductResponseDTO
+import com.grappim.feature.waybill.network.model.CreateWaybillRequestDTO
+import com.grappim.feature.waybill.network.model.CreateWaybillResponseDTO
+import com.grappim.feature.waybill.network.model.FilterWaybillsRequestDTO
+import com.grappim.feature.waybill.network.model.FilterWaybillsResponseDTO
+import com.grappim.feature.waybill.network.model.GetWaybillByBarcodeRequestDTO
+import com.grappim.feature.waybill.network.model.GetWaybillByIdResponseDTO
+import com.grappim.feature.waybill.network.model.GetWaybillProductResponseDTO
+import com.grappim.feature.waybill.network.model.UpdateWaybillRequestDTO
+import com.grappim.feature.waybill.network.model.WaybillProductsRequestDTO
+import com.grappim.feature.waybill.network.model.WaybillProductsResponseDTO
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface WaybillApi {
 

@@ -22,6 +22,7 @@ class PasswordManagerImpl @Inject constructor(
         private const val AES_ALGORITHM = "AES"
         private const val TRANSFORMATION = "AES/CBC/PKCS5Padding"
 
+        @Suppress("MagicNumber")
         private fun cipher(
             encryptionMode: Int,
             secretKey: String
@@ -51,5 +52,4 @@ class PasswordManagerImpl @Inject constructor(
             return String(cipher(Cipher.DECRYPT_MODE, secretKey).doFinal(byteStr))
         }
     }
-
 }

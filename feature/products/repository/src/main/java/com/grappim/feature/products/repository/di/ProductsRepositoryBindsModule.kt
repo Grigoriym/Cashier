@@ -12,5 +12,4 @@ interface ProductsRepositoryBindsModule {
     fun bindProductsRepository(
         productsRepositoryImpl: ProductsRepositoryImpl
     ): ProductsRepository
-
 }

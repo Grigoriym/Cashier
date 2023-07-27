@@ -1,6 +1,6 @@
 package com.grappim.cashier.di.app
 
-import com.grappim.cashier.di.root_activity.RootActivityDeps
+import com.grappim.cashier.di.rootactivity.RootActivityDeps
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.ComponentDepsKey
 import dagger.Binds

@@ -1,8 +1,19 @@
 package com.grappim.products.network.api
 
 import com.grappim.common.annotations.RequestWithAuthToken
-import com.grappim.products.network.model.*
-import retrofit2.http.*
+import com.grappim.products.network.model.CreateProductRequestDTO
+import com.grappim.products.network.model.CreateProductResponseDTO
+import com.grappim.products.network.model.FilterProductsRequestDTO
+import com.grappim.products.network.model.FilterProductsResponseDTO
+import com.grappim.products.network.model.ProductDTO
+import com.grappim.products.network.model.UpdateProductRequestDTO
+import com.grappim.products.network.model.UpdateProductResponseDTO
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface ProductsApi {
 

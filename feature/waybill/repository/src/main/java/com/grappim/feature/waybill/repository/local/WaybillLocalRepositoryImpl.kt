@@ -60,5 +60,4 @@ class WaybillLocalRepositoryImpl @Inject constructor(
         _waybill = null
         _waybillFlow.value = null
     }
-
 }

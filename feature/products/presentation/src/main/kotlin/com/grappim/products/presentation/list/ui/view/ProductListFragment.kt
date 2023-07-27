@@ -72,5 +72,4 @@ class ProductListFragment : BaseFragment<ProductListViewModel>() {
             onProductClick = viewModel::showEditProduct
         )
     }
-
 }

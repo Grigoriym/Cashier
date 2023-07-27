@@ -24,7 +24,8 @@ object BuildTypeDebug : BuildTypes {
         namedDomainObjectContainer.getByName(name) {
             isMinifyEnabled = false
             isDebuggable = true
-            isTestCoverageEnabled = true
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
 
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"

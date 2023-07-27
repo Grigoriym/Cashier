@@ -13,6 +13,4 @@ object WaybillApiModule {
     fun provideWaybillApi(
         retrofit: Retrofit
     ): WaybillApi = retrofit.create(WaybillApi::class.java)
-
-
 }

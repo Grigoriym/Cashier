@@ -29,5 +29,4 @@ class GeneralRepositoryImpl @Inject constructor(
             productsDao.clearProducts()
         }.join()
     }
-
 }

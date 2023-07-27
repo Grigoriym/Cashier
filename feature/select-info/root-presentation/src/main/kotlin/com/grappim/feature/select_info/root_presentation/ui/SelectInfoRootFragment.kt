@@ -92,5 +92,4 @@ class SelectInfoRootFragment : BaseFlowFragment<SelectInfoViewModel>(
             isUserInputEnabled = false
         }
     }
-
 }

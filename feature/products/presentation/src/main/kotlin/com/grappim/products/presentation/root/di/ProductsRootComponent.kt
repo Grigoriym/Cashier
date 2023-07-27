@@ -6,7 +6,7 @@ import com.grappim.common.di.ComponentDependenciesProvider
 import com.grappim.common.di.FeatureFragmentManager
 import com.grappim.common.di.FeatureScope
 import com.grappim.core.di.FeatureNavigationBindsModule
-import com.grappim.products.presentation.create_edit.di.CreateEditProductDeps
+import com.grappim.products.presentation.createedit.di.CreateEditProductDeps
 import com.grappim.products.presentation.list.di.ProductListDeps
 import dagger.BindsInstance
 import dagger.Component

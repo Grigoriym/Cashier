@@ -31,7 +31,11 @@ import com.grappim.products.network.di.QualifierProductsApi
 import com.grappim.products.network.mapper.toDomain
 import com.grappim.products.network.mapper.toDomain2
 import com.grappim.products.network.mapper.toEntity
-import com.grappim.products.network.model.*
+import com.grappim.products.network.model.CreateProductRequestDTO
+import com.grappim.products.network.model.CreateProductRequestParamsDTO
+import com.grappim.products.network.model.FilterProductsRequestDTO
+import com.grappim.products.network.model.ProductDTO
+import com.grappim.products.network.model.UpdateProductRequestDTO
 import com.grappim.products.network.paging.FilterProductsPagingSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

@@ -8,5 +8,4 @@ enum class SelectInfoRootFlow {
     companion object {
         fun getAdapterSize(): Int = values().size
     }
-
 }

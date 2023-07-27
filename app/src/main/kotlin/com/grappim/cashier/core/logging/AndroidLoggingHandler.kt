@@ -20,6 +20,7 @@ class AndroidLoggingHandler : Handler() {
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override fun publish(record: LogRecord?) {
         record?.let {
             val tag = it.loggerName

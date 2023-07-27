@@ -17,5 +17,4 @@ abstract class BagViewModel : BaseViewModel() {
     abstract fun getBagProducts()
     abstract fun addProductToBasket(product: BasketProduct)
     abstract fun subtractBasketProduct(product: BasketProduct)
-
 }

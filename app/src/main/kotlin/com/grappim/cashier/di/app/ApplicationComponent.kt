@@ -3,9 +3,14 @@ package com.grappim.cashier.di.app
 import android.content.Context
 import com.grappim.calculations.DecimalFormatModule
 import com.grappim.cashier.CashierApp
-import com.grappim.cashier.di.root_activity.RootActivityDeps
+import com.grappim.cashier.di.rootactivity.RootActivityDeps
 import com.grappim.common.asynchronous.di.CoroutinesModule
-import com.grappim.common.di.*
+import com.grappim.common.di.ApiScope
+import com.grappim.common.di.AppScope
+import com.grappim.common.di.ApplicationContext
+import com.grappim.common.di.DatabaseScope
+import com.grappim.common.di.NetworkScope
+import com.grappim.common.di.SerializationScope
 import com.grappim.date_time.DateTimeModule
 import com.grappim.db.di.DatabaseModule
 import com.grappim.feature.auth.network.di.AuthApiModule

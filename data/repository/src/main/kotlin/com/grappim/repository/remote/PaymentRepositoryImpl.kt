@@ -61,5 +61,4 @@ class PaymentRepositoryImpl @Inject constructor(
     }.doOnError { e ->
         logE(e)
     }
-
 }

@@ -13,3 +13,4 @@ class GetProductCategoriesUseCase @Inject constructor(
         productCategoryRepository.categoriesFlow()
 
 }
+

@@ -15,5 +15,4 @@ interface SelectInfoRootBindsModule {
     fun bindSelectInfoRootViewModel(
         selectInfoViewModel: SelectInfoViewModelImpl
     ): ViewModel
-
 }
