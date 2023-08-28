@@ -9,7 +9,7 @@ import com.grappim.feature.bag.db.BasketDao
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.di.configs.DatabaseBuildConfigProvider
 import com.grappim.db.di.configs.DatabaseConfigsModule
-import com.grappim.product_category.db.ProductCategoryDao
+import com.grappim.productcategory.db.ProductCategoryDao
 import dagger.Module
 import dagger.Provides
 

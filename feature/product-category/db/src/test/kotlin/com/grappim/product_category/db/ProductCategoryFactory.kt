@@ -1,6 +1,6 @@
 package com.grappim.product_category.db
 
-import com.grappim.product_category.domain.model.ProductCategory
+import com.grappim.productcategory.domain.model.ProductCategory
 
 fun createProductCategory(
     id: Long = 1,

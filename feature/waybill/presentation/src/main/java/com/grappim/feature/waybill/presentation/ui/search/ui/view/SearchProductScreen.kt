@@ -16,7 +16,7 @@ import com.grappim.domain.model.Product
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.ItemProductCompose
-import com.grappim.uikit.compose.text_field.CashierSearchTextField
+import com.grappim.uikit.compose.textfield.CashierSearchTextField
 import com.grappim.uikit.theme.CashierTheme
 import kotlinx.coroutines.flow.flowOf
 

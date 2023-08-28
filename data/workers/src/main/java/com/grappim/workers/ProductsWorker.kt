@@ -32,6 +32,7 @@ class ProductsWorker @AssistedInject constructor(
         ): ProductsWorker
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         return@withContext try {
             var newOffset = 0L

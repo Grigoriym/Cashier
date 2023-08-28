@@ -63,7 +63,8 @@ class SettingsFragment : BaseFlowFragment<SettingsViewModel>() {
             info = info,
             onGithubSrcClick = viewModel::onGithubSrcClicked,
             onUseBiometricsChecked = viewModel::setUseBiometrics,
-            useBiometrics = biometricStatus
+            useBiometrics = biometricStatus,
+            onBackButtonPressed = viewModel::onBackPressed
         )
     }
 }

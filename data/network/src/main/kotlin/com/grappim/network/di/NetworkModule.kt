@@ -30,6 +30,8 @@ import java.util.concurrent.TimeUnit
 )
 object NetworkModule {
 
+    private const val TIMEOUT = 30L
+
     @[NetworkScope Provides]
     fun provideRetrofitBuilder(
         json: Json
@@ -67,8 +69,8 @@ object NetworkModule {
         networkBuildConfigProvider: NetworkBuildConfigProvider
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .connectTimeout(30L, TimeUnit.SECONDS)
-            .readTimeout(30L, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(errorMappingInterceptor)
             .addInterceptor(authTokenInterceptor)
             .authenticator(tokenAuthenticator)

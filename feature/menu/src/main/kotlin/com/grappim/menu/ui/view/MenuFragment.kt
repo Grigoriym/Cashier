@@ -65,5 +65,4 @@ class MenuFragment : BaseFlowFragment<MenuViewModel>() {
             onBackButtonPressed = viewModel::onBackPressed
         )
     }
-
 }

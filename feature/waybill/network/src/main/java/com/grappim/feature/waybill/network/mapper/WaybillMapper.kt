@@ -1,7 +1,7 @@
 package com.grappim.feature.waybill.network.mapper
 
-import com.grappim.date_time.DateTimeIsoLocalDateTime
-import com.grappim.date_time.DateTimeStandard
+import com.grappim.datetime.DateTimeIsoLocalDateTime
+import com.grappim.datetime.DateTimeStandard
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.network.model.WaybillDTO
 import com.grappim.logger.logD

@@ -4,7 +4,13 @@ import android.graphics.Typeface
 import android.text.Layout
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.*
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.AlignmentSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StrikethroughSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 
 fun SpannableString.bold(start: Int = 0, end: Int = this.length): SpannableString {
     this.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

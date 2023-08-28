@@ -38,7 +38,7 @@ import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.CashierTextBody1
 import com.grappim.uikit.compose.CashierTextGray
 import com.grappim.uikit.compose.button.BigActionButtonCompose
-import com.grappim.uikit.compose.text_field.CashierSearchTextField
+import com.grappim.uikit.compose.textfield.CashierSearchTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierGreen

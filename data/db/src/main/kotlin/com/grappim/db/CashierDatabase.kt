@@ -9,8 +9,8 @@ import com.grappim.db.converter.ProductUnitConverter
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
 import com.grappim.feature.bag.db.BasketProductEntity
-import com.grappim.product_category.db.ProductCategoryDao
-import com.grappim.product_category.db.ProductCategoryEntity
+import com.grappim.productcategory.db.ProductCategoryDao
+import com.grappim.productcategory.db.ProductCategoryEntity
 
 @Database(
     entities = [

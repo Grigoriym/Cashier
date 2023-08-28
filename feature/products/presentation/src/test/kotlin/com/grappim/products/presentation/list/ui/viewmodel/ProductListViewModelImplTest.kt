@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.grappim.domain.model.Product
 import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryUseCase
-import com.grappim.product_category.domain.interactor.getCategoryList.GetCategoryListUseCase
-import com.grappim.product_category.domain.model.ProductCategory
+import com.grappim.productcategory.domain.interactor.getCategoryList.GetCategoryListUseCase
+import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.test_shared.CoroutineRule
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

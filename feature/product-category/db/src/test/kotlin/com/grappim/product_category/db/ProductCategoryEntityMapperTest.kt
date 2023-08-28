@@ -1,5 +1,6 @@
 package com.grappim.product_category.db
 
+import com.grappim.productcategory.db.ProductCategoryEntityMapper
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

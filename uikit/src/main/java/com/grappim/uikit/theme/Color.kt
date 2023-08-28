@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.grappim.uikit.theme
 
 import androidx.compose.ui.graphics.Color

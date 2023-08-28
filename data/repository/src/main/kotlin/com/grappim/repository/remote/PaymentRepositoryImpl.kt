@@ -5,10 +5,9 @@ import com.grappim.common.asynchronous.mapSuccess
 import com.grappim.common.asynchronous.runOperationCatching
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
-import com.grappim.feature.bag.db.BasketDao
 import com.grappim.domain.storage.GeneralStorage
-import com.grappim.feature.payment_method.domain.interactor.MakePaymentParams
-import com.grappim.feature.payment_method.domain.repository.PaymentRepository
+import com.grappim.feature.paymentmethod.domain.interactor.MakePaymentParams
+import com.grappim.feature.paymentmethod.domain.repository.PaymentRepository
 import com.grappim.logger.logE
 import com.grappim.network.api.CashierApi
 import com.grappim.network.di.api.QualifierCashierApi

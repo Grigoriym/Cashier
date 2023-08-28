@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.grappim.domain.model.ProductUnit
-import com.grappim.product_category.domain.model.ProductCategory
+import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.products.presentation.model.CreateEditFlow
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
@@ -52,7 +52,7 @@ import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.CounterComposable
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
-import com.grappim.uikit.compose.text_field.CashierStandardTextField
+import com.grappim.uikit.compose.textfield.CashierStandardTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierLightGray

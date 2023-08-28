@@ -1,7 +1,7 @@
 package com.grappim.network.api
 
 import com.grappim.common.annotations.RequestWithAuthToken
-import com.grappim.network.model.feature_toggle.FeatureToggleDTO
+import com.grappim.network.model.featuretoggle.FeatureToggleDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 

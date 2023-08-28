@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.grappim.uikit.R
+import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.SettingsMenuItem
 import com.grappim.uikit.compose.SettingsSwitch
 import com.grappim.uikit.theme.CashierTheme
@@ -21,9 +22,18 @@ internal fun SettingsScreen(
     info: String,
     onGithubSrcClick: () -> Unit,
     useBiometrics: Boolean,
-    onUseBiometricsChecked: (Boolean) -> Unit
+    onUseBiometricsChecked: (Boolean) -> Unit,
+    onBackButtonPressed: () -> Unit
 ) {
-    Scaffold() {
+    Scaffold(
+        topBar = {
+            BaseTopAppBar(
+                toolbarTitle = stringResource(id = R.string.title_settings)
+            ) {
+                onBackButtonPressed()
+            }
+        }
+    ) {
         SettingsScreenContent(
             modifier = Modifier.padding(it),
             info = info,

@@ -2,7 +2,7 @@ package com.grappim.repository.utils
 
 import com.grappim.db.dao.ProductsDao
 import com.grappim.feature.bag.db.BasketDao
-import com.grappim.product_category.db.ProductCategoryDao
+import com.grappim.productcategory.db.ProductCategoryDao
 import javax.inject.Inject
 
 class DataClearHelperImpl @Inject constructor(

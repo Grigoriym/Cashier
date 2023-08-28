@@ -1,8 +1,9 @@
 package com.grappim.network.di.api
 
 import com.grappim.common.di.ApiScope
-import com.grappim.network.api.*
-import com.grappim.product_category.network.api.ProductCategoryApi
+import com.grappim.network.api.CashierApi
+import com.grappim.network.api.FeatureToggleApi
+import com.grappim.productcategory.network.api.ProductCategoryApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

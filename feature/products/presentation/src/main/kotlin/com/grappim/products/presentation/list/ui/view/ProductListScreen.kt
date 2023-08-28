@@ -16,13 +16,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.grappim.domain.model.Product
-import com.grappim.product_category.domain.model.ProductCategory
+import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemProductCompose
 import com.grappim.uikit.compose.button.BigActionButtonCompose
-import com.grappim.uikit.compose.text_field.CashierSearchTextField
+import com.grappim.uikit.compose.textfield.CashierSearchTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierTheme

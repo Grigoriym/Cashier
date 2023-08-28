@@ -5,7 +5,11 @@ import com.grappim.feature.bag.network.model.AddBasketProductDTO
 import com.grappim.feature.bag.network.model.BasketProductDTO
 import com.grappim.feature.bag.network.model.SearchProductsRequestDTO
 import com.grappim.feature.bag.network.model.SubtractBasketProductResponseDTO
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface BasketApi {
 

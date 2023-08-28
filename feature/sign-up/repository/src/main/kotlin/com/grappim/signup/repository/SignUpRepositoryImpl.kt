@@ -6,8 +6,8 @@ import com.grappim.common.lce.VoidTry
 import com.grappim.domain.password.PasswordManager
 import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
-import com.grappim.feature.auth.network.models.sign_up.SignUpDTO
-import com.grappim.signup.domain.interactor.sign_up.SignUpParams
+import com.grappim.feature.auth.network.models.signup.SignUpDTO
+import com.grappim.signup.domain.interactor.signup.SignUpParams
 import com.grappim.signup.domain.repository.SignUpRepository
 import javax.inject.Inject
 

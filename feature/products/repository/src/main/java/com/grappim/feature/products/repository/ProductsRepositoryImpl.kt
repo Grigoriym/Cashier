@@ -8,8 +8,8 @@ import com.grappim.common.asynchronous.runOperationCatching
 import com.grappim.common.di.AppScope
 import com.grappim.common.lce.Try
 import com.grappim.comon.db.getStringForDbQuery
-import com.grappim.date_time.DateTimeIsoLocalDateTime
-import com.grappim.date_time.DateTimeUtils
+import com.grappim.datetime.DateTimeIsoLocalDateTime
+import com.grappim.datetime.DateTimeUtils
 import com.grappim.db.dao.ProductsDao
 import com.grappim.db.entity.ProductEntity
 import com.grappim.db.entity.productEntityTableName
@@ -25,7 +25,7 @@ import com.grappim.feature.products.domain.interactor.editProduct.EditProductPar
 import com.grappim.feature.products.domain.interactor.getProductByBarcode.GetProductBarcodeParams
 import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryParams
 import com.grappim.feature.products.domain.repository.ProductsRepository
-import com.grappim.product_category.domain.model.ProductCategory
+import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.products.network.api.ProductsApi
 import com.grappim.products.network.di.QualifierProductsApi
 import com.grappim.products.network.mapper.toDomain
