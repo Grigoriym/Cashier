@@ -4,6 +4,9 @@ import com.grappim.signup.domain.model.SignUpData
 import java.util.regex.Pattern
 import javax.inject.Inject
 
+private const val PHONE_MAX_LENGTH = 10
+private const val PASSWORD_MIN_LENGTH = 6
+
 class ValidateSignUpFieldsUseCase @Inject constructor(
 
 ) {
@@ -85,7 +88,7 @@ class ValidateSignUpFieldsUseCase @Inject constructor(
         }
 
     private fun isNotPasswordValid(password: String): Boolean {
-        val isValidLength = password.length >= 6
+        val isValidLength = password.length >= PASSWORD_MIN_LENGTH
         val containsDigit = password.toCharArray().any {
             it.isDigit()
         }
@@ -114,7 +117,7 @@ class ValidateSignUpFieldsUseCase @Inject constructor(
             signupData.phone.isEmpty() -> {
                 ValidationTypes.Phone.Empty
             }
-            signupData.phone.length != 10 -> {
+            signupData.phone.length != PHONE_MAX_LENGTH -> {
                 ValidationTypes.Phone.PhoneLength
             }
             else -> {

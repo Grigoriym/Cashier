@@ -21,6 +21,7 @@ class ErrorMappingInterceptor @Inject constructor(
     private val json: Json
 ) : Interceptor {
 
+    @Suppress("SwallowedException", "TooGenericExceptionCaught")
     override fun intercept(chain: Interceptor.Chain): Response =
         try {
             if (!networkHandler.isConnected) throw NetworkException(NetworkException.ERROR_NO_INTERNET)

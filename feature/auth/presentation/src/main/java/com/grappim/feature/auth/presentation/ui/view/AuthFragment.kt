@@ -155,5 +155,4 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
             }
         )
     }
-
 }

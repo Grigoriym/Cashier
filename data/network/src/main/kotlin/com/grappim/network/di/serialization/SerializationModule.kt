@@ -16,5 +16,4 @@ object SerializationModule {
             ignoreUnknownKeys = true
             explicitNulls = false
         }
-
 }

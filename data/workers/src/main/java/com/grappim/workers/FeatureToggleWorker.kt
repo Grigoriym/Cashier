@@ -29,6 +29,7 @@ class FeatureToggleWorker @AssistedInject constructor(
         ): FeatureToggleWorker
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         try {
             val features = featureToggleRepository.getFeatures()
@@ -39,5 +40,4 @@ class FeatureToggleWorker @AssistedInject constructor(
             Result.failure()
         }
     }
-
 }

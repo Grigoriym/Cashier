@@ -12,6 +12,8 @@ style:
 naming:
  FunctionNaming:
   active: false
+ TopLevelPropertyNaming:
+  active: false
 
 complexity:
  TooManyFunctions:
@@ -19,6 +21,10 @@ complexity:
  LongParameterList:
   active: false
  LongMethod:
+  active: false
+
+empty-blocks:
+ EmptyFunctionBlock:
   active: false
 
 ##detekt-cashier-rules:

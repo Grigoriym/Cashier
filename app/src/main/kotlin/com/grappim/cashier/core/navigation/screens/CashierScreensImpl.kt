@@ -8,7 +8,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.grappim.common.di.ActivityScope
 import com.grappim.feature.auth.presentation.ui.view.AuthFragment
 import com.grappim.feature.bag.presentation.ui.view.BagFragment
-import com.grappim.feature.select_info.root_presentation.ui.SelectInfoRootFragment
+import com.grappim.feature.selectinfo.rootpresentation.ui.SelectInfoRootFragment
 import com.grappim.feature.settings.ui.SettingsFragment
 import com.grappim.feature.waybill.presentation.ui.details.ui.view.WaybillDetailsFragment
 import com.grappim.feature.waybill.presentation.ui.list.ui.view.WaybillListFragment
@@ -18,10 +18,10 @@ import com.grappim.feature.waybill.presentation.ui.scanner.ui.WaybillScannerFrag
 import com.grappim.feature.waybill.presentation.ui.search.ui.view.SearchProductFragment
 import com.grappim.menu.ui.view.MenuFragment
 import com.grappim.navigation.screens.CashierScreens
-import com.grappim.payment_method.ui.view.PaymentMethodFragment
-import com.grappim.product_category.presentation.create_edit.ui.view.CreateEditProductCategoryFragment
-import com.grappim.product_category.presentation.list.ui.view.ProductCategoryListFragment
-import com.grappim.product_category.presentation.root.ui.ProductCategoryRootFragment
+import com.grappim.paymentmethod.ui.view.PaymentMethodFragment
+import com.grappim.productcategory.presentation.createedit.ui.view.CreateEditProductCategoryFragment
+import com.grappim.productcategory.presentation.list.ui.view.ProductCategoryListFragment
+import com.grappim.productcategory.presentation.root.ui.ProductCategoryRootFragment
 import com.grappim.products.presentation.createedit.ui.view.CreateEditProductFragment
 import com.grappim.products.presentation.list.ui.view.ProductListFragment
 import com.grappim.products.presentation.root.ui.ProductsRootFragment

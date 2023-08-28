@@ -2,7 +2,7 @@ package com.grappim.products.presentation.createedit.ui.viewmodel
 
 import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.model.ProductUnit
-import com.grappim.product_category.domain.model.ProductCategory
+import com.grappim.productcategory.domain.model.ProductCategory
 import kotlinx.coroutines.flow.StateFlow
 import java.math.BigDecimal
 

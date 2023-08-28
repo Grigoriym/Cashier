@@ -1,5 +1,7 @@
 package com.grappim.product_category.db
 
+import com.grappim.productcategory.db.ProductCategoryEntity
+
 fun createProductCategoryEntity(
     id: Long = 1,
     name: String = "name",

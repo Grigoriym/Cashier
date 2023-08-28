@@ -4,5 +4,4 @@ interface GeneralRepository {
 
     suspend fun clearData()
 
-
 }

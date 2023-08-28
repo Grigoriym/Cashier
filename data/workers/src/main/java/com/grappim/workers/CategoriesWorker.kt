@@ -6,7 +6,7 @@ import androidx.work.WorkerParameters
 import com.grappim.common.asynchronous.di.IoDispatcher
 import com.grappim.logger.logD
 import com.grappim.logger.logE
-import com.grappim.product_category.domain.repository.ProductCategoryRepository
+import com.grappim.productcategory.domain.repository.ProductCategoryRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -32,6 +32,7 @@ class CategoriesWorker @AssistedInject constructor(
         ): CategoriesWorker
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         return@withContext try {
             var newOffset = 0L

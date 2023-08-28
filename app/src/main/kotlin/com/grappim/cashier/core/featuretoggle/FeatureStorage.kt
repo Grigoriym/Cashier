@@ -1,4 +1,3 @@
 package com.grappim.cashier.core.featuretoggle
 
-class FeatureStorage {
-}
+class FeatureStorage

@@ -24,5 +24,4 @@ class TokenAuthenticator @Inject constructor(
             return null
         }
     }
-
 }

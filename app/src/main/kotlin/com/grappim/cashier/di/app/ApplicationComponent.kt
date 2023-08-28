@@ -11,7 +11,7 @@ import com.grappim.common.di.ApplicationContext
 import com.grappim.common.di.DatabaseScope
 import com.grappim.common.di.NetworkScope
 import com.grappim.common.di.SerializationScope
-import com.grappim.date_time.DateTimeModule
+import com.grappim.datetime.DateTimeModule
 import com.grappim.db.di.DatabaseModule
 import com.grappim.feature.auth.network.di.AuthApiModule
 import com.grappim.feature.bag.presentation.di.BagAppModule

@@ -1,7 +1,13 @@
 package com.grappim.workers
 
 import android.content.Context
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
+import androidx.work.ListenableWorker
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.grappim.common.di.AppScope
 import com.grappim.common.di.ApplicationContext
 import javax.inject.Inject
@@ -13,9 +19,6 @@ class WorkerHelper @Inject constructor(
 
     companion object {
         private const val UNIQUE_WORK_MAIN = "unique_work_main"
-
-        private const val UNIQUE_WORK_PRODUCTS = "unique_work_products"
-        private const val UNIQUE_WORK_CATEGORIES = "unique_work_categories"
     }
 
     fun getMainWorker() =

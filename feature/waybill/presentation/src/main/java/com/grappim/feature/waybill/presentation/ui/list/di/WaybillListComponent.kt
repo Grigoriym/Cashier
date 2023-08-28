@@ -3,7 +3,7 @@ package com.grappim.feature.waybill.presentation.ui.list.di
 import com.grappim.common.asynchronous.di.CoroutinesModule
 import com.grappim.common.di.FragmentScope
 import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.date_time.DateTimeModule
+import com.grappim.datetime.DateTimeModule
 import com.grappim.navigation.router.FlowRouter
 import dagger.Component
 

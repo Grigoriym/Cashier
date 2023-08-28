@@ -40,7 +40,7 @@ import com.grappim.uikit.compose.CashierText
 import com.grappim.uikit.compose.ItemProductCompose
 import com.grappim.uikit.compose.button.BigActionButtonCompose
 import com.grappim.uikit.compose.button.StandardFilledButton
-import com.grappim.uikit.compose.text_field.CashierStandardTextField
+import com.grappim.uikit.compose.textfield.CashierStandardTextField
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
 import kotlinx.coroutines.flow.flowOf

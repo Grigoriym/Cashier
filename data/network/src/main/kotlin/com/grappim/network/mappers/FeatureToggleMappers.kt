@@ -1,7 +1,7 @@
 package com.grappim.network.mappers
 
 import com.grappim.domain.model.FeatureToggle
-import com.grappim.network.model.feature_toggle.FeatureToggleDTO
+import com.grappim.network.model.featuretoggle.FeatureToggleDTO
 
 fun FeatureToggleDTO.toDomain(): FeatureToggle =
     FeatureToggle(
