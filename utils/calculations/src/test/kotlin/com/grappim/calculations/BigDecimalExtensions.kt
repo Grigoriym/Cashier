@@ -50,5 +50,4 @@ class BigDecimalExtensionsTest {
         assertFalse(BigDecimal(0.0).isNotEqualsZero())
         assertFalse(BigDecimal(0).isNotEqualsZero())
     }
-
 }

@@ -3,7 +3,6 @@ package com.grappim.feature.selectinfo.rootpresentation.di
 import com.grappim.cashbox.di.SelectCashBoxDeps
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.ComponentDepsKey
-import com.grappim.feature.selectinfo.rootpresentation.di.SelectInfoRootComponent
 import com.grappim.stock.di.SelectStockDeps
 import dagger.Binds
 import dagger.Module

@@ -1,14 +1,11 @@
 plugins {
-    id(Plugins.javaLibrary)
-    kotlin(Plugins.kotlinJvm)
-}
-
-java {
-    sourceCompatibility = ConfigData.sourceCompatibility
-    targetCompatibility = ConfigData.targetCompatibility
+    alias(libs.plugins.cashier.java.library)
 }
 
 dependencies {
-    implementation(Deps.Testing.junit)
-    api(Deps.Testing.kotlinCoroutinesTest)
+    api(libs.junit4)
+    api(libs.kotlinx.coroutines.test)
+    api(libs.turbine)
+    api(libs.mockk)
+    api(libs.kluent)
 }

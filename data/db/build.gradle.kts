@@ -1,38 +1,36 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.kotlinParcelize)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
+    namespace = "com.grappim.db"
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+            arg("room.incremental", "true")
+            arg("room.expandProjection", "true")
+        }
+    }
     buildFeatures {
         buildConfig = true
     }
-
-    defaultConfig {
-        kapt {
-            arguments {
-                arg("room.incremental", "true")
-                arg("room.expandProjection", "true")
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
-        }
-    }
-    namespace = "com.grappim.db"
 }
 
 dependencies {
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonDb))
+    implementation(project(":utils:calculations"))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
+    implementation(project(":domain"))
+    implementation(project(":feature:product-category:db"))
+    implementation(project(":feature:bag:db"))
 
-    implementation(project(Modules.domain))
+    implementation(libs.kotlinx.serialization)
 
-    implementation(project(Modules.featureProductCategoryDb))
-    implementation(project(Modules.featureBagDb))
-
-    implementation(Deps.Kotlin.serialization)
-
-    api(Deps.AndroidX.roomCore)
-    kapt(Deps.AndroidX.roomCompiler)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
 }

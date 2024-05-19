@@ -2,13 +2,11 @@ package com.grappim.signup.presentation.helper
 
 import com.grappim.core.resources.NativeText
 import com.grappim.signup.domain.interactor.validate.ValidateSignUpFieldsUseCase
-import com.grappim.uikit.R
 import com.grappim.signup.presentation.model.SignUpFieldsValidationData
+import com.grappim.uikit.R
 import javax.inject.Inject
 
-class FieldsValidatorHelper @Inject constructor(
-
-) {
+class FieldsValidatorHelper @Inject constructor() {
 
     fun getMessageFromValidationData(
         validationData: ValidateSignUpFieldsUseCase.ValidationData
@@ -33,9 +31,11 @@ class FieldsValidatorHelper @Inject constructor(
             ValidateSignUpFieldsUseCase.ValidationTypes.RepeatPassword.NotEqual -> {
                 NativeText.Resource(R.string.sign_up_repeat_password_not_equals)
             }
+
             ValidateSignUpFieldsUseCase.ValidationTypes.RepeatPassword.Empty -> {
                 NativeText.Resource(R.string.sign_up_password_empty)
             }
+
             else -> {
                 null
             }
@@ -46,9 +46,11 @@ class FieldsValidatorHelper @Inject constructor(
             ValidateSignUpFieldsUseCase.ValidationTypes.Password.Empty -> {
                 NativeText.Resource(R.string.sign_up_password_empty)
             }
+
             ValidateSignUpFieldsUseCase.ValidationTypes.Password.NotValid -> {
                 NativeText.Resource(R.string.sign_up_password_requirements)
             }
+
             else -> {
                 null
             }
@@ -59,9 +61,11 @@ class FieldsValidatorHelper @Inject constructor(
             ValidateSignUpFieldsUseCase.ValidationTypes.Email.Empty -> {
                 NativeText.Resource(R.string.sign_up_email_empty)
             }
+
             ValidateSignUpFieldsUseCase.ValidationTypes.Email.CorrectEmail -> {
                 NativeText.Resource(R.string.sign_up_email_validity)
             }
+
             else -> {
                 null
             }
@@ -72,9 +76,11 @@ class FieldsValidatorHelper @Inject constructor(
             ValidateSignUpFieldsUseCase.ValidationTypes.Phone.Empty -> {
                 NativeText.Resource(R.string.sign_up_phone_empty)
             }
+
             ValidateSignUpFieldsUseCase.ValidationTypes.Phone.PhoneLength -> {
                 NativeText.Resource(R.string.sign_up_phone_size)
             }
+
             else -> {
                 null
             }

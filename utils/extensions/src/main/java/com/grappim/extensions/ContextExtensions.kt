@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.grappim.extensions
 
 import android.content.Context
@@ -35,6 +33,7 @@ fun Context.getErrorMessage(throwable: Throwable): String {
     }
 }
 
+@Suppress("DEPRECATION")
 fun Context.getAppVersion(): String {
     val manager = packageManager
     val info = manager?.getPackageInfo(

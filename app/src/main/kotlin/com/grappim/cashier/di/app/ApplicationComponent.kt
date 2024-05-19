@@ -22,6 +22,7 @@ import com.grappim.network.di.serialization.SerializationModule
 import com.grappim.products.presentation.root.di.ProductsAppModule
 import com.grappim.repository.di.RepositoryModule
 import com.grappim.repository.di.StorageModule
+import com.grappim.workers.di.WorkersBindsModule
 import com.grappim.workers.di.WorkersModule
 import dagger.BindsInstance
 import dagger.Component
@@ -37,6 +38,7 @@ Component(
         StorageModule::class,
         DecimalFormatModule::class,
         CoroutinesModule::class,
+        WorkersBindsModule::class,
         WorkersModule::class,
         AppComponentDepsModule::class,
         SerializationModule::class,
@@ -46,9 +48,6 @@ Component(
         BagAppModule::class,
         ProductsAppModule::class,
         WaybillAppModule::class
-    ],
-    dependencies = [
-
     ]
 )]
 interface ApplicationComponent : RootActivityDeps {
@@ -62,4 +61,3 @@ interface ApplicationComponent : RootActivityDeps {
 
     fun inject(cashierApp: CashierApp)
 }
-

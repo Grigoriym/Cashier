@@ -16,5 +16,4 @@ interface FeatureNavigationBindsModule {
     fun bindFeatureCiceroneHolder(
         featureCiceroneHolderImpl: FlowRouterImpl
     ): FlowRouter
-
 }

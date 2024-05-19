@@ -1,19 +1,7 @@
 plugins {
-  id(Plugins.javaLibrary)
-  kotlin(Plugins.kotlinJvm)
-  kotlin(Plugins.kotlinKapt)
+    alias(libs.plugins.cashier.java.library)
 }
 
 dependencies {
-  implementation(project(Modules.commonLce))
-
-  implementation(Deps.Kotlin.coroutinesCore)
-
-  implementation(Deps.Google.dagger)
-  kapt(Deps.Google.daggerCompiler)
-}
-
-java {
-  sourceCompatibility = ConfigData.sourceCompatibility
-  targetCompatibility = ConfigData.targetCompatibility
+    implementation(project(":common:lce"))
 }

@@ -12,5 +12,4 @@ internal interface SalesBindsModule {
 
     @[Binds IntoMap ViewModelKey(SalesViewModel::class)]
     fun provideAuthViewModel(salesViewModel: SalesViewModel): ViewModel
-
 }

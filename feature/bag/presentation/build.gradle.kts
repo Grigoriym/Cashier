@@ -1,28 +1,39 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.presentationPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+    alias(libs.plugins.cashier.android.library.compose)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
     namespace = "com.grappim.feature.bag.presentation"
 }
 
 dependencies {
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":core"))
+    implementation(project(":domain"))
+    implementation(project(":navigation"))
+    implementation(project(":uikit"))
 
-    implementation(project(Modules.featureBagDomain))
-    implementation(project(Modules.featureBagNetwork))
-    implementation(project(Modules.featureBagRepository))
+    implementation(project(":common:asynchronous"))
+    implementation(project(":common:di"))
+    implementation(project(":common:lce"))
 
-    implementation(Deps.AndroidX.lifecycleLiveData)
-    implementation(Deps.AndroidX.lifecycleViewModel)
-    implementation(Deps.AndroidX.lifecycleRuntime)
+    implementation(project(":utils:calculations"))
+    implementation(project(":utils:date-time"))
+
+    implementation(project(":feature:bag:domain"))
+    implementation(project(":feature:bag:network"))
+    implementation(project(":feature:bag:repository"))
+
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.runtime)
+
+    implementation(libs.androidx.fragment)
+
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.cicerone)
 }

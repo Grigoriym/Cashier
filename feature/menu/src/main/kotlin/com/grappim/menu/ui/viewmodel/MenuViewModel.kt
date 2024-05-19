@@ -9,5 +9,4 @@ abstract class MenuViewModel : BaseViewModel() {
     abstract val menuItems: StateFlow<List<MenuItemPm>>
     abstract val cashierName: StateFlow<String>
     abstract fun onItemClick(menuItemPm: MenuItemPm)
-
 }

@@ -1,40 +1,43 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.presentationPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+    alias(libs.plugins.cashier.android.library.compose)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
     namespace = "com.grappim.products.presentation"
 }
 
 dependencies {
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":core"))
 
-    implementation(project(Modules.featureProductCategoryDomain))
-    implementation(project(Modules.featureProductsDomain))
-    implementation(project(Modules.featureProductsNetwork))
-    implementation(project(Modules.featureProductsRepository))
+    implementation(project(":utils:calculations"))
+    implementation(project(":utils:date-time"))
 
-    implementation(project(Modules.domain))
+    implementation(project(":feature:product-category:domain"))
+    implementation(project(":feature:products:domain"))
+    implementation(project(":feature:products:network"))
+    implementation(project(":feature:products:repository"))
 
-    implementation(Deps.combineTupleFlow)
+    implementation(project(":domain"))
+    implementation(project(":uikit"))
+    implementation(project(":navigation"))
 
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(project(":common:di"))
+    implementation(project(":common:asynchronous"))
+    implementation(project(":common:lce"))
 
-    testImplementation(Deps.Mockk.core)
-    testImplementation(Deps.kluent)
-    testImplementation(Deps.turbine)
-    testImplementation(Deps.Testing.androidCoreTesting)
-    testImplementation(project(Modules.testSharedAndroid))
+    implementation(libs.combineTupleFlow)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.fragment)
+
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.cicerone)
 }

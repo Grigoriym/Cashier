@@ -24,9 +24,7 @@ import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 
-class ScannerFragment : BaseFlowFragment<ScannerViewModel>(
-    R.layout.fragment_scanner
-) {
+class ScannerFragment : BaseFlowFragment<ScannerViewModel>(R.layout.fragment_scanner) {
 
     private val component: ScannerComponent by lazy {
         DaggerScannerComponent

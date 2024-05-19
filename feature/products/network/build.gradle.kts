@@ -1,34 +1,31 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.kotlinSerialization)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
+
     namespace = "com.grappim.products.network"
 }
 
 dependencies {
-    implementation(project(Modules.dataDb))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":domain"))
+    implementation(project(":data:db"))
 
-    implementation(project(Modules.commonNetworkSerializers))
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonAnnotations))
-    implementation(project(Modules.commonAsynchronous))
+    implementation(project(":common:di"))
+    implementation(project(":common:annotations"))
+    implementation(project(":common:network:serializers"))
 
-    implementation(project(Modules.featureBagDomain))
-    implementation(project(Modules.featureBagNetwork))
-    implementation(project(Modules.featureBagDb))
+    implementation(project(":feature:bag:domain"))
+    implementation(project(":feature:bag:network"))
+    implementation(project(":feature:bag:db"))
 
-    implementation(Deps.Kotlin.serialization)
+    implementation(project(":utils:logger"))
 
-    api(Deps.retrofit)
+    implementation(libs.kotlinx.serialization)
 
-    implementation(Deps.AndroidX.pagingCommon)
+    implementation(libs.retrofit)
 
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(libs.androidx.paging.common)
 }

@@ -1,31 +1,27 @@
 plugins {
-  id(Plugins.androidLibrary)
-  id(Plugins.grappimDataPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-  compileOptions {
-    isCoreLibraryDesugaringEnabled = true
-  }
     namespace = "com.grappim.product_category.repository"
 }
 
 dependencies {
-  implementation(project(Modules.dataNetwork))
-  implementation(project(Modules.dataDb))
-  implementation(project(Modules.utilsCalculations))
-  implementation(project(Modules.utilsDateTime))
+    implementation(project(":domain"))
+    implementation(project(":data:network"))
+    implementation(project(":data:db"))
+    implementation(project(":utils:calculations"))
+    implementation(project(":utils:date-time"))
 
-  implementation(project(Modules.commonDi))
-  implementation(project(Modules.commonDb))
-  implementation(project(Modules.commonLce))
-  implementation(project(Modules.commonAsynchronous))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:asynchronous"))
 
-  implementation(project(Modules.featureProductCategoryDomain))
-  implementation(project(Modules.featureProductCategoryDb))
-  implementation(project(Modules.featureProductCategoryNetwork))
+    implementation(project(":feature:product-category:domain"))
+    implementation(project(":feature:product-category:db"))
+    implementation(project(":feature:product-category:network"))
 
-  implementation(Deps.AndroidX.paging)
-
-  coreLibraryDesugaring(Deps.desugar)
+    implementation(libs.androidx.paging.runtime)
 }

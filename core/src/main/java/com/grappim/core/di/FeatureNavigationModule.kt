@@ -24,5 +24,4 @@ object FeatureNavigationModule {
     fun provideFeatureNavigatorHolder(
         @FeatureCicerone cicerone: Cicerone<Router>
     ) = cicerone.getNavigatorHolder()
-
 }

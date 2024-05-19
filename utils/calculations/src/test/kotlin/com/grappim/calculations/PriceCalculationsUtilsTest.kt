@@ -23,5 +23,4 @@ class PriceCalculationsUtilsTest {
             ).compareTo("2".asBigDecimal()) == 0
         )
     }
-
 }

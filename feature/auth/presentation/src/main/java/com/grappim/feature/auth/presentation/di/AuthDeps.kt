@@ -1,5 +1,7 @@
 package com.grappim.feature.auth.presentation.di
 
+import com.grappim.cashier.data.repositoryapi.DataClearHelper
+import com.grappim.cashier.data.workersapi.WorkerHelper
 import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.password.PasswordManager
@@ -9,9 +11,7 @@ import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
 import com.grappim.navigation.router.ActivityRouter
 import com.grappim.navigation.screens.CashierScreens
-import com.grappim.repository.utils.DataClearHelper
 import com.grappim.utils.biometric.BiometricPromptUtils
-import com.grappim.workers.WorkerHelper
 import retrofit2.Retrofit
 
 interface AuthDeps : ComponentDeps {

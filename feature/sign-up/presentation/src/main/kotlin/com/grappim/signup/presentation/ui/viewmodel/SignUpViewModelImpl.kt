@@ -3,10 +3,10 @@ package com.grappim.signup.presentation.ui.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.grappim.common.lce.Try
 import com.grappim.signup.domain.interactor.signup.SignUpParams
-import com.grappim.signup.domain.interactor.signup.SignUpUseCase
 import com.grappim.signup.domain.interactor.validate.ValidateFieldsParams
 import com.grappim.signup.domain.interactor.validate.ValidateSignUpFieldsUseCase
 import com.grappim.signup.domain.model.SignUpData
+import com.grappim.signup.domain.repository.SignUpRepository
 import com.grappim.signup.presentation.helper.FieldsValidatorHelper
 import com.grappim.signup.presentation.model.SignUpFieldsValidationData
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SignUpViewModelImpl @Inject constructor(
-    private val signUpUseCase: SignUpUseCase,
+    private val signUpRepository: SignUpRepository,
     private val validateSignUpFieldsUseCase: ValidateSignUpFieldsUseCase,
     private val fieldsValidatorHelper: FieldsValidatorHelper
 ) : SignUpViewModel() {
@@ -69,7 +69,7 @@ class SignUpViewModelImpl @Inject constructor(
         val password = currentData.password.trim()
 
         _loading.value = true
-        val result = signUpUseCase.signUp(
+        val result = signUpRepository.signUp(
             SignUpParams(
                 phone = phone,
                 email = email,
@@ -81,6 +81,7 @@ class SignUpViewModelImpl @Inject constructor(
             is Try.Success -> {
                 onBackPressed()
             }
+
             is Try.Error -> {
                 _error.value = result.result
             }

@@ -7,9 +7,7 @@ import javax.inject.Inject
 private const val PHONE_MAX_LENGTH = 10
 private const val PASSWORD_MIN_LENGTH = 6
 
-class ValidateSignUpFieldsUseCase @Inject constructor(
-
-) {
+class ValidateSignUpFieldsUseCase @Inject constructor() {
 
     fun execute(params: ValidateFieldsParams): ValidationData? {
         val phoneValidation = validatePhone(params.signupData)
@@ -66,9 +64,11 @@ class ValidateSignUpFieldsUseCase @Inject constructor(
             signupData.repeatPassword != signupData.password -> {
                 ValidationTypes.RepeatPassword.NotEqual
             }
+
             signupData.repeatPassword.isEmpty() -> {
                 ValidationTypes.RepeatPassword.Empty
             }
+
             else -> {
                 null
             }
@@ -79,9 +79,11 @@ class ValidateSignUpFieldsUseCase @Inject constructor(
             signupData.password.isEmpty() -> {
                 ValidationTypes.Password.Empty
             }
+
             isNotPasswordValid(signupData.password) -> {
                 ValidationTypes.Password.NotValid
             }
+
             else -> {
                 null
             }
@@ -104,9 +106,11 @@ class ValidateSignUpFieldsUseCase @Inject constructor(
             signupData.email.isEmpty() -> {
                 ValidationTypes.Email.Empty
             }
+
             signupData.email.isEmailNotValid() -> {
                 ValidationTypes.Email.CorrectEmail
             }
+
             else -> {
                 null
             }
@@ -117,9 +121,11 @@ class ValidateSignUpFieldsUseCase @Inject constructor(
             signupData.phone.isEmpty() -> {
                 ValidationTypes.Phone.Empty
             }
+
             signupData.phone.length != PHONE_MAX_LENGTH -> {
                 ValidationTypes.Phone.PhoneLength
             }
+
             else -> {
                 null
             }
@@ -130,11 +136,11 @@ class ValidateSignUpFieldsUseCase @Inject constructor(
 
     private val emailPattern = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                "\\@" +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                "(" +
-                "\\." +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                ")+"
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+"
     )
 }

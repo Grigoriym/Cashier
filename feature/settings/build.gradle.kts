@@ -1,16 +1,30 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.presentationPlugin)
-    id(Plugins.kotlinParcelize)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.library.compose)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
     namespace = "com.grappim.feature.settings"
+}
+
+dependencies {
+    implementation(project(":core"))
+    implementation(project(":domain"))
+    implementation(project(":uikit"))
+    implementation(project(":navigation"))
+
+    implementation(project(":utils:extensions"))
+
+    implementation(project(":common:asynchronous"))
+    implementation(project(":common:di"))
+
+    implementation(libs.androidx.lifecycle.viewmodel)
+
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.ui)
+
+    implementation(libs.androidx.fragment)
+    implementation(libs.cicerone)
 }

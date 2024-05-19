@@ -1,37 +1,33 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.protobuf) version Versions.protobufPlugin
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+    alias(libs.plugins.protobuf)
 }
 
 android {
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
     namespace = "com.grappim.feature.products.repository"
 }
 
-
 dependencies {
-    implementation(project(Modules.dataNetwork))
-    implementation(project(Modules.dataDb))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":data:db"))
+    implementation(project(":utils:date-time"))
 
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonDb))
-    implementation(project(Modules.commonLce))
-    implementation(project(Modules.commonAsynchronous))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:asynchronous"))
 
-    implementation(project(Modules.featureProductsDomain))
-    implementation(project(Modules.featureProductsNetwork))
-    implementation(project(Modules.featureProductCategoryDomain))
+    implementation(project(":feature:products:domain"))
+    implementation(project(":feature:products:network"))
+    implementation(project(":feature:product-category:domain"))
 
-    implementation(project(Modules.featureBagNetwork))
-    implementation(project(Modules.featureBagDb))
+    implementation(project(":feature:bag:network"))
+    implementation(project(":feature:bag:db"))
 
-    implementation(project(Modules.domain))
+    implementation(project(":domain"))
 
-    implementation(Deps.AndroidX.paging)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.kotlinx.coroutines.core)
 
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(libs.androidx.room.ktx)
 }

@@ -9,7 +9,5 @@ import dagger.Module
 interface AnalyticsBindsModule {
 
     @Binds
-    fun bindCrashAnalytics(
-        crashesAnalyticsImpl: CrashesAnalyticsImpl
-    ): CrashesAnalytics
+    fun bindCrashAnalytics(crashesAnalyticsImpl: CrashesAnalyticsImpl): CrashesAnalytics
 }

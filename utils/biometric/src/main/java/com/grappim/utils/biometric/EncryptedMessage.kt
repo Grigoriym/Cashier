@@ -1,19 +1,13 @@
 package com.grappim.utils.biometric
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class EncryptedMessage(
     val cipherText: ByteArray,
     val initializationVector: ByteArray,
     val savedAt: Long = System.currentTimeMillis()
-) : Parcelable {
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as EncryptedMessage
+        if (other !is EncryptedMessage) return false
 
         if (!cipherText.contentEquals(other.cipherText)) return false
         if (!initializationVector.contentEquals(other.initializationVector)) return false

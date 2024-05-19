@@ -1,20 +1,24 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-
     namespace = "com.grappim.feature.auth.data_repository"
 }
 
 dependencies {
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonDb))
-    implementation(project(Modules.commonLce))
-    implementation(project(Modules.commonAsynchronous))
-    implementation(project(Modules.dataRepository))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:asynchronous"))
+    implementation(project(":data:repository-api"))
+    implementation(project(":utils:logger"))
 
-    implementation(project(Modules.featureAuthDomain))
-    implementation(project(Modules.featureAuthNetwork))
+    implementation(project(":domain"))
+
+    implementation(project(":feature:auth:domain"))
+    implementation(project(":feature:auth:network"))
+
+    implementation(libs.kotlinx.coroutines.core)
 }

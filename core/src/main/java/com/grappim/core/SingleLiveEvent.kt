@@ -4,7 +4,6 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.grappim.logger.logD
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -26,7 +25,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         if (hasActiveObservers()) {
-            logD("Multiple observers registered but only one will be notified of changes.")
+//            logD("Multiple observers registered but only one will be notified of changes.")
         }
         // Observe the internal MutableLiveData
         super.observe(owner, Observer { t ->

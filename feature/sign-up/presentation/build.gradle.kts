@@ -1,24 +1,37 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.presentationPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.library.compose)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
     namespace = "com.grappim.sign_up_presentation"
 }
 
 dependencies {
-    implementation(project(Modules.featureSignUpDomain))
-    implementation(project(Modules.featureSignUpRepository))
+    implementation(project(":feature:sign-up:domain"))
+    implementation(project(":feature:sign-up:repository"))
+    implementation(project(":feature:auth:network"))
+    implementation(project(":data:network"))
+    implementation(project(":core"))
+    implementation(project(":navigation"))
+    implementation(project(":uikit"))
+    implementation(project(":domain"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:di"))
+    implementation(project(":common:asynchronous"))
 
-    implementation(project(Modules.featureAuthNetwork))
+    implementation(libs.retrofit)
 
-    implementation(project(Modules.dataNetwork))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.fragment)
+
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.runtime.livedata)
+
+    implementation(libs.cicerone)
 }

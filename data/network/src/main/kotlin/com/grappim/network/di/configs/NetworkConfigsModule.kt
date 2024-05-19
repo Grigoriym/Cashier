@@ -18,5 +18,4 @@ class NetworkConfigsModule {
         CashierApiUrlProvider(
             cashierApi = BuildConfig.CASHIER_API
         )
-
 }

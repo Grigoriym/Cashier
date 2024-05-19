@@ -11,5 +11,4 @@ class GetBasketItemsUseCase @Inject constructor(
 
     fun execute(): Flow<List<BasketProduct>> =
         bagRepository.getBasketItems()
-
 }

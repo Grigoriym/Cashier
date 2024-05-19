@@ -1,24 +1,8 @@
 plugins {
-  id(Plugins.javaLibrary)
-  kotlin(Plugins.kotlinJvm)
-  kotlin(Plugins.kotlinKapt)
-  id(Plugins.kotlinSerialization)
+    alias(libs.plugins.cashier.java.library)
 }
 
 dependencies {
-  implementation(project(Modules.utilsLogger))
-  implementation(project(Modules.commonDi))
-  implementation(project(Modules.commonLce))
-
-  implementation(Deps.Kotlin.coroutinesCore)
-
-  implementation(Deps.Google.dagger)
-  kapt(Deps.Google.daggerCompiler)
-
-  api(Deps.Kotlin.serialization)
-}
-
-java {
-  sourceCompatibility = ConfigData.sourceCompatibility
-  targetCompatibility = ConfigData.targetCompatibility
+    implementation(project(":common:lce"))
+    implementation(project(":common:di"))
 }

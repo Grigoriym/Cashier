@@ -18,7 +18,7 @@ import com.grappim.feature.waybill.presentation.ui.scanner.ui.WaybillScannerFrag
 import com.grappim.feature.waybill.presentation.ui.search.ui.view.SearchProductFragment
 import com.grappim.menu.ui.view.MenuFragment
 import com.grappim.navigation.screens.CashierScreens
-import com.grappim.paymentmethod.ui.view.PaymentMethodFragment
+import com.grappim.cashier.feature.paymentmethod.presentation.ui.view.PaymentMethodFragment
 import com.grappim.productcategory.presentation.createedit.ui.view.CreateEditProductCategoryFragment
 import com.grappim.productcategory.presentation.list.ui.view.ProductCategoryListFragment
 import com.grappim.productcategory.presentation.root.ui.ProductCategoryRootFragment
@@ -31,9 +31,7 @@ import com.grappim.signup.presentation.ui.view.SignUpFragment
 import javax.inject.Inject
 
 @ActivityScope
-class CashierScreensImpl @Inject constructor(
-
-) : CashierScreens {
+class CashierScreensImpl @Inject constructor() : CashierScreens {
 
     override fun AuthScreen() = FragmentScreen {
         AuthFragment()
@@ -133,5 +131,4 @@ class CashierScreensImpl @Inject constructor(
             Uri.parse("https://github.com/Grigoriym/Cashier")
         )
     }
-
 }

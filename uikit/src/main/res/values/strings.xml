@@ -23,11 +23,11 @@
     <string name="title_price">Price</string>
     <string name="title_price1">Price:</string>
     <string name="title_bag">Bag</string>
-    <string name="title_payment_method">Payment method</string>
+
     <string name="title_item1">Item:</string>
     <string name="title_all">All</string>
-    <string name="title_cash_payment">Cash payment</string>
-    <string name="title_card_payment">Payment by card</string>
+
+
     <string name="title_category">Category</string>
     <string name="title_amount">Amount</string>
     <string name="title_sign_up">Sign up</string>

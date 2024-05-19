@@ -1,26 +1,23 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
     namespace = "com.grappim.feature.waybill.repository"
 }
 
 dependencies {
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(project(":common:di"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:asynchronous"))
 
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonLce))
-    implementation(project(Modules.commonAsynchronous))
+    implementation(project(":utils:date-time"))
+    implementation(project(":utils:logger"))
+    implementation(project(":domain"))
 
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":feature:waybill:network"))
+    implementation(project(":feature:waybill:domain"))
 
-    implementation(project(Modules.featureWaybillNetwork))
-    implementation(project(Modules.featureWaybillDomain))
-
-    implementation(Deps.AndroidX.pagingCommon)
+    implementation(libs.androidx.paging.common)
 }

@@ -5,9 +5,7 @@ import com.grappim.feature.selectinfo.commonnavigation.SelectInfoRootFlow
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoViewModel
 import javax.inject.Inject
 
-class SelectInfoViewModelImpl @Inject constructor(
-
-) : SelectInfoViewModel() {
+class SelectInfoViewModelImpl @Inject constructor() : SelectInfoViewModel() {
 
     override val nextScreen = SingleLiveEvent<SelectInfoRootFlow>()
 

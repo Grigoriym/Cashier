@@ -7,7 +7,7 @@ import com.grappim.feature.selectinfo.rootpresentation.di.SelectInfoRootDeps
 import com.grappim.feature.settings.di.SettingsDeps
 import com.grappim.feature.waybill.presentation.ui.root.di.WaybillRootDeps
 import com.grappim.menu.di.MenuDeps
-import com.grappim.paymentmethod.di.PaymentMethodDeps
+import com.grappim.cashier.feature.paymentmethod.presentation.di.PaymentMethodDeps
 import com.grappim.productcategory.presentation.root.di.ProductCategoryRootDeps
 import com.grappim.products.presentation.root.di.ProductsRootDeps
 import com.grappim.sales.di.SalesDeps
@@ -50,7 +50,7 @@ interface RootActivityDepsModule {
         component: RootActivityComponent
     ): ComponentDeps
 
-    @[Binds IntoMap ComponentDepsKey(PaymentMethodDeps::class)]
+    @[Binds IntoMap ComponentDepsKey(com.grappim.cashier.feature.paymentmethod.presentation.di.PaymentMethodDeps::class)]
     fun bindPaymentMethodDeps(
         component: RootActivityComponent
     ): ComponentDeps

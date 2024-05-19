@@ -1,32 +1,25 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.kotlinSerialization)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
     namespace = "com.grappim.feature.waybill.network"
 }
 
 dependencies {
-    implementation(project(Modules.dataDb))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":domain"))
+    implementation(project(":utils:date-time"))
+    implementation(project(":utils:logger"))
 
-    implementation(project(Modules.commonNetworkSerializers))
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonAnnotations))
-    implementation(project(Modules.commonAsynchronous))
+    implementation(project(":common:di"))
+    implementation(project(":common:annotations"))
+    implementation(project(":common:network:serializers"))
 
-    implementation(project(Modules.featureWaybillDomain))
+    implementation(project(":feature:waybill:domain"))
 
-    implementation(Deps.Kotlin.serialization)
-
-    api(Deps.retrofit)
-
-    implementation(Deps.AndroidX.pagingCommon)
-
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.retrofit)
+    implementation(libs.androidx.paging.common)
 }

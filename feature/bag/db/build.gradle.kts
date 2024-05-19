@@ -1,22 +1,23 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.kotlinParcelize)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-
-    namespace = "com.grappim.feature.bag.db"
+    namespace = "com.grappim.cashier.feature.bag.db"
 }
 
 dependencies {
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonDb))
+    implementation(project(":domain"))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
 
-    implementation(project(Modules.featureBagDomain))
+    implementation(project(":feature:bag:domain"))
 
-    implementation(Deps.Kotlin.coroutinesCore)
+    implementation(libs.kotlinx.coroutines.core)
 
-    api(Deps.AndroidX.roomCore)
-    kapt(Deps.AndroidX.roomCompiler)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
 }

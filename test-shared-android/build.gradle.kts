@@ -1,11 +1,14 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    alias(libs.plugins.cashier.android.library)
+}
+
+android {
+    namespace = "com.grappim.test_shared_android"
 }
 
 dependencies {
-    implementation(Deps.AndroidX.lifecycleLiveData)
-}
-android {
-    namespace = "com.grappim.test_shared_android"
+    implementation(libs.androidx.lifecycle.livedata)
+
+    api(libs.androidx.arch.core.testing)
+    api(libs.androidx.test.core)
 }

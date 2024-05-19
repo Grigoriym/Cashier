@@ -1,14 +1,8 @@
 plugins {
-    id(Plugins.javaLibrary)
-    kotlin(Plugins.kotlinJvm)
-    id(Plugins.kotlinSerialization)
+    alias(libs.plugins.cashier.java.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 dependencies {
-    implementation(Deps.Kotlin.serialization)
-}
-
-java {
-    sourceCompatibility = ConfigData.sourceCompatibility
-    targetCompatibility = ConfigData.targetCompatibility
+    implementation(libs.kotlinx.serialization)
 }

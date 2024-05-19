@@ -4,7 +4,6 @@ import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.common.di.deps.ComponentDepsKey
 import com.grappim.productcategory.presentation.createedit.di.CreateEditProductCategoryDeps
 import com.grappim.productcategory.presentation.list.di.ProductCategoryListDeps
-import com.grappim.productcategory.presentation.root.di.ProductCategoryRootComponent
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

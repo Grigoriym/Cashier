@@ -10,7 +10,7 @@ enum class BiometricsStatus {
             NOT_SET
 
         fun from(status: String?): BiometricsStatus =
-            values().find {
+            entries.find {
                 it.name == status
             } ?: getDefault()
     }

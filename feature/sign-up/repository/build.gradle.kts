@@ -1,17 +1,20 @@
 plugins {
-  id(Plugins.androidLibrary)
-  id(Plugins.grappimDataPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+}
+
+android {
+    namespace = "com.grappim.sign_up_repository"
 }
 
 dependencies {
-  implementation(project(Modules.featureSignUpDomain))
+    implementation(project(":feature:sign-up:domain"))
 
-  implementation(project(Modules.featureAuthNetwork))
+    implementation(project(":feature:auth:network"))
 
-  implementation(project(Modules.commonDi))
-  implementation(project(Modules.commonLce))
-  implementation(project(Modules.commonAsynchronous))
-}
-android {
-    namespace = "com.grappim.sign_up_repository"
+    implementation(project(":domain"))
+
+    implementation(project(":common:di"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:asynchronous"))
 }

@@ -1,24 +1,23 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+}
+
+android {
+    namespace = "com.grappim.core"
 }
 
 dependencies {
-    implementation(project(Modules.uikit))
-    implementation(project(Modules.utilsExtensions))
-    implementation(project(Modules.navigation))
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.dataWorkers))
-    implementation(project(Modules.domain))
+    implementation(project(":uikit"))
+    implementation(project(":domain"))
+    implementation(project(":utils:extensions"))
+    implementation(project(":utils:logger"))
+    implementation(project(":navigation"))
+    implementation(project(":common:di"))
 
-    implementation(Deps.AndroidX.lifecycleLiveData)
-    implementation(Deps.cicerone)
-    implementation(Deps.AndroidX.fragment)
-    implementation(Deps.AndroidX.appCompat)
-
-    implementation(Deps.Google.dagger)
-    kapt(Deps.Google.daggerCompiler)
-}
-android {
-    namespace = "com.grappim.core"
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.fragment)
+    implementation(libs.cicerone)
+    implementation(libs.androidx.lifecycle.livedata)
 }

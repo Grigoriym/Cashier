@@ -8,5 +8,4 @@ interface FeatureToggleLocalRepository {
     val featureToggleData: Flow<FeatureToggle>
 
     suspend fun updateDataStore(featureToggle: FeatureToggle)
-
 }

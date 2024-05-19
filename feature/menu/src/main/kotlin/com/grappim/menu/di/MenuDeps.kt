@@ -7,10 +7,8 @@ import com.grappim.navigation.router.ActivityRouter
 import com.grappim.navigation.screens.CashierScreens
 
 interface MenuDeps : ComponentDeps {
-
     fun generalStorage(): GeneralStorage
     fun appRouter(): ActivityRouter
     fun cashierScreens(): CashierScreens
     fun featureToggleLocalRepository(): FeatureToggleLocalRepository
-
 }

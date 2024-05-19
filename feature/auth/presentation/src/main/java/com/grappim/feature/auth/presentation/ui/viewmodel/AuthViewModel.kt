@@ -4,7 +4,6 @@ import android.content.Intent
 import com.grappim.feature.auth.presentation.model.AuthTextFieldsData
 import com.grappim.feature.auth.presentation.model.BiometricsDialogClickState
 import com.grappim.feature.auth.presentation.model.BiometricsState
-import com.grappim.feature.auth.presentation.model.DevSnackbar
 import com.grappim.core.base.BaseViewModel
 import com.grappim.domain.model.biometrics.BiometricsStatus
 import kotlinx.coroutines.flow.Flow

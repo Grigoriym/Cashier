@@ -47,5 +47,4 @@ object DatabaseModule {
     fun provideProductCategoryDao(
         cashierDatabase: CashierDatabase
     ): ProductCategoryDao = cashierDatabase.productCategoryDao()
-
 }

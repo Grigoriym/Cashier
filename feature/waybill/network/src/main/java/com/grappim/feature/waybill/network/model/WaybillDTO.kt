@@ -1,7 +1,6 @@
 package com.grappim.feature.waybill.network.model
 
 import com.grappim.common.network.serializers.BigDecimalSerializer
-import com.grappim.feature.waybill.domain.model.WaybillStatus
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal

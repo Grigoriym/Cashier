@@ -2,6 +2,7 @@ package com.grappim.feature.auth.presentation.ui.viewmodel
 
 import android.content.Intent
 import androidx.lifecycle.viewModelScope
+import com.grappim.cashier.data.workersapi.WorkerHelper
 import com.grappim.common.lce.Try
 import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.storage.GeneralStorage
@@ -10,9 +11,7 @@ import com.grappim.feature.auth.domain.LoginUseCase
 import com.grappim.feature.auth.presentation.model.AuthTextFieldsData
 import com.grappim.feature.auth.presentation.model.BiometricsDialogClickState
 import com.grappim.feature.auth.presentation.model.BiometricsState
-import com.grappim.feature.auth.presentation.model.DevSnackbar
 import com.grappim.utils.biometric.BiometricPromptUtils
-import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -92,6 +91,7 @@ internal class AuthViewModelImpl @Inject constructor(
                 is Try.Success -> {
                     authSuccess()
                 }
+
                 is Try.Error -> {
                     _error.value = result.result
                 }
@@ -130,6 +130,7 @@ internal class AuthViewModelImpl @Inject constructor(
                         }
                     )
                 }
+
                 BiometricsDialogClickState.Negative -> {
                     generalStorage.setBiometricsStatus(BiometricsStatus.REFUSED)
                     doOnSuccess()

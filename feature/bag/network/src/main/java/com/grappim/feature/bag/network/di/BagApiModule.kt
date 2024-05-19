@@ -12,5 +12,4 @@ object BagApiModule {
     fun provideBasketApi(
         retrofit: Retrofit
     ): BasketApi = retrofit.create(BasketApi::class.java)
-
 }
