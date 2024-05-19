@@ -81,8 +81,9 @@ class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main),
         super.onPause()
     }
 
+    @Suppress("DEPRECATION")
     override fun onBackPressed() {
+        super.onBackPressed()
         activityRouter.onBackPressed()
     }
-
 }
