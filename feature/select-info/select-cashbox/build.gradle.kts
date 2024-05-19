@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.cashbox"
+    namespace = "com.grappim.cashbox"
 }
 
 dependencies {

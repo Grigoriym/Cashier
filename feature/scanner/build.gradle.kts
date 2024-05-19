@@ -32,4 +32,5 @@ dependencies {
         isTransitive = false
     }
     implementation(libs.google.zxing)
+    implementation(libs.cicerone)
 }

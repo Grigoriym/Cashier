@@ -118,7 +118,7 @@ class CashierScreensImpl @Inject constructor() : CashierScreens {
     }
 
     override fun PaymentMethod() = FragmentScreen {
-        com.grappim.cashier.feature.paymentmethod.presentation.ui.view.PaymentMethodFragment()
+        PaymentMethodFragment()
     }
 
     override fun Settings() = FragmentScreen {

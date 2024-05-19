@@ -23,15 +23,21 @@ dependencies {
     implementation(project(":uikit"))
     implementation(project(":navigation"))
 
+    implementation(project(":common:di"))
+    implementation(project(":common:asynchronous"))
+    implementation(project(":common:lce"))
+
     implementation(libs.combineTupleFlow)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.fragment)
 
     implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.cicerone)
 }

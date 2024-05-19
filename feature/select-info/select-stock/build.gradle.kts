@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.stock"
+    namespace = "com.grappim.stock"
 }
 
 dependencies {

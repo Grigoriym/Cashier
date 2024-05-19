@@ -7,4 +7,5 @@ dependencies {
     api(libs.kotlinx.coroutines.test)
     api(libs.turbine)
     api(libs.mockk)
+    api(libs.kluent)
 }

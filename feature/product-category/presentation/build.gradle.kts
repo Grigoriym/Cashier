@@ -33,4 +33,5 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.cicerone)
 }

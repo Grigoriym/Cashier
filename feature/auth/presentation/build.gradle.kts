@@ -28,6 +28,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.fragment)
 
+    implementation(libs.androidx.biometric)
+
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.compose.ui)
@@ -38,4 +40,5 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
 
     implementation(libs.retrofit)
+    implementation(libs.cicerone)
 }

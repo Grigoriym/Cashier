@@ -33,13 +33,10 @@ object NetworkModule {
     private const val TIMEOUT = 30L
 
     @[NetworkScope Provides]
-    fun provideRetrofitBuilder(
-        json: Json
-    ): Retrofit.Builder =
-        Retrofit.Builder()
-            .addConverterFactory(
-                json.asConverterFactory("application/json".toMediaType())
-            )
+    fun provideRetrofitBuilder(json: Json): Retrofit.Builder = Retrofit.Builder()
+        .addConverterFactory(
+            json.asConverterFactory("application/json".toMediaType())
+        )
 
     @[NetworkScope Provides]
     fun provideCashierRetrofit(

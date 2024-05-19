@@ -24,9 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.feature.paymentmethod.domain.model.PaymentMethodType
+import com.grappim.cashier.feature.paymentmethod.presentation.R
 import com.grappim.cashier.feature.paymentmethod.presentation.model.PaymentMethod
-import com.grappim.uikit.R
+import com.grappim.feature.paymentmethod.domain.model.PaymentMethodType
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme

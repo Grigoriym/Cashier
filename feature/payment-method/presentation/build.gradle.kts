@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-
     namespace = "com.grappim.cashier.feature.paymentmethod.presentation"
 }
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":domain"))
     implementation(project(":navigation"))
     implementation(project(":uikit"))
 
@@ -25,8 +25,6 @@ dependencies {
     implementation(project(":feature:payment-method:domain"))
     implementation(project(":feature:bag:domain"))
 
-    implementation(libs.androidx.lifecycle.livedata)
-    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.runtime)
 
     implementation(libs.androidx.fragment)
@@ -36,4 +34,6 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.cicerone)
 }

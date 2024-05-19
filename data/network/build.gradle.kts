@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.network"
+    namespace = "com.grappim.network"
     buildFeatures {
         buildConfig = true
     }

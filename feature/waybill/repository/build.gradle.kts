@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.feature.waybill.repository"
+    namespace = "com.grappim.feature.waybill.repository"
 }
 
 dependencies {

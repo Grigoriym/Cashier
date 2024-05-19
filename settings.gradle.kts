@@ -17,6 +17,9 @@ dependencyResolutionManagement {
     }
 }
 
+// https://issuetracker.google.com/issues/315023802#comment18
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+
 rootProject.name = "Cashier"
 
 include(":app")

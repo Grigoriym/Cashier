@@ -16,7 +16,6 @@ object ApiModule {
         retrofit: Retrofit
     ): CashierApi = retrofit.create(CashierApi::class.java)
 
-
     @[Provides ApiScope QualifierProductCategoryApi]
     fun provideProductCategoryApi(
         retrofit: Retrofit
@@ -26,5 +25,4 @@ object ApiModule {
     fun provideFeatureToggleApi(
         retrofit: Retrofit
     ): FeatureToggleApi = retrofit.create(FeatureToggleApi::class.java)
-
 }

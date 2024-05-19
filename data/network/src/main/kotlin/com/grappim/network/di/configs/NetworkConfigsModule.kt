@@ -1,6 +1,6 @@
 package com.grappim.network.di.configs
 
-import com.grappim.cashier.network.BuildConfig
+import com.grappim.network.BuildConfig
 import dagger.Module
 import dagger.Provides
 

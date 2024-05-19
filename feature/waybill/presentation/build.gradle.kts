@@ -5,12 +5,13 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.feature.waybill.presentation"
+    namespace = "com.grappim.feature.waybill.presentation"
 }
 
 dependencies {
     implementation(project(":common:di"))
     implementation(project(":common:asynchronous"))
+    implementation(project(":common:lce"))
 
     implementation(project(":core"))
     implementation(project(":domain"))
@@ -40,5 +41,12 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.appcompat)
     implementation(libs.viewBinding)
+    implementation(libs.cicerone)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.constraintlayout.compose)
 }

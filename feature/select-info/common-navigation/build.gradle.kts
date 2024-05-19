@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.selectinfo.commonnavigation"
+    namespace = "com.grappim.select_info.common_navigation"
 }
 
 dependencies {

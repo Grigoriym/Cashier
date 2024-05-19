@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.navigation"
+    namespace = "com.grappim.navigation"
 }
 
 dependencies {

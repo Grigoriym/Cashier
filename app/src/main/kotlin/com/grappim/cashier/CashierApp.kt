@@ -19,6 +19,9 @@ class CashierApp : Application(), Configuration.Provider,
     @Inject
     lateinit var workerConfiguration: Configuration
 
+    override val workManagerConfiguration: Configuration
+        get() = workerConfiguration
+
     private val appComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent
             .factory()
@@ -30,9 +33,6 @@ class CashierApp : Application(), Configuration.Provider,
         setupStrictMode()
         appComponent.inject(this)
     }
-
-    override fun getWorkManagerConfiguration(): Configuration =
-        workerConfiguration
 
     private fun setupStrictMode() {
         if (BuildConfig.DEBUG) {

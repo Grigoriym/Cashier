@@ -1,11 +1,11 @@
 package com.grappim.cashier.ui.root
 
 import androidx.lifecycle.viewModelScope
+import com.grappim.cashier.data.workersapi.WorkerHelper
 import com.grappim.core.MainViewModel
 import com.grappim.core.functional.WhileViewSubscribed
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.extensions.Timer
-import com.grappim.workers.WorkerHelper
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject

@@ -10,13 +10,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
+import com.grappim.cashier.feature.paymentmethod.presentation.di.DaggerPaymentMethodComponent
+import com.grappim.cashier.feature.paymentmethod.presentation.di.PaymentMethodComponent
+import com.grappim.cashier.feature.paymentmethod.presentation.ui.viewmodel.PaymentMethodViewModel
 import com.grappim.core.base.BaseFlowFragment
 import com.grappim.core.di.components_deps.findComponentDependencies
 import com.grappim.core.di.vm.MultiViewModelFactory
 import com.grappim.navigation.router.FlowRouter
-import com.grappim.paymentmethod.di.DaggerPaymentMethodComponent
-import com.grappim.cashier.feature.paymentmethod.presentation.di.PaymentMethodComponent
-import com.grappim.cashier.feature.paymentmethod.presentation.ui.viewmodel.PaymentMethodViewModel
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 

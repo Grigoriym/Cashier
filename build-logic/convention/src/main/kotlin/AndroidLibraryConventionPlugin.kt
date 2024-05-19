@@ -24,6 +24,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             dependencies {
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", project(":test-shared"))
+                add("testImplementation", project(":test-shared-android"))
                 add("androidTestImplementation", kotlin("test"))
                 add("androidTestImplementation", project(":test-shared-android"))
                 add("androidTestImplementation", project(":test-shared"))

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.menu"
+    namespace = "com.grappim.menu"
 }
 
 dependencies {
@@ -27,4 +27,5 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
 
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.cicerone)
 }

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.cashier.core"
+    namespace = "com.grappim.core"
 }
 
 dependencies {

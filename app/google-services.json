@@ -1,36 +1,45 @@
 {
   "project_info": {
-    "project_number": "1006827150793",
-    "project_id": "cashier-330106",
-    "storage_bucket": "cashier-330106.appspot.com"
+    "project_number": "325338271020",
+    "project_id": "cashier-10857",
+    "storage_bucket": "cashier-10857.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1006827150793:android:cc42f8443bf54bd7519c18",
+        "mobilesdk_app_id": "1:325338271020:android:f7a5a1ae9cdda01cb07089",
         "android_client_info": {
           "package_name": "com.grappim.cashier"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1006827150793-rb9gtnpm54v3nbjj5pa21dpc6ddre89t.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD5XwAJ2RbOdMSLk2uRonh9Zr5vJSvjBAk"
+          "current_key": "AIzaSyC32-Hov4TtasYyo8QJMwOy3Pf56A4a9mM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1006827150793-rb9gtnpm54v3nbjj5pa21dpc6ddre89t.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325338271020:android:c6069b037175d46fb07089",
+        "android_client_info": {
+          "package_name": "com.grappim.cashier.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC32-Hov4TtasYyo8QJMwOy3Pf56A4a9mM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

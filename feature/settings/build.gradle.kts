@@ -26,4 +26,5 @@ dependencies {
     implementation(libs.androidx.compose.ui)
 
     implementation(libs.androidx.fragment)
+    implementation(libs.cicerone)
 }
