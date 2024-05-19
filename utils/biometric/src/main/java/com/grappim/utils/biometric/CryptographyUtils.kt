@@ -1,9 +1,7 @@
 package com.grappim.utils.biometric
 
-import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import androidx.annotation.RequiresApi
 import java.nio.charset.Charset
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -11,7 +9,6 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
-@RequiresApi(Build.VERSION_CODES.M)
 object CryptographyUtils {
     private const val ANDROID_KEYSTORE = "AndroidKeyStore"
     private const val YOUR_SECRET_KEY_NAME = "Y0UR$3CR3TK3YN@M3"

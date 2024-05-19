@@ -16,5 +16,4 @@ class GetStocksUseCase @Inject constructor(
         selectStockLocalRepository.setStocks(result)
         return Try.Success(result)
     }
-
 }

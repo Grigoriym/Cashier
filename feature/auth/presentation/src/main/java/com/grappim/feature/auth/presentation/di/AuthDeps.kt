@@ -9,14 +9,14 @@ import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
 import com.grappim.navigation.router.ActivityRouter
 import com.grappim.navigation.screens.CashierScreens
-import com.grappim.repository.utils.DataClearHelper
+import com.grappim.cashier.data.repositoryapi.DataClearHelper
 import com.grappim.utils.biometric.BiometricPromptUtils
-import com.grappim.workers.WorkerHelper
+import com.grappim.workers.WorkerHelperImpl
 import retrofit2.Retrofit
 
 interface AuthDeps : ComponentDeps {
 
-    fun workerHelper(): WorkerHelper
+    fun workerHelper(): WorkerHelperImpl
     fun generalRepository(): GeneralRepository
 
     fun appRouter(): ActivityRouter

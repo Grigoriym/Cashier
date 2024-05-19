@@ -13,5 +13,4 @@ class DatabaseConfigsModule {
             debug = BuildConfig.DEBUG,
             buildType = BuildConfig.BUILD_TYPE
         )
-
 }

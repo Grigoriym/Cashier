@@ -24,7 +24,7 @@ class ActivityRouterImpl @Inject constructor(
 
     private val currentFragment: BaseFragment<*>?
         get() = fragmentManager.findFragmentById(R.id.nav_host_fragment)
-                as? BaseFragment<*>
+            as? BaseFragment<*>
 
     override fun setNavigator(navigator: Navigator) {
         navigatorHolder.setNavigator(navigator)

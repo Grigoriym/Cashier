@@ -1,49 +1,31 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.library.compose)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        viewBinding = true
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
     namespace = "com.grappim.uikit"
 }
 
 dependencies {
-    implementation(project(Modules.domain))
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.featureWaybillDomain))
+    implementation(project(":domain"))
+    implementation(project(":utils:calculations"))
+    implementation(project(":feature:waybill:domain"))
 
-    implementation(Deps.Google.material)
-
-    implementation(Deps.zxing) {
+    implementation(libs.google.material)
+    implementation(libs.zxing){
         isTransitive = false
     }
-    implementation(Deps.Google.zxingCore)
+    implementation(libs.google.zxing)
 
-    implementation(Deps.AndroidX.splashScreen)
-    implementation(Deps.AndroidX.swipeRefresh)
-    implementation(Deps.circularProgressBar)
-    implementation(Deps.viewBinding)
+    implementation(libs.androidx.splashscreen)
+    implementation(libs.androidx.swiperefresh)
+    implementation(libs.circularProgressBar)
+    implementation(libs.viewBinding)
 
-    implementation(platform(Deps.Compose.bom))
-    implementation(Deps.Compose.ui)
-    implementation(Deps.Compose.material)
-    implementation(Deps.Compose.toolingPreview)
-    implementation(Deps.Compose.uiTooling)
-    implementation(Deps.Compose.runtime)
-    implementation(Deps.Compose.runtimeLivedata)
-    implementation(Deps.Compose.foundation)
-    implementation(Deps.Compose.foundationLayout)
-    implementation(Deps.Compose.icons)
-    implementation(Deps.Compose.constraint)
-
-    implementation(Deps.Accompanist.systemUiController())
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.constraintlayout.compose)
 }

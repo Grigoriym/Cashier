@@ -17,7 +17,7 @@ import com.grappim.feature.auth.network.models.login.LoginResponseDTO
 import com.grappim.feature.auth.domain.AuthRepository
 import com.grappim.feature.auth.domain.LoginParams
 import com.grappim.logger.logE
-import com.grappim.repository.utils.DataClearHelper
+import com.grappim.cashier.data.repositoryapi.DataClearHelper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

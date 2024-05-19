@@ -1,18 +1,14 @@
 plugins {
-  id(Plugins.androidLibrary)
-  id(Plugins.grappimDataPlugin)
-  id(Plugins.kotlinParcelize)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+}
+
+android {
+    namespace = "com.grappim.common.db"
 }
 
 dependencies {
-  implementation(project(Modules.utilsCalculations))
-  implementation(project(Modules.commonDi))
-
-  implementation(Deps.Kotlin.serialization)
-
-  api(Deps.AndroidX.roomCore)
-  kapt(Deps.AndroidX.roomCompiler)
-}
-android {
-    namespace = "com.grappim.comon.db"
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

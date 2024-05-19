@@ -1,31 +1,23 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.kotlinParcelize)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    sourceSets {
-        getByName("test") {
-            kotlin.setSrcDirs(
-                project(
-                    Modules.featureProductCategoryDomain
-                ).files("src/test/kotlin")
-            )
-        }
-    }
     namespace = "com.grappim.product_category.db"
 }
 
 dependencies {
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonDb))
+    implementation(project(":utils:calculations"))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
 
-    implementation(project(Modules.featureProductCategoryDomain))
+    implementation(project(":feature:product-category:domain"))
 
-    implementation(Deps.Kotlin.serialization)
+    implementation(libs.kotlinx.serialization)
 
-    api(Deps.AndroidX.roomCore)
-    kapt(Deps.AndroidX.roomCompiler)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
 }

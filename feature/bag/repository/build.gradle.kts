@@ -1,25 +1,25 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-    namespace = "com.grappim.feature.bag.repository"
+    namespace = "com.grappim.cashier.feature.bag.repository"
 }
 
 dependencies {
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(project(":domain"))
 
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonLce))
-    implementation(project(Modules.commonAsynchronous))
+    implementation(project(":common:di"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:asynchronous"))
 
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":utils:date-time"))
+    implementation(project(":utils:logger"))
 
-    implementation(project(Modules.featureBagNetwork))
-    implementation(project(Modules.featureBagDomain))
-    implementation(project(Modules.featureBagDb))
+    implementation(project(":feature:bag:network"))
+    implementation(project(":feature:bag:domain"))
+    implementation(project(":feature:bag:db"))
+
+    implementation(libs.kotlinx.coroutines.core)
 }

@@ -1,6 +1,6 @@
 package com.grappim.network.di.configs
 
-import com.grappim.network.BuildConfig
+import com.grappim.cashier.network.BuildConfig
 import dagger.Module
 import dagger.Provides
 
@@ -18,5 +18,4 @@ class NetworkConfigsModule {
         CashierApiUrlProvider(
             cashierApi = BuildConfig.CASHIER_API
         )
-
 }

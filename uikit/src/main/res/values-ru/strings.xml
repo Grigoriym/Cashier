@@ -26,8 +26,6 @@
     <string name="title_payment_method">Payment method</string>
     <string name="title_item1">Item:</string>
     <string name="title_all">All</string>
-    <string name="title_cash_payment">Наличкой</string>
-    <string name="title_card_payment">Картой</string>
     <string name="title_category">Категория</string>
     <string name="title_amount">Amount</string>
     <string name="title_sign_up">Регистрация</string>

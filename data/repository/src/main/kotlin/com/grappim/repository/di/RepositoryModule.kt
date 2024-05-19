@@ -16,7 +16,7 @@ import com.grappim.repository.remote.FeatureToggleRepositoryImpl
 import com.grappim.repository.remote.GeneralRepositoryImpl
 import com.grappim.repository.remote.PaymentRepositoryImpl
 import com.grappim.repository.remote.SelectInfoRemoteRepositoryImpl
-import com.grappim.repository.utils.DataClearHelper
+import com.grappim.cashier.data.repositoryapi.DataClearHelper
 import com.grappim.repository.utils.DataClearHelperImpl
 import dagger.Binds
 import dagger.Module
@@ -27,7 +27,7 @@ interface RepositoryModule {
     @Binds
     fun bindDataClearHelper(
         dataClearHelperImpl: DataClearHelperImpl
-    ): DataClearHelper
+    ): com.grappim.cashier.data.repositoryapi.DataClearHelper
 
     @Binds
     fun bindGeneralRepository(

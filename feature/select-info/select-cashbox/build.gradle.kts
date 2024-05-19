@@ -1,42 +1,37 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.presentationPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.library.compose)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
-    namespace = "com.grappim.cashbox"
+    namespace = "com.grappim.cashier.cashbox"
 }
 
 dependencies {
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":core"))
+    implementation(project(":navigation"))
+    implementation(project(":domain"))
+    implementation(project(":uikit"))
 
-    implementation(project(Modules.featureSelectInfoNavigation))
+    implementation(project(":common:di"))
+    implementation(project(":common:asynchronous"))
+    implementation(project(":common:lce"))
 
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(project(":utils:calculations"))
+    implementation(project(":utils:date-time"))
 
-    implementation(Deps.AndroidX.lifecycleLiveData)
-    implementation(Deps.AndroidX.lifecycleViewModel)
-    implementation(Deps.AndroidX.lifecycleRuntime)
+    implementation(project(":feature:select-info:common-navigation"))
 
-    implementation(Deps.coil)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.runtime)
 
-    implementation(Deps.Compose.paging)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.material)
 
-    testImplementation(Deps.Mockk.core)
-    testImplementation(Deps.kluent)
-    testImplementation(Deps.turbine)
-    testImplementation(Deps.Testing.androidCoreTesting)
-    testImplementation(project(Modules.testSharedAndroid))
+    implementation(libs.coil)
+
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.fragment)
 }

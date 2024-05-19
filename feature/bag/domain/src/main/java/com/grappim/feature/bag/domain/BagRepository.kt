@@ -29,5 +29,4 @@ interface BagRepository {
     suspend fun subtractProduct(
         params: SubtractProductFromBasketParams
     ): Try<BasketProduct, Throwable>
-
 }

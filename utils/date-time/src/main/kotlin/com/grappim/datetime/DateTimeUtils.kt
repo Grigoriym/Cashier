@@ -19,5 +19,4 @@ object DateTimeUtils {
     }
 
     private fun getCurrentZoneOffset(): ZoneOffset = OffsetDateTime.now().offset
-
 }

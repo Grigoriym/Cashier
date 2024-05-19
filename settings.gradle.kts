@@ -1,15 +1,14 @@
 pluginManagement {
-    resolutionStrategy {
-
-    }
+    includeBuild("build-logic")
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
@@ -33,9 +32,6 @@ include(":common:lce")
 include(":common:di")
 include(":common:network:serializers")
 include(":common:annotations")
-
-include(":detekt-rules")
-include(":lint-rules")
 
 include(":data:network")
 include(":data:repository")
@@ -68,7 +64,7 @@ include(":feature:sales")
 include(":feature:menu")
 include(":feature:scanner")
 
-include(":feature:payment-method")
+include(":feature:payment-method:presentation")
 include(":feature:payment-method:domain")
 
 include(":feature:sign-up:presentation")
@@ -95,3 +91,5 @@ include(":feature:select-info:common-navigation")
 
 include(":test-shared")
 include(":test-shared-android")
+include(":data:repository-api")
+include(":data:workers-api")

@@ -1,25 +1,30 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+}
+
+android {
+    namespace = "com.grappim.workers"
 }
 
 dependencies {
-    implementation(project(Modules.dataNetwork))
-    implementation(project(Modules.dataDb))
-    implementation(project(Modules.dataRepository))
+    implementation(project(":domain"))
 
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonDb))
-    implementation(project(Modules.commonAsynchronous))
+    implementation(project(":data:network"))
+    implementation(project(":data:db"))
+    implementation(project(":data:workers-api"))
 
-    implementation(project(Modules.featureProductCategoryDb))
-    implementation(project(Modules.featureProductCategoryDomain))
-    implementation(project(Modules.featureProductsDomain))
+    implementation(project(":utils:logger"))
 
-    implementation(project(Modules.featureAuthNetwork))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
+    implementation(project(":common:asynchronous"))
 
-    implementation(Deps.AndroidX.workManager)
-}
-android {
-    namespace = "com.grappim.workers"
+    implementation(project(":feature:product-category:db"))
+    implementation(project(":feature:product-category:domain"))
+    implementation(project(":feature:products:domain"))
+
+    implementation(project(":feature:auth:network"))
+
+    implementation(libs.androidx.work.runtime)
 }

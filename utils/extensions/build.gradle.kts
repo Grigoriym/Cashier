@@ -1,21 +1,18 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-
     namespace = "com.grappim.extensions"
 }
 
 dependencies {
-    implementation(project(Modules.uikit))
-    implementation(project(Modules.domain))
+    implementation(project(":uikit"))
+    implementation(project(":domain"))
 
-    implementation(Deps.AndroidX.fragment)
-
-    implementation(Deps.AndroidX.lifecycleViewModel)
-    implementation(Deps.AndroidX.lifecycleRuntime)
-
-    implementation(Deps.coil)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.coil)
 }

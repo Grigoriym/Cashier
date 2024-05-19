@@ -1,15 +1,13 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.protobuf) version Versions.protobufPlugin
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+    alias(libs.plugins.protobuf)
 }
 
 android {
+    namespace = "com.grappim.repository"
     buildFeatures {
         buildConfig = true
-    }
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
     }
     defaultConfig {
         buildConfigField(
@@ -18,7 +16,6 @@ android {
             "${extra["cashier_secret_key"]}"
         )
     }
-    namespace = "com.grappim.repository"
 }
 
 protobuf {
@@ -36,43 +33,45 @@ protobuf {
     }
 }
 
-
 dependencies {
-    implementation(project(Modules.dataNetwork))
-    implementation(project(Modules.dataDb))
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":data:network"))
+    implementation(project(":data:repository-api"))
+    implementation(project(":data:db"))
+    implementation(project(":utils:calculations"))
+    implementation(project(":utils:date-time"))
+    implementation(project(":utils:logger"))
 
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.commonDb))
-    implementation(project(Modules.commonLce))
-    implementation(project(Modules.commonAsynchronous))
+    implementation(project(":domain"))
+    implementation(project(":common:di"))
+    implementation(project(":common:db"))
+    implementation(project(":common:lce"))
+    implementation(project(":common:asynchronous"))
 
-    implementation(project(Modules.featureProductCategoryRepository))
-    implementation(project(Modules.featureProductCategoryDb))
-    implementation(project(Modules.featureProductCategoryDomain))
+    implementation(project(":feature:product-category:repository"))
+    implementation(project(":feature:product-category:db"))
+    implementation(project(":feature:product-category:domain"))
 
-    implementation(project(Modules.featureSignUpDomain))
-    implementation(project(Modules.featureSignUpRepository))
+    implementation(project(":feature:sign-up:domain"))
+    implementation(project(":feature:sign-up:repository"))
 
-    implementation(project(Modules.featurePaymentMethodDomain))
-    implementation(project(Modules.featureWaybillDomain))
+    implementation(project(":feature:payment-method:domain"))
+    implementation(project(":feature:waybill:domain"))
 
-    implementation(project(Modules.featureProductsDomain))
-    implementation(project(Modules.featureProductsRepository))
+    implementation(project(":feature:products:domain"))
+    implementation(project(":feature:products:repository"))
 
-    implementation(project(Modules.featureWaybillDomain))
-    implementation(project(Modules.featureWaybillRepository))
+    implementation(project(":feature:waybill:domain"))
+    implementation(project(":feature:waybill:repository"))
 
-    implementation(project(Modules.featureBagDomain))
-    implementation(project(Modules.featureBagRepository))
-    implementation(project(Modules.featureBagDb))
+    implementation(project(":feature:bag:domain"))
+    implementation(project(":feature:bag:repository"))
+    implementation(project(":feature:bag:db"))
+    
+    implementation(libs.androidx.paging.common)
 
-    implementation(Deps.AndroidX.paging)
-    implementation(Deps.AndroidX.dataStore)
-    implementation(Deps.AndroidX.dataStorePreferences)
-    implementation(Deps.Google.protobuf)
-    implementation(Deps.AndroidX.securityCrypto)
-
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.prefs)
+    implementation(libs.androidx.security.crypto)
+    implementation(libs.google.protobuf)
 }

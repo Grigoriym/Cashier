@@ -1,48 +1,44 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.presentationPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.library.compose)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        viewBinding = true
-        compose = true
-    }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.AndroidX.Compose.core
-    }
-    namespace = "com.grappim.feature.waybill.presentation"
+    namespace = "com.grappim.cashier.feature.waybill.presentation"
 }
 
 dependencies {
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":common:di"))
+    implementation(project(":common:asynchronous"))
 
-    implementation(project(Modules.featureWaybillDomain))
-    implementation(project(Modules.featureWaybillNetwork))
-    implementation(project(Modules.featureWaybillRepository))
+    implementation(project(":core"))
+    implementation(project(":domain"))
+    implementation(project(":navigation"))
+    implementation(project(":uikit"))
 
-    implementation(project(Modules.featureProductsDomain))
+    implementation(project(":utils:calculations"))
+    implementation(project(":utils:date-time"))
+    implementation(project(":utils:extensions"))
+    implementation(project(":utils:logger"))
 
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(project(":feature:waybill:domain"))
+    implementation(project(":feature:waybill:network"))
+    implementation(project(":feature:waybill:repository"))
 
-    implementation(Deps.AndroidX.lifecycleLiveData)
-    implementation(Deps.AndroidX.lifecycleViewModel)
-    implementation(Deps.AndroidX.lifecycleRuntime)
+    implementation(project(":feature:products:domain"))
 
-    implementation(Deps.zxing) {
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.runtime)
+
+    implementation(libs.zxing) {
         isTransitive = false
     }
-    implementation(Deps.Google.zxingCore)
-
-    implementation(Deps.viewBinding)
-
-    implementation(Deps.coil)
-
-    implementation(Deps.Compose.paging)
+    implementation(libs.google.zxing)
+    implementation(libs.viewBinding)
+    implementation(libs.coil)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.fragment)
+    implementation(libs.viewBinding)
 }

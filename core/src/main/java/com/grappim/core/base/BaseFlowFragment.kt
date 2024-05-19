@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import com.github.terrakok.cicerone.Navigator
-import com.grappim.navigation.R
+import com.grappim.cashier.navigation.R
 import com.grappim.core.navigation.CashierAppNavigator
 
 abstract class BaseFlowFragment<VM : BaseViewModel> : BaseFragment<VM> {

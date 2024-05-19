@@ -1,18 +1,16 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+}
+
+android {
+    namespace = "com.grappim.cashier.navigation"
 }
 
 dependencies {
-    implementation(project(Modules.uikit))
-    implementation(project(Modules.commonDi))
+    implementation(project(":uikit"))
+    implementation(project(":common:di"))
 
-    implementation(Deps.cicerone)
-    implementation(Deps.AndroidX.fragment)
-
-    implementation(Deps.Google.dagger)
-    kapt(Deps.Google.daggerCompiler)
-}
-android {
-    namespace = "com.grappim.navigation"
+    implementation(libs.cicerone)
+    implementation(libs.androidx.fragment)
 }

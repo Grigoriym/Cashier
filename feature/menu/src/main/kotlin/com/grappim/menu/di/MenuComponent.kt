@@ -32,5 +32,4 @@ internal interface MenuComponent {
 
     fun viewModelFactory(): MultiViewModelFactory
     fun flowRouter(): FlowRouter
-
 }

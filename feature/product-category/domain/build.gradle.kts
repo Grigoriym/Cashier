@@ -1,24 +1,14 @@
 plugins {
-  id(Plugins.javaLibrary)
-  kotlin(Plugins.kotlinJvm)
-  kotlin(Plugins.kotlinKapt)
+    alias(libs.plugins.cashier.java.library)
 }
 
 dependencies {
-  implementation(project(Modules.utilsLogger))
-  implementation(project(Modules.commonDi))
-  implementation(project(Modules.commonLce))
-  implementation(project(Modules.commonAsynchronous))
+  implementation(project(":utils:logger"))
+  implementation(project(":common:di"))
+  implementation(project(":common:lce"))
+  implementation(project(":common:asynchronous"))
 
-  implementation(Deps.Kotlin.coroutinesCore)
+  implementation(libs.kotlinx.coroutines.core)
 
-  implementation(Deps.Google.dagger)
-  kapt(Deps.Google.daggerCompiler)
-
-  implementation(Deps.AndroidX.pagingCommon)
-}
-
-java {
-  sourceCompatibility = ConfigData.sourceCompatibility
-  targetCompatibility = ConfigData.targetCompatibility
+  implementation(libs.androidx.paging.common)
 }

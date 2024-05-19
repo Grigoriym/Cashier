@@ -1,99 +1,95 @@
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import commons.buildTypes.BuildTypeDebug
-import commons.buildTypes.BuildTypeRelease
-import io.gitlab.arturbosch.detekt.Detekt
-
-buildscript {
-    dependencies {
-        classpath(BuildPlugins.androidGradle)
-
-        classpath(BuildPlugins.kotlin)
-        classpath(BuildPlugins.kotlinSerialization)
-
-        classpath(BuildPlugins.googleServices)
-        classpath(BuildPlugins.crashlytics)
-    }
-}
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
-    id(Plugins.scabbard) version Versions.scabbard
-    id(Plugins.gradleVersions) version Versions.gradleVersions
-    id(Plugins.detekt) version Versions.detekt
-//    id(Plugins.depGraphGenerator) version Versions.graphGenerator
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.gms.googleServices) apply false
+    alias(libs.plugins.hilt.android) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.ktlint)
+
+    alias(libs.plugins.jacocoAggregationResults)
+    alias(libs.plugins.jacocoAggregationCoverage)
 }
 
-//dependencyGraphGenerator {
-//
-//}
-
-scabbard {
-    enabled = false
-    outputFormat = "png"
+allprojects {
+    tasks.withType<Test> {
+        testLogging {
+            exceptionFormat = TestExceptionFormat.FULL
+            showCauses = true
+            showExceptions = true
+            showStackTraces = true
+        }
+    }
 }
 
 subprojects {
     apply {
-        plugin(Plugins.detekt)
-        plugin(Plugins.scabbard)
-//        plugin(Plugins.depGraphGenerator)
-    }
-
-    scabbard {
-        enabled = false
-        outputFormat = "png"
+        plugin("io.gitlab.arturbosch.detekt")
+        plugin("org.jlleitschuh.gradle.ktlint")
     }
 
     detekt {
-        buildUponDefaultConfig = true
-        toolVersion = Versions.detekt
-        config.setFrom("${rootDir}/config/detekt/detekt.yml")
-        source.setFrom("src/main/java", "src/main/kotlin")
         parallel = true
-
-        ignoreFailures = true
-        ignoredBuildTypes = listOf(BuildTypeRelease.name, BuildTypeDebug.name)
-        disableDefaultRuleSets = false
+        config.setFrom(rootProject.files("config/detekt/detekt.yml"))
+        allRules = false
     }
 
-}
+    ktlint {
+        android = true
+        ignoreFailures = false
+        reporters {
+            reporter(ReporterType.HTML)
+        }
+    }
 
-dependencies {
-    detektPlugins(Deps.Detekt.formatting)
-    detektPlugins(project(Modules.detektRules))
-}
-
-tasks.withType<Detekt>().configureEach {
-    jvmTarget = ConfigData.kotlinJvmTarget
-
-    dependsOn("${Modules.detektRules}:assemble")
-
-    reports {
-        xml.required.set(true)
-        xml.outputLocation.set(file("build/reports/detekt.xml"))
-
-        html.required.set(true)
-        html.outputLocation.set(file("build/reports/detekt.html"))
+    tasks.withType<Test> {
+        failFast = true
+        reports {
+            html.required.set(true)
+        }
+        testLogging {
+            events(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
+            showStandardStreams = true
+            exceptionFormat = TestExceptionFormat.FULL
+            showExceptions = true
+        }
     }
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+private val coverageExclusions = listOf(
+    "**/R.class",
+    "**/R\$*.class",
+    "**/BuildConfig.*",
+    "**/Manifest*.*",
+
+    "**/*Module*.*",
+    "**/*Module",
+    "**/*Dagger*.*",
+    "**/*Hilt*.*",
+    "**/*GeneratedInjector",
+    "**/*HiltComponents*",
+    "**/*_HiltModules*",
+    "**/*_Provide*",
+    "**/*_Factory*",
+    "**/*_ComponentTreeDeps",
+    "**/*_Impl*",
+    "**/*DefaultImpls*"
+).flatMap {
+    listOf(
+        "$it.class",
+        "${it}Kt.class",
+        "$it\$*.class"
+    )
 }
 
-fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
-    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
-    val isStable = stableKeyword || regex.matches(version)
-    return isStable.not()
-}
-
-tasks.withType<DependencyUpdatesTask> {
-    rejectVersionIf {
-        isNonStable(candidate.version) && !isNonStable(currentVersion)
+testAggregation {
+    coverage {
+        exclude(coverageExclusions)
     }
-
-    checkForGradleUpdate = true
-    outputFormatter = "json"
-    outputDir = "build/dependencyUpdates"
-    reportfileName = "report"
 }

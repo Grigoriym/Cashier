@@ -1,27 +1,17 @@
 plugins {
-  id(Plugins.androidLibrary)
-  id(Plugins.grappimDataPlugin)
-  id(Plugins.kotlinSerialization)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-  compileOptions {
-    isCoreLibraryDesugaringEnabled = true
-  }
     namespace = "com.grappim.product_category.network"
 }
 
 dependencies {
-  implementation(project(Modules.dataDb))
-  implementation(project(Modules.utilsDateTime))
-  
-  implementation(project(Modules.commonDi))
-  implementation(project(Modules.commonAnnotations))
-  implementation(project(Modules.commonAsynchronous))
+    implementation(project(":common:annotations"))
 
-  implementation(Deps.Kotlin.serialization)
+    implementation(libs.kotlinx.serialization)
 
-  api(Deps.retrofit)
-
-  coreLibraryDesugaring(Deps.desugar)
+    implementation(libs.retrofit)
 }

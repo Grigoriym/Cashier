@@ -12,7 +12,7 @@ import com.grappim.navigation.router.FlowRouter
 import com.grappim.test_shared.CoroutineRule
 import com.grappim.test_shared_android.getOrAwaitValue
 import com.grappim.utils.biometric.BiometricPromptUtils
-import com.grappim.workers.WorkerHelper
+import com.grappim.workers.WorkerHelperImpl
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
@@ -40,7 +40,7 @@ class AuthViewModelImplTest {
     var rule: TestRule = InstantTaskExecutorRule()
 
     @RelaxedMockK
-    lateinit var workerHelperMock: WorkerHelper
+    lateinit var workerHelperMock: WorkerHelperImpl
 
     @MockK
     lateinit var loginUseCaseMock: LoginUseCase

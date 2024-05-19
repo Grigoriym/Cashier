@@ -1,20 +1,17 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
-    id(Plugins.kotlinParcelize)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-
     namespace = "com.grappim.utils.biometric"
 }
 
 dependencies {
-    implementation(project(Modules.commonDi))
-    implementation(project(Modules.uikit))
+    implementation(project(":common:di"))
+    implementation(project(":utils:logger"))
+    implementation(project(":uikit"))
 
-    api(Deps.AndroidX.biometricKotlin)
-    implementation(Deps.Google.dagger)
-    implementation(Deps.Google.daggerCompiler)
-    implementation(Deps.AndroidX.appCompat)
+    implementation(libs.androidx.biometric)
+    implementation(libs.androidx.appcompat)
 }

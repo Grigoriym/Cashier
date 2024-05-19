@@ -3,9 +3,7 @@ package com.grappim.calculations
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class PriceCalculationsUtils @Inject constructor(
-
-) {
+class PriceCalculationsUtils @Inject constructor() {
 
     fun calculateOnChangingMarkup(
         purchasePrice: BigDecimal,
@@ -50,6 +48,6 @@ class PriceCalculationsUtils @Inject constructor(
     ): BigDecimal =
         ((sellingPrice.subtract(purchasePrice))
             .divide(purchasePrice, mcEven())
-          ).multiply(bigDecimalHundred())
+            ).multiply(bigDecimalHundred())
 
 }

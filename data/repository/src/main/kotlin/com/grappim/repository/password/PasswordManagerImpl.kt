@@ -10,9 +10,7 @@ import javax.crypto.spec.SecretKeySpec
 import javax.inject.Inject
 
 @AppScope
-class PasswordManagerImpl @Inject constructor(
-
-) : PasswordManager {
+class PasswordManagerImpl @Inject constructor() : PasswordManager {
 
     override fun encryptPassword(password: String): String {
         return AES256.encrypt(password, BuildConfig.cashier_secret_key)

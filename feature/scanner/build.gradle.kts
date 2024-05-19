@@ -1,32 +1,35 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.presentationPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-        viewBinding = true
-    }
     namespace = "com.grappim.scanner"
 }
 
 dependencies {
-    implementation(project(Modules.utilsCalculations))
-    implementation(project(Modules.utilsDateTime))
+    implementation(project(":utils:calculations"))
+    implementation(project(":utils:date-time"))
+    implementation(project(":utils:logger"))
+    implementation(project(":utils:extensions"))
+    implementation(project(":core"))
+    implementation(project(":uikit"))
+    implementation(project(":navigation"))
+    implementation(project(":common:di"))
 
-    implementation(Deps.AndroidX.lifecycleLiveData)
-    implementation(Deps.AndroidX.lifecycleViewModel)
-    implementation(Deps.AndroidX.lifecycleRuntime)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.runtime)
 
-    implementation(Deps.viewBinding)
-    implementation(Deps.coil)
-    implementation(Deps.recyclerViewAnimators)
-    implementation(Deps.combineTupleLiveData)
+    implementation(libs.androidx.fragment)
 
-    implementation(Deps.zxing) {
+    implementation(libs.viewBinding)
+    implementation(libs.coil)
+    implementation(libs.recyclerViewAnimators)
+    implementation(libs.combineTupleLiveData)
+
+    implementation(libs.zxing) {
         isTransitive = false
     }
-    implementation(Deps.Google.zxingCore)
-
+    implementation(libs.google.zxing)
 }

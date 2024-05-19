@@ -1,16 +1,16 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimDataPlugin)
-    id(Plugins.kotlinSerialization)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-
     namespace = "com.grappim.feature.auth.data_network"
 }
 
 dependencies {
-    implementation(project(Modules.commonDi))
-    implementation(Deps.Kotlin.serialization)
-    api(Deps.retrofit)
+    implementation(project(":common:di"))
+
+    implementation(libs.retrofit)
+    implementation(libs.kotlinx.serialization)
 }

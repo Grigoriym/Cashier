@@ -1,21 +1,12 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.grappimAndroidLibraryPlugin)
+    alias(libs.plugins.cashier.android.library)
+    alias(libs.plugins.cashier.android.dagger)
 }
 android {
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
     namespace = "com.grappim.date_time"
 }
 
 dependencies {
-    implementation(project(Modules.commonDi))
-
-    implementation(Deps.Kotlin.time)
-
-    implementation(Deps.Google.dagger)
-    kapt(Deps.Google.daggerCompiler)
-
-    coreLibraryDesugaring(Deps.desugar)
+    implementation(project(":common:di"))
+    implementation(libs.kotlinx.datetime)
 }

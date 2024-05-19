@@ -39,7 +39,6 @@ Edit Product | Sales
 - [Chucker](https://github.com/ChuckerTeam/chucker) - A simple in-app HTTP inspector for Android OkHttp clients.
 - [Coil](https://github.com/coil-kt/coil) - An image loading library for Android backed by Kotlin Coroutines.
 - [Android Debug Database](https://github.com/amitshekhariitbhu/Android-Debug-Database) - A powerful library for debugging databases and shared preferences in Android applications
-- [Scabbard](https://arunkumar9t2.github.io/scabbard/) - A tool to visualize and understand your Dagger 2 dependency graph.
 - [Cicerone](https://github.com/terrakok/Cicerone) - is a lightweight library that makes the navigation in an Android app easy.
 
 ### TODOs
