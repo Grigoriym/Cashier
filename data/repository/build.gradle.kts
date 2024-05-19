@@ -1,8 +1,24 @@
+import java.io.File
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.cashier.android.library)
     alias(libs.plugins.cashier.android.dagger)
     alias(libs.plugins.protobuf)
 }
+
+fun readProperties(propertiesFile: File): Properties {
+    val properties = Properties()
+    propertiesFile.inputStream().use { fis ->
+        properties.load(fis)
+    }
+    return properties
+}
+
+val appPropertiesFile = File("./app.properties")
+val appProperties = readProperties(appPropertiesFile)
+
+val cashierSecretKey = appProperties.getProperty("cashier_secret_key")
 
 android {
     namespace = "com.grappim.repository"
@@ -13,7 +29,7 @@ android {
         buildConfigField(
             "String",
             "cashier_secret_key",
-            "${extra["cashier_secret_key"]}"
+            cashierSecretKey
         )
     }
 }
