@@ -1,7 +1,7 @@
 package com.grappim.feature.waybill.presentation.ui.root.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.domain.repository.WaybillLocalRepository
 import kotlinx.coroutines.flow.StateFlow

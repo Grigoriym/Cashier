@@ -1,7 +1,7 @@
 package com.grappim.menu.di
 
 import androidx.lifecycle.ViewModel
-import com.grappim.core.di.vm.ViewModelKey
+import com.grappim.cashier.core.di.vm.ViewModelKey
 import com.grappim.menu.ui.viewmodel.MenuViewModel
 import com.grappim.menu.ui.viewmodel.MenuViewModelImpl
 import dagger.Binds
@@ -13,5 +13,4 @@ internal interface MenuBindsModule {
 
     @[Binds IntoMap ViewModelKey(MenuViewModel::class)]
     fun provideAuthViewModel(authViewModel: MenuViewModelImpl): ViewModel
-
 }

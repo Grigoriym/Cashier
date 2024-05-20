@@ -1,13 +1,14 @@
 package com.grappim.feature.waybill.presentation.ui.product.di
 
 import com.grappim.calculations.DecimalFormatModule
-import com.grappim.common.asynchronous.di.CoroutinesModule
-import com.grappim.common.di.FragmentScope
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.common.async.di.CoroutinesModule
+import com.grappim.cashier.common.di.FragmentScope
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.navigation.router.FlowRouter
 import dagger.Component
 
-@[FragmentScope Component(
+@[
+FragmentScope Component(
     modules = [
         WaybillProductBindsModule::class,
         CoroutinesModule::class,
@@ -16,7 +17,8 @@ import dagger.Component
     dependencies = [
         WaybillProductDeps::class
     ]
-)]
+)
+]
 interface WaybillProductComponent {
 
     fun multiViewModelFactory(): MultiViewModelFactory

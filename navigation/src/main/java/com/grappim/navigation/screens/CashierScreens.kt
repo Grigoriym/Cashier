@@ -1,3 +1,5 @@
+@file:Suppress("FunctionNaming")
+
 package com.grappim.navigation.screens
 
 import android.os.Bundle
@@ -5,34 +7,34 @@ import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 interface CashierScreens {
-    fun AuthScreen(): FragmentScreen
-    fun SignUpScreen(): FragmentScreen
-    fun MenuScreen(): FragmentScreen
-    fun SelectInfoRoot(): FragmentScreen
+    fun authScreen(): FragmentScreen
+    fun signUpScreen(): FragmentScreen
+    fun menuScreen(): FragmentScreen
+    fun selectInfoRoot(): FragmentScreen
 
-    fun Products(): FragmentScreen
-    fun ProductsList(): FragmentScreen
-    fun ProductsCreate(args: Bundle): FragmentScreen
-    fun ProductsEdit(args: Bundle): FragmentScreen
+    fun products(): FragmentScreen
+    fun productsList(): FragmentScreen
+    fun productsCreate(args: Bundle): FragmentScreen
+    fun productsEdit(args: Bundle): FragmentScreen
 
-    fun ProductCategories(fromProduct: Boolean? = false): FragmentScreen
-    fun ProductCategoriesList(): FragmentScreen
-    fun ProductCategoryCreate(args: Bundle?): FragmentScreen
-    fun ProductCategoryEdit(args: Bundle): FragmentScreen
+    fun productCategories(fromProduct: Boolean? = false): FragmentScreen
+    fun productCategoriesList(): FragmentScreen
+    fun productCategoryCreate(args: Bundle?): FragmentScreen
+    fun productCategoryEdit(args: Bundle): FragmentScreen
 
-    fun Scanner(args: Bundle?): FragmentScreen
+    fun scanner(args: Bundle?): FragmentScreen
 
-    fun Waybill(): FragmentScreen
-    fun WaybillList(): FragmentScreen
-    fun WaybillDetails(): FragmentScreen
-    fun WaybillProduct(args: Bundle): FragmentScreen
-    fun WaybillSearch(): FragmentScreen
-    fun WaybillScanner(): FragmentScreen
+    fun waybill(): FragmentScreen
+    fun waybillList(): FragmentScreen
+    fun waybillDetails(): FragmentScreen
+    fun waybillProduct(args: Bundle): FragmentScreen
+    fun waybillSearch(): FragmentScreen
+    fun waybillScanner(): FragmentScreen
 
-    fun Sales(): FragmentScreen
-    fun Bag(): FragmentScreen
-    fun PaymentMethod(): FragmentScreen
+    fun sales(): FragmentScreen
+    fun bag(): FragmentScreen
+    fun paymentMethod(): FragmentScreen
 
-    fun Settings(): FragmentScreen
-    fun GithubSrc(): ActivityScreen
+    fun settings(): FragmentScreen
+    fun githubSrc(): ActivityScreen
 }

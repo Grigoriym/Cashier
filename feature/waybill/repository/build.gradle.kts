@@ -10,7 +10,7 @@ android {
 dependencies {
     implementation(project(":common:di"))
     implementation(project(":common:lce"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
 
     implementation(project(":utils:date-time"))
     implementation(project(":utils:logger"))

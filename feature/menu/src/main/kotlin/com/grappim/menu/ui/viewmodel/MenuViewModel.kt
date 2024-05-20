@@ -1,6 +1,6 @@
 package com.grappim.menu.ui.viewmodel
 
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.base.BaseViewModel
 import com.grappim.menu.model.MenuItemPm
 import kotlinx.coroutines.flow.StateFlow
 

@@ -3,9 +3,9 @@ package com.grappim.feature.waybill.presentation.ui.details.ui.viewmodel
 import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.grappim.common.lce.Try
-import com.grappim.core.functional.WhileViewSubscribed
-import com.grappim.core.utils.BundleArgsHelper
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.core.functional.WhileViewSubscribed
+import com.grappim.cashier.core.utils.BundleArgsHelper
 import com.grappim.feature.waybill.domain.interactor.conductWaybill.ConductWaybillParams
 import com.grappim.feature.waybill.domain.interactor.conductWaybill.ConductWaybillUseCase
 import com.grappim.feature.waybill.domain.interactor.getWaybillProducts.GetWaybillProductsParams

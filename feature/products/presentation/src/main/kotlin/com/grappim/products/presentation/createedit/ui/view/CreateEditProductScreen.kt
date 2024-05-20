@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.grappim.cashier.feature.productcategory.domain.model.ProductCategory
 import com.grappim.domain.model.ProductUnit
-import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.products.presentation.model.CreateEditFlow
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
@@ -601,7 +601,7 @@ private fun CategoryDropDownSectionPreview() {
 
 @Composable
 @Preview(
-    showBackground = true,
+    showBackground = true
 )
 private fun ProductUnitSegmentPreview() {
     CashierTheme {
@@ -618,7 +618,7 @@ private fun ProductUnitSegmentPreview() {
 
 @Composable
 @Preview(
-    showBackground = true,
+    showBackground = true
 )
 private fun QuantitySegmentPreview() {
     CashierTheme {
@@ -632,7 +632,7 @@ private fun QuantitySegmentPreview() {
 
 @Composable
 @Preview(
-    showBackground = true,
+    showBackground = true
 )
 private fun ProductUnitChipPreview() {
     CashierTheme {
@@ -659,7 +659,7 @@ private fun ShowPricesSegmentPreview() {
 
 @Composable
 @Preview(
-    showBackground = true,
+    showBackground = true
 )
 private fun CreateEditProductScreenMainSegmentPreview() {
     CashierTheme {

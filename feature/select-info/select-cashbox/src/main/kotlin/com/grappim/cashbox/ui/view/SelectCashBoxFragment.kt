@@ -11,11 +11,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.grappim.cashbox.di.DaggerSelectCashBoxComponent
 import com.grappim.cashbox.ui.viewmodel.SelectCashBoxViewModel
-import com.grappim.core.base.BaseFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.router.FlowRouter
+import com.grappim.cashier.core.base.BaseFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoViewModel
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.theme.CashierTheme
 
 class SelectCashBoxFragment : BaseFragment<SelectCashBoxViewModel>() {

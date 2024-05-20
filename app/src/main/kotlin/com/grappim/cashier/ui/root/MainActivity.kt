@@ -6,21 +6,21 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.github.terrakok.cicerone.Navigator
 import com.grappim.cashier.R
+import com.grappim.cashier.common.di.ComponentDependenciesProvider
+import com.grappim.cashier.common.di.deps.HasComponentDeps
+import com.grappim.cashier.core.MainViewModel
+import com.grappim.cashier.core.base.BaseActivity
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.navigation.CashierAppNavigator
 import com.grappim.cashier.di.rootactivity.DaggerRootActivityComponent
 import com.grappim.cashier.di.rootactivity.RootActivityComponent
-import com.grappim.common.di.ComponentDependenciesProvider
-import com.grappim.common.di.deps.HasComponentDeps
-import com.grappim.core.MainViewModel
-import com.grappim.core.base.BaseActivity
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.core.navigation.CashierAppNavigator
 import com.grappim.logger.logD
 import com.grappim.navigation.router.ActivityRouter
 import kotlinx.coroutines.launch
 
-class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main),
-    HasComponentDeps {
+class MainActivity :
+    BaseActivity<MainViewModel>(R.layout.activity_main), HasComponentDeps {
 
     private val component: RootActivityComponent by lazy {
         DaggerRootActivityComponent

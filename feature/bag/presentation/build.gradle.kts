@@ -13,8 +13,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":navigation"))
     implementation(project(":uikit"))
+    implementation(project(":common:async"))
 
-    implementation(project(":common:asynchronous"))
     implementation(project(":common:di"))
     implementation(project(":common:lce"))
 

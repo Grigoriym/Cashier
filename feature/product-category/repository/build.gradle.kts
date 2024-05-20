@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.product_category.repository"
+    namespace = "com.grappim.cashier.feature.productcategory.repository"
 }
 
 dependencies {
@@ -17,7 +17,7 @@ dependencies {
     implementation(project(":common:di"))
     implementation(project(":common:db"))
     implementation(project(":common:lce"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
 
     implementation(project(":feature:product-category:domain"))
     implementation(project(":feature:product-category:db"))

@@ -15,8 +15,8 @@ dependencies {
     implementation(project(":navigation"))
 
     implementation(project(":utils:extensions"))
+    implementation(project(":common:async"))
 
-    implementation(project(":common:asynchronous"))
     implementation(project(":common:di"))
 
     implementation(libs.androidx.lifecycle.viewmodel)

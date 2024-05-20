@@ -21,22 +21,25 @@ class WorkersFactory @Inject constructor(
         appContext: Context,
         workerClassName: String,
         workerParameters: WorkerParameters
-    ): ListenableWorker? =
-        when (workerClassName) {
-            ProductsWorker::class.java.name -> {
-                productsWorkerFactory.create(appContext, workerParameters)
-            }
-            CategoriesWorker::class.java.name -> {
-                categoriesWorkerFactory.create(appContext, workerParameters)
-            }
-            SendTokenRefreshWorker::class.java.name -> {
-                sendTokenRefreshWorkerFactory.create(appContext, workerParameters)
-            }
-            FeatureToggleWorker::class.java.name -> {
-                featureToggleWorkerFactory.create(appContext, workerParameters)
-            }
-            else -> {
-                null
-            }
+    ): ListenableWorker? = when (workerClassName) {
+        ProductsWorker::class.java.name -> {
+            productsWorkerFactory.create(appContext, workerParameters)
         }
+
+        CategoriesWorker::class.java.name -> {
+            categoriesWorkerFactory.create(appContext, workerParameters)
+        }
+
+        SendTokenRefreshWorker::class.java.name -> {
+            sendTokenRefreshWorkerFactory.create(appContext, workerParameters)
+        }
+
+        FeatureToggleWorker::class.java.name -> {
+            featureToggleWorkerFactory.create(appContext, workerParameters)
+        }
+
+        else -> {
+            null
+        }
+    }
 }

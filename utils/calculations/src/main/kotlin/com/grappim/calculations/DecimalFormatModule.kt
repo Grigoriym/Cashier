@@ -19,13 +19,10 @@ object DecimalFormatModule {
     private const val PATTERN_FULL_OPTIONAL_DECIMAL = "###,###.##"
 
     @[Provides]
-    fun provideDecimalFormatSymbols(): DecimalFormatSymbols =
-        DecimalFormatSymbols()
+    fun provideDecimalFormatSymbols(): DecimalFormatSymbols = DecimalFormatSymbols()
 
     @[Provides DecimalFormatSimple]
-    fun provideSimpleDecimal(
-        decimalFormatSymbols: DecimalFormatSymbols
-    ): DecimalFormat {
+    fun provideSimpleDecimal(decimalFormatSymbols: DecimalFormatSymbols): DecimalFormat {
         val dfs = decimalFormatSymbols.apply {
             decimalSeparator = '.'
         }
@@ -33,9 +30,7 @@ object DecimalFormatModule {
     }
 
     @[Provides DecimalFormatFullOptionalDecimal]
-    fun getFullOptionalDecimal(
-        decimalFormatSymbols: DecimalFormatSymbols
-    ): DecimalFormat {
+    fun getFullOptionalDecimal(decimalFormatSymbols: DecimalFormatSymbols): DecimalFormat {
         val dfs = decimalFormatSymbols.apply {
             decimalSeparator = '.'
             groupingSeparator = ' '

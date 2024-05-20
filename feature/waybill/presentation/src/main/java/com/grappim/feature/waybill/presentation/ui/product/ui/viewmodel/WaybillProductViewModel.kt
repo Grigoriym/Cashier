@@ -1,7 +1,7 @@
 package com.grappim.feature.waybill.presentation.ui.product.ui.viewmodel
 
 import androidx.compose.runtime.State
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.base.BaseViewModel
 import com.grappim.domain.model.Product
 import com.grappim.feature.waybill.domain.model.WaybillProduct
 import com.grappim.feature.waybill.presentation.ui.product.model.WaybillProductStates

@@ -1,7 +1,7 @@
 package com.grappim.feature.waybill.presentation.ui.details.ui.viewmodel
 
 import androidx.paging.PagingData
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.base.BaseViewModel
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.domain.model.WaybillProduct
 import kotlinx.coroutines.flow.Flow

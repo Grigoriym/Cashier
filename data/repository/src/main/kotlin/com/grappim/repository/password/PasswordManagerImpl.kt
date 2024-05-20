@@ -1,7 +1,7 @@
 package com.grappim.repository.password
 
 import android.util.Base64
-import com.grappim.common.di.AppScope
+import com.grappim.cashier.common.di.AppScope
 import com.grappim.domain.password.PasswordManager
 import com.grappim.repository.BuildConfig
 import javax.crypto.Cipher
@@ -21,10 +21,7 @@ class PasswordManagerImpl @Inject constructor() : PasswordManager {
         private const val TRANSFORMATION = "AES/CBC/PKCS5Padding"
 
         @Suppress("MagicNumber")
-        private fun cipher(
-            encryptionMode: Int,
-            secretKey: String
-        ): Cipher {
+        private fun cipher(encryptionMode: Int, secretKey: String): Cipher {
             if (secretKey.length != 32) error("SecretKey length is not 32 chars")
 
             val cipher = Cipher.getInstance(TRANSFORMATION)

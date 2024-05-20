@@ -8,9 +8,9 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.grappim.cashier.common.di.AppScope
+import com.grappim.cashier.common.di.ApplicationContext
 import com.grappim.cashier.data.workersapi.WorkerHelper
-import com.grappim.common.di.AppScope
-import com.grappim.common.di.ApplicationContext
 import javax.inject.Inject
 
 @AppScope
@@ -22,9 +22,9 @@ class WorkerHelperImpl @Inject constructor(
         private const val UNIQUE_WORK_MAIN = "unique_work_main"
     }
 
-    private fun getMainWorker() =
-        WorkManager.getInstance(context)
-            .getWorkInfosForUniqueWorkLiveData(UNIQUE_WORK_MAIN)
+    @Suppress("UnusedPrivateMember")
+    private fun getMainWorker() = WorkManager.getInstance(context)
+        .getWorkInfosForUniqueWorkLiveData(UNIQUE_WORK_MAIN)
 
     override fun startMainWorkers() {
         WorkManager.getInstance(context)

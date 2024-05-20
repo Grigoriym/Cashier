@@ -23,7 +23,7 @@ fun SettingsSwitch(
     title: @Composable () -> Unit,
     subtitle: @Composable (() -> Unit)? = null,
     switchValue: Boolean,
-    onCheckedChange: (Boolean) -> Unit = {},
+    onCheckedChange: (Boolean) -> Unit = {}
 ) {
     Surface {
         Row(
@@ -34,7 +34,7 @@ fun SettingsSwitch(
                     role = Role.Switch,
                     onValueChange = { onCheckedChange(it) }
                 ),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             SettingsTileIcon(icon = icon)
             SettingsTileTexts(title = title, subtitle = subtitle)

@@ -37,7 +37,8 @@ fun BigActionButtonCompose(
         animationSpec = tween(
             durationMillis = 200,
             easing = LinearEasing
-        ), label = ""
+        ),
+        label = ""
     )
     Surface(
         modifier = modifier

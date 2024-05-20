@@ -3,8 +3,8 @@ package com.grappim.feature.selectinfo.rootpresentation.ui
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.grappim.cashbox.ui.view.SelectCashBoxFragment
-import com.grappim.logger.logD
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoRootFlow
+import com.grappim.logger.logD
 import com.grappim.stock.ui.view.SelectStockFragment
 
 class SelectInfoRootPagerAdapter(

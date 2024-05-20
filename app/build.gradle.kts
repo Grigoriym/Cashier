@@ -143,7 +143,7 @@ dependencies {
     implementation(project(":feature:sign-up:repository"))
 
     implementation(project(":common:di"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
 
     implementation(project(":domain"))
     implementation(project(":core"))

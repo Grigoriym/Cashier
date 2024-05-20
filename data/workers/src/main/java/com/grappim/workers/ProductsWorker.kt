@@ -3,7 +3,7 @@ package com.grappim.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.cashier.common.async.di.IoDispatcher
 import com.grappim.feature.products.domain.repository.ProductsRepository
 import com.grappim.logger.logD
 import com.grappim.logger.logE
@@ -26,10 +26,7 @@ class ProductsWorker @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(
-            appContext: Context,
-            parameters: WorkerParameters
-        ): ProductsWorker
+        fun create(appContext: Context, parameters: WorkerParameters): ProductsWorker
     }
 
     @Suppress("TooGenericExceptionCaught")

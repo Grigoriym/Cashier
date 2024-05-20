@@ -1,7 +1,7 @@
 package com.grappim.network.interceptors
 
-import com.grappim.common.annotations.RequestWithAuthToken
-import com.grappim.common.di.AppScope
+import com.grappim.cashier.common.annotations.RequestWithAuthToken
+import com.grappim.cashier.common.di.AppScope
 import com.grappim.domain.storage.GeneralStorage
 import okhttp3.Interceptor
 import okhttp3.Request

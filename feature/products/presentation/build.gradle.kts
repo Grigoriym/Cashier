@@ -24,7 +24,7 @@ dependencies {
     implementation(project(":navigation"))
 
     implementation(project(":common:di"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
     implementation(project(":common:lce"))
 
     implementation(libs.combineTupleFlow)

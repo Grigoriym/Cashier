@@ -128,10 +128,7 @@ private fun StockListSegment(
     selectedStock: Stock?
 ) {
     val pullRefreshState = rememberPullRefreshState(isRefreshing, { onRefresh() })
-    Box(
-        modifier = Modifier
-            .pullRefresh(pullRefreshState),
-    ) {
+    Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
         LazyColumn(modifier = modifier) {
             items(stockItems) { item ->
                 StockListItem(
@@ -150,13 +147,9 @@ private fun StockListSegment(
 }
 
 @Composable
-private fun StockListItem(
-    stock: Stock,
-    selectedStock: Stock?,
-    onStockClick: (Stock) -> Unit
-) {
+private fun StockListItem(stock: Stock, selectedStock: Stock?, onStockClick: (Stock) -> Unit) {
     val isItemSelected = stock.name == selectedStock?.name &&
-            stock.merchantId == selectedStock.merchantId
+        stock.merchantId == selectedStock.merchantId
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -194,13 +187,8 @@ private fun StockListItem(
 }
 
 @Composable
-fun StockProgressItem(
-    item: StockProgressItem,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
+fun StockProgressItem(item: StockProgressItem, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
         val color = if (item.isActive) {
             CashierBlue
         } else {
@@ -282,20 +270,14 @@ private fun SelectStockScreenPreview() {
                     "stock2Id"
                 )
             ),
-            onRefresh = {
-
-            },
+            onRefresh = {},
             selectedStock = Stock(
                 "Point of sale",
                 "me",
                 "stockId"
             ),
-            selectStock = {
-
-            },
-            onNextClick = {
-
-            },
+            selectStock = {},
+            onNextClick = {},
             isLoading = true
         )
     }

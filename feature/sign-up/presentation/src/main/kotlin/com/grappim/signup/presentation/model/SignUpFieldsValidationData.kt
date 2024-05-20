@@ -1,6 +1,6 @@
 package com.grappim.signup.presentation.model
 
-import com.grappim.core.resources.NativeText
+import com.grappim.cashier.core.resources.NativeText
 
 data class SignUpFieldsValidationData(
     val phoneNumberErrorText: NativeText? = null,
@@ -9,12 +9,11 @@ data class SignUpFieldsValidationData(
     val repeatPasswordErrorText: NativeText? = null
 ) {
     companion object {
-        fun empty() =
-            SignUpFieldsValidationData(
-                phoneNumberErrorText = null,
-                emailErrorText = null,
-                passwordErrorText = null,
-                repeatPasswordErrorText = null
-            )
+        fun empty() = SignUpFieldsValidationData(
+            phoneNumberErrorText = null,
+            emailErrorText = null,
+            passwordErrorText = null,
+            repeatPasswordErrorText = null
+        )
     }
 }

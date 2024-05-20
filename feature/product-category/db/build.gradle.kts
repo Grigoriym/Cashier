@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.product_category.db"
+    namespace = "com.grappim.cashier.feature.productcategory.db"
 }
 
 dependencies {

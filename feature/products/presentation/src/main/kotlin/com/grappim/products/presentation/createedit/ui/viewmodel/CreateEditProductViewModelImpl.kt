@@ -6,8 +6,11 @@ import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.PriceCalculationsUtils
 import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
-import com.grappim.common.lce.Try
-import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.core.functional.WhileViewSubscribed
+import com.grappim.cashier.feature.productcategory.domain.interactor.getCategoryList.GetCategoryListInteractorParams
+import com.grappim.cashier.feature.productcategory.domain.interactor.getCategoryList.GetCategoryListUseCase
+import com.grappim.cashier.feature.productcategory.domain.model.ProductCategory
 import com.grappim.domain.model.Product
 import com.grappim.domain.model.ProductUnit
 import com.grappim.domain.storage.GeneralStorage
@@ -15,9 +18,6 @@ import com.grappim.feature.products.domain.interactor.createProduct.CreateProduc
 import com.grappim.feature.products.domain.interactor.createProduct.CreateProductUseCase
 import com.grappim.feature.products.domain.interactor.editProduct.EditProductParams
 import com.grappim.feature.products.domain.interactor.editProduct.EditProductUseCase
-import com.grappim.productcategory.domain.interactor.getCategoryList.GetCategoryListInteractorParams
-import com.grappim.productcategory.domain.interactor.getCategoryList.GetCategoryListUseCase
-import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.products.presentation.model.CreateEditFlow
 import com.zhuinden.flowcombinetuplekt.combineTuple
 import dagger.assisted.Assisted
@@ -131,7 +131,8 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = WhileViewSubscribed,
-        initialValue = "${productToEdit?.amount ?: bigDecimalOne()} ${productToEdit?.unit ?: ProductUnit.PIECE}"
+        initialValue = "${productToEdit?.amount ?: bigDecimalOne()} " +
+            "${productToEdit?.unit ?: ProductUnit.PIECE}"
     )
 
     override fun dismissDropDown() {
@@ -229,6 +230,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
                 is Try.Success -> {
                     onBackPressed()
                 }
+
                 is Try.Error -> {
                     _error.value = result.result
                 }
@@ -258,6 +260,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
                 is Try.Success -> {
                     onBackPressed()
                 }
+
                 is Try.Error -> {
                     _error.value = result.result
                 }
@@ -270,6 +273,7 @@ class CreateEditProductViewModelImpl @AssistedInject constructor(
             CreateEditFlow.CREATE -> {
                 createProduct()
             }
+
             CreateEditFlow.EDIT -> {
                 editProduct()
             }

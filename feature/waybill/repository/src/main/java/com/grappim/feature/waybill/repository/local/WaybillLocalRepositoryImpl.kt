@@ -1,9 +1,9 @@
 package com.grappim.feature.waybill.repository.local
 
-import com.grappim.common.di.AppScope
-import com.grappim.datetime.DateTimeIsoLocalDateTime
-import com.grappim.datetime.DateTimeStandard
-import com.grappim.datetime.getZonedDateTimeWithFormatter
+import com.grappim.cashier.common.di.AppScope
+import com.grappim.cashier.datetime.DateTimeIsoLocalDateTime
+import com.grappim.cashier.datetime.DateTimeStandard
+import com.grappim.cashier.datetime.getZonedDateTimeWithFormatter
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.domain.repository.WaybillLocalRepository
 import com.grappim.logger.logD
@@ -42,7 +42,7 @@ class WaybillLocalRepositoryImpl @Inject constructor(
     }
 
     override fun setActualDate(text: String) {
-        logD("actualDate: $text")//10.11.2021 12:18
+        logD("actualDate: $text") // 10.11.2021 12:18
 
         val parsedDate = text.getZonedDateTimeWithFormatter(false, dtfStandard)
         logD("parsedDate: $parsedDate")

@@ -1,7 +1,7 @@
 package com.grappim.feature.waybill.presentation.ui.root.di
 
 import androidx.lifecycle.ViewModel
-import com.grappim.core.di.vm.ViewModelKey
+import com.grappim.cashier.core.di.vm.ViewModelKey
 import com.grappim.feature.waybill.presentation.ui.root.ui.viewmodel.WaybillRootViewModel
 import com.grappim.feature.waybill.presentation.ui.root.ui.viewmodel.WaybillRootViewModelImpl
 import dagger.Binds

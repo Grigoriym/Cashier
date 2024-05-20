@@ -8,7 +8,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.contentColorFor
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,10 +42,10 @@ fun BaseTopAppBar(
             colors = ButtonDefaults.textButtonColors(
                 backgroundColor = backgroundColor
             ),
-            onClick = backButtonAction,
+            onClick = backButtonAction
         ) {
             CashierIcon(
-                imageVector = Icons.Filled.ArrowBackIos,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                 tint = CashierBlue
             )
         }
@@ -66,8 +66,6 @@ private fun PreviewBaseTopAppBar() {
     BaseTopAppBar(
         modifier = Modifier,
         toolbarTitle = stringResource(id = R.string.title_menu),
-        backButtonAction = {
-
-        }
+        backButtonAction = {}
     )
 }

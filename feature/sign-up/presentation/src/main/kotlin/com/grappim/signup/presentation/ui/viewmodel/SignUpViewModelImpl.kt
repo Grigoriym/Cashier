@@ -1,7 +1,7 @@
 package com.grappim.signup.presentation.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.grappim.common.lce.Try
+import com.grappim.cashier.common.lce.Try
 import com.grappim.signup.domain.interactor.signup.SignUpParams
 import com.grappim.signup.domain.interactor.validate.ValidateFieldsParams
 import com.grappim.signup.domain.interactor.validate.ValidateSignUpFieldsUseCase

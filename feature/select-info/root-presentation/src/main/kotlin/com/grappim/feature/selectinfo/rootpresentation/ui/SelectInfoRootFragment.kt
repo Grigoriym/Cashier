@@ -5,11 +5,11 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.grappim.common.di.ComponentDependenciesProvider
-import com.grappim.common.di.deps.HasComponentDeps
-import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.common.di.ComponentDependenciesProvider
+import com.grappim.cashier.common.di.deps.HasComponentDeps
+import com.grappim.cashier.core.base.BaseFlowFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.feature.select_info.root_presentation.R
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoRootFlow
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoViewModel
@@ -17,9 +17,9 @@ import com.grappim.feature.selectinfo.rootpresentation.di.DaggerSelectInfoRootCo
 import com.grappim.feature.selectinfo.rootpresentation.di.SelectInfoRootComponent
 import com.grappim.navigation.router.FlowRouter
 
-class SelectInfoRootFragment : BaseFlowFragment<SelectInfoViewModel>(
-    R.layout.fragment_select_info_root
-), HasComponentDeps {
+class SelectInfoRootFragment :
+    BaseFlowFragment<SelectInfoViewModel>(R.layout.fragment_select_info_root),
+    HasComponentDeps {
 
     private val component: SelectInfoRootComponent by lazy {
         DaggerSelectInfoRootComponent
@@ -60,12 +60,14 @@ class SelectInfoRootFragment : BaseFlowFragment<SelectInfoViewModel>(
     }
 
     private fun initOnBackPressedDispatcher() {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     onBackPressed()
                 }
-            })
+            }
+        )
     }
 
     override fun onBackPressed() {

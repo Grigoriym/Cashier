@@ -23,11 +23,7 @@ fun CashierIcon(
 }
 
 @Composable
-fun CashierIcon(
-    modifier: Modifier = Modifier,
-    painter: Painter,
-    tint: Color = CashierBlue
-) {
+fun CashierIcon(modifier: Modifier = Modifier, painter: Painter, tint: Color = CashierBlue) {
     Icon(
         modifier = modifier,
         painter = painter,

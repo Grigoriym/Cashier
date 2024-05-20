@@ -9,7 +9,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.cashier.common.async.di.IoDispatcher
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
@@ -36,10 +36,7 @@ class SendTokenRefreshWorker @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(
-            apContext: Context,
-            workerParameters: WorkerParameters
-        ): SendTokenRefreshWorker
+        fun create(apContext: Context, workerParameters: WorkerParameters): SendTokenRefreshWorker
     }
 
     @Suppress("TooGenericExceptionCaught")

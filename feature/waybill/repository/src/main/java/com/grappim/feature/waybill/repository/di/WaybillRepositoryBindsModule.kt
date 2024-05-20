@@ -15,7 +15,5 @@ interface WaybillRepositoryBindsModule {
     ): WaybillLocalRepository
 
     @Binds
-    fun bindWaybillRepository(
-        waybillRepositoryImpl: WaybillRepositoryImpl
-    ): WaybillRepository
+    fun bindWaybillRepository(waybillRepositoryImpl: WaybillRepositoryImpl): WaybillRepository
 }

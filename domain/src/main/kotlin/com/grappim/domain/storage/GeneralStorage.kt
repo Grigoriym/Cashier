@@ -34,5 +34,4 @@ interface GeneralStorage {
 
     suspend fun clearData()
     suspend fun setBiometricsStatus(status: BiometricsStatus)
-
 }

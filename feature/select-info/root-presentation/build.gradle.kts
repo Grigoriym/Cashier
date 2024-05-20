@@ -21,5 +21,6 @@ dependencies {
 
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.constraintlayout)
     implementation(libs.cicerone)
 }

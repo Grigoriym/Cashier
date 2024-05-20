@@ -2,8 +2,8 @@ package com.grappim.feature.waybill.presentation.ui.root.di
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.grappim.common.di.ApplicationContext
-import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.cashier.common.di.ApplicationContext
+import com.grappim.cashier.common.di.deps.ComponentDeps
 import com.grappim.feature.products.domain.repository.ProductsRepository
 import com.grappim.feature.waybill.domain.repository.WaybillLocalRepository
 import com.grappim.feature.waybill.domain.repository.WaybillRepository

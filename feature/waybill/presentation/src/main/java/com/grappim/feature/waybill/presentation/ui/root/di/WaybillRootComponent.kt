@@ -1,13 +1,13 @@
 package com.grappim.feature.waybill.presentation.ui.root.di
 
 import androidx.fragment.app.FragmentManager
-import com.grappim.common.asynchronous.di.CoroutinesModule
-import com.grappim.common.di.ComponentDependenciesProvider
-import com.grappim.common.di.FeatureFragmentManager
-import com.grappim.common.di.FeatureScope
-import com.grappim.core.di.FeatureNavigationBindsModule
-import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.datetime.DateTimeModule
+import com.grappim.cashier.common.async.di.CoroutinesModule
+import com.grappim.cashier.common.di.ComponentDependenciesProvider
+import com.grappim.cashier.common.di.FeatureFragmentManager
+import com.grappim.cashier.common.di.FeatureScope
+import com.grappim.cashier.core.di.FeatureNavigationBindsModule
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.datetime.DateTimeModule
 import com.grappim.feature.waybill.presentation.ui.details.di.WaybillDetailsDeps
 import com.grappim.feature.waybill.presentation.ui.list.di.WaybillListDeps
 import com.grappim.feature.waybill.presentation.ui.product.di.WaybillProductDeps
@@ -16,7 +16,8 @@ import com.grappim.feature.waybill.presentation.ui.search.di.SearchWaybillProduc
 import dagger.BindsInstance
 import dagger.Component
 
-@[FeatureScope Component(
+@[
+FeatureScope Component(
     modules = [
         WaybillBindsModule::class,
         WaybillRootDepsModule::class,
@@ -27,7 +28,8 @@ import dagger.Component
     dependencies = [
         WaybillRootDeps::class
     ]
-)]
+)
+]
 interface WaybillRootComponent :
     WaybillListDeps,
     WaybillDetailsDeps,

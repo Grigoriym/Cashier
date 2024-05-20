@@ -2,11 +2,11 @@ package com.grappim.products.presentation.list.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
+import com.grappim.cashier.feature.productcategory.domain.interactor.getCategoryList.GetCategoryListUseCase
+import com.grappim.cashier.feature.productcategory.domain.model.ProductCategory
+import com.grappim.cashier.testshared.CoroutineRule
 import com.grappim.domain.model.Product
 import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryUseCase
-import com.grappim.productcategory.domain.interactor.getCategoryList.GetCategoryListUseCase
-import com.grappim.productcategory.domain.model.ProductCategory
-import com.grappim.test_shared.CoroutineRule
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -23,7 +23,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 
-class ProductListViewModelImplTes {
+class ProductListViewModelImplTest {
 
     private companion object {
         private const val SEARCH_QUERY = "query"

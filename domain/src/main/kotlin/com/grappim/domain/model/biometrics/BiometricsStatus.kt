@@ -6,12 +6,10 @@ enum class BiometricsStatus {
     REFUSED;
 
     companion object {
-        fun getDefault(): BiometricsStatus =
-            NOT_SET
+        fun getDefault(): BiometricsStatus = NOT_SET
 
-        fun from(status: String?): BiometricsStatus =
-            entries.find {
-                it.name == status
-            } ?: getDefault()
+        fun from(status: String?): BiometricsStatus = entries.find {
+            it.name == status
+        } ?: getDefault()
     }
 }

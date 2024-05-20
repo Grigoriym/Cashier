@@ -5,10 +5,7 @@ import javax.inject.Inject
 
 class PriceCalculationsUtils @Inject constructor() {
 
-    fun calculateOnChangingMarkup(
-        purchasePrice: BigDecimal,
-        markup: BigDecimal
-    ): BigDecimal =
+    fun calculateOnChangingMarkup(purchasePrice: BigDecimal, markup: BigDecimal): BigDecimal =
         purchasePrice.add(
             purchasePrice
                 .multiply(markup, mcEven())
@@ -32,22 +29,17 @@ class PriceCalculationsUtils @Inject constructor() {
     fun calculateOnChangingSellingPrice(
         sellingPrice: BigDecimal,
         purchasePrice: BigDecimal
-    ): BigDecimal =
-        if (purchasePrice.isNotEqualsZero()) {
-            calculateMarkup(
-                sellingPrice,
-                purchasePrice
-            )
-        } else {
-            bigDecimalZero()
-        }
+    ): BigDecimal = if (purchasePrice.isNotEqualsZero()) {
+        calculateMarkup(
+            sellingPrice,
+            purchasePrice
+        )
+    } else {
+        bigDecimalZero()
+    }
 
-    fun calculateMarkup(
-        sellingPrice: BigDecimal,
-        purchasePrice: BigDecimal,
-    ): BigDecimal =
-        ((sellingPrice.subtract(purchasePrice))
-            .divide(purchasePrice, mcEven())
-            ).multiply(bigDecimalHundred())
-
+    fun calculateMarkup(sellingPrice: BigDecimal, purchasePrice: BigDecimal): BigDecimal =
+        ((sellingPrice.subtract(purchasePrice)).divide(purchasePrice, mcEven())).multiply(
+            bigDecimalHundred()
+        )
 }

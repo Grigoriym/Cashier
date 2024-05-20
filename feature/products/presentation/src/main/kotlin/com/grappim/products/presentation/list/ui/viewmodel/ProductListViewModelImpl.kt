@@ -2,13 +2,13 @@ package com.grappim.products.presentation.list.ui.viewmodel
 
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
-import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.cashier.core.functional.WhileViewSubscribed
+import com.grappim.cashier.feature.productcategory.domain.interactor.getCategoryList.GetCategoryListInteractorParams
+import com.grappim.cashier.feature.productcategory.domain.interactor.getCategoryList.GetCategoryListUseCase
+import com.grappim.cashier.feature.productcategory.domain.model.ProductCategory
 import com.grappim.domain.model.Product
 import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryParams
 import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryUseCase
-import com.grappim.productcategory.domain.interactor.getCategoryList.GetCategoryListInteractorParams
-import com.grappim.productcategory.domain.interactor.getCategoryList.GetCategoryListUseCase
-import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.products.presentation.BundleArgsKeys
 import com.grappim.products.presentation.model.CreateEditFlow
 import com.zhuinden.flowcombinetuplekt.combineTuple
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class ProductListViewModelImpl @Inject constructor(
     getCategoryListUseCase: GetCategoryListUseCase,
-    private val getProductsByQueryUseCase: GetProductsByQueryUseCase,
+    private val getProductsByQueryUseCase: GetProductsByQueryUseCase
 ) : ProductListViewModel() {
 
     override val categories: StateFlow<List<ProductCategory>> =
@@ -38,11 +38,11 @@ class ProductListViewModelImpl @Inject constructor(
 
     override val selectedIndex = MutableStateFlow(0)
 
-    private val _selectedCategory = MutableStateFlow<ProductCategory?>(null)
+    private val selectedCategory = MutableStateFlow<ProductCategory?>(null)
 
     override val products: Flow<List<Product>> = combineTuple(
         query,
-        _selectedCategory
+        selectedCategory
     ).flatMapLatest { (query, category) ->
         getProductsByQueryUseCase.execute(
             GetProductsByQueryParams(
@@ -61,7 +61,7 @@ class ProductListViewModelImpl @Inject constructor(
 
     override fun showEditProduct(product: Product) {
         val args = Bundle(2).apply {
-            putSerializable(BundleArgsKeys.ARG_KEY_PRODUCT, product)
+//            putSerializable(BundleArgsKeys.ARG_KEY_PRODUCT, product)
             putSerializable(BundleArgsKeys.ARG_KEY_FLOW, CreateEditFlow.EDIT)
         }
         flowRouter.goToEditProduct(args)
@@ -75,7 +75,7 @@ class ProductListViewModelImpl @Inject constructor(
 
     override fun setCategory(category: ProductCategory, index: Int) {
         viewModelScope.launch {
-            _selectedCategory.value = category
+            selectedCategory.value = category
             selectedIndex.value = index
         }
     }

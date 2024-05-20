@@ -1,23 +1,23 @@
 package com.grappim.feature.auth.repository.remote
 
-import com.grappim.common.asynchronous.di.IoDispatcher
-import com.grappim.common.asynchronous.doOnError
-import com.grappim.common.asynchronous.doOnSuccess
-import com.grappim.common.asynchronous.mapSuccess
-import com.grappim.common.asynchronous.runOperationCatching
-import com.grappim.common.di.FeatureScope
-import com.grappim.common.lce.Try
+import com.grappim.cashier.common.async.di.IoDispatcher
+import com.grappim.cashier.common.di.FeatureScope
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.common.lce.doOnError
+import com.grappim.cashier.common.lce.doOnSuccess
+import com.grappim.cashier.common.lce.mapSuccess
+import com.grappim.cashier.common.lce.runOperationCatching
+import com.grappim.cashier.data.repositoryapi.DataClearHelper
 import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.storage.GeneralStorage
+import com.grappim.feature.auth.domain.AuthRepository
+import com.grappim.feature.auth.domain.LoginParams
 import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
 import com.grappim.feature.auth.network.models.login.LoginRequestDTO
 import com.grappim.feature.auth.network.models.login.LoginResponseDTO
-import com.grappim.feature.auth.domain.AuthRepository
-import com.grappim.feature.auth.domain.LoginParams
 import com.grappim.logger.logE
-import com.grappim.cashier.data.repositoryapi.DataClearHelper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -32,9 +32,7 @@ class AuthRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : AuthRepository {
 
-    override suspend fun login(
-        loginRequestData: LoginParams
-    ): Try<Unit, Throwable> =
+    override suspend fun login(loginRequestData: LoginParams): Try<Unit, Throwable> =
         runOperationCatching {
             val hashedPassword = passwordManager.encryptPassword(loginRequestData.password)
             authApi.login(
@@ -47,9 +45,7 @@ class AuthRepositoryImpl @Inject constructor(
             clearDataIfNotSameUser(response)
             saveData(response)
             setDataForCrashAnalytics(response)
-        }.mapSuccess {
-
-        }.doOnError { e ->
+        }.mapSuccess {}.doOnError { e ->
             logE(e)
         }
 
@@ -74,5 +70,4 @@ class AuthRepositoryImpl @Inject constructor(
         crashesAnalytics.setUserId(response.merchantId)
         crashesAnalytics.userName(response.merchantName)
     }
-
 }

@@ -1,7 +1,7 @@
 package com.grappim.feature.settings.ui
 
 import androidx.lifecycle.viewModelScope
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.base.BaseViewModel
 import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.storage.GeneralStorage
 import kotlinx.coroutines.flow.Flow
@@ -9,9 +9,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SettingsViewModel @Inject constructor(
-    private val generalStorage: GeneralStorage
-) : BaseViewModel() {
+class SettingsViewModel @Inject constructor(private val generalStorage: GeneralStorage) :
+    BaseViewModel() {
 
     val biometricStatus: Flow<Boolean>
         get() = generalStorage.biometricsStatus
@@ -19,6 +18,7 @@ class SettingsViewModel @Inject constructor(
                 when (it) {
                     BiometricsStatus.NOT_SET,
                     BiometricsStatus.REFUSED -> false
+
                     BiometricsStatus.SET -> true
                 }
             }
@@ -37,5 +37,4 @@ class SettingsViewModel @Inject constructor(
             generalStorage.setBiometricsStatus(status)
         }
     }
-
 }

@@ -5,7 +5,3 @@ plugins {
 android {
     namespace = "com.grappim.cashier.data.workersapi"
 }
-
-dependencies {
-
-}

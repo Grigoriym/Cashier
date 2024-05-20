@@ -4,8 +4,8 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
-import com.grappim.common.di.ApplicationContext
-import com.grappim.common.di.NetworkScope
+import com.grappim.cashier.common.di.ApplicationContext
+import com.grappim.cashier.common.di.NetworkScope
 import com.grappim.logger.logD
 import com.grappim.network.authenticators.TokenAuthenticator
 import com.grappim.network.di.configs.CashierApiUrlProvider
@@ -43,10 +43,9 @@ object NetworkModule {
         builder: Retrofit.Builder,
         okHttpClient: OkHttpClient,
         cashierApiUrlProvider: CashierApiUrlProvider
-    ): Retrofit =
-        builder.baseUrl(cashierApiUrlProvider.cashierApi)
-            .client(okHttpClient)
-            .build()
+    ): Retrofit = builder.baseUrl(cashierApiUrlProvider.cashierApi)
+        .client(okHttpClient)
+        .build()
 
     @[NetworkScope Provides]
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
@@ -64,25 +63,22 @@ object NetworkModule {
         authTokenInterceptor: AuthTokenInterceptor,
         tokenAuthenticator: TokenAuthenticator,
         networkBuildConfigProvider: NetworkBuildConfigProvider
-    ): OkHttpClient =
-        OkHttpClient.Builder()
-            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(errorMappingInterceptor)
-            .addInterceptor(authTokenInterceptor)
-            .authenticator(tokenAuthenticator)
-            .apply {
-                if (networkBuildConfigProvider.debug) {
-                    addInterceptor(loggingInterceptor)
-                    addInterceptor(chuckerInterceptor)
-                }
+    ): OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+        .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+        .addInterceptor(errorMappingInterceptor)
+        .addInterceptor(authTokenInterceptor)
+        .authenticator(tokenAuthenticator)
+        .apply {
+            if (networkBuildConfigProvider.debug) {
+                addInterceptor(loggingInterceptor)
+                addInterceptor(chuckerInterceptor)
             }
-            .build()
+        }
+        .build()
 
     @[NetworkScope Provides]
-    fun provideChuckerInterceptor(
-        @ApplicationContext appContext: Context
-    ): ChuckerInterceptor {
+    fun provideChuckerInterceptor(@ApplicationContext appContext: Context): ChuckerInterceptor {
         val chuckerCollector = ChuckerCollector(
             context = appContext,
             showNotification = true,

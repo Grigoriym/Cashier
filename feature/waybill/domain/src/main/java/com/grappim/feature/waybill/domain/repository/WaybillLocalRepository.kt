@@ -16,5 +16,4 @@ interface WaybillLocalRepository {
     fun setActualDate(text: String)
 
     fun clear()
-
 }

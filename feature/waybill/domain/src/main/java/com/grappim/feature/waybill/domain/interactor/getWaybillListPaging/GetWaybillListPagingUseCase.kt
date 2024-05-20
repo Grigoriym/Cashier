@@ -10,7 +10,5 @@ class GetWaybillListPagingUseCase @Inject constructor(
     private val waybillRepository: WaybillRepository
 ) {
 
-    operator fun invoke(): Flow<PagingData<Waybill>> =
-        waybillRepository.getAcceptanceListPaging()
-
+    operator fun invoke(): Flow<PagingData<Waybill>> = waybillRepository.getAcceptanceListPaging()
 }

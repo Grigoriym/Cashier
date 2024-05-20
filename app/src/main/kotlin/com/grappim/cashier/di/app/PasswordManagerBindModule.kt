@@ -9,8 +9,5 @@ import dagger.Module
 interface PasswordManagerBindModule {
 
     @Binds
-    fun bindPasswordManager(
-        passwordManagerImpl: PasswordManagerImpl
-    ): PasswordManager
-
+    fun bindPasswordManager(passwordManagerImpl: PasswordManagerImpl): PasswordManager
 }

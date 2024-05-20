@@ -71,9 +71,7 @@ object CryptographyUtils {
     /**
      * Returns the same Cipher for decrypting data which was used for encryption
      */
-    fun getInitializedCipherForDecryption(
-        initializationVector: ByteArray? = null
-    ): Cipher {
+    fun getInitializedCipherForDecryption(initializationVector: ByteArray? = null): Cipher {
         val cipher = getCipher()
         val secretKey = getOrCreateSecretKey(YOUR_SECRET_KEY_NAME)
         cipher.init(

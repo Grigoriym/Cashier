@@ -13,9 +13,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.base.BaseFlowFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.feature.auth.presentation.di.AuthComponent
 import com.grappim.feature.auth.presentation.di.DaggerAuthComponent
@@ -60,46 +60,40 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View =
-        ComposeView(requireContext()).apply {
-            setContent {
-                CashierTheme {
-                    AuthFragmentScreen()
-                }
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            CashierTheme {
+                AuthFragmentScreen()
             }
         }
+    }
 
     @Composable
-    private fun BiometricStatusLaunchedEffect(
-        biometricsStatus: BiometricsStatus?
-    ) {
+    private fun BiometricStatusLaunchedEffect(biometricsStatus: BiometricsStatus?) {
         val mostRecentStatus by rememberUpdatedState(biometricsStatus)
         LaunchedEffect(mostRecentStatus) {
             when (mostRecentStatus) {
                 BiometricsStatus.SET -> {
                     viewModel.setDialogAnswer(BiometricsDialogClickState.Positive)
                 }
-                else -> {
 
-                }
+                else -> {}
             }
         }
     }
 
     @Composable
-    private fun FingerprintEventLaunchedEffect(
-        fingerprintEvent: BiometricsState?
-    ) {
+    private fun FingerprintEventLaunchedEffect(fingerprintEvent: BiometricsState?) {
         when (fingerprintEvent) {
             is BiometricsState.ShowPrompt -> {
                 ShowEnableBiometricsDialog(true)
             }
+
             is BiometricsState.ShowNothing -> {
                 ShowEnableBiometricsDialog(false)
             }
-            else -> {
 
-            }
+            else -> {}
         }
     }
 
@@ -107,7 +101,9 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
     private fun AuthFragmentScreen() {
         val loading by viewModel.loading.observeAsState(false)
         val authData by viewModel.authFieldsData.collectAsState()
-        val fingerprintEvent by viewModel.setFingerprintEvent.collectAsState(BiometricsState.ShowNothing)
+        val fingerprintEvent by viewModel.setFingerprintEvent.collectAsState(
+            BiometricsState.ShowNothing
+        )
         val biometricsIntent by viewModel.biometricsIntent.collectAsState(null)
         val biometricsStatus by viewModel.biometricsStatus.collectAsState(null)
 
@@ -142,9 +138,7 @@ class AuthFragment : BaseFlowFragment<AuthViewModel>() {
     }
 
     @Composable
-    private fun ShowEnableBiometricsDialog(
-        show: Boolean
-    ) {
+    private fun ShowEnableBiometricsDialog(show: Boolean) {
         AuthBiometricsDialog(
             open = show,
             onPositiveClick = {

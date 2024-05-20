@@ -24,9 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.grappim.cashier.feature.paymentmethod.domain.model.PaymentMethodType
 import com.grappim.cashier.feature.paymentmethod.presentation.R
 import com.grappim.cashier.feature.paymentmethod.presentation.model.PaymentMethod
-import com.grappim.feature.paymentmethod.domain.model.PaymentMethodType
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
@@ -110,10 +110,7 @@ private fun MainSegment(
 }
 
 @Composable
-private fun BottomBarSegment(
-    itemCount: String,
-    basketPrice: String
-) {
+private fun BottomBarSegment(itemCount: String, basketPrice: String) {
     Surface(
         modifier = Modifier,
         elevation = 16.dp
@@ -235,6 +232,7 @@ private fun MainSegmentPreview() {
                     type = PaymentMethodType.CARD
                 )
             ),
-            onItemClick = {})
+            onItemClick = {}
+        )
     }
 }

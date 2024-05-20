@@ -20,7 +20,11 @@ fun Context.getErrorMessage(throwable: Throwable): String {
             NetworkException.ERROR_API -> {
                 throwable.apiError?.message ?: getString(R.string.error_something_has_gone_wrong)
             }
-            NetworkException.ERROR_ON_REFRESH -> getString(R.string.auth_error_refresh_token_not_passed)
+
+            NetworkException.ERROR_ON_REFRESH -> getString(
+                R.string.auth_error_refresh_token_not_passed
+            )
+
             NetworkException.ERROR_NO_INTERNET -> getString(R.string.error_no_internet_connection)
             NetworkException.ERROR_HOST_NOT_FOUND -> getString(R.string.error_host_not_found)
             NetworkException.ERROR_TIMEOUT -> getString(R.string.timeout_exceeded)

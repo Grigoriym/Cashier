@@ -32,8 +32,17 @@ fun SpannableString.size(proportion: Float, start: Int, end: Int): SpannableStri
     return this
 }
 
-fun SpannableString.absoluteSize(proportion: Int, start: Int = 0, end: Int = this.length): SpannableString {
-    this.setSpan(AbsoluteSizeSpan(proportion, true), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+fun SpannableString.absoluteSize(
+    proportion: Int,
+    start: Int = 0,
+    end: Int = this.length
+): SpannableString {
+    this.setSpan(
+        AbsoluteSizeSpan(proportion, true),
+        start,
+        end,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
     return this
 }
 

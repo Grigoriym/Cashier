@@ -1,6 +1,6 @@
 package com.grappim.network.api
 
-import com.grappim.common.annotations.RequestWithAuthToken
+import com.grappim.cashier.common.annotations.RequestWithAuthToken
 import com.grappim.network.model.cashbox.GetCashBoxListRequestDTO
 import com.grappim.network.model.cashbox.GetCashBoxListResponseDTO
 import com.grappim.network.model.payment.CreateOrderRequestDTO
@@ -15,9 +15,7 @@ interface CashierApi {
 
     @GET("stocks/list/{merchantId}")
     @RequestWithAuthToken
-    suspend fun getStocks(
-        @Path("merchantId") merchantId: String
-    ): GetStocksResponseDTO
+    suspend fun getStocks(@Path("merchantId") merchantId: String): GetStocksResponseDTO
 
     @POST("cashbox/list")
     @RequestWithAuthToken

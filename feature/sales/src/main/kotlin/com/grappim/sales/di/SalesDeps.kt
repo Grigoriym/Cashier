@@ -1,6 +1,6 @@
 package com.grappim.sales.di
 
-import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.cashier.common.di.deps.ComponentDeps
 import com.grappim.feature.bag.domain.BagRepository
 import com.grappim.feature.products.domain.repository.ProductsRepository
 import com.grappim.navigation.router.ActivityRouter

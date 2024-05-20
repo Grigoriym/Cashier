@@ -33,11 +33,7 @@ fun CashierText(
 }
 
 @Composable
-fun CashierTextGray(
-    modifier: Modifier = Modifier,
-    text: String,
-    color: Color = CashierGray
-) {
+fun CashierTextGray(modifier: Modifier = Modifier, text: String, color: Color = CashierGray) {
     CashierText(
         modifier = modifier,
         text = text,

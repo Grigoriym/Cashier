@@ -1,6 +1,6 @@
 package com.grappim.feature.waybill.network.api
 
-import com.grappim.common.annotations.RequestWithAuthToken
+import com.grappim.cashier.common.annotations.RequestWithAuthToken
 import com.grappim.feature.waybill.network.model.CreateWaybillProductRequestDTO
 import com.grappim.feature.waybill.network.model.CreateWaybillProductResponseDTO
 import com.grappim.feature.waybill.network.model.CreateWaybillRequestDTO
@@ -30,27 +30,19 @@ interface WaybillApi {
 
     @GET("waybill/conduct/{waybillId}")
     @RequestWithAuthToken
-    suspend fun conductWaybill(
-        @Path("waybillId") waybillId: Long
-    )
+    suspend fun conductWaybill(@Path("waybillId") waybillId: Long)
 
     @GET("waybill/rollback/{waybillId}")
     @RequestWithAuthToken
-    suspend fun rollbackWaybill(
-        @Path("waybillId") waybillId: Long
-    )
+    suspend fun rollbackWaybill(@Path("waybillId") waybillId: Long)
 
     @DELETE("waybill/{waybillId}")
     @RequestWithAuthToken
-    suspend fun deleteWaybill(
-        @Path("waybillId") waybillId: Long
-    )
+    suspend fun deleteWaybill(@Path("waybillId") waybillId: Long)
 
     @PUT("waybill/update")
     @RequestWithAuthToken
-    suspend fun updateWaybill(
-        @Body waybill: UpdateWaybillRequestDTO
-    ): GetWaybillByIdResponseDTO
+    suspend fun updateWaybill(@Body waybill: UpdateWaybillRequestDTO): GetWaybillByIdResponseDTO
 
     @POST("waybill/filter")
     @RequestWithAuthToken
@@ -82,15 +74,11 @@ interface WaybillApi {
 
     @GET("waybill/{waybillId}")
     @RequestWithAuthToken
-    suspend fun getWaybillById(
-        @Path("waybillId") waybillId: Int
-    ): GetWaybillByIdResponseDTO
+    suspend fun getWaybillById(@Path("waybillId") waybillId: Int): GetWaybillByIdResponseDTO
 
     @GET("waybill/product/{productId}")
     @RequestWithAuthToken
-    suspend fun getWaybillProductById(
-        @Path("productId") productId: Int
-    )
+    suspend fun getWaybillProductById(@Path("productId") productId: Int)
 
     @POST("waybill/product/get")
     @RequestWithAuthToken

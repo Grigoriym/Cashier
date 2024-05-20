@@ -2,7 +2,6 @@ package com.grappim.navigation.router
 
 import android.os.Bundle
 import androidx.annotation.IdRes
-import androidx.fragment.app.FragmentManager
 import com.github.terrakok.cicerone.Navigator
 
 interface FlowRouter {
@@ -52,5 +51,4 @@ interface FlowRouter {
 
     fun goToSettings()
     fun goToGithubSrc()
-
 }

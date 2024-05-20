@@ -13,7 +13,7 @@ dependencies {
     implementation(project(":feature:waybill:domain"))
 
     implementation(libs.google.material)
-    implementation(libs.zxing){
+    implementation(libs.zxing) {
         isTransitive = false
     }
     implementation(libs.google.zxing)

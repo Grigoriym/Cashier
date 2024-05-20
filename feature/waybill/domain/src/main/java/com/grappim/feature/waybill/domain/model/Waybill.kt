@@ -19,20 +19,21 @@ data class Waybill(
     val updateOnToDemonstrate: String
 ) : Serializable {
     companion object {
-        fun empty(): Waybill =
-            Waybill(
-                id = 1,
-                createdOn = "",
-                merchantId = "",
-                number = "2312312",
-                status = WaybillStatus.ACTIVE,
-                stockId = "",
-                totalCost = bigDecimalOne(),
-                updatedOn = "23.12.23.20123",
-                reservedTime = "",
-                comment = "",
-                updateOnToDemonstrate = "23.12.23.20123",
-                reservedTimeToDemonstrate = "23.12.23.20123"
-            )
+
+        private const val serialVersionUID = 23432L
+        fun empty(): Waybill = Waybill(
+            id = 1,
+            createdOn = "",
+            merchantId = "",
+            number = "2312312",
+            status = WaybillStatus.ACTIVE,
+            stockId = "",
+            totalCost = bigDecimalOne(),
+            updatedOn = "23.12.23.20123",
+            reservedTime = "",
+            comment = "",
+            updateOnToDemonstrate = "23.12.23.20123",
+            reservedTimeToDemonstrate = "23.12.23.20123"
+        )
     }
 }

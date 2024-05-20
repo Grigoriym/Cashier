@@ -48,18 +48,21 @@ internal fun AuthBiometricsDialog(
                         onClick = {
                             openDialog.value = false
                             onNegativeClick()
-                        }) {
+                        }
+                    ) {
                         Text(text = stringResource(id = R.string.action_no))
                     }
                     Button(
                         onClick = {
                             openDialog.value = false
                             onPositiveClick()
-                        }) {
+                        }
+                    ) {
                         Text(text = stringResource(id = R.string.action_yes))
                     }
                 }
-            })
+            }
+        )
     }
 }
 

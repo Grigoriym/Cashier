@@ -3,10 +3,10 @@ package com.grappim.workers
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.grappim.common.asynchronous.di.IoDispatcher
+import com.grappim.cashier.common.async.di.IoDispatcher
+import com.grappim.cashier.feature.productcategory.domain.repository.ProductCategoryRepository
 import com.grappim.logger.logD
 import com.grappim.logger.logE
-import com.grappim.productcategory.domain.repository.ProductCategoryRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -17,7 +17,7 @@ class CategoriesWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val productCategoryRepository: ProductCategoryRepository,
+    private val productCategoryRepository: ProductCategoryRepository
 ) : CoroutineWorker(context, workerParameters) {
 
     companion object {
@@ -26,10 +26,7 @@ class CategoriesWorker @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(
-            appContext: Context,
-            workerParameters: WorkerParameters
-        ): CategoriesWorker
+        fun create(appContext: Context, workerParameters: WorkerParameters): CategoriesWorker
     }
 
     @Suppress("TooGenericExceptionCaught")

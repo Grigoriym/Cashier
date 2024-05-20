@@ -3,7 +3,7 @@ package com.grappim.cashbox.di
 import androidx.lifecycle.ViewModel
 import com.grappim.cashbox.ui.viewmodel.SelectCashBoxViewModel
 import com.grappim.cashbox.ui.viewmodel.SelectCashBoxViewModelImpl
-import com.grappim.core.di.vm.ViewModelKey
+import com.grappim.cashier.core.di.vm.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -12,7 +12,5 @@ import dagger.multibindings.IntoMap
 interface SelectCashBoxBindsModule {
 
     @[Binds IntoMap ViewModelKey(SelectCashBoxViewModel::class)]
-    fun provideSelectCashBoxViewModel(
-        selectCashBoxViewModel: SelectCashBoxViewModelImpl
-    ): ViewModel
+    fun provideSelectCashBoxViewModel(selectCashBoxViewModel: SelectCashBoxViewModelImpl): ViewModel
 }

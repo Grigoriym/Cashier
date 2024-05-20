@@ -9,11 +9,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment
-import com.grappim.core.delegate.lazyArg
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.core.utils.BundleArgsHelper
+import com.grappim.cashier.core.base.BaseFragment
+import com.grappim.cashier.core.delegate.lazyArg
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.utils.BundleArgsHelper
 import com.grappim.domain.model.Product
 import com.grappim.feature.waybill.domain.model.WaybillProduct
 import com.grappim.feature.waybill.presentation.ui.product.di.DaggerWaybillProductComponent
@@ -45,7 +45,9 @@ class WaybillProductFragment : BaseFragment<WaybillProductViewModel>() {
     }
 
     private val product: Product? by lazyArg(BundleArgsHelper.Waybill.ARG_KEY_PRODUCT)
-    private val waybillProduct: WaybillProduct? by lazyArg(BundleArgsHelper.Waybill.ARG_KEY_WAYBILL_PRODUCT)
+    private val waybillProduct: WaybillProduct? by lazyArg(
+        BundleArgsHelper.Waybill.ARG_KEY_WAYBILL_PRODUCT
+    )
     private val barcode: String? by lazyArg(BundleArgsHelper.Waybill.ARG_KEY_BARCODE)
 
     override fun onCreateView(

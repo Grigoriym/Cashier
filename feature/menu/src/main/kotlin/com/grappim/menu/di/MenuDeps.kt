@@ -1,6 +1,6 @@
 package com.grappim.menu.di
 
-import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.cashier.common.di.deps.ComponentDeps
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.navigation.router.ActivityRouter

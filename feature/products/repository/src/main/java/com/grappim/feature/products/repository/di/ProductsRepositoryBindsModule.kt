@@ -9,7 +9,5 @@ import dagger.Module
 interface ProductsRepositoryBindsModule {
 
     @Binds
-    fun bindProductsRepository(
-        productsRepositoryImpl: ProductsRepositoryImpl
-    ): ProductsRepository
+    fun bindProductsRepository(productsRepositoryImpl: ProductsRepositoryImpl): ProductsRepository
 }

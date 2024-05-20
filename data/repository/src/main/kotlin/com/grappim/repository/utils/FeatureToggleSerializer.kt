@@ -19,6 +19,5 @@ object FeatureToggleSerializer : Serializer<FeatureToggleProto> {
         }
     }
 
-    override suspend fun writeTo(t: FeatureToggleProto, output: OutputStream) =
-        t.writeTo(output)
+    override suspend fun writeTo(t: FeatureToggleProto, output: OutputStream) = t.writeTo(output)
 }

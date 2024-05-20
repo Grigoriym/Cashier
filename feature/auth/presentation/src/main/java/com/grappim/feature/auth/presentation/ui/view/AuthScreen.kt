@@ -73,7 +73,7 @@ internal fun AuthScreen(
     onShowBiometricsClick: () -> Unit
 ) {
     Scaffold(
-        modifier = Modifier,
+        modifier = Modifier
     ) {
         AuthScreenContent(
             modifier = Modifier.padding(it),
@@ -179,7 +179,7 @@ private fun AuthScreenContent(
                 modifier = Modifier
                     .padding(
                         top = 16.dp,
-                        bottom = 16.dp,
+                        bottom = 16.dp
                     ),
                 onRegisterClick = onRegisterClick
             )
@@ -193,10 +193,7 @@ private fun AuthScreenContent(
 }
 
 @Composable
-private fun GuestModeSegment(
-    modifier: Modifier = Modifier,
-    onGuestModeClick: () -> Unit
-) {
+private fun GuestModeSegment(modifier: Modifier = Modifier, onGuestModeClick: () -> Unit) {
     Button(
         onClick = onGuestModeClick,
         modifier = modifier
@@ -314,10 +311,7 @@ private fun SignInButton(
 }
 
 @Composable
-private fun SignUpSegment(
-    modifier: Modifier = Modifier,
-    onRegisterClick: () -> Unit
-) {
+private fun SignUpSegment(modifier: Modifier = Modifier, onRegisterClick: () -> Unit) {
     CashierMediumButton(
         text = stringResource(id = R.string.title_sign_up),
         onClick = onRegisterClick,

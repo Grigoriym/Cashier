@@ -67,7 +67,7 @@ private fun MainSegment(
             text = searchText,
             onTextChange = setSearchText
         )
-        LazyColumn() {
+        LazyColumn {
             items(products.itemCount) { index ->
                 val item = products[index]
                 item?.let {

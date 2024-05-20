@@ -1,7 +1,7 @@
 package com.grappim.feature.waybill.presentation.ui.list.di
 
 import androidx.lifecycle.ViewModel
-import com.grappim.core.di.vm.ViewModelKey
+import com.grappim.cashier.core.di.vm.ViewModelKey
 import com.grappim.feature.waybill.presentation.ui.list.ui.viewmodel.WaybillListViewModel
 import com.grappim.feature.waybill.presentation.ui.list.ui.viewmodel.WaybillListViewModelImpl
 import dagger.Binds
@@ -13,5 +13,4 @@ interface WaybillListBindsModule {
 
     @[Binds IntoMap ViewModelKey(WaybillListViewModel::class)]
     fun bindWaybillListViewModel(waybillListViewModel: WaybillListViewModelImpl): ViewModel
-
 }

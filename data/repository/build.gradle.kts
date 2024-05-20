@@ -1,8 +1,23 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.cashier.android.library)
     alias(libs.plugins.cashier.android.dagger)
     alias(libs.plugins.protobuf)
 }
+
+fun readProperties(propertiesFile: File): Properties {
+    val properties = Properties()
+    propertiesFile.inputStream().use { fis ->
+        properties.load(fis)
+    }
+    return properties
+}
+
+val appPropertiesFile = File("./app.properties")
+val appProperties = readProperties(appPropertiesFile)
+
+val cashierSecretKey = appProperties.getProperty("cashier_secret_key")
 
 android {
     namespace = "com.grappim.repository"
@@ -13,7 +28,7 @@ android {
         buildConfigField(
             "String",
             "cashier_secret_key",
-            "${extra["cashier_secret_key"]}"
+            cashierSecretKey
         )
     }
 }
@@ -45,7 +60,7 @@ dependencies {
     implementation(project(":common:di"))
     implementation(project(":common:db"))
     implementation(project(":common:lce"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
 
     implementation(project(":feature:product-category:repository"))
     implementation(project(":feature:product-category:db"))
@@ -66,7 +81,7 @@ dependencies {
     implementation(project(":feature:bag:domain"))
     implementation(project(":feature:bag:repository"))
     implementation(project(":feature:bag:db"))
-    
+
     implementation(libs.androidx.paging.common)
 
     implementation(libs.androidx.paging.runtime)

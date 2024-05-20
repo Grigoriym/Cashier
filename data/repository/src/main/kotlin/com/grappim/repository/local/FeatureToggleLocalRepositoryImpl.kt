@@ -3,8 +3,8 @@ package com.grappim.repository.local
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
-import com.grappim.common.di.AppScope
-import com.grappim.common.di.ApplicationContext
+import com.grappim.cashier.common.di.AppScope
+import com.grappim.cashier.common.di.ApplicationContext
 import com.grappim.domain.model.FeatureToggle
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.logger.logE

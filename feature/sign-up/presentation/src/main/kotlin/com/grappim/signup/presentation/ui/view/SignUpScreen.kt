@@ -34,10 +34,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.core.resources.NativeText
-import com.grappim.core.resources.asString
-import com.grappim.uikit.R
+import com.grappim.cashier.core.resources.NativeText
+import com.grappim.cashier.core.resources.asString
 import com.grappim.signup.presentation.model.SignUpFieldsValidationData
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.compose.CashierTextGray
 import com.grappim.uikit.compose.CashierTextH5Text
@@ -157,9 +157,7 @@ private fun SignUpScreenContent(
 }
 
 @Composable
-private fun ShowError(
-    error: NativeText?
-) {
+private fun ShowError(error: NativeText?) {
     Box(
         modifier = Modifier
             .padding(
@@ -184,9 +182,7 @@ private fun ShowError(
             } else {
                 CompositionLocalProvider(
                     LocalContentAlpha provides ContentAlpha.medium
-                ) {
-
-                }
+                ) {}
             }
         }
     }
@@ -308,21 +304,17 @@ private fun PhoneNumberTextFieldComposable(
 }
 
 @Composable
-private fun SignUpButton(
-    onSignUpClick: () -> Unit
-) {
+private fun SignUpButton(onSignUpClick: () -> Unit) {
     CashierMediumButton(
         onClick = onSignUpClick,
         text = stringResource(id = R.string.title_sign_up),
         modifier = Modifier
-            .fillMaxWidth(
-                fraction = 0.8f
-            )
+            .fillMaxWidth(fraction = 0.8f)
             .padding(
                 start = 32.dp,
                 end = 32.dp,
                 top = 16.dp
-            ),
+            )
     )
 }
 
@@ -387,4 +379,3 @@ private fun PhoneTextFieldPreview() {
         )
     }
 }
-

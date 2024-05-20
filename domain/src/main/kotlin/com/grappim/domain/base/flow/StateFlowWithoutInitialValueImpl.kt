@@ -8,10 +8,9 @@ class StateFlowWithoutInitialValueImpl<T : Any> : StateFlowWithoutInitialValue<T
 
     private val mutable = MutableStateFlow<T?>(null)
 
-    override suspend fun collect(collector: FlowCollector<T>) =
-        mutable
-            .filterNotNull()
-            .collect(collector)
+    override suspend fun collect(collector: FlowCollector<T>) = mutable
+        .filterNotNull()
+        .collect(collector)
 
     override val value: T?
         get() = mutable.value

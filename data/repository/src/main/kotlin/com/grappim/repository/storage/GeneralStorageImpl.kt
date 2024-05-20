@@ -9,8 +9,8 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.grappim.common.di.AppScope
-import com.grappim.common.di.ApplicationContext
+import com.grappim.cashier.common.di.AppScope
+import com.grappim.cashier.common.di.ApplicationContext
 import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.model.outlet.Stock
@@ -45,7 +45,9 @@ class GeneralStorageImpl @Inject constructor(
         private const val BIOMETRICS_STATUS = "biometrics_status"
     }
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = FLOW_STORAGE_NAME)
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+        name = FLOW_STORAGE_NAME
+    )
 
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
     private val sharedPreferences by lazy {
@@ -126,8 +128,7 @@ class GeneralStorageImpl @Inject constructor(
 
     override fun getToken(): String = getStringValue(AUTH_TOKEN)
 
-    override fun getBearerAuthToken(): String =
-        "Bearer ${getStringValue(AUTH_TOKEN)}"
+    override fun getBearerAuthToken(): String = "Bearer ${getStringValue(AUTH_TOKEN)}"
 
     override suspend fun clearData() {
         logD("Clearing GeneralStorage")
@@ -137,8 +138,6 @@ class GeneralStorageImpl @Inject constructor(
         }
     }
 
-    private fun getStringValue(key: String): String =
-        sharedPreferences.getString(key, null)
-            ?: throw IllegalArgumentException("no value for $key")
-
+    private fun getStringValue(key: String): String = sharedPreferences.getString(key, null)
+        ?: throw IllegalArgumentException("no value for $key")
 }

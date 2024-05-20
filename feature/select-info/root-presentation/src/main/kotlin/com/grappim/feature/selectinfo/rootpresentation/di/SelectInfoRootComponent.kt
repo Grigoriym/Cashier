@@ -2,16 +2,17 @@ package com.grappim.feature.selectinfo.rootpresentation.di
 
 import androidx.fragment.app.FragmentManager
 import com.grappim.cashbox.di.SelectCashBoxDeps
-import com.grappim.common.di.ComponentDependenciesProvider
-import com.grappim.common.di.FeatureFragmentManager
-import com.grappim.common.di.FeatureScope
-import com.grappim.core.di.FeatureNavigationBindsModule
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.common.di.ComponentDependenciesProvider
+import com.grappim.cashier.common.di.FeatureFragmentManager
+import com.grappim.cashier.common.di.FeatureScope
+import com.grappim.cashier.core.di.FeatureNavigationBindsModule
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.stock.di.SelectStockDeps
 import dagger.BindsInstance
 import dagger.Component
 
-@[FeatureScope Component(
+@[
+FeatureScope Component(
     modules = [
         SelectInfoRootBindsModule::class,
         SelectIntoRootDepsModule::class,
@@ -20,7 +21,8 @@ import dagger.Component
     dependencies = [
         SelectInfoRootDeps::class
     ]
-)]
+)
+]
 interface SelectInfoRootComponent :
     SelectStockDeps,
     SelectCashBoxDeps {

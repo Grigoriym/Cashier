@@ -1,7 +1,7 @@
 package com.grappim.menu.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.domain.model.menu.MenuItemType
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.storage.GeneralStorage

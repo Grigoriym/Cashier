@@ -1,8 +1,8 @@
 package com.grappim.feature.auth.presentation.di
 
+import com.grappim.cashier.common.di.deps.ComponentDeps
 import com.grappim.cashier.data.repositoryapi.DataClearHelper
 import com.grappim.cashier.data.workersapi.WorkerHelper
-import com.grappim.common.di.deps.ComponentDeps
 import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.repository.GeneralRepository

@@ -2,8 +2,8 @@ package com.grappim.feature.auth.presentation.ui.viewmodel
 
 import android.content.Intent
 import androidx.lifecycle.viewModelScope
+import com.grappim.cashier.common.lce.Try
 import com.grappim.cashier.data.workersapi.WorkerHelper
-import com.grappim.common.lce.Try
 import com.grappim.domain.model.biometrics.BiometricsStatus
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.feature.auth.domain.LoginParams
@@ -74,10 +74,7 @@ internal class AuthViewModelImpl @Inject constructor(
         flowRouter.goToSettings()
     }
 
-    private fun login(
-        phone: String,
-        password: String
-    ) {
+    private fun login(phone: String, password: String) {
         viewModelScope.launch {
             _loading.value = true
             val result = loginUseCase.login(
@@ -144,5 +141,4 @@ internal class AuthViewModelImpl @Inject constructor(
             setFingerprintEvent.emit(BiometricsState.ShowPrompt)
         }
     }
-
 }

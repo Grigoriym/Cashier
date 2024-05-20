@@ -18,18 +18,18 @@ data class WaybillProduct(
     val waybillId: Int
 ) : Serializable {
     companion object {
-        fun getExample() =
-            WaybillProduct(
-                amount = "100".asBigDecimal(),
-                barcode = "12345",
-                createdOn = LocalDateTime.now(),
-                id = 1L,
-                name = "Waybill Product name",
-                productId = 2L,
-                purchasePrice = "234".asBigDecimal(),
-                sellingPrice = "4532".asBigDecimal(),
-                updatedOn = LocalDateTime.now(),
-                waybillId = 45
-            )
+        private const val serialVersionUID = 123L
+        fun getExample() = WaybillProduct(
+            amount = "100".asBigDecimal(),
+            barcode = "12345",
+            createdOn = LocalDateTime.now(),
+            id = 1L,
+            name = "Waybill Product name",
+            productId = 2L,
+            purchasePrice = "234".asBigDecimal(),
+            sellingPrice = "4532".asBigDecimal(),
+            updatedOn = LocalDateTime.now(),
+            waybillId = 45
+        )
     }
 }

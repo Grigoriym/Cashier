@@ -11,12 +11,12 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import com.grappim.core.MainViewModel
-import com.grappim.core.base.BaseFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.navigation.router.FlowRouter
+import com.grappim.cashier.core.MainViewModel
+import com.grappim.cashier.core.base.BaseFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoViewModel
+import com.grappim.navigation.router.FlowRouter
 import com.grappim.stock.di.DaggerSelectStockComponent
 import com.grappim.stock.di.SelectStockComponent
 import com.grappim.stock.ui.viewmodel.SelectStockViewModel

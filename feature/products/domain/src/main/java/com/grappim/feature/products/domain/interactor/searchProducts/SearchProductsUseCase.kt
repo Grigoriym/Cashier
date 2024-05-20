@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchProductsUseCase @Inject constructor(
-    private val productsRepository: ProductsRepository,
+    private val productsRepository: ProductsRepository
 ) {
 
     fun execute(params: SearchProductsParams): Flow<PagingData<Product>> =

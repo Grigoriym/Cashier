@@ -56,16 +56,14 @@ private fun SettingsScreenContent(
         modifier = modifier
             .fillMaxHeight()
             .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
             SettingsMenuItem(title = {
                 Text(text = stringResource(id = R.string.title_about))
             }, subtitle = {
                 Text(text = info)
-            }) {
-
-            }
+            }) {}
         }
         item {
             SettingsMenuItem(

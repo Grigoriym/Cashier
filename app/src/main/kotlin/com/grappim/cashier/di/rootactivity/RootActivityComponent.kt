@@ -3,16 +3,17 @@ package com.grappim.cashier.di.rootactivity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.grappim.cashier.common.di.ActivityContext
+import com.grappim.cashier.common.di.ActivityFragmentManager
+import com.grappim.cashier.common.di.ActivityScope
+import com.grappim.cashier.common.di.ComponentDependenciesProvider
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.cashier.di.navigation.ActivityNavigationModule
-import com.grappim.common.di.ActivityContext
-import com.grappim.common.di.ActivityFragmentManager
-import com.grappim.common.di.ActivityScope
-import com.grappim.common.di.ComponentDependenciesProvider
-import com.grappim.core.di.vm.MultiViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 
-@[ActivityScope Component(
+@[
+ActivityScope Component(
     modules = [
         RootActivityBindsModule::class,
         RootActivityDepsModule::class,
@@ -21,7 +22,8 @@ import dagger.Component
     dependencies = [
         RootActivityDeps::class
     ]
-)]
+)
+]
 interface RootActivityComponent : FeatureDeps {
 
     @Component.Factory
