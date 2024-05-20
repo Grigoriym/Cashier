@@ -37,7 +37,7 @@ archCore = "2.2.0"
 fragment = "1.7.1"
 splashScreen = "1.0.1"
 swipeRefresh = "1.1.0"
-paging = "3.2.0"
+paging = "3.3.0"
 viewpager2 = "1.1.0"
 
 constraintLayoutCompose = "1.0.1"
