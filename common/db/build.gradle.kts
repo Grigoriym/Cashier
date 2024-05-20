@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.common.db"
+    namespace = "com.grappim.cashier.common.db"
 }
 
 dependencies {

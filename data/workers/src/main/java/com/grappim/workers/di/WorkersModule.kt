@@ -2,8 +2,8 @@ package com.grappim.workers.di
 
 import android.util.Log
 import androidx.work.Configuration
+import com.grappim.cashier.common.di.AppScope
 import com.grappim.cashier.data.workersapi.WorkerHelper
-import com.grappim.common.di.AppScope
 import com.grappim.workers.WorkerHelperImpl
 import dagger.Binds
 import dagger.Module
@@ -13,9 +13,7 @@ import dagger.Provides
 object WorkersModule {
 
     @[AppScope Provides]
-    fun provideWorkManagerConfiguration(
-        workersFactory: WorkersFactory
-    ): Configuration =
+    fun provideWorkManagerConfiguration(workersFactory: WorkersFactory): Configuration =
         Configuration.Builder()
             .setMinimumLoggingLevel(Log.DEBUG)
             .setWorkerFactory(workersFactory)

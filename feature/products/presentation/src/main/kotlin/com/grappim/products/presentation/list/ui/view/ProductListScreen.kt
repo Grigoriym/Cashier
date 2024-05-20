@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.grappim.cashier.feature.productcategory.domain.model.ProductCategory
 import com.grappim.domain.model.Product
-import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierText
@@ -145,11 +145,8 @@ private fun CategoriesSegment(
 }
 
 @Composable
-private fun ProductListSegment(
-    products: List<Product>,
-    onProductClick: (Product) -> Unit
-) {
-    LazyColumn() {
+private fun ProductListSegment(products: List<Product>, onProductClick: (Product) -> Unit) {
+    LazyColumn {
         items(products) { item ->
             ItemProductCompose(
                 product = item,
@@ -173,9 +170,7 @@ private fun ProductsScreenPreview() {
             setSearchText = {},
             categories = listOf(ProductCategory.empty(), ProductCategory.empty()),
             selectedIndex = 0,
-            onTabClick = { _, _ ->
-
-            },
+            onTabClick = { _, _ -> },
             products = listOf(Product.empty(), Product.empty()),
             onProductClick = {}
         )
@@ -196,9 +191,7 @@ private fun ProductsScreenNightPreview() {
             setSearchText = {},
             categories = listOf(ProductCategory.empty(), ProductCategory.empty()),
             selectedIndex = 0,
-            onTabClick = { index, category ->
-
-            },
+            onTabClick = { index, category -> },
             products = listOf(Product.empty(), Product.empty()),
             onProductClick = {}
         )

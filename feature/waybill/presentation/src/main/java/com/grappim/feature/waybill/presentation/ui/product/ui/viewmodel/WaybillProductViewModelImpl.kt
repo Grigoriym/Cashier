@@ -6,7 +6,7 @@ import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.asBigDecimal
 import com.grappim.calculations.bigDecimalOne
 import com.grappim.calculations.bigDecimalZero
-import com.grappim.common.lce.Try
+import com.grappim.cashier.common.lce.Try
 import com.grappim.domain.model.Product
 import com.grappim.feature.waybill.domain.interactor.createWaybillProduct.CreateWaybillProductParams
 import com.grappim.feature.waybill.domain.interactor.createWaybillProduct.CreateWaybillProductUseCase
@@ -75,9 +75,7 @@ class WaybillProductViewModelImpl @Inject constructor(
         }
     }
 
-    private fun checkIfStateValid(
-        onValid: (WaybillProductStates.WaybillProductState) -> Unit
-    ) {
+    private fun checkIfStateValid(onValid: (WaybillProductStates.WaybillProductState) -> Unit) {
         val state = waybillProductState.value
         if (state is WaybillProductStates.WaybillProductState) {
             onValid(state)
@@ -168,7 +166,7 @@ class WaybillProductViewModelImpl @Inject constructor(
                         purchasePrice = state.purchasePrice,
                         sellingPrice = state.sellingPrice,
                         amount = state.amount,
-                        productId = state.productId,
+                        productId = state.productId
                     )
                 }
             }

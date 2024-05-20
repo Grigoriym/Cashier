@@ -1,8 +1,8 @@
 package com.grappim.repository.remote
 
-import com.grappim.common.asynchronous.di.ApplicationScope
-import com.grappim.common.asynchronous.di.IoDispatcher
-import com.grappim.common.di.AppScope
+import com.grappim.cashier.common.async.di.ApplicationScope
+import com.grappim.cashier.common.async.di.IoDispatcher
+import com.grappim.cashier.common.di.AppScope
 import com.grappim.db.dao.ProductsDao
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.storage.GeneralStorage

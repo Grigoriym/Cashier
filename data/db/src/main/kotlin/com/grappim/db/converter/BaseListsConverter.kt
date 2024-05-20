@@ -13,5 +13,4 @@ class BaseListsConverter {
 
     @TypeConverter
     fun stringToList(value: String): List<String> = Json.decodeFromString<List<String>>(value)
-
 }

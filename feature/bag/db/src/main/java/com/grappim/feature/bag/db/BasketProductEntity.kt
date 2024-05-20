@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 import com.grappim.domain.model.ProductUnit
 import java.math.BigDecimal
 
-const val basketEntityTableName = "basket_table"
+const val BASKET_ENTITY_TABLE = "basket_table"
 
 @Entity(
-    tableName = basketEntityTableName
+    tableName = BASKET_ENTITY_TABLE
 )
 data class BasketProductEntity(
     @PrimaryKey

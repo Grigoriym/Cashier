@@ -29,9 +29,7 @@ class FilterProductsPagingSource constructor(
     override fun getRefreshKey(state: PagingState<Int, Product>): Int? = null
 
     @Suppress("TooGenericExceptionCaught")
-    override suspend fun load(
-        params: LoadParams<Int>
-    ): LoadResult<Int, Product> =
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Product> =
         withContext(ioDispatcher) {
             return@withContext try {
                 val basketProducts: List<BasketProductDTO> = try {

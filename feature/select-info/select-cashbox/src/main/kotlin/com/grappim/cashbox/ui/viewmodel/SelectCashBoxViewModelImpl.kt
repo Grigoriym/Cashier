@@ -5,13 +5,13 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.grappim.uikit.R
 import com.grappim.cashbox.model.CashierProgressItem
-import com.grappim.common.lce.Try
+import com.grappim.cashier.common.lce.Try
 import com.grappim.domain.interactor.cashbox.getCashbox.GetCashBoxesUseCase
 import com.grappim.domain.interactor.cashbox.saveCashbox.SaveCashBoxParams
 import com.grappim.domain.interactor.cashbox.saveCashbox.SaveCashBoxUseCase
 import com.grappim.domain.model.cashbox.CashBox
+import com.grappim.uikit.R
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -64,6 +64,7 @@ class SelectCashBoxViewModelImpl @Inject constructor(
                     cashBoxes.clear()
                     cashBoxes.addAll(result.result)
                 }
+
                 is Try.Error -> {
                     _error.value = result.result
                 }
@@ -71,9 +72,8 @@ class SelectCashBoxViewModelImpl @Inject constructor(
         }
     }
 
-    private fun getProgressItems(): List<CashierProgressItem> =
-        listOf(
-            CashierProgressItem(R.string.outlet_selecting, true),
-            CashierProgressItem(R.string.outlet_checkout, true)
-        )
+    private fun getProgressItems(): List<CashierProgressItem> = listOf(
+        CashierProgressItem(R.string.outlet_selecting, true),
+        CashierProgressItem(R.string.outlet_checkout, true)
+    )
 }

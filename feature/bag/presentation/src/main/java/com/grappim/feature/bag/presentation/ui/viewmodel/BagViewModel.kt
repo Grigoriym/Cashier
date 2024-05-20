@@ -1,6 +1,6 @@
 package com.grappim.feature.bag.presentation.ui.viewmodel
 
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.base.BaseViewModel
 import com.grappim.domain.model.BasketProduct
 import kotlinx.coroutines.flow.StateFlow
 

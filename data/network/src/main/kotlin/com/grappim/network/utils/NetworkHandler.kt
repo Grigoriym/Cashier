@@ -3,8 +3,8 @@ package com.grappim.network.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.grappim.common.di.AppScope
-import com.grappim.common.di.ApplicationContext
+import com.grappim.cashier.common.di.AppScope
+import com.grappim.cashier.common.di.ApplicationContext
 import javax.inject.Inject
 
 @AppScope

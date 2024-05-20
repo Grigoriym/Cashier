@@ -1,3 +1,5 @@
+@file:Suppress("EmptyFunctionBlock")
+
 package com.grappim.scanner.ui
 
 import android.Manifest
@@ -10,16 +12,16 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
-import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
-import com.grappim.core.utils.BundleArgsHelper
+import com.grappim.cashier.core.base.BaseFlowFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
 import com.grappim.logger.logD
 import com.grappim.navigation.router.FlowRouter
-import com.grappim.uikit.R
 import com.grappim.scanner.di.DaggerScannerComponent
 import com.grappim.scanner.di.ScannerComponent
+import com.grappim.uikit.R
 import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
@@ -71,10 +73,10 @@ class ScannerFragment : BaseFlowFragment<ScannerViewModel>(R.layout.fragment_sca
             }
         }
 
-        override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
-        }
+        override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {}
     }
 
+    @Suppress("UnusedPrivateProperty")
     private val barcodeCallbackContinuous = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult?) {
             result?.text?.let {
@@ -87,8 +89,7 @@ class ScannerFragment : BaseFlowFragment<ScannerViewModel>(R.layout.fragment_sca
             }
         }
 
-        override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
-        }
+        override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {}
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -136,11 +137,12 @@ class ScannerFragment : BaseFlowFragment<ScannerViewModel>(R.layout.fragment_sca
 
     companion object {
         private const val CONTINUOUS_SCAN_DELAY = 1000
+
+        @Suppress("UnusedPrivateProperty")
         private const val CAMERA_REQUEST_CODE = 2300
 
-        fun newInstance(args: Bundle?) =
-            ScannerFragment().apply {
-                arguments = args
-            }
+        fun newInstance(args: Bundle?) = ScannerFragment().apply {
+            arguments = args
+        }
     }
 }

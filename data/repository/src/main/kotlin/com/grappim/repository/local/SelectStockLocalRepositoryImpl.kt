@@ -1,6 +1,6 @@
 package com.grappim.repository.local
 
-import com.grappim.common.di.AppScope
+import com.grappim.cashier.common.di.AppScope
 import com.grappim.domain.model.outlet.Stock
 import com.grappim.domain.repository.local.SelectStockLocalRepository
 import kotlinx.coroutines.flow.Flow
@@ -8,9 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @AppScope
-class SelectStockLocalRepositoryImpl @Inject constructor(
-
-) : SelectStockLocalRepository {
+class SelectStockLocalRepositoryImpl @Inject constructor() : SelectStockLocalRepository {
 
     private val stocks = mutableListOf<Stock>()
     private var selectedStockPosition: Int = -1
@@ -35,11 +33,9 @@ class SelectStockLocalRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getSelectedStock(): Stock? =
-        stocks.getOrNull(selectedStockPosition)
+    override fun getSelectedStock(): Stock? = stocks.getOrNull(selectedStockPosition)
 
-    override fun getStocks(): List<Stock> =
-        stocks.toList()
+    override fun getStocks(): List<Stock> = stocks.toList()
 
     override fun clear() {
         _stocksFlow.value.clear()

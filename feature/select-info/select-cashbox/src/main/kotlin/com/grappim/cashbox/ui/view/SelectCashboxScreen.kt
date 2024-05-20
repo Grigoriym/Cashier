@@ -126,10 +126,7 @@ private fun CashBoxListSegment(
     onRefresh: () -> Unit
 ) {
     val pullRefreshState = rememberPullRefreshState(isRefreshing, { onRefresh() })
-    Box(
-        modifier = Modifier
-            .pullRefresh(pullRefreshState),
-    ) {
+    Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
         LazyColumn(modifier = modifier) {
             items(cashBoxItems) { item ->
                 CashBoxListItem(
@@ -154,8 +151,7 @@ private fun CashBoxListItem(
     onCashBoxClick: (CashBox) -> Unit
 ) {
     val isItemSelected = cashBox.cashBoxId == selectedCashBox?.cashBoxId &&
-            cashBox.name == selectedCashBox.name
-
+        cashBox.name == selectedCashBox.name
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -192,13 +188,8 @@ private fun CashBoxListItem(
 }
 
 @Composable
-private fun CashBoxProgressItem(
-    item: CashierProgressItem,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
+private fun CashBoxProgressItem(item: CashierProgressItem, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
         val color = if (item.isActive) {
             CashierBlue
         } else {

@@ -1,7 +1,7 @@
 package com.grappim.feature.waybill.network.mapper
 
-import com.grappim.datetime.DateTimeIsoLocalDateTime
-import com.grappim.datetime.DateTimeStandard
+import com.grappim.cashier.datetime.DateTimeIsoLocalDateTime
+import com.grappim.cashier.datetime.DateTimeStandard
 import com.grappim.feature.waybill.domain.model.Waybill
 import com.grappim.feature.waybill.network.model.WaybillDTO
 import com.grappim.logger.logD
@@ -44,18 +44,17 @@ class WaybillMapper @Inject constructor(
         )
     }
 
-    fun domainToDto(from: Waybill): WaybillDTO =
-        WaybillDTO(
-            createdOn = from.createdOn,
-            id = from.id,
-            merchantId = from.merchantId,
-            number = from.number,
-            status = from.status,
-            stockId = from.stockId,
-            totalCost = from.totalCost,
+    fun domainToDto(from: Waybill): WaybillDTO = WaybillDTO(
+        createdOn = from.createdOn,
+        id = from.id,
+        merchantId = from.merchantId,
+        number = from.number,
+        status = from.status,
+        stockId = from.stockId,
+        totalCost = from.totalCost,
 //            type = from.type.value,
-            updatedOn = from.updatedOn,
-            reservedTime = from.reservedTime,
-            comment = from.comment
-        )
+        updatedOn = from.updatedOn,
+        reservedTime = from.reservedTime,
+        comment = from.comment
+    )
 }

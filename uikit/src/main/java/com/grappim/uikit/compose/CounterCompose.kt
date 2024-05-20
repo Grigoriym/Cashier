@@ -28,6 +28,7 @@ import com.grappim.uikit.theme.CashierGray
 import com.grappim.uikit.theme.CashierLightGray
 import com.grappim.uikit.theme.CashierTheme
 
+@Suppress("MagicNumber")
 @Composable
 fun CounterComposable(
     modifier: Modifier = Modifier,

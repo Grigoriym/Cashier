@@ -1,12 +1,13 @@
 package com.grappim.stock.di
 
-import com.grappim.common.asynchronous.di.CoroutinesModule
-import com.grappim.common.di.FragmentScope
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.common.async.di.CoroutinesModule
+import com.grappim.cashier.common.di.FragmentScope
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.navigation.router.FlowRouter
 import dagger.Component
 
-@[FragmentScope Component(
+@[
+FragmentScope Component(
     modules = [
         CoroutinesModule::class,
         SelectStockBindsModule::class
@@ -14,7 +15,8 @@ import dagger.Component
     dependencies = [
         SelectStockDeps::class
     ]
-)]
+)
+]
 interface SelectStockComponent {
 
     fun multiViewModelFactory(): MultiViewModelFactory

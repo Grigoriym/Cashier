@@ -1,3 +1,5 @@
+@file:Suppress("DestructuringDeclarationWithTooManyEntries")
+
 package com.grappim.feature.waybill.presentation.ui.list.ui.view
 
 import androidx.compose.foundation.background
@@ -107,10 +109,7 @@ private fun WaybillListSegment(
     isRefreshing: Boolean
 ) {
     val pullRefreshState = rememberPullRefreshState(isRefreshing, { onRefresh() })
-    Box(
-        modifier = Modifier
-            .pullRefresh(pullRefreshState),
-    ) {
+    Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
         LazyColumn(
             modifier = modifier
         ) {
@@ -128,9 +127,7 @@ private fun WaybillListSegment(
                         )
                     }
 
-                    else -> {
-
-                    }
+                    else -> {}
                 }
             }
         }
@@ -268,9 +265,7 @@ private fun WaybillItemSegment(
 }
 
 @Composable
-private fun WaybillListHeaderSegment(
-    header: PagingDataModel.Separator
-) {
+private fun WaybillListHeaderSegment(header: PagingDataModel.Separator) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

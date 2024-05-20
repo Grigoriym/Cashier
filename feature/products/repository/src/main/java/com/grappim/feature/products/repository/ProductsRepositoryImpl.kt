@@ -3,16 +3,17 @@ package com.grappim.feature.products.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.grappim.common.asynchronous.di.IoDispatcher
-import com.grappim.common.asynchronous.runOperationCatching
-import com.grappim.common.di.AppScope
-import com.grappim.common.lce.Try
-import com.grappim.comon.db.getStringForDbQuery
-import com.grappim.datetime.DateTimeIsoLocalDateTime
-import com.grappim.datetime.DateTimeUtils
+import com.grappim.cashier.common.async.di.IoDispatcher
+import com.grappim.cashier.common.di.AppScope
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.common.lce.runOperationCatching
+import com.grappim.cashier.comon.db.getStringForDbQuery
+import com.grappim.cashier.datetime.DateTimeIsoLocalDateTime
+import com.grappim.cashier.datetime.DateTimeUtils
+import com.grappim.cashier.feature.productcategory.domain.model.ProductCategory
 import com.grappim.db.dao.ProductsDao
+import com.grappim.db.entity.PRODUCT_ENTITY_TABLE
 import com.grappim.db.entity.ProductEntity
-import com.grappim.db.entity.productEntityTableName
 import com.grappim.db.helper.RoomQueryHelper
 import com.grappim.domain.model.Product
 import com.grappim.domain.model.ProductUnit
@@ -25,7 +26,6 @@ import com.grappim.feature.products.domain.interactor.editProduct.EditProductPar
 import com.grappim.feature.products.domain.interactor.getProductByBarcode.GetProductBarcodeParams
 import com.grappim.feature.products.domain.interactor.getProductsByQuery.GetProductsByQueryParams
 import com.grappim.feature.products.domain.repository.ProductsRepository
-import com.grappim.productcategory.domain.model.ProductCategory
 import com.grappim.products.network.api.ProductsApi
 import com.grappim.products.network.di.QualifierProductsApi
 import com.grappim.products.network.mapper.toDomain
@@ -71,102 +71,97 @@ class ProductsRepositoryImpl @Inject constructor(
         domainToReturn
     }
 
-    override fun getProductsByQuery(
-        params: GetProductsByQueryParams
-    ): Flow<List<Product>> =
-        flow {
-            val category = params.category
-            val query = params.query
-            val roomQuery = StringBuilder("SELECT * FROM $productEntityTableName ")
-                .append("WHERE merchantId = '${generalStorage.getMerchantId()}' ")
-                .append(
-                    if (category == null || category.id == ProductCategory.ALL_DEFAULT_ID) {
-                        ""
-                    } else {
-                        "AND categoryId = '${category.id}' "
-                    }
-                )
-                .append(
-                    if (query.isNotBlank()) {
-                        "AND name LIKE '${query.getStringForDbQuery()}' "
-                    } else {
-                        ""
-                    }
-                )
-
-            emitAll(
-                productsDao.getProductsFlow(
-                    RoomQueryHelper.toSQLiteQuery(roomQuery)
-                ).map {
-                    it.toDomain2()
+    override fun getProductsByQuery(params: GetProductsByQueryParams): Flow<List<Product>> = flow {
+        val category = params.category
+        val query = params.query
+        val roomQuery = StringBuilder("SELECT * FROM $PRODUCT_ENTITY_TABLE ")
+            .append("WHERE merchantId = '${generalStorage.getMerchantId()}' ")
+            .append(
+                if (category == null || category.id == ProductCategory.ALL_DEFAULT_ID) {
+                    ""
+                } else {
+                    "AND categoryId = '${category.id}' "
                 }
+            )
+            .append(
+                if (query.isNotBlank()) {
+                    "AND name LIKE '${query.getStringForDbQuery()}' "
+                } else {
+                    ""
+                }
+            )
+
+        emitAll(
+            productsDao.getProductsFlow(
+                RoomQueryHelper.toSQLiteQuery(roomQuery)
+            ).map {
+                it.toDomain2()
+            }
+        )
+    }
+
+    override suspend fun createProduct(params: CreateProductParams): Try<Unit, Throwable> =
+        runOperationCatching {
+            val response = productsApi.createProduct(
+                createProduct = CreateProductRequestDTO(
+                    CreateProductRequestParamsDTO(
+                        name = params.name,
+                        stockId = params.stockId,
+                        merchantId = params.merchantId,
+                        unit = params.unit,
+                        purchasePrice = params.purchasePrice,
+                        sellingPrice = params.sellingPrice,
+                        amount = params.amount,
+                        barcode = params.barcode,
+                        categoryId = params.categoryId
+                    )
+                )
+            )
+
+            val domain = response.product.toEntity()
+
+            productsDao.insert(
+                ProductEntity(
+                    id = domain.id,
+                    barcode = params.barcode,
+                    name = params.name,
+                    stockId = params.stockId,
+                    amount = params.amount,
+                    unit = ProductUnit.getProductUnitByValue(params.unit),
+                    purchasePrice = params.purchasePrice,
+                    sellingPrice = params.sellingPrice,
+                    merchantId = params.merchantId,
+                    createdOn = domain.createdOn,
+                    updatedOn = domain.updatedOn,
+                    categoryId = domain.categoryId
+                )
             )
         }
 
-    override suspend fun createProduct(
-        params: CreateProductParams
-    ): Try<Unit, Throwable> = runOperationCatching {
-        val response = productsApi.createProduct(
-            createProduct = CreateProductRequestDTO(
-                CreateProductRequestParamsDTO(
-                    name = params.name,
-                    stockId = params.stockId,
-                    merchantId = params.merchantId,
-                    unit = params.unit,
-                    purchasePrice = params.purchasePrice,
-                    sellingPrice = params.sellingPrice,
-                    amount = params.amount,
-                    barcode = params.barcode,
-                    categoryId = params.categoryId
-                )
-            )
-        )
-
-        val domain = response.product.toEntity()
-
-        productsDao.insert(
-            ProductEntity(
-                id = domain.id,
+    override suspend fun updateProduct(params: EditProductParams): Try<Unit, Throwable> =
+        runOperationCatching {
+            val productDTO = ProductDTO(
+                id = params.productId,
                 barcode = params.barcode,
                 name = params.name,
-                stockId = params.stockId,
+                stockId = params.productStockId,
                 amount = params.amount,
-                unit = ProductUnit.getProductUnitByValue(params.unit),
+                unit = ProductUnit.getProductUnitByValue(params.unit.value),
                 purchasePrice = params.purchasePrice,
                 sellingPrice = params.sellingPrice,
-                merchantId = params.merchantId,
-                createdOn = domain.createdOn,
-                updatedOn = domain.updatedOn,
-                categoryId = domain.categoryId
+                merchantId = params.productMerchantId,
+                createdOn = params.productCreatedOn,
+                updatedOn = dtfIsoLocal.format(DateTimeUtils.getNowOffsetDateTime(true)),
+                categoryId = params.categoryId
             )
-        )
-    }
 
-    override suspend fun updateProduct(
-        params: EditProductParams
-    ): Try<Unit, Throwable> = runOperationCatching {
-        val productDTO = ProductDTO(
-            id = params.productId,
-            barcode = params.barcode,
-            name = params.name,
-            stockId = params.productStockId,
-            amount = params.amount,
-            unit = ProductUnit.getProductUnitByValue(params.unit.value),
-            purchasePrice = params.purchasePrice,
-            sellingPrice = params.sellingPrice,
-            merchantId = params.productMerchantId,
-            createdOn = params.productCreatedOn,
-            updatedOn = dtfIsoLocal.format(DateTimeUtils.getNowOffsetDateTime(true)),
-            categoryId = params.categoryId
-        )
+            val response = productsApi.updateProduct(
+                UpdateProductRequestDTO(productDTO)
+            )
 
-        val response = productsApi.updateProduct(
-            UpdateProductRequestDTO(productDTO)
-        )
-
-        val entity = response.product.toEntity()
-        productsDao.update(entity)
-    }
+            val entity = response.product.toEntity()
+            productsDao.update(entity)
+        }
 
     override fun searchProducts(
         params: com.grappim.feature.products.domain.interactor.searchProducts.SearchProductsParams

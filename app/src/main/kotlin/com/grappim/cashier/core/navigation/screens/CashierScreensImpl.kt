@@ -5,7 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.grappim.common.di.ActivityScope
+import com.grappim.cashier.common.di.ActivityScope
+import com.grappim.cashier.feature.paymentmethod.presentation.ui.view.PaymentMethodFragment
+import com.grappim.cashier.feature.productcategory.presentation.createedit.ui.view.CreateEditProductCategoryFragment
+import com.grappim.cashier.feature.productcategory.presentation.list.ui.view.ProductCategoryListFragment
+import com.grappim.cashier.feature.productcategory.presentation.root.ui.ProductCategoryRootFragment
 import com.grappim.feature.auth.presentation.ui.view.AuthFragment
 import com.grappim.feature.bag.presentation.ui.view.BagFragment
 import com.grappim.feature.selectinfo.rootpresentation.ui.SelectInfoRootFragment
@@ -18,10 +22,6 @@ import com.grappim.feature.waybill.presentation.ui.scanner.ui.WaybillScannerFrag
 import com.grappim.feature.waybill.presentation.ui.search.ui.view.SearchProductFragment
 import com.grappim.menu.ui.view.MenuFragment
 import com.grappim.navigation.screens.CashierScreens
-import com.grappim.cashier.feature.paymentmethod.presentation.ui.view.PaymentMethodFragment
-import com.grappim.productcategory.presentation.createedit.ui.view.CreateEditProductCategoryFragment
-import com.grappim.productcategory.presentation.list.ui.view.ProductCategoryListFragment
-import com.grappim.productcategory.presentation.root.ui.ProductCategoryRootFragment
 import com.grappim.products.presentation.createedit.ui.view.CreateEditProductFragment
 import com.grappim.products.presentation.list.ui.view.ProductListFragment
 import com.grappim.products.presentation.root.ui.ProductsRootFragment
@@ -33,99 +33,99 @@ import javax.inject.Inject
 @ActivityScope
 class CashierScreensImpl @Inject constructor() : CashierScreens {
 
-    override fun AuthScreen() = FragmentScreen {
+    override fun authScreen() = FragmentScreen {
         AuthFragment()
     }
 
-    override fun SignUpScreen() = FragmentScreen {
+    override fun signUpScreen() = FragmentScreen {
         SignUpFragment()
     }
 
-    override fun MenuScreen() = FragmentScreen {
+    override fun menuScreen() = FragmentScreen {
         MenuFragment()
     }
 
-    override fun SelectInfoRoot() = FragmentScreen {
+    override fun selectInfoRoot() = FragmentScreen {
         SelectInfoRootFragment()
     }
 
-    override fun Products() = FragmentScreen {
+    override fun products() = FragmentScreen {
         ProductsRootFragment()
     }
 
-    override fun ProductsList() = FragmentScreen {
+    override fun productsList() = FragmentScreen {
         ProductListFragment()
     }
 
-    override fun ProductsCreate(args: Bundle) = FragmentScreen {
+    override fun productsCreate(args: Bundle) = FragmentScreen {
         CreateEditProductFragment.newInstance(args)
     }
 
-    override fun ProductsEdit(args: Bundle) = FragmentScreen {
+    override fun productsEdit(args: Bundle) = FragmentScreen {
         CreateEditProductFragment.newInstance(args)
     }
 
-    override fun ProductCategories(fromProduct: Boolean?) = FragmentScreen {
+    override fun productCategories(fromProduct: Boolean?) = FragmentScreen {
         ProductCategoryRootFragment.newInstance(fromProduct)
     }
 
-    override fun ProductCategoriesList() = FragmentScreen {
+    override fun productCategoriesList() = FragmentScreen {
         ProductCategoryListFragment()
     }
 
-    override fun ProductCategoryCreate(args: Bundle?) = FragmentScreen {
+    override fun productCategoryCreate(args: Bundle?) = FragmentScreen {
         CreateEditProductCategoryFragment.newInstance(args)
     }
 
-    override fun ProductCategoryEdit(args: Bundle) = FragmentScreen {
+    override fun productCategoryEdit(args: Bundle) = FragmentScreen {
         CreateEditProductCategoryFragment.newInstance(args)
     }
 
-    override fun Scanner(args: Bundle?) = FragmentScreen {
+    override fun scanner(args: Bundle?) = FragmentScreen {
         ScannerFragment.newInstance(args)
     }
 
-    override fun Waybill() = FragmentScreen {
+    override fun waybill() = FragmentScreen {
         WaybillRootFragment()
     }
 
-    override fun WaybillList() = FragmentScreen {
+    override fun waybillList() = FragmentScreen {
         WaybillListFragment()
     }
 
-    override fun WaybillDetails() = FragmentScreen {
+    override fun waybillDetails() = FragmentScreen {
         WaybillDetailsFragment.newInstance()
     }
 
-    override fun WaybillProduct(args: Bundle) = FragmentScreen {
+    override fun waybillProduct(args: Bundle) = FragmentScreen {
         WaybillProductFragment.newInstance(args)
     }
 
-    override fun WaybillSearch() = FragmentScreen {
+    override fun waybillSearch() = FragmentScreen {
         SearchProductFragment()
     }
 
-    override fun WaybillScanner() = FragmentScreen {
+    override fun waybillScanner() = FragmentScreen {
         WaybillScannerFragment()
     }
 
-    override fun Sales() = FragmentScreen {
+    override fun sales() = FragmentScreen {
         SalesFragment()
     }
 
-    override fun Bag() = FragmentScreen {
+    override fun bag() = FragmentScreen {
         BagFragment()
     }
 
-    override fun PaymentMethod() = FragmentScreen {
+    override fun paymentMethod() = FragmentScreen {
         PaymentMethodFragment()
     }
 
-    override fun Settings() = FragmentScreen {
+    override fun settings() = FragmentScreen {
         SettingsFragment()
     }
 
-    override fun GithubSrc() = ActivityScreen {
+    override fun githubSrc() = ActivityScreen {
         Intent(
             Intent.ACTION_VIEW,
             Uri.parse("https://github.com/Grigoriym/Cashier")

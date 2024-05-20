@@ -1,15 +1,15 @@
 package com.grappim.repository.di
 
 import com.grappim.cashier.data.repositoryapi.DataClearHelper
+import com.grappim.cashier.feature.paymentmethod.domain.repository.PaymentRepository
+import com.grappim.cashier.feature.productcategory.domain.repository.ProductCategoryRepository
+import com.grappim.cashier.feature.productcategory.repository.ProductCategoryRepositoryImpl
 import com.grappim.domain.repository.FeatureToggleRepository
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.repository.local.FeatureToggleLocalRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository
-import com.grappim.feature.paymentmethod.domain.repository.PaymentRepository
-import com.grappim.productcategory.domain.repository.ProductCategoryRepository
-import com.grappim.productcategory.repository.ProductCategoryRepositoryImpl
 import com.grappim.repository.local.FeatureToggleLocalRepositoryImpl
 import com.grappim.repository.local.SelectCashBoxLocalRepositoryImpl
 import com.grappim.repository.local.SelectStockLocalRepositoryImpl
@@ -25,14 +25,10 @@ import dagger.Module
 interface RepositoryModule {
 
     @Binds
-    fun bindDataClearHelper(
-        dataClearHelperImpl: DataClearHelperImpl
-    ): DataClearHelper
+    fun bindDataClearHelper(dataClearHelperImpl: DataClearHelperImpl): DataClearHelper
 
     @Binds
-    fun bindGeneralRepository(
-        generalRepositoryImpl: GeneralRepositoryImpl
-    ): GeneralRepository
+    fun bindGeneralRepository(generalRepositoryImpl: GeneralRepositoryImpl): GeneralRepository
 
     @Binds
     fun bindSelectInfoRepository(
@@ -40,9 +36,7 @@ interface RepositoryModule {
     ): SelectInfoRemoteRepository
 
     @Binds
-    fun bindPaymentRepository(
-        paymentRepositoryImpl: PaymentRepositoryImpl
-    ): PaymentRepository
+    fun bindPaymentRepository(paymentRepositoryImpl: PaymentRepositoryImpl): PaymentRepository
 
     @Binds
     fun bindSelectStockRepository(

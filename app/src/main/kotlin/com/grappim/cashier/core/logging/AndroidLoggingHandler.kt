@@ -7,6 +7,7 @@ import java.util.logging.Level
 import java.util.logging.LogManager
 import java.util.logging.LogRecord
 
+@Suppress("EmptyFunctionBlock")
 class AndroidLoggingHandler : Handler() {
 
     companion object {
@@ -43,14 +44,13 @@ class AndroidLoggingHandler : Handler() {
     override fun close() {
     }
 
-    private fun getAndroidLevel(level: Level): Int =
-        when (level.intValue()) {
-            Level.SEVERE.intValue() -> Log.ERROR
-            Level.WARNING.intValue() -> Log.WARN
-            Level.INFO.intValue() -> Log.INFO
-            Level.FINE.intValue() -> Log.DEBUG
-            else -> Log.DEBUG
-        }
+    private fun getAndroidLevel(level: Level): Int = when (level.intValue()) {
+        Level.SEVERE.intValue() -> Log.ERROR
+        Level.WARNING.intValue() -> Log.WARN
+        Level.INFO.intValue() -> Log.INFO
+        Level.FINE.intValue() -> Log.DEBUG
+        else -> Log.DEBUG
+    }
 
     override fun isLoggable(record: LogRecord?): Boolean =
         super.isLoggable(record) && BuildConfig.DEBUG

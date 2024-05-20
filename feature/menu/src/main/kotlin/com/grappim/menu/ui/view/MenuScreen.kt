@@ -31,8 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.grappim.domain.model.menu.MenuItemType
-import com.grappim.uikit.R
 import com.grappim.menu.model.MenuItemPm
+import com.grappim.uikit.R
 import com.grappim.uikit.compose.BaseTopAppBar
 import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.compose.CashierImage
@@ -114,9 +114,7 @@ private fun MenuItemsSection(
 }
 
 @Composable
-private fun CashierNameSegment(
-    cashierName: String
-) {
+private fun CashierNameSegment(cashierName: String) {
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -138,10 +136,7 @@ private fun CashierNameSegment(
 }
 
 @Composable
-private fun MenuItemRow(
-    modifier: Modifier = Modifier,
-    item: MenuItemPm
-) {
+private fun MenuItemRow(modifier: Modifier = Modifier, item: MenuItemPm) {
     Row(
         modifier = modifier
             .padding(all = 24.dp)
@@ -156,7 +151,7 @@ private fun MenuItemRow(
                 imageVector = item.imageVector,
                 modifier = Modifier
                     .size(44.dp),
-                colorFilter = ColorFilter.tint(CashierBlue),
+                colorFilter = ColorFilter.tint(CashierBlue)
             )
         }
         Spacer(modifier = Modifier.width(40.dp))
@@ -198,7 +193,7 @@ private fun CashierNameSegmentPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun MenuScreenPreview() {
-    CashierTheme() {
+    CashierTheme {
         MenuScreen(
             cashierName = "Cashier name",
             items = listOf(

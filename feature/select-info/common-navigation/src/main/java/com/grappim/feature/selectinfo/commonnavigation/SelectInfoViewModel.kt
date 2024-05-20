@@ -1,7 +1,7 @@
 package com.grappim.feature.selectinfo.commonnavigation
 
 import androidx.lifecycle.LiveData
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.base.BaseViewModel
 
 abstract class SelectInfoViewModel : BaseViewModel() {
 
@@ -14,5 +14,4 @@ abstract class SelectInfoViewModel : BaseViewModel() {
     abstract fun goToSelectCashBox()
 
     abstract fun backToSelectStock()
-
 }

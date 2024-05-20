@@ -1,6 +1,6 @@
 package com.grappim.feature.selectinfo.rootpresentation.ui
 
-import com.grappim.core.SingleLiveEvent
+import com.grappim.cashier.core.SingleLiveEvent
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoRootFlow
 import com.grappim.feature.selectinfo.commonnavigation.SelectInfoViewModel
 import javax.inject.Inject

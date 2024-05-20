@@ -8,14 +8,12 @@ import dagger.Provides
 class NetworkConfigsModule {
 
     @Provides
-    fun provideNetworkBuildConfig(): NetworkBuildConfigProvider =
-        NetworkBuildConfigProvider(
-            debug = BuildConfig.DEBUG
-        )
+    fun provideNetworkBuildConfig(): NetworkBuildConfigProvider = NetworkBuildConfigProvider(
+        debug = BuildConfig.DEBUG
+    )
 
     @Provides
-    fun provideCashierApiProvider(): CashierApiUrlProvider =
-        CashierApiUrlProvider(
-            cashierApi = BuildConfig.CASHIER_API
-        )
+    fun provideCashierApiProvider(): CashierApiUrlProvider = CashierApiUrlProvider(
+        cashierApi = BuildConfig.CASHIER_API
+    )
 }

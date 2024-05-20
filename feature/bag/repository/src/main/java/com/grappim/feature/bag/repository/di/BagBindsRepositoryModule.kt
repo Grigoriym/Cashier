@@ -8,7 +8,5 @@ import dagger.Module
 @Module
 interface BagBindsRepositoryModule {
     @Binds
-    fun bindBagRepository(
-        basketRepositoryImpl: BagRepositoryImpl
-    ): BagRepository
+    fun bindBagRepository(basketRepositoryImpl: BagRepositoryImpl): BagRepository
 }

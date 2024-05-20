@@ -1,6 +1,6 @@
 package com.grappim.network.authenticators
 
-import com.grappim.common.di.NetworkScope
+import com.grappim.cashier.common.di.NetworkScope
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.logger.logD
 import kotlinx.coroutines.runBlocking

@@ -1,6 +1,6 @@
 package com.grappim.feature.products.domain.interactor.getProductByBarcode
 
-import com.grappim.common.lce.Try
+import com.grappim.cashier.common.lce.Try
 import com.grappim.domain.model.Product
 import com.grappim.feature.products.domain.repository.ProductsRepository
 import javax.inject.Inject

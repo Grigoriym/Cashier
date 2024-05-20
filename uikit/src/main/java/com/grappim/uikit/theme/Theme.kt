@@ -25,10 +25,7 @@ private val DarkThemeColors = darkColors(
 )
 
 @Composable
-fun CashierTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
+fun CashierTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
 //    val systemUiController = rememberSystemUiController()
 //    val useDarkIcons = MaterialTheme.colors.isLight
 //

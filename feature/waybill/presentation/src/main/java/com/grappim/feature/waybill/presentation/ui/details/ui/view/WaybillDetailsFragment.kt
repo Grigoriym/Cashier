@@ -13,8 +13,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.core.base.BaseFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
+import com.grappim.cashier.core.base.BaseFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
 import com.grappim.extensions.padWithZeros
 import com.grappim.feature.waybill.presentation.ui.details.di.DaggerWaybillDetailsComponent
 import com.grappim.feature.waybill.presentation.ui.details.di.WaybillDetailsComponent
@@ -24,7 +24,7 @@ import com.grappim.navigation.router.FlowRouter
 import com.grappim.uikit.compose.LoaderDialogCompose
 import com.grappim.uikit.theme.CashierTheme
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Date
 
 class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
 
@@ -43,7 +43,7 @@ class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
         component.multiViewModelFactory()
     }
 
-    override val viewModel by viewModels<WaybillDetailsViewModel>() {
+    override val viewModel by viewModels<WaybillDetailsViewModel> {
         viewModelFactory
     }
     private val sharedViewModel by viewModels<WaybillRootViewModel>(
@@ -91,9 +91,7 @@ class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
             onDateClick = {
                 setActualDateTime()
             },
-            onRefresh = {
-
-            },
+            onRefresh = {},
             comment = comment,
             setComment = viewModel::setComment,
             actualDate = actualDate
@@ -116,7 +114,10 @@ class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
                 fullTime = "${hourOfDay.padWithZeros(2)}:${minute.padWithZeros(2)}"
                 val fullDateTime = "$fullDate $fullTime"
                 viewModel.setActualDate(fullDateTime)
-            }, lHour, lMinute, true
+            },
+            lHour,
+            lMinute,
+            true
         )
 
         val dpd = DatePickerDialog(
@@ -124,15 +125,16 @@ class WaybillDetailsFragment : BaseFragment<WaybillDetailsViewModel>() {
             { _, year, month, dayOfMonth ->
                 fullDate = "${dayOfMonth.padWithZeros(2)}.${(month + 1).padWithZeros(2)}.$year"
                 tpd.show()
-            }, lYear, lMonth, lDay
+            },
+            lYear,
+            lMonth,
+            lDay
         )
         dpd.datePicker.maxDate = Date().time
         dpd.show()
     }
 
     companion object {
-        fun newInstance() = WaybillDetailsFragment().apply {
-
-        }
+        fun newInstance() = WaybillDetailsFragment()
     }
 }

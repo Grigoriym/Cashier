@@ -1,5 +1,5 @@
 plugins {
-alias(libs.plugins.cashier.java.library)
+    alias(libs.plugins.cashier.java.library)
 }
 
 dependencies {

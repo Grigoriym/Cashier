@@ -31,17 +31,17 @@ fun SettingsMenuItem(
     title: @Composable () -> Unit,
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     Surface {
         Row(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth()
         ) {
             Row(
                 modifier = Modifier
                     .weight(1f)
                     .clickable(onClick = onClick),
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 SettingsTileIcon(icon = icon)
                 SettingsTileTexts(title = title, subtitle = subtitle)
@@ -51,7 +51,7 @@ fun SettingsMenuItem(
                     modifier = Modifier
                         .padding(vertical = 4.dp)
                         .height(56.dp)
-                        .width(1.dp),
+                        .width(1.dp)
                 )
                 SettingsTileAction {
                     action.invoke()
@@ -64,11 +64,11 @@ fun SettingsMenuItem(
 @Composable
 internal fun SettingsTileIcon(
     modifier: Modifier = Modifier,
-    icon: @Composable (() -> Unit)? = null,
+    icon: @Composable (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier.size(64.dp),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         if (icon != null) {
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
@@ -81,11 +81,11 @@ internal fun SettingsTileIcon(
 @Composable
 internal fun RowScope.SettingsTileTexts(
     title: @Composable () -> Unit,
-    subtitle: @Composable (() -> Unit)?,
+    subtitle: @Composable (() -> Unit)?
 ) {
     Column(
         modifier = Modifier.Companion.weight(1f),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Center
     ) {
         SettingsTileTitle(title)
         if (subtitle != null) {
@@ -116,7 +116,7 @@ internal fun SettingsTileSubtitle(subtitle: @Composable () -> Unit) {
 internal fun SettingsTileAction(content: @Composable () -> Unit) {
     Box(
         modifier = Modifier.size(64.dp),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         content()
     }

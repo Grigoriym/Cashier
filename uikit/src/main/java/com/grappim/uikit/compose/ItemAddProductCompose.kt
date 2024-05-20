@@ -1,3 +1,5 @@
+@file:Suppress("DestructuringDeclarationWithTooManyEntries")
+
 package com.grappim.uikit.compose
 
 import androidx.compose.foundation.Image
@@ -35,12 +37,11 @@ fun ItemAddProductCompose(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable {
-
-            }
+            .clickable {}
     ) {
         ConstraintLayout {
-            val (image,
+            val (
+                image,
                 title,
                 price,
                 cart,
@@ -119,12 +120,8 @@ fun ItemAddProductCompose(
                                 anchor = parent.end,
                                 margin = 16.dp
                             )
-                            bottom.linkTo(
-                                anchor = counter.bottom
-                            )
-                            top.linkTo(
-                                anchor = counter.top,
-                            )
+                            bottom.linkTo(anchor = counter.bottom)
+                            top.linkTo(anchor = counter.top)
                             height = Dimension.fillToConstraints
                         },
                     backgroundColor = Color.White,
@@ -188,7 +185,7 @@ private fun ItemAddProductPreview() {
             product = Product.empty(),
             onPlusClick = {},
             onMinusClick = {},
-            onCartClick = {},
+            onCartClick = {}
         )
     }
 }

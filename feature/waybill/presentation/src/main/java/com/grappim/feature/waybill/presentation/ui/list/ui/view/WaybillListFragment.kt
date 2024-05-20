@@ -11,9 +11,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.core.base.BaseFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.base.BaseFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.feature.waybill.presentation.ui.list.di.DaggerWaybillListComponent
 import com.grappim.feature.waybill.presentation.ui.list.di.WaybillListComponent
 import com.grappim.feature.waybill.presentation.ui.list.ui.viewmodel.WaybillListViewModel

@@ -1,4 +1,3 @@
-import java.io.File
 import java.util.Properties
 
 plugins {
@@ -61,7 +60,7 @@ dependencies {
     implementation(project(":common:di"))
     implementation(project(":common:db"))
     implementation(project(":common:lce"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
 
     implementation(project(":feature:product-category:repository"))
     implementation(project(":feature:product-category:db"))
@@ -82,7 +81,7 @@ dependencies {
     implementation(project(":feature:bag:domain"))
     implementation(project(":feature:bag:repository"))
     implementation(project(":feature:bag:db"))
-    
+
     implementation(libs.androidx.paging.common)
 
     implementation(libs.androidx.paging.runtime)

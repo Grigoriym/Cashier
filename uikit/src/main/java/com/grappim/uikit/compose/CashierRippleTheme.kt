@@ -10,17 +10,14 @@ import com.grappim.uikit.theme.CashierGray
 object CashierRippleTheme : RippleTheme {
 
     @Composable
-    override fun defaultColor(): Color =
-        RippleTheme.defaultRippleColor(
-            contentColor = CashierGray,
-            lightTheme = !isSystemInDarkTheme()
-        )
+    override fun defaultColor(): Color = RippleTheme.defaultRippleColor(
+        contentColor = CashierGray,
+        lightTheme = !isSystemInDarkTheme()
+    )
 
     @Composable
-    override fun rippleAlpha(): RippleAlpha =
-        RippleTheme.defaultRippleAlpha(
-            contentColor = Color.Black,
-            lightTheme = !isSystemInDarkTheme()
-        )
-
+    override fun rippleAlpha(): RippleAlpha = RippleTheme.defaultRippleAlpha(
+        contentColor = Color.Black,
+        lightTheme = !isSystemInDarkTheme()
+    )
 }

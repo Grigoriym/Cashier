@@ -1,3 +1,5 @@
+@file:Suppress("DestructuringDeclarationWithTooManyEntries")
+
 package com.grappim.uikit.compose
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
@@ -41,7 +43,8 @@ fun ItemProductCompose(
             }
     ) {
         ConstraintLayout {
-            val (productImage,
+            val (
+                productImage,
                 productName,
                 productPrice,
                 productCountUnit,
@@ -158,9 +161,7 @@ fun ItemProductCompose(
 }
 
 @Composable
-private fun ArrowIcon(
-    modifier: Modifier = Modifier
-) {
+private fun ArrowIcon(modifier: Modifier = Modifier) {
     CashierIcon(
         modifier = modifier,
         imageVector = Icons.Filled.ChevronRight
@@ -181,7 +182,8 @@ fun ItemProductCompose(
             }
     ) {
         ConstraintLayout {
-            val (productImage,
+            val (
+                productImage,
                 productName,
                 productPrice,
                 productCountUnit,

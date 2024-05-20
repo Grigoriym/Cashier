@@ -10,14 +10,14 @@ android {
         buildConfig = true
     }
     defaultConfig {
-        buildTypes{
+        buildTypes {
             getByName("debug") {
                 buildConfigField(
                     "String",
                     "CASHIER_API",
                     "\"http://127.0.0.1:5000/api/v1/\""
                 )
-             }
+            }
             getByName("release") {
                 buildConfigField(
                     "String",
@@ -27,6 +27,11 @@ android {
             }
         }
     }
+    kotlinOptions {
+        jvmTarget = "17"
+
+        freeCompilerArgs += "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
+    }
 }
 
 dependencies {
@@ -35,7 +40,7 @@ dependencies {
     implementation(project(":utils:logger"))
 
     implementation(project(":common:di"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
     implementation(project(":common:lce"))
     implementation(project(":common:annotations"))
     implementation(project(":common:network:serializers"))

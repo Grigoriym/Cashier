@@ -1,6 +1,6 @@
 package com.grappim.signup.presentation.di
 
-import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.cashier.common.di.deps.ComponentDeps
 import com.grappim.domain.password.PasswordManager
 import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
@@ -15,6 +15,7 @@ interface SignUpDeps : ComponentDeps {
     fun passwordManager(): PasswordManager
 
     fun retrofit(): Retrofit
+
     @QualifierAuthApi
     fun authApi(): AuthApi
 }

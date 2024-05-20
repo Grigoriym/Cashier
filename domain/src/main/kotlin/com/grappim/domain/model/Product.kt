@@ -1,7 +1,6 @@
 package com.grappim.domain.model
 
 import com.grappim.calculations.asBigDecimal
-import java.io.Serializable
 import java.math.BigDecimal
 
 data class Product(
@@ -21,7 +20,7 @@ data class Product(
     val categoryId: Long,
 
     var basketProduct: BasketProduct? = null
-) : Serializable {
+) {
     companion object {
         fun empty(): Product = Product(
             id = 1,

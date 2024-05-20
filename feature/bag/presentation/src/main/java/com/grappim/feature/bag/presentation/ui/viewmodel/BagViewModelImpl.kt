@@ -3,10 +3,11 @@ package com.grappim.feature.bag.presentation.ui.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.bigDecimalZero
-import com.grappim.common.lce.Try
-import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.domain.model.BasketProduct
 import com.grappim.feature.bag.domain.interactor.ClearBasketUseCase
+import com.grappim.feature.bag.domain.interactor.addBasketProduct.AddBasketProductParams
 import com.grappim.feature.bag.domain.interactor.addBasketProduct.AddBasketProductUseCase
 import com.grappim.feature.bag.domain.interactor.getBagProducts.GetBagProductsUseCase
 import com.grappim.feature.bag.domain.interactor.removeProduct.RemoveProductUseCase
@@ -111,11 +112,7 @@ class BagViewModelImpl @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
             val result = addBasketProductUseCase
-                .execute(
-                    com.grappim.feature.bag.domain.interactor.addBasketProduct.AddBasketProductParams(
-                        product
-                    )
-                )
+                .execute(AddBasketProductParams(product))
             _loading.value = false
             when (result) {
                 is Try.Success -> {

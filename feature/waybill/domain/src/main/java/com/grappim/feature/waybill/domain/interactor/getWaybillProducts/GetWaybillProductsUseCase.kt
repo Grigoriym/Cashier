@@ -10,8 +10,6 @@ class GetWaybillProductsUseCase @Inject constructor(
     private val waybillRepository: WaybillRepository
 ) {
 
-    fun execute(
-        params: GetWaybillProductsParams
-    ): Flow<PagingData<WaybillProduct>> =
+    fun execute(params: GetWaybillProductsParams): Flow<PagingData<WaybillProduct>> =
         waybillRepository.getProducts(params)
 }

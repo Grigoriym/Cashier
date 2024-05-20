@@ -1,6 +1,6 @@
 package com.grappim.repository.remote
 
-import com.grappim.common.di.AppScope
+import com.grappim.cashier.common.di.AppScope
 import com.grappim.domain.model.FeatureToggle
 import com.grappim.domain.repository.FeatureToggleRepository
 import com.grappim.domain.storage.GeneralStorage

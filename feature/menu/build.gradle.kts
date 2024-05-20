@@ -13,7 +13,7 @@ dependencies {
     implementation(project(":uikit"))
     implementation(project(":domain"))
     implementation(project(":navigation"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
     implementation(project(":common:di"))
 
     implementation(libs.androidx.core.ktx)

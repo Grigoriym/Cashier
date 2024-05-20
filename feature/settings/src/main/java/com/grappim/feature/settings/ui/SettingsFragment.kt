@@ -10,9 +10,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.base.BaseFlowFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.extensions.getAppVersion
 import com.grappim.feature.settings.di.DaggerSettingsComponent
 import com.grappim.feature.settings.di.SettingsComponent

@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.cashier.android.dagger)
 }
 android {
-    namespace = "com.grappim.date_time"
+    namespace = "com.grappim.cashier.datetime"
 }
 
 dependencies {

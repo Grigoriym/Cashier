@@ -7,5 +7,4 @@ import dagger.Module
 interface CreateEditProductBindsModule {
 
     fun provideCreateProductAssistedViewModelFactory(): CreateEditProductViewModelImpl.Factory
-
 }

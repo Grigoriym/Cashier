@@ -15,7 +15,7 @@ dependencies {
     implementation(project(":uikit"))
 
     implementation(project(":common:di"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
     implementation(project(":common:lce"))
 
     implementation(project(":utils:calculations"))

@@ -30,7 +30,7 @@ include(":uikit")
 include(":navigation")
 
 include(":common:db")
-include(":common:asynchronous")
+include(":common:async")
 include(":common:lce")
 include(":common:di")
 include(":common:network:serializers")

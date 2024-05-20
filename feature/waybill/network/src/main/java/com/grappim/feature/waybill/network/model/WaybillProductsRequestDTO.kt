@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class WaybillProductsRequestDTO(
-  @SerialName("limit")
-  val limit: Int,
-  @SerialName("offset")
-  val offset: Int,
-  @SerialName("waybillId")
-  val waybillId: Long
+    @SerialName("limit")
+    val limit: Int,
+    @SerialName("offset")
+    val offset: Int,
+    @SerialName("waybillId")
+    val waybillId: Long
 )

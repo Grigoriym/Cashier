@@ -10,20 +10,17 @@ class StringPreference(
     private val defaultValue: String? = null
 ) : ReadWriteProperty<Any, String> {
 
-    override fun getValue(thisRef: Any, property: KProperty<*>): String =
-        sharedPreferences
-            .getString(key, defaultValue)
-            ?: throw IllegalArgumentException("no value for $key")
+    override fun getValue(thisRef: Any, property: KProperty<*>): String = sharedPreferences
+        .getString(key, defaultValue)
+        ?: throw IllegalArgumentException("no value for $key")
 
-    override fun setValue(thisRef: Any, property: KProperty<*>, value: String) =
-        sharedPreferences
-            .edit()
-            .putString(key, value)
-            .apply()
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: String) = sharedPreferences
+        .edit()
+        .putString(key, value)
+        .apply()
 }
 
 fun SharedPreferences.string(
     key: String,
     defaultValue: String? = null
-): ReadWriteProperty<Any, String> =
-    StringPreference(this, key, defaultValue)
+): ReadWriteProperty<Any, String> = StringPreference(this, key, defaultValue)

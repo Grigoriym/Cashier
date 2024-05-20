@@ -2,9 +2,10 @@ package com.grappim.feature.waybill.presentation.ui.scanner.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.grappim.common.lce.Try
-import com.grappim.core.SingleLiveEvent
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.core.SingleLiveEvent
+import com.grappim.cashier.core.base.BaseViewModel
+import com.grappim.feature.products.domain.interactor.getProductByBarcode.GetProductBarcodeParams
 import com.grappim.feature.products.domain.interactor.getProductByBarcode.GetProductByBarcodeUseCase
 import com.grappim.feature.waybill.domain.interactor.getWaybillProductByBarcode.GetWaybillProductByBarcodeParams
 import com.grappim.feature.waybill.domain.interactor.getWaybillProductByBarcode.GetWaybillProductByBarcodeUseCase
@@ -26,13 +27,11 @@ class WaybillScannerViewModel @Inject constructor(
     val product: LiveData<ProductByBarcodeResult>
         get() = _product
 
-    private fun findProductByBarcode(
-        barcode: String
-    ) {
+    private fun findProductByBarcode(barcode: String) {
         viewModelScope.launch {
             _loading.value = true
             val result = getProductByBarcodeUseCase.execute(
-                com.grappim.feature.products.domain.interactor.getProductByBarcode.GetProductBarcodeParams(
+                GetProductBarcodeParams(
                     barcode
                 )
             )
@@ -41,6 +40,7 @@ class WaybillScannerViewModel @Inject constructor(
                 is Try.Success -> {
                     _product.value = ProductByBarcodeResult.SuccessResult(result.result)
                 }
+
                 is Try.Error -> {
                     _product.value = ProductByBarcodeResult.ErrorResult(result.result)
                 }
@@ -48,9 +48,7 @@ class WaybillScannerViewModel @Inject constructor(
         }
     }
 
-    fun checkProductInWaybill(
-        barcode: String
-    ) {
+    fun checkProductInWaybill(barcode: String) {
         viewModelScope.launch {
             _loading.value = true
             val result = getWaybillProductByBarcodeUseCase.execute(
@@ -62,9 +60,10 @@ class WaybillScannerViewModel @Inject constructor(
             _loading.value = false
             when (result) {
                 is Try.Success -> {
-                    _waybillProduct.value = WaybillProductByBarcodeResult
-                            .SuccessResult(result.result)
+                    _waybillProduct.value =
+                        WaybillProductByBarcodeResult.SuccessResult(result.result)
                 }
+
                 is Try.Error -> {
                     findProductByBarcode(barcode)
                 }

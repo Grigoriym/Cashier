@@ -13,5 +13,4 @@ interface SelectCashBoxLocalRepository {
     fun getSelectedCashBox(): CashBox?
 
     fun getCashBoxes(): List<CashBox>
-
 }

@@ -1,6 +1,6 @@
 package com.grappim.cashier.feature.paymentmethod.presentation.ui.viewmodel
 
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.base.BaseViewModel
 import com.grappim.cashier.feature.paymentmethod.presentation.model.PaymentMethod
 import kotlinx.coroutines.flow.StateFlow
 

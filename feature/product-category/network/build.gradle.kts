@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.product_category.network"
+    namespace = "com.grappim.cashier.feature.productcategory.network"
 }
 
 dependencies {

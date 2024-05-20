@@ -1,6 +1,6 @@
 package com.grappim.feature.selectinfo.rootpresentation.di
 
-import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.cashier.common.di.deps.ComponentDeps
 import com.grappim.domain.repository.SelectInfoRemoteRepository
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import com.grappim.domain.repository.local.SelectStockLocalRepository

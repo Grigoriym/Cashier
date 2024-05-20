@@ -74,20 +74,19 @@ class ValidateSignUpFieldsUseCase @Inject constructor() {
             }
         }
 
-    private fun validatePassword(signupData: SignUpData): ValidationTypes.Password? =
-        when {
-            signupData.password.isEmpty() -> {
-                ValidationTypes.Password.Empty
-            }
-
-            isNotPasswordValid(signupData.password) -> {
-                ValidationTypes.Password.NotValid
-            }
-
-            else -> {
-                null
-            }
+    private fun validatePassword(signupData: SignUpData): ValidationTypes.Password? = when {
+        signupData.password.isEmpty() -> {
+            ValidationTypes.Password.Empty
         }
+
+        isNotPasswordValid(signupData.password) -> {
+            ValidationTypes.Password.NotValid
+        }
+
+        else -> {
+            null
+        }
+    }
 
     private fun isNotPasswordValid(password: String): Boolean {
         val isValidLength = password.length >= PASSWORD_MIN_LENGTH
@@ -100,39 +99,35 @@ class ValidateSignUpFieldsUseCase @Inject constructor() {
         return !isValidLength && !containsDigit && !containsUppercase
     }
 
-
-    private fun validateEmail(signupData: SignUpData): ValidationTypes.Email? =
-        when {
-            signupData.email.isEmpty() -> {
-                ValidationTypes.Email.Empty
-            }
-
-            signupData.email.isEmailNotValid() -> {
-                ValidationTypes.Email.CorrectEmail
-            }
-
-            else -> {
-                null
-            }
+    private fun validateEmail(signupData: SignUpData): ValidationTypes.Email? = when {
+        signupData.email.isEmpty() -> {
+            ValidationTypes.Email.Empty
         }
 
-    private fun validatePhone(signupData: SignUpData): ValidationTypes.Phone? =
-        when {
-            signupData.phone.isEmpty() -> {
-                ValidationTypes.Phone.Empty
-            }
-
-            signupData.phone.length != PHONE_MAX_LENGTH -> {
-                ValidationTypes.Phone.PhoneLength
-            }
-
-            else -> {
-                null
-            }
+        signupData.email.isEmailNotValid() -> {
+            ValidationTypes.Email.CorrectEmail
         }
 
-    private fun String.isEmailNotValid(): Boolean =
-        !emailPattern.matcher(this).matches()
+        else -> {
+            null
+        }
+    }
+
+    private fun validatePhone(signupData: SignUpData): ValidationTypes.Phone? = when {
+        signupData.phone.isEmpty() -> {
+            ValidationTypes.Phone.Empty
+        }
+
+        signupData.phone.length != PHONE_MAX_LENGTH -> {
+            ValidationTypes.Phone.PhoneLength
+        }
+
+        else -> {
+            null
+        }
+    }
+
+    private fun String.isEmailNotValid(): Boolean = !emailPattern.matcher(this).matches()
 
     private val emailPattern = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +

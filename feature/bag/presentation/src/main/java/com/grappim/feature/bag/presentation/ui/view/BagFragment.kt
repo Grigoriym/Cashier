@@ -9,9 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.base.BaseFlowFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.feature.bag.presentation.di.BagComponent
 import com.grappim.feature.bag.presentation.di.DaggerBagComponent
 import com.grappim.feature.bag.presentation.ui.viewmodel.BagViewModel

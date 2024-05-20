@@ -1,11 +1,13 @@
 package com.grappim.cashier.di.rootactivity
 
 import android.content.Context
+import com.grappim.cashier.common.di.ApplicationContext
+import com.grappim.cashier.common.di.deps.ComponentDeps
 import com.grappim.cashier.data.repositoryapi.DataClearHelper
 import com.grappim.cashier.data.workersapi.WorkerHelper
-import com.grappim.common.di.ApplicationContext
-import com.grappim.common.di.deps.ComponentDeps
-import com.grappim.datetime.DateTimeIsoInstant
+import com.grappim.cashier.datetime.DateTimeIsoInstant
+import com.grappim.cashier.feature.paymentmethod.domain.repository.PaymentRepository
+import com.grappim.cashier.feature.productcategory.domain.repository.ProductCategoryRepository
 import com.grappim.domain.analytics.CrashesAnalytics
 import com.grappim.domain.password.PasswordManager
 import com.grappim.domain.repository.GeneralRepository
@@ -17,11 +19,9 @@ import com.grappim.domain.storage.GeneralStorage
 import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
 import com.grappim.feature.bag.domain.BagRepository
-import com.grappim.feature.paymentmethod.domain.repository.PaymentRepository
 import com.grappim.feature.products.domain.repository.ProductsRepository
 import com.grappim.feature.waybill.domain.repository.WaybillLocalRepository
 import com.grappim.feature.waybill.domain.repository.WaybillRepository
-import com.grappim.productcategory.domain.repository.ProductCategoryRepository
 import retrofit2.Retrofit
 import java.time.format.DateTimeFormatter
 

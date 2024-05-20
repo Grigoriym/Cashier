@@ -7,9 +7,9 @@ import com.grappim.calculations.bigDecimalZero
 import com.grappim.domain.model.ProductUnit
 import java.math.BigDecimal
 
-const val productEntityTableName = "product_table"
+const val PRODUCT_ENTITY_TABLE = "product_table"
 
-@Entity(tableName = productEntityTableName)
+@Entity(tableName = PRODUCT_ENTITY_TABLE)
 data class ProductEntity(
     @PrimaryKey
     val id: Long,

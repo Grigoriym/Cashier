@@ -4,8 +4,8 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.grappim.common.lce.Try
-import com.grappim.core.utils.BundleArgsHelper
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.core.utils.BundleArgsHelper
 import com.grappim.domain.model.Product
 import com.grappim.feature.products.domain.interactor.getProductByBarcode.GetProductBarcodeParams
 import com.grappim.feature.products.domain.interactor.getProductByBarcode.GetProductByBarcodeUseCase
@@ -42,9 +42,7 @@ class SearchProductViewModelImpl @Inject constructor(
         searchText.value = text
     }
 
-    private fun findProductByBarcode(
-        barcode: String
-    ) {
+    private fun findProductByBarcode(barcode: String) {
         viewModelScope.launch {
             _loading.value = true
             val result = getProductByBarcodeUseCase.execute(
@@ -57,6 +55,7 @@ class SearchProductViewModelImpl @Inject constructor(
                 is Try.Success -> {
                     showProductDetails(result.result)
                 }
+
                 is Try.Error -> {
                     _error.value = result.result
                 }
@@ -71,9 +70,7 @@ class SearchProductViewModelImpl @Inject constructor(
         flowRouter.goToWaybillProduct(args)
     }
 
-    override fun checkProductInWaybill(
-        product: Product
-    ) {
+    override fun checkProductInWaybill(product: Product) {
         viewModelScope.launch {
             _loading.value = true
             val result = getWaybillProductByBarcodeUseCase.execute(
@@ -87,6 +84,7 @@ class SearchProductViewModelImpl @Inject constructor(
                 is Try.Success -> {
                     showProductDetails(result.result)
                 }
+
                 is Try.Error -> {
                     findProductByBarcode(product.barcode)
                 }
@@ -100,5 +98,4 @@ class SearchProductViewModelImpl @Inject constructor(
         )
         flowRouter.goToWaybillProduct(args)
     }
-
 }

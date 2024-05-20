@@ -7,12 +7,11 @@ data class FeatureToggle(
     val isSalesEnabled: Boolean
 ) {
     companion object {
-        fun empty(): FeatureToggle =
-            FeatureToggle(
-                merchantId = "",
-                stockId = "",
-                isWaybillEnabled = false,
-                isSalesEnabled = false
-            )
+        fun empty(): FeatureToggle = FeatureToggle(
+            merchantId = "",
+            stockId = "",
+            isWaybillEnabled = false,
+            isSalesEnabled = false
+        )
     }
 }

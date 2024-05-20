@@ -10,6 +10,5 @@ class LoggerInitializer : Initializer<Unit> {
         AndroidLoggingHandler.setup()
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> =
-        emptyList()
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }

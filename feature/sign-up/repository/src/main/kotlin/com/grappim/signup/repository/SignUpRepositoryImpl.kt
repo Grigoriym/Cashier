@@ -1,8 +1,8 @@
 package com.grappim.signup.repository
 
-import com.grappim.common.asynchronous.runOperationCatching
-import com.grappim.common.di.FeatureScope
-import com.grappim.common.lce.VoidTry
+import com.grappim.cashier.common.di.FeatureScope
+import com.grappim.cashier.common.lce.VoidTry
+import com.grappim.cashier.common.lce.runOperationCatching
 import com.grappim.domain.password.PasswordManager
 import com.grappim.feature.auth.network.api.AuthApi
 import com.grappim.feature.auth.network.di.QualifierAuthApi
@@ -17,9 +17,7 @@ class SignUpRepositoryImpl @Inject constructor(
     private val passwordManager: PasswordManager
 ) : SignUpRepository {
 
-    override suspend fun signUp(
-        params: SignUpParams
-    ): VoidTry<Throwable> = runOperationCatching {
+    override suspend fun signUp(params: SignUpParams): VoidTry<Throwable> = runOperationCatching {
         val encryptedPassword = passwordManager.encryptPassword(params.password)
         val requestBody = SignUpDTO(
             phone = params.phone,

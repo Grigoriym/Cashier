@@ -5,9 +5,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.grappim.calculations.DecimalFormatSimple
 import com.grappim.calculations.bigDecimalZero
-import com.grappim.common.lce.Try
-import com.grappim.core.base.BaseViewModel
-import com.grappim.core.functional.WhileViewSubscribed
+import com.grappim.cashier.common.lce.Try
+import com.grappim.cashier.core.base.BaseViewModel
+import com.grappim.cashier.core.functional.WhileViewSubscribed
 import com.grappim.domain.model.Product
 import com.grappim.feature.bag.domain.interactor.GetBasketItemsUseCase
 import com.grappim.feature.bag.domain.interactor.addProductToBasket.AddProductToBasketParams
@@ -127,5 +127,4 @@ class SalesViewModel @Inject constructor(
     fun showBasket() {
         flowRouter.goToBag()
     }
-
 }

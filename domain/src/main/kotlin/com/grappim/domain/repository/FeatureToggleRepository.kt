@@ -5,5 +5,4 @@ import com.grappim.domain.model.FeatureToggle
 interface FeatureToggleRepository {
 
     suspend fun getFeatures(): FeatureToggle
-
 }

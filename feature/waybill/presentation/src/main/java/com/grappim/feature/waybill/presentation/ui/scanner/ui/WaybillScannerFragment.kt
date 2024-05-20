@@ -9,15 +9,15 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
-import com.grappim.core.base.BaseFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.utils.BundleArgsHelper
+import com.grappim.cashier.core.base.BaseFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.utils.BundleArgsHelper
 import com.grappim.extensions.showToast
-import com.grappim.uikit.R
 import com.grappim.feature.waybill.presentation.ui.scanner.di.DaggerWaybillScannerComponent
 import com.grappim.feature.waybill.presentation.ui.scanner.di.WaybillScannerComponent
 import com.grappim.logger.logD
 import com.grappim.navigation.router.FlowRouter
+import com.grappim.uikit.R
 import com.grappim.uikit.databinding.FragmentScannerBinding
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
@@ -67,6 +67,7 @@ class WaybillScannerFragment : BaseFragment<WaybillScannerViewModel>(
             }
         }
 
+        @Suppress("EmptyFunctionBlock")
         override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
         }
     }

@@ -18,7 +18,7 @@ dependencies {
 
     implementation(project(":common:di"))
     implementation(project(":common:db"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
 
     implementation(project(":feature:product-category:db"))
     implementation(project(":feature:product-category:domain"))

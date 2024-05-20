@@ -9,7 +9,5 @@ import dagger.Module
 interface StorageModule {
 
     @Binds
-    fun provideGeneralStorage(
-        generalStorageImpl: GeneralStorageImpl
-    ): GeneralStorage
+    fun provideGeneralStorage(generalStorageImpl: GeneralStorageImpl): GeneralStorage
 }

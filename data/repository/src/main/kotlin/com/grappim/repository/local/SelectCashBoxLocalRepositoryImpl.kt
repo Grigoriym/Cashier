@@ -1,14 +1,12 @@
 package com.grappim.repository.local
 
-import com.grappim.common.di.AppScope
+import com.grappim.cashier.common.di.AppScope
 import com.grappim.domain.model.cashbox.CashBox
 import com.grappim.domain.repository.local.SelectCashBoxLocalRepository
 import javax.inject.Inject
 
 @AppScope
-class SelectCashBoxLocalRepositoryImpl @Inject constructor(
-
-) : SelectCashBoxLocalRepository {
+class SelectCashBoxLocalRepositoryImpl @Inject constructor() : SelectCashBoxLocalRepository {
 
     private val cashBoxes = mutableListOf<CashBox>()
     private var selectedCashBoxPosition: Int = -1

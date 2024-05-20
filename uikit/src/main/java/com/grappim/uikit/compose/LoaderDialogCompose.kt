@@ -15,11 +15,9 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.grappim.uikit.theme.CashierTheme
 
+@Suppress("MagicNumber")
 @Composable
-fun LoaderDialogCompose(
-    show: Boolean,
-    onClose: (() -> Unit)? = null
-) {
+fun LoaderDialogCompose(show: Boolean, onClose: (() -> Unit)? = null) {
     if (show) {
         Dialog(
             onDismissRequest = {

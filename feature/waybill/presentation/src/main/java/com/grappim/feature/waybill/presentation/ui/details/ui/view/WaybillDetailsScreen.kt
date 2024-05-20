@@ -144,9 +144,8 @@ private fun BottomBarSegment(
                     )
             ) {
                 CashierText(
-                    modifier = Modifier
-                        .weight(1f),
-                    text = stringResource(id = R.string.title_price1),
+                    modifier = Modifier.weight(1f),
+                    text = stringResource(id = R.string.title_price1)
                 )
 
                 CashierText(
@@ -223,10 +222,7 @@ private fun TextFieldsSegment(
 }
 
 @Composable
-private fun ActionButtonsSegment(
-    onSearchClick: () -> Unit,
-    onScanClick: () -> Unit
-) {
+private fun ActionButtonsSegment(onSearchClick: () -> Unit, onScanClick: () -> Unit) {
     Row(
         modifier = Modifier
             .padding(
@@ -267,10 +263,7 @@ private fun WaybillProductsList(
     onRefresh: () -> Unit
 ) {
     val pullRefreshState = rememberPullRefreshState(false, { onRefresh() })
-    Box(
-        modifier = Modifier
-            .pullRefresh(pullRefreshState),
-    ) {
+    Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
         LazyColumn(
             modifier = modifier
         ) {

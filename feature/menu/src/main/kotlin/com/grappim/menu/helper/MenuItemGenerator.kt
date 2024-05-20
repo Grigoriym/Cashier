@@ -7,13 +7,11 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Work
 import com.grappim.domain.model.FeatureToggle
 import com.grappim.domain.model.menu.MenuItemType
-import com.grappim.uikit.R
 import com.grappim.menu.model.MenuItemPm
+import com.grappim.uikit.R
 import javax.inject.Inject
 
-class MenuItemGenerator @Inject constructor(
-
-) {
+class MenuItemGenerator @Inject constructor() {
 
     fun getItems(featureToggle: FeatureToggle): List<MenuItemPm> {
         val result = mutableListOf<MenuItemPm>()

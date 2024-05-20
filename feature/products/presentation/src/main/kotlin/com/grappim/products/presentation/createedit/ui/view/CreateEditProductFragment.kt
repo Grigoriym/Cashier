@@ -10,10 +10,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.grappim.core.base.BaseFragment
-import com.grappim.core.delegate.lazyArg
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.base.BaseFragment
+import com.grappim.cashier.core.delegate.lazyArg
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.domain.model.Product
 import com.grappim.navigation.router.FlowRouter
 import com.grappim.products.presentation.BundleArgsKeys
@@ -131,9 +131,8 @@ class CreateEditProductFragment : BaseFragment<CreateEditProductViewModel>() {
     }
 
     companion object {
-        fun newInstance(args: Bundle) =
-            CreateEditProductFragment().apply {
-                arguments = args
-            }
+        fun newInstance(args: Bundle) = CreateEditProductFragment().apply {
+            arguments = args
+        }
     }
 }

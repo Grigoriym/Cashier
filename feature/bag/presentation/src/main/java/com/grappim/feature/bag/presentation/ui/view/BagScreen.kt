@@ -91,7 +91,7 @@ private fun BagListSegment(
     onPlusClick: (BasketProduct) -> Unit,
     changedProduct: BasketProduct?
 ) {
-    LazyColumn() {
+    LazyColumn {
         items(items) { item ->
             if (item.id == changedProduct?.id) {
                 ItemAddBasketProductCompose(

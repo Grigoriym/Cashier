@@ -2,16 +2,16 @@ package com.grappim.feature.auth.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
+import com.grappim.cashier.common.lce.Try
 import com.grappim.cashier.data.workersapi.WorkerHelper
-import com.grappim.common.lce.Try
+import com.grappim.cashier.testshared.CoroutineRule
+import com.grappim.cashier.testsharedandroid.getOrAwaitValue
 import com.grappim.domain.storage.GeneralStorage
 import com.grappim.feature.auth.domain.LoginUseCase
 import com.grappim.feature.auth.presentation.model.BiometricsState
 import com.grappim.feature.auth.presentation.ui.viewmodel.AuthViewModel
 import com.grappim.feature.auth.presentation.ui.viewmodel.AuthViewModelImpl
 import com.grappim.navigation.router.FlowRouter
-import com.grappim.test_shared.CoroutineRule
-import com.grappim.test_shared_android.getOrAwaitValue
 import com.grappim.utils.biometric.BiometricPromptUtils
 import io.mockk.Called
 import io.mockk.MockKAnnotations
@@ -204,5 +204,4 @@ class AuthViewModelImplTest {
             loginUseCaseMock.login(any())
         } returns Try.Error(IllegalStateException("error state"))
     }
-
 }

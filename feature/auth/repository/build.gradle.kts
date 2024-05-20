@@ -11,7 +11,7 @@ dependencies {
     implementation(project(":common:di"))
     implementation(project(":common:db"))
     implementation(project(":common:lce"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
     implementation(project(":data:repository-api"))
     implementation(project(":utils:logger"))
 

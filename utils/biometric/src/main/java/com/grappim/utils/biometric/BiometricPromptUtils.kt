@@ -9,11 +9,11 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import com.grappim.common.di.ActivityContext
-import com.grappim.common.di.ActivityScope
+import com.grappim.cashier.common.di.ActivityContext
+import com.grappim.cashier.common.di.ActivityScope
 import com.grappim.logger.logD
-import javax.inject.Inject
 import com.grappim.uikit.R
+import javax.inject.Inject
 
 @ActivityScope
 class BiometricPromptUtils @Inject constructor(

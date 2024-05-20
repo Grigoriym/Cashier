@@ -1,10 +1,10 @@
 package com.grappim.products.presentation.list.di
 
-import com.grappim.common.di.deps.ComponentDeps
+import com.grappim.cashier.common.di.deps.ComponentDeps
+import com.grappim.cashier.feature.productcategory.domain.repository.ProductCategoryRepository
 import com.grappim.domain.repository.GeneralRepository
 import com.grappim.feature.products.domain.repository.ProductsRepository
 import com.grappim.navigation.router.FlowRouter
-import com.grappim.productcategory.domain.repository.ProductCategoryRepository
 
 interface ProductListDeps : ComponentDeps {
 

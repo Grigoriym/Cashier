@@ -10,10 +10,7 @@ import com.grappim.uikit.compose.CashierRippleTheme
 import com.grappim.uikit.theme.CashierGray
 
 @Composable
-fun CashierIconButton(
-    imageVector: ImageVector,
-    onClick: () -> Unit
-) {
+fun CashierIconButton(imageVector: ImageVector, onClick: () -> Unit) {
     CompositionLocalProvider(LocalRippleTheme provides CashierRippleTheme) {
         IconButton(
             onClick = onClick

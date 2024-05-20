@@ -1,6 +1,6 @@
 package com.grappim.products.network.api
 
-import com.grappim.common.annotations.RequestWithAuthToken
+import com.grappim.cashier.common.annotations.RequestWithAuthToken
 import com.grappim.products.network.model.CreateProductRequestDTO
 import com.grappim.products.network.model.CreateProductResponseDTO
 import com.grappim.products.network.model.FilterProductsRequestDTO
@@ -19,9 +19,7 @@ interface ProductsApi {
 
     @GET("product/{productId}")
     @RequestWithAuthToken
-    suspend fun getProductById(
-        @Path("productId") productId: String
-    ): ProductDTO
+    suspend fun getProductById(@Path("productId") productId: String): ProductDTO
 
     @POST("product")
     @RequestWithAuthToken
@@ -31,20 +29,15 @@ interface ProductsApi {
 
     @PUT("product")
     @RequestWithAuthToken
-    suspend fun updateProduct(
-        @Body product: UpdateProductRequestDTO
-    ): UpdateProductResponseDTO
+    suspend fun updateProduct(@Body product: UpdateProductRequestDTO): UpdateProductResponseDTO
 
     @DELETE("product/{productId}")
     @RequestWithAuthToken
-    suspend fun deleteProduct(
-        @Path("productId") id: String
-    ): CreateProductResponseDTO
+    suspend fun deleteProduct(@Path("productId") id: String): CreateProductResponseDTO
 
     @POST("product/filter")
     @RequestWithAuthToken
     suspend fun filterProducts(
         @Body filterProductsRequestDTO: FilterProductsRequestDTO
     ): FilterProductsResponseDTO
-
 }

@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.grappim.test_shared_android"
+    namespace = "com.grappim.cashier.testsharedandroid"
 }
 
 dependencies {

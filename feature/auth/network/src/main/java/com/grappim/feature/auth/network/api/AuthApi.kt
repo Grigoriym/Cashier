@@ -16,13 +16,8 @@ interface AuthApi {
     ): SendTokenToRefreshRequestDTO
 
     @POST("merch/login")
-    suspend fun login(
-        @Body loginRequest: LoginRequestDTO
-    ): LoginResponseDTO
+    suspend fun login(@Body loginRequest: LoginRequestDTO): LoginResponseDTO
 
     @POST("merch")
-    suspend fun signUp(
-        @Body signUpDTO: SignUpDTO
-    ): SignUpResponseDTO
-
+    suspend fun signUp(@Body signUpDTO: SignUpDTO): SignUpResponseDTO
 }

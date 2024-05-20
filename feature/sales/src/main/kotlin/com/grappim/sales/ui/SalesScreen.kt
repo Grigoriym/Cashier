@@ -70,6 +70,7 @@ internal fun SalesScreen(
     }
 }
 
+@Suppress("UnusedParameter")
 @Composable
 private fun SalesScreenMainSegment(
     modifier: Modifier = Modifier,
@@ -99,8 +100,7 @@ private fun SalesScreenMainSegment(
             items = items,
             onMinusClick = onMinusClick,
             onPlusClick = onPlusClick,
-            onCartClick = onCartClick,
-            basketProducts = basketProducts
+            onCartClick = onCartClick
         )
     }
 }
@@ -110,8 +110,7 @@ private fun SalesListSegment(
     items: LazyPagingItems<Product>,
     onMinusClick: (Product) -> Unit,
     onPlusClick: (Product) -> Unit,
-    onCartClick: (Product) -> Unit,
-    basketProducts: List<BasketProduct>
+    onCartClick: (Product) -> Unit
 ) {
     LazyColumn {
         items(items.itemCount) { index ->
@@ -141,11 +140,7 @@ private fun SalesListSegment(
 }
 
 @Composable
-private fun BottomBarSegment(
-    onScanClick: () -> Unit,
-    onBagClick: () -> Unit,
-    bagCount: String
-) {
+private fun BottomBarSegment(onScanClick: () -> Unit, onBagClick: () -> Unit, bagCount: String) {
     Surface(
         modifier = Modifier,
         elevation = 16.dp

@@ -13,7 +13,7 @@ interface BasketDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateBasketProduct(basketProductEntity: BasketProductEntity)
 
-    @Query("DELETE FROM $basketEntityTableName")
+    @Query("DELETE FROM $BASKET_ENTITY_TABLE")
     suspend fun clearBasket()
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -22,16 +22,15 @@ interface BasketDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(list: List<BasketProductEntity>)
 
-    @Query("DELETE FROM $basketEntityTableName WHERE id=:id")
+    @Query("DELETE FROM $BASKET_ENTITY_TABLE WHERE id=:id")
     suspend fun removeProductByUid(id: Long)
 
-    @Query("SELECT * FROM $basketEntityTableName")
+    @Query("SELECT * FROM $BASKET_ENTITY_TABLE")
     fun getAllBasketProducts(): Flow<List<BasketProductEntity>>
 
-    @Query("SELECT * FROM $basketEntityTableName")
+    @Query("SELECT * FROM $BASKET_ENTITY_TABLE")
     suspend fun getBasketProducts(): List<BasketProductEntity>
 
-    @Query("DELETE FROM $basketEntityTableName")
+    @Query("DELETE FROM $BASKET_ENTITY_TABLE")
     suspend fun deleteBagProducts()
-
 }

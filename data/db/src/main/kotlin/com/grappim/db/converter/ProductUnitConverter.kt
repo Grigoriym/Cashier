@@ -6,10 +6,8 @@ import com.grappim.domain.model.ProductUnit
 class ProductUnitConverter {
 
     @TypeConverter
-    fun unitToString(unit: ProductUnit): String =
-        unit.value
+    fun unitToString(unit: ProductUnit): String = unit.value
 
     @TypeConverter
-    fun stringToUnit(value: String): ProductUnit =
-        ProductUnit.getProductUnitByValue(value)
+    fun stringToUnit(value: String): ProductUnit = ProductUnit.getProductUnitByValue(value)
 }

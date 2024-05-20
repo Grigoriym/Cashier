@@ -1,13 +1,11 @@
 package com.grappim.products.presentation.root.ui
 
 import androidx.lifecycle.LiveData
-import com.grappim.core.SingleLiveEvent
-import com.grappim.core.base.BaseViewModel
+import com.grappim.cashier.core.SingleLiveEvent
+import com.grappim.cashier.core.base.BaseViewModel
 import javax.inject.Inject
 
-class ProductsRootViewModel @Inject constructor(
-
-) : BaseViewModel() {
+class ProductsRootViewModel @Inject constructor() : BaseViewModel() {
 
     private val _scannedBarcode = SingleLiveEvent<String>()
     val scannedBarcode: LiveData<String>
@@ -16,5 +14,4 @@ class ProductsRootViewModel @Inject constructor(
     fun setBarcode(barcode: String) {
         _scannedBarcode.value = barcode
     }
-
 }

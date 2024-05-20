@@ -22,7 +22,7 @@ dependencies {
     implementation(project(":navigation"))
     implementation(project(":common:lce"))
     implementation(project(":common:di"))
-    implementation(project(":common:asynchronous"))
+    implementation(project(":common:async"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

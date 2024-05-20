@@ -1,6 +1,6 @@
 package com.grappim.signup.presentation.helper
 
-import com.grappim.core.resources.NativeText
+import com.grappim.cashier.core.resources.NativeText
 import com.grappim.signup.domain.interactor.validate.ValidateSignUpFieldsUseCase
 import com.grappim.signup.presentation.model.SignUpFieldsValidationData
 import com.grappim.uikit.R
@@ -26,63 +26,65 @@ class FieldsValidatorHelper @Inject constructor() {
 
     private fun getRepeatPasswordError(
         type: ValidateSignUpFieldsUseCase.ValidationTypes.RepeatPassword?
-    ): NativeText? =
-        when (type) {
-            ValidateSignUpFieldsUseCase.ValidationTypes.RepeatPassword.NotEqual -> {
-                NativeText.Resource(R.string.sign_up_repeat_password_not_equals)
-            }
-
-            ValidateSignUpFieldsUseCase.ValidationTypes.RepeatPassword.Empty -> {
-                NativeText.Resource(R.string.sign_up_password_empty)
-            }
-
-            else -> {
-                null
-            }
+    ): NativeText? = when (type) {
+        ValidateSignUpFieldsUseCase.ValidationTypes.RepeatPassword.NotEqual -> {
+            NativeText.Resource(R.string.sign_up_repeat_password_not_equals)
         }
 
-    private fun getPasswordError(type: ValidateSignUpFieldsUseCase.ValidationTypes.Password?): NativeText? =
-        when (type) {
-            ValidateSignUpFieldsUseCase.ValidationTypes.Password.Empty -> {
-                NativeText.Resource(R.string.sign_up_password_empty)
-            }
-
-            ValidateSignUpFieldsUseCase.ValidationTypes.Password.NotValid -> {
-                NativeText.Resource(R.string.sign_up_password_requirements)
-            }
-
-            else -> {
-                null
-            }
+        ValidateSignUpFieldsUseCase.ValidationTypes.RepeatPassword.Empty -> {
+            NativeText.Resource(R.string.sign_up_password_empty)
         }
 
-    private fun getEmailError(type: ValidateSignUpFieldsUseCase.ValidationTypes.Email?): NativeText? =
-        when (type) {
-            ValidateSignUpFieldsUseCase.ValidationTypes.Email.Empty -> {
-                NativeText.Resource(R.string.sign_up_email_empty)
-            }
+        else -> {
+            null
+        }
+    }
 
-            ValidateSignUpFieldsUseCase.ValidationTypes.Email.CorrectEmail -> {
-                NativeText.Resource(R.string.sign_up_email_validity)
-            }
-
-            else -> {
-                null
-            }
+    private fun getPasswordError(
+        type: ValidateSignUpFieldsUseCase.ValidationTypes.Password?
+    ): NativeText? = when (type) {
+        ValidateSignUpFieldsUseCase.ValidationTypes.Password.Empty -> {
+            NativeText.Resource(R.string.sign_up_password_empty)
         }
 
-    private fun getPhoneError(type: ValidateSignUpFieldsUseCase.ValidationTypes.Phone?): NativeText? =
-        when (type) {
-            ValidateSignUpFieldsUseCase.ValidationTypes.Phone.Empty -> {
-                NativeText.Resource(R.string.sign_up_phone_empty)
-            }
-
-            ValidateSignUpFieldsUseCase.ValidationTypes.Phone.PhoneLength -> {
-                NativeText.Resource(R.string.sign_up_phone_size)
-            }
-
-            else -> {
-                null
-            }
+        ValidateSignUpFieldsUseCase.ValidationTypes.Password.NotValid -> {
+            NativeText.Resource(R.string.sign_up_password_requirements)
         }
+
+        else -> {
+            null
+        }
+    }
+
+    private fun getEmailError(
+        type: ValidateSignUpFieldsUseCase.ValidationTypes.Email?
+    ): NativeText? = when (type) {
+        ValidateSignUpFieldsUseCase.ValidationTypes.Email.Empty -> {
+            NativeText.Resource(R.string.sign_up_email_empty)
+        }
+
+        ValidateSignUpFieldsUseCase.ValidationTypes.Email.CorrectEmail -> {
+            NativeText.Resource(R.string.sign_up_email_validity)
+        }
+
+        else -> {
+            null
+        }
+    }
+
+    private fun getPhoneError(
+        type: ValidateSignUpFieldsUseCase.ValidationTypes.Phone?
+    ): NativeText? = when (type) {
+        ValidateSignUpFieldsUseCase.ValidationTypes.Phone.Empty -> {
+            NativeText.Resource(R.string.sign_up_phone_empty)
+        }
+
+        ValidateSignUpFieldsUseCase.ValidationTypes.Phone.PhoneLength -> {
+            NativeText.Resource(R.string.sign_up_phone_size)
+        }
+
+        else -> {
+            null
+        }
+    }
 }

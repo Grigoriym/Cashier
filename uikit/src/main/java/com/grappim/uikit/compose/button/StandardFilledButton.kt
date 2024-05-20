@@ -18,7 +18,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.grappim.uikit.R
 import com.grappim.uikit.compose.CashierIcon
 import com.grappim.uikit.theme.CashierBlue
 import com.grappim.uikit.theme.CashierTheme
@@ -68,9 +67,7 @@ fun StandardFilledButton(
                 tint = iconTint
             )
         } else {
-            CashierIcon(
-                imageVector = imageVector,
-            )
+            CashierIcon(imageVector = imageVector)
         }
     }
 }
@@ -126,7 +123,6 @@ fun StandardFilledButton(
         }
     }
 }
-
 
 @Composable
 @Preview

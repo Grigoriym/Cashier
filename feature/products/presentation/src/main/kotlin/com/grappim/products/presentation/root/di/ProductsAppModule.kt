@@ -7,7 +7,7 @@ import dagger.Module
 @Module(
     includes = [
         ProductsApiModule::class,
-        ProductsRepositoryBindsModule::class,
+        ProductsRepositoryBindsModule::class
     ]
 )
 interface ProductsAppModule

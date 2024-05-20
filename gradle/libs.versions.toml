@@ -41,6 +41,7 @@ paging = "3.2.0"
 viewpager2 = "1.1.0"
 
 constraintLayoutCompose = "1.0.1"
+constraintlayout = "2.1.4"
 
 androidDesugarJdkLibs = "2.0.4"
 crypto = "1.0.0"
@@ -101,6 +102,7 @@ androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "
 androidx-biometric = { module = "androidx.biometric:biometric-ktx", version.ref = "biometric" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
 androidx-swiperefresh = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swipeRefresh" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }

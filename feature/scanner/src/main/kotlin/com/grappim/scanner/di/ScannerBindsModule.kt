@@ -1,7 +1,7 @@
 package com.grappim.scanner.di
 
 import androidx.lifecycle.ViewModel
-import com.grappim.core.di.vm.ViewModelKey
+import com.grappim.cashier.core.di.vm.ViewModelKey
 import com.grappim.scanner.ui.ScannerViewModel
 import dagger.Binds
 import dagger.Module

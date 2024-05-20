@@ -11,9 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.grappim.core.base.BaseFlowFragment
-import com.grappim.core.di.components_deps.findComponentDependencies
-import com.grappim.core.di.vm.MultiViewModelFactory
+import com.grappim.cashier.core.base.BaseFlowFragment
+import com.grappim.cashier.core.di.componentsdeps.findComponentDependencies
+import com.grappim.cashier.core.di.vm.MultiViewModelFactory
 import com.grappim.navigation.router.FlowRouter
 import com.grappim.sales.di.DaggerSalesComponent
 import com.grappim.sales.di.SalesComponent

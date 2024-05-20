@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 /**
  * The idea was taken from here: https://stackoverflow.com/a/70776160/9822532
  */
+@Suppress("UnusedPrivateProperty")
 class Timer(
     private val countDownInterval: Long = 30_000L,
     runAtStart: Boolean = false,
