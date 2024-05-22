@@ -85,7 +85,7 @@ biometric = "1.2.0-alpha05"
 kluent = "1.73"
 
 google-zxing = "3.3.0"
-google-protobuf = "3.23.4"
+google-protobuf = "3.25.3"
 
 kotlinx-datetime = "0.6.0"
 protobufPlugin = "0.9.4"
